@@ -1,0 +1,93 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "PackagePath": "staticwebassets\\img\\combos\\Combo Gia Dinh.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\omaiii.jpg",
+      "PackagePath": "staticwebassets\\img\\combos\\omaiii.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\shiba.jpg",
+      "PackagePath": "staticwebassets\\img\\combos\\shiba.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\shiba2.jpg",
+      "PackagePath": "staticwebassets\\img\\combos\\shiba2.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\toibinguu.jpg",
+      "PackagePath": "staticwebassets\\img\\combos\\toibinguu.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\abbbbb.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\abbbbb.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\abbbbbreeeeee.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\abbbbbreeeeee.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\bimbim.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\bimbim.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\bimbim.png",
+      "PackagePath": "staticwebassets\\img\\foods\\bimbim.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\bimbim2.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\bimbim2.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\bimbim22.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\bimbim22.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\bimbimed.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\bimbimed.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kakckadc.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\kakckadc.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kimochii.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\kimochii.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ooo.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\ooo.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\toii.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\toii.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\tra sua.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\tra sua.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ShopAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ShopAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ShopAPI.props",
+      "PackagePath": "build\\ShopAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ShopAPI.props",
+      "PackagePath": "buildMultiTargeting\\ShopAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ShopAPI.props",
+      "PackagePath": "buildTransitive\\ShopAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

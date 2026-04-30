@@ -1,0 +1,1209 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ShopView.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ShopView.w1n5dvwywt.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\CHANGELOG.md",
+      "PackagePath": "staticwebassets\\admin\\CHANGELOG.md"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\LICENSE.md",
+      "PackagePath": "staticwebassets\\admin\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\README.md",
+      "PackagePath": "staticwebassets\\admin\\README.md"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\css\\demo.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\css\\demo.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\avatars\\1.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\avatars\\1.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\avatars\\5.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\avatars\\5.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\avatars\\6.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\avatars\\6.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\avatars\\7.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\avatars\\7.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\backgrounds\\18.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\backgrounds\\18.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\1.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\1.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\11.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\11.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\12.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\12.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\13.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\13.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\17.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\17.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\18.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\18.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\19.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\19.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\2.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\2.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\20.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\20.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\3.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\3.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\4.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\4.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\5.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\5.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\elements\\7.jpg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\elements\\7.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\favicon\\favicon.ico",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\favicon\\favicon.ico"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\asana.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\asana.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\behance.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\behance.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\dribbble.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\dribbble.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\facebook.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\facebook.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\github.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\github.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\google.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\google.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\instagram.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\instagram.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\mailchimp.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\mailchimp.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\slack.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\slack.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\brands\\twitter.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\brands\\twitter.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\cc-primary.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\cc-primary.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\cc-success.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\cc-success.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\cc-warning.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\cc-warning.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\chart-success.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\chart-success.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\chart.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\chart.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\paypal.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\paypal.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\wallet-info.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\wallet-info.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\icons\\unicons\\wallet.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\icons\\unicons\\wallet.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\illustrations\\girl-doing-yoga-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\illustrations\\girl-doing-yoga-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\illustrations\\man-with-laptop-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\illustrations\\man-with-laptop-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\illustrations\\page-misc-error-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\illustrations\\page-misc-error-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\layouts\\layout-container-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\layouts\\layout-container-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\layouts\\layout-fluid-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\layouts\\layout-fluid-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\layouts\\layout-without-menu-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\layouts\\layout-without-menu-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\img\\layouts\\layout-without-navbar-light.png",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\layouts\\layout-without-navbar-light.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\config.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\config.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\dashboards-analytics.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\dashboards-analytics.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\extended-ui-perfect-scrollbar.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\extended-ui-perfect-scrollbar.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\form-basic-inputs.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\form-basic-inputs.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\main.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\main.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\pages-account-settings-account.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\pages-account-settings-account.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\ui-modals.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\ui-modals.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\ui-popover.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\ui-popover.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\js\\ui-toasts.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\js\\ui-toasts.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\css\\core.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\css\\core.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\css\\pages\\page-account-settings.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\css\\pages\\page-account-settings.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\css\\pages\\page-auth.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\css\\pages\\page-auth.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\css\\pages\\page-icons.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\css\\pages\\page-icons.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\css\\pages\\page-misc.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\css\\pages\\page-misc.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\css\\theme-default.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\css\\theme-default.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\fonts\\boxicons.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\fonts\\boxicons.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.eot",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.eot"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.svg",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.svg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.ttf",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.ttf"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.woff",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.woff"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.woff2",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\fonts\\boxicons\\boxicons.woff2"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\js\\helpers.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\js\\helpers.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\js\\menu.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\js\\menu.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\apex-charts\\apex-charts.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\apex-charts\\apex-charts.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\apex-charts\\apexcharts.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\apex-charts\\apexcharts.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\highlight\\highlight-github.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\highlight\\highlight-github.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\highlight\\highlight.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\highlight\\highlight.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\highlight\\highlight.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\highlight\\highlight.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\jquery\\jquery.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\jquery\\jquery.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\masonry\\masonry.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\masonry\\masonry.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.css",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\assets\\vendor\\libs\\popper\\popper.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\vendor\\libs\\popper\\popper.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\build-config.js",
+      "PackagePath": "staticwebassets\\admin\\build-config.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\documentation.html",
+      "PackagePath": "staticwebassets\\admin\\documentation.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\fonts\\boxicons.scss",
+      "PackagePath": "staticwebassets\\admin\\fonts\\boxicons.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\gulpfile.js",
+      "PackagePath": "staticwebassets\\admin\\gulpfile.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\auth-forgot-password-basic.html",
+      "PackagePath": "staticwebassets\\admin\\html\\auth-forgot-password-basic.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\auth-login-basic.html",
+      "PackagePath": "staticwebassets\\admin\\html\\auth-login-basic.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\auth-register-basic.html",
+      "PackagePath": "staticwebassets\\admin\\html\\auth-register-basic.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\cards-basic.html",
+      "PackagePath": "staticwebassets\\admin\\html\\cards-basic.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\extended-ui-perfect-scrollbar.html",
+      "PackagePath": "staticwebassets\\admin\\html\\extended-ui-perfect-scrollbar.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\extended-ui-text-divider.html",
+      "PackagePath": "staticwebassets\\admin\\html\\extended-ui-text-divider.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\form-layouts-horizontal.html",
+      "PackagePath": "staticwebassets\\admin\\html\\form-layouts-horizontal.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\form-layouts-vertical.html",
+      "PackagePath": "staticwebassets\\admin\\html\\form-layouts-vertical.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\forms-basic-inputs.html",
+      "PackagePath": "staticwebassets\\admin\\html\\forms-basic-inputs.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\forms-input-groups.html",
+      "PackagePath": "staticwebassets\\admin\\html\\forms-input-groups.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\icons-boxicons.html",
+      "PackagePath": "staticwebassets\\admin\\html\\icons-boxicons.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\index.html",
+      "PackagePath": "staticwebassets\\admin\\html\\index.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\layouts-blank.html",
+      "PackagePath": "staticwebassets\\admin\\html\\layouts-blank.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\layouts-container.html",
+      "PackagePath": "staticwebassets\\admin\\html\\layouts-container.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\layouts-fluid.html",
+      "PackagePath": "staticwebassets\\admin\\html\\layouts-fluid.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\layouts-without-menu.html",
+      "PackagePath": "staticwebassets\\admin\\html\\layouts-without-menu.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\layouts-without-navbar.html",
+      "PackagePath": "staticwebassets\\admin\\html\\layouts-without-navbar.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\pages-account-settings-account.html",
+      "PackagePath": "staticwebassets\\admin\\html\\pages-account-settings-account.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\pages-account-settings-connections.html",
+      "PackagePath": "staticwebassets\\admin\\html\\pages-account-settings-connections.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\pages-account-settings-notifications.html",
+      "PackagePath": "staticwebassets\\admin\\html\\pages-account-settings-notifications.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\pages-misc-error.html",
+      "PackagePath": "staticwebassets\\admin\\html\\pages-misc-error.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\pages-misc-under-maintenance.html",
+      "PackagePath": "staticwebassets\\admin\\html\\pages-misc-under-maintenance.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\tables-basic.html",
+      "PackagePath": "staticwebassets\\admin\\html\\tables-basic.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-accordion.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-accordion.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-alerts.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-alerts.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-badges.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-badges.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-buttons.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-buttons.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-carousel.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-carousel.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-collapse.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-collapse.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-dropdowns.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-dropdowns.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-footer.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-footer.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-list-groups.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-list-groups.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-modals.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-modals.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-navbar.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-navbar.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-offcanvas.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-offcanvas.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-pagination-breadcrumbs.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-pagination-breadcrumbs.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-progress.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-progress.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-spinners.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-spinners.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-tabs-pills.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-tabs-pills.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-toasts.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-toasts.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-tooltips-popovers.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-tooltips-popovers.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\html\\ui-typography.html",
+      "PackagePath": "staticwebassets\\admin\\html\\ui-typography.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\index.html",
+      "PackagePath": "staticwebassets\\admin\\index.html"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\admin\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\js\\helpers.js",
+      "PackagePath": "staticwebassets\\admin\\js\\helpers.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\js\\menu.js",
+      "PackagePath": "staticwebassets\\admin\\js\\menu.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\apex-charts\\apex-charts.scss",
+      "PackagePath": "staticwebassets\\admin\\libs\\apex-charts\\apex-charts.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\apex-charts\\apexcharts.js",
+      "PackagePath": "staticwebassets\\admin\\libs\\apex-charts\\apexcharts.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\highlight\\highlight-github.scss",
+      "PackagePath": "staticwebassets\\admin\\libs\\highlight\\highlight-github.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\highlight\\highlight.js",
+      "PackagePath": "staticwebassets\\admin\\libs\\highlight\\highlight.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\highlight\\highlight.scss",
+      "PackagePath": "staticwebassets\\admin\\libs\\highlight\\highlight.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\jquery\\jquery.js",
+      "PackagePath": "staticwebassets\\admin\\libs\\jquery\\jquery.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\masonry\\masonry.js",
+      "PackagePath": "staticwebassets\\admin\\libs\\masonry\\masonry.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\perfect-scrollbar\\perfect-scrollbar.js",
+      "PackagePath": "staticwebassets\\admin\\libs\\perfect-scrollbar\\perfect-scrollbar.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\perfect-scrollbar\\perfect-scrollbar.scss",
+      "PackagePath": "staticwebassets\\admin\\libs\\perfect-scrollbar\\perfect-scrollbar.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\libs\\popper\\popper.js",
+      "PackagePath": "staticwebassets\\admin\\libs\\popper\\popper.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\package-lock.json",
+      "PackagePath": "staticwebassets\\admin\\package-lock.json"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\package.json",
+      "PackagePath": "staticwebassets\\admin\\package.json"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_accordion.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_accordion.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_alert.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_alert.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_badge.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_badge.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_breadcrumb.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_breadcrumb.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_button-group.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_button-group.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_buttons.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_buttons.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_card.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_card.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_carousel.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_carousel.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_close.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_close.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_dropdown.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_dropdown.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_forms.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_forms.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_functions.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_functions.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_include.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_include.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_list-group.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_list-group.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_mixins.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_mixins.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_modal.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_modal.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_nav.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_nav.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_navbar.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_navbar.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_offcanvas.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_offcanvas.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_pagination.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_pagination.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_popover.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_popover.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_progress.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_progress.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_reboot.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_reboot.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_root.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_root.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_spinners.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_spinners.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_tables.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_tables.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_toasts.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_toasts.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_tooltip.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_tooltip.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_type.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_type.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_utilities-ltr.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_utilities-ltr.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_utilities.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_utilities.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\_variables.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\_variables.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_floating-labels.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_floating-labels.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_form-control.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_form-control.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_form-range.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_form-range.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_form-select.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_form-select.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_input-group.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_input-group.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_labels.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_labels.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\forms\\_validation.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\forms\\_validation.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_alert.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_alert.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_badge.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_badge.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_buttons.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_buttons.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_caret.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_caret.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_dropdown.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_dropdown.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_forms.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_forms.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_list-group.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_list-group.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_misc.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_misc.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_navs.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_navs.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_pagination.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_pagination.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_progress.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_progress.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_table-variants.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_table-variants.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap-extended\\mixins\\_toasts.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap-extended\\mixins\\_toasts.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_bootstrap.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_bootstrap.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_colors.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_colors.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_app-brand.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_app-brand.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_avatar.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_avatar.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_base.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_base.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_common.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_common.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_footer.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_footer.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_include.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_include.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_layout.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_layout.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_menu.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_menu.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_mixins.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_mixins.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_text-divider.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_text-divider.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\_variables.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\_variables.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_app-brand.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_app-brand.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_avatar.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_avatar.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_footer.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_footer.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_menu.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_menu.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_misc.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_misc.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_navbar.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_navbar.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_components\\mixins\\_text-divider.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_components\\mixins\\_text-divider.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_custom-variables\\_bootstrap-extended.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_custom-variables\\_bootstrap-extended.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_custom-variables\\_components.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_custom-variables\\_components.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_custom-variables\\_libs.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_custom-variables\\_libs.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_custom-variables\\_pages.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_custom-variables\\_pages.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_custom-variables\\_support.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_custom-variables\\_support.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_theme\\_common.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_theme\\_common.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\_theme\\_theme.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\_theme\\_theme.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\core.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\core.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\pages\\page-account-settings.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\pages\\page-account-settings.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\pages\\page-auth.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\pages\\page-auth.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\pages\\page-icons.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\pages\\page-icons.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\pages\\page-misc.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\pages\\page-misc.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\scss\\theme-default.scss",
+      "PackagePath": "staticwebassets\\admin\\scss\\theme-default.scss"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\tasks\\build.js",
+      "PackagePath": "staticwebassets\\admin\\tasks\\build.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\tasks\\prod.js",
+      "PackagePath": "staticwebassets\\admin\\tasks\\prod.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\webpack.config.js",
+      "PackagePath": "staticwebassets\\admin\\webpack.config.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\admin\\yarn.lock",
+      "PackagePath": "staticwebassets\\admin\\yarn.lock"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ShopView.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ShopView.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ShopView.props",
+      "PackagePath": "build\\ShopView.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ShopView.props",
+      "PackagePath": "buildMultiTargeting\\ShopView.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ShopView.props",
+      "PackagePath": "buildTransitive\\ShopView.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

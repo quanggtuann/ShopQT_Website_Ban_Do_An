@@ -1,0 +1,106 @@
+﻿@using ShopView.Models
+@model ComboCreateViewModel
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Admin/</span> Create Combo
+    </h4>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="card">
+        <h5 class="card-header">New Combo</h5>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                
+                <!-- Basic Info -->
+                <div class="mb-3">
+                    <label class="form-label">Name <span class="text-danger">*</span></label>
+                    <input type="text" name="Name" class="form-control" required value="@Model.Combo.Name" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="Description" class="form-control" rows="3">@Model.Combo.Description</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Price <span class="text-danger">*</span></label>
+                    <input type="number" name="Price" step="0.01" class="form-control" required value="@Model.Combo.Price" />
+                </div>
+
+                <!-- Select Food Items -->
+                <div class="mb-3">
+                    <label class="form-label">Select Food Items</label>
+                    @if (Model.AvailableFoods != null && Model.AvailableFoods.Any())
+                    {
+                        <div style="max-height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 4px;">
+                            <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">Select</th>
+                                    <th>Food Name</th>
+                                    <th style="width: 100px;">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.AvailableFoods.Count; i++)
+                                {
+                                    var food = Model.AvailableFoods[i];
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="FoodItems[@i].FoodItemId" value="@food.FoodItemId" class="form-check-input" />
+                                        </td>
+                                        <td>
+                                            @food.Name
+                                            @if (!string.IsNullOrEmpty(food.ImagePath))
+                                            {
+                                                <img src="@(Model.ImageBaseUrl + food.ImagePath)" class="ms-2 rounded" style="width: 30px; height: 30px;" />
+                                            }
+                                        </td>
+                                        <td>
+                                            <input type="number" name="FoodItems[@i].Quantity" value="1" min="1" class="form-control form-control-sm" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">No food items available. Please create food items first.</div>
+                    }
+                </div>
+
+                <!-- Image Upload -->
+                <div class="mb-3">
+                    <label class="form-label">Image</label>
+                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
+                    <small class="form-text text-muted">Leave empty if you don't want to upload an image.</small>
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <div class="form-check">
+                        <input type="radio" name="IsAvailable" value="true" checked class="form-check-input" />
+                        <label class="form-check-label">Active</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="IsAvailable" value="false" class="form-check-input" />
+                        <label class="form-check-label">Inactive</label>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Create Combo</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,915 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\ShopDAL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\combofilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\combofilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\fooditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\fooditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\fooditemfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\fooditemfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\orderfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\orderfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\controllers\\foodscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\foodscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\controllers\\comboscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\comboscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\adminorderrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\adminorderrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\adminfoodrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\adminfoodrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\admincomborepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\admincomborepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\adminaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\adminaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\irepository\\iadminaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\irepository\\iadminaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\controllers\\combocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\controllers\\combocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\controllers\\categoryecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\controllers\\categoryecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\irepository\\iadmincategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\irepository\\iadmincategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\admincategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\admincategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\views\\food\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\views\\food\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\views\\food\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\views\\food\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\repository\\accountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\repository\\accountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\models\\accountfilterviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\models\\accountfilterviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\controllers\\categoryescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\controllers\\categoryescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\repository\\irepository\\iaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\repository\\irepository\\iaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\views\\combo\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\views\\combo\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\models\\combocreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\models\\combocreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\models\\comboindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\models\\comboindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\views\\combo\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\views\\combo\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\areas\\admin\\views\\combo\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\areas\\admin\\views\\combo\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\dto\\updatecomborequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\dto\\updatecomborequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\dto\\foodlistresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\dto\\foodlistresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\dto\\combolistresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\dto\\combolistresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\dto\\combodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\dto\\combodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|d:\\shopdal\\shopview\\models\\foodindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2B7F09-A706-4B78-9283-FEBF9B929C9A}|ShopView\\ShopView.csproj|solutionrelative:shopview\\models\\foodindexviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\models\\combofooditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\models\\combofooditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\irepository\\iadmincomborepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\irepository\\iadmincomborepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\irepository\\iadminfoodrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\irepository\\iadminfoodrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\areas\\repository\\irepository\\iadminorderrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\areas\\repository\\irepository\\iadminorderrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|d:\\shopdal\\shopdal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB4A90F2-58F8-4AE3-9001-52ED8246DE51}|ShopDAL\\ShopDAL.csproj|solutionrelative:shopdal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|d:\\shopdal\\shopapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8D70F60B-7D10-4C6E-B6B1-61757CEE0942}|ShopAPI\\ShopAPI.csproj|solutionrelative:shopapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\OrderDetail.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\OrderDetail.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\OrderDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:10:32.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Order.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Order.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:10:24.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FoodItemFilterViewModel.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\FoodItemFilterViewModel.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\FoodItemFilterViewModel.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\FoodItemFilterViewModel.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\FoodItemFilterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T17:47:55.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FoodItem.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\FoodItem.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\FoodItem.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\FoodItem.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\FoodItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:09:59.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ComboFilterViewmodel.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\ComboFilterViewmodel.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\ComboFilterViewmodel.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\ComboFilterViewmodel.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\ComboFilterViewmodel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T17:48:43.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Category.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Category.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:08:17.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cart.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Cart.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Cart.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Cart.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Cart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:07:42.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderFilterViewModel.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\OrderFilterViewModel.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\OrderFilterViewModel.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\OrderFilterViewModel.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\OrderFilterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T17:49:09.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\User.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\User.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\User.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T12:52:26.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\OrdersController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T22:51:24.013Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FoodsController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\Controllers\\FoodsController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\FoodsController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\Controllers\\FoodsController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\FoodsController.cs",
+              "ViewState": "AgIAALwAAAAAAAAAAAAswMwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:16:57.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CombosController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\Controllers\\CombosController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\CombosController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\Controllers\\CombosController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\CombosController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T09:07:34.402Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AccountsController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\Controllers\\AccountsController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\AccountsController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\Controllers\\AccountsController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\AccountsController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwBsAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T22:50:58.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AdminOrderRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminOrderRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\AdminOrderRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminOrderRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\AdminOrderRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:24:45.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AdminFoodRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminFoodRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\AdminFoodRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminFoodRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\AdminFoodRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:23:56.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AdminComboRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminComboRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\AdminComboRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminComboRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\AdminComboRepo.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAowFQAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:26:14.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AdminAccountRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminAccountRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\AdminAccountRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminAccountRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\AdminAccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:26:59.971Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IAdminAccountRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminAccountRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminAccountRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminAccountRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminAccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:29:10.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "FoodController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\FoodController.cs",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Controllers\\FoodController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\FoodController.cs",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Controllers\\FoodController.cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAA6wHEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T07:18:35.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ComboController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\ComboController.cs",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Controllers\\ComboController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\ComboController.cs",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Controllers\\ComboController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHMAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T08:35:11.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CategoryeController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\CategoryeController.cs",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Controllers\\CategoryeController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\CategoryeController.cs",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Controllers\\CategoryeController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:17:19.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAALgAAAAAAAAAAADwv0gAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T09:16:34.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAANMAAAAAAAAAAAAQwO0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-18T13:34:14.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "IAdminCategoryRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminCategoryRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminCategoryRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminCategoryRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminCategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:28:28.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AdminCategoryRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminCategoryRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\AdminCategoryRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\AdminCategoryRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\AdminCategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:25:49.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Food\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Views\\Food\\Edit.cshtml",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Food\\Edit.cshtml",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Views\\Food\\Edit.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAwDEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-18T22:02:53.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Food\\Index.cshtml",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Views\\Food\\Index.cshtml",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Food\\Index.cshtml",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Views\\Food\\Index.cshtml",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAAwGAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-21T09:19:36.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "AccountFilterViewModels.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Models\\AccountFilterViewModels.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Models\\AccountFilterViewModels.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Models\\AccountFilterViewModels.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Models\\AccountFilterViewModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T17:55:48.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "CartItem.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\CartItem.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\CartItem.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\CartItem.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\CartItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:07:51.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "AccountRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Repository\\AccountRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Repository\\AccountRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Repository\\AccountRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Repository\\AccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T09:28:33.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "CategoryesController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\Controllers\\CategoryesController.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Controllers\\CategoryesController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\Controllers\\CategoryesController.cs",
+              "RelativeToolTip": "ShopAPI\\Controllers\\CategoryesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T01:17:29.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\Program.cs",
+              "RelativeDocumentMoniker": "ShopAPI\\Program.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\Program.cs",
+              "RelativeToolTip": "ShopAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T17:47:15.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\appsettings.json",
+              "RelativeDocumentMoniker": "ShopDAL\\appsettings.json",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\appsettings.json",
+              "RelativeToolTip": "ShopDAL\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-06T23:52:24.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "IAccountRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Repository\\IRepository\\IAccountRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Repository\\IRepository\\IAccountRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Repository\\IRepository\\IAccountRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Repository\\IRepository\\IAccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-28T09:28:53.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T03:23:11.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Combo\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Views\\Combo\\Edit.cshtml",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Combo\\Edit.cshtml",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Views\\Combo\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-28T03:08:03.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ComboCreateViewModel.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Models\\ComboCreateViewModel.cs",
+              "RelativeDocumentMoniker": "ShopView\\Models\\ComboCreateViewModel.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Models\\ComboCreateViewModel.cs",
+              "RelativeToolTip": "ShopView\\Models\\ComboCreateViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T03:04:17.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ComboIndexViewModel.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Models\\ComboIndexViewModel.cs",
+              "RelativeDocumentMoniker": "ShopView\\Models\\ComboIndexViewModel.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Models\\ComboIndexViewModel.cs",
+              "RelativeToolTip": "ShopView\\Models\\ComboIndexViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T02:22:34.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "UpdateComboRequest.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\UpdateComboRequest.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Dto\\UpdateComboRequest.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\UpdateComboRequest.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Dto\\UpdateComboRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T02:44:16.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Combo\\Index.cshtml",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Views\\Combo\\Index.cshtml",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Combo\\Index.cshtml",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Views\\Combo\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-27T03:31:43.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Combo\\Create.cshtml",
+              "RelativeDocumentMoniker": "ShopView\\Areas\\Admin\\Views\\Combo\\Create.cshtml",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Areas\\Admin\\Views\\Combo\\Create.cshtml",
+              "RelativeToolTip": "ShopView\\Areas\\Admin\\Views\\Combo\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-27T03:31:54.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "FoodListResponse.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\FoodListResponse.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Dto\\FoodListResponse.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\FoodListResponse.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Dto\\FoodListResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T02:31:12.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "ComboListResponse.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\ComboListResponse.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Dto\\ComboListResponse.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\ComboListResponse.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Dto\\ComboListResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T02:23:28.302Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "ComboDto.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\ComboDto.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\Dto\\ComboDto.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\Dto\\ComboDto.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\Dto\\ComboDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T23:38:06.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "FoodIndexViewModel.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopView\\Models\\FoodIndexViewModel.cs",
+              "RelativeDocumentMoniker": "ShopView\\Models\\FoodIndexViewModel.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopView\\Models\\FoodIndexViewModel.cs",
+              "RelativeToolTip": "ShopView\\Models\\FoodIndexViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T02:29:43.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "ComboFoodItem.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Models\\ComboFoodItem.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Models\\ComboFoodItem.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Models\\ComboFoodItem.cs",
+              "RelativeToolTip": "ShopDAL\\Models\\ComboFoodItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:09:36.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "IAdminComboRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminComboRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminComboRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminComboRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminComboRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T14:28:27.959Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "IAdminFoodRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminFoodRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminFoodRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminFoodRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminFoodRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:27:29.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "ShopAPI\\appsettings.json",
+              "ToolTip": "D:\\ShopDAL\\ShopAPI\\appsettings.json",
+              "RelativeToolTip": "ShopAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-07T17:47:00.214Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "IAdminOrderRepo.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminOrderRepo.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminOrderRepo.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Areas\\Repository\\Irepository\\IAdminOrderRepo.cs",
+              "RelativeToolTip": "ShopDAL\\Areas\\Repository\\Irepository\\IAdminOrderRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T00:27:47.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\ShopDAL\\ShopDAL\\Context\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "ShopDAL\\Context\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\ShopDAL\\ShopDAL\\Context\\ApplicationDbContext.cs",
+              "RelativeToolTip": "ShopDAL\\Context\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T23:54:20.851Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

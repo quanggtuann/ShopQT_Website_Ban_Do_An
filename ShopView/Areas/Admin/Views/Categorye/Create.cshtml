@@ -1,0 +1,31 @@
+@using ShopDAL.Models
+@model Category
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Admin/</span> Category Management
+    </h4>
+
+    <div class="card">
+        <h5 class="card-header">Create New Category</h5>
+        <div class="card-body">
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <form asp-area="Admin" asp-action="Create" asp-controller="Categorye" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Category Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter category name" required />
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+@using ShopDAL.Models
+@model Category
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Admin/</span> Category Management
+    </h4>
+
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">Category not found.</div>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    }
+    else
+    {
+    <div class="card">
+        <h5 class="card-header">Edit Category #@Model.CategoryId</h5>
+        <div class="card-body">
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <form asp-area="Admin" asp-action="Edit" asp-controller="Categorye" asp-route-id="@Model.CategoryId" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Category Name</label>
+                    <input type="text" id="name" name="name" class="form-control" value="@Model.Name" placeholder="Enter category name" required />
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    }
+</div>

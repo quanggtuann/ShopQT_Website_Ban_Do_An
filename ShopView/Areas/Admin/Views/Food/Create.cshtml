@@ -1,0 +1,76 @@
+@using ShopDAL.Models
+@model FoodItem
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Admin/</span> Food Management
+    </h4>
+
+    <div class="card">
+        <h5 class="card-header">Create New Food</h5>
+        <div class="card-body">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <form asp-area="Admin" asp-action="Create" asp-controller="Food" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter food name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label">Category</label>
+                    @Html.DropDownListFor(model => model.CategoryId,
+                             new SelectList((IEnumerable<SelectListItem>)ViewBag.Categories, "Value", "Text"),
+                             "Select Category",
+                             new { @class = "form-select" })
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label"></label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="Enter price" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="imageFile" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="IsAvailable" class="form-label">Status</label>
+                    <div class="form-check">
+                        <input asp-for="IsAvailable" class="form-check-input" type="radio" value="true" checked />
+                        <label class="form-check-label">Active</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="IsAvailable" class="form-check-input" type="radio" value="false" />
+                        <label class="form-check-label">Inactive</label>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

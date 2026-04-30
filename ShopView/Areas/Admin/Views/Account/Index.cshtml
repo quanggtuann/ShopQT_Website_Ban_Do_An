@@ -1,0 +1,161 @@
+@using ShopDAL.Areas.Models
+@model AccountFilterViewModels
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Admin/</span> Accounts Management
+    </h4>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- Filter Card -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" asp-area="Admin" asp-controller="Account" asp-action="Index">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">SEARCH</label>
+                        <input type="text" name="keyword" class="form-control" placeholder="Search by username, email, phone"
+                               value="@Model.KeyWord" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">ROLE</label>
+                        <select name="role" class="form-select">
+                            <option value="">Select Role</option>
+                            <option value="admin" selected="@(Model.Role == "admin" ? "selected" : null)">Admin</option>
+                            <option value="customer" selected="@(Model.Role == "customer" ? "selected" : null)">Customer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">STATUS</label>
+                        <select name="isActive" class="form-select">
+                            <option value="">Select Status</option>
+                            <option value="true" selected="@(Model.IsActive == true ? "selected" : null)">Active</option>
+                            <option value="false" selected="@(Model.IsActive == false ? "selected" : null)">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">SORT BY</label>
+                        <select name="sortBy" class="form-select">
+                            <option value="id" selected="@(Model.SortBy == "id" ? "selected" : null)">ID</option>
+                            <option value="username" selected="@(Model.SortBy == "username" ? "selected" : null)">Username</option>
+                            <option value="email" selected="@(Model.SortBy == "email" ? "selected" : null)">Email</option>
+                            <option value="role" selected="@(Model.SortBy == "role" ? "selected" : null)">Role</option>
+                            <option value="status" selected="@(Model.SortBy == "status" ? "selected" : null)">Status</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">SORT ORDER</label>
+                        <select name="sortOrder" class="form-select">
+                            <option value="asc" selected="@(Model.SortOrder == "asc" ? "selected" : null)">Ascending</option>
+                            <option value="desc" selected="@(Model.SortOrder == "desc" ? "selected" : null)">Descending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 d-flex justify-content-end gap-2">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a asp-area="Admin" asp-controller="Account" asp-action="Index" class="btn btn-secondary">Clear</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Button -->
+    <div class="text-end mb-4">
+        <a href="/Admin/Account/Create" class="btn btn-primary">
+            <i class="bx bx-plus me-1"></i> Create New User
+        </a>
+    </div>
+
+    <!-- Accounts Table -->
+    <div class="card">
+        <h5 class="card-header">Account List</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>USERNAME</th>
+                        <th>EMAIL</th>
+                        <th>ROLE</th>
+                        <th>STATUS</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @if (Model.Accounts != null && Model.Accounts.Any())
+                    {
+                        @foreach (var account in Model.Accounts)
+                        {
+                            <tr>
+                                <td>@account.UserID</td>
+                                <td>@account.Username</td>
+                                <td>@account.Email</td>
+                                <td>
+                                    <span class="badge @(account.Role == "admin" ? "bg-label-primary" : "bg-label-info")">
+                                        @account.Role?.ToUpper()
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge @(account.IsActive ? "bg-label-success" : "bg-label-danger")">
+                                        @(account.IsActive ? "ACTIVE" : "INACTIVE")
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@account.UserID">
+                                                <i class="bx bx-edit-alt me-1"></i> Edit
+                                            </a>
+                                            @if (account.IsActive)
+                                            {
+                                                <form asp-area="Admin" asp-controller="Account" asp-action="Deactivate" method="post" style="display:inline;">
+                                                    <input type="hidden" name="id" value="@account.UserID" />
+                                                    <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure you want to deactivate this account?');">
+                                                        <i class="bx bx-trash me-1"></i> Deactivate
+                                                    </button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-area="Admin" asp-controller="Account" asp-action="Activate" method="post" style="display:inline;">
+                                                    <input type="hidden" name="id" value="@account.UserID" />
+                                                    <button type="submit" class="dropdown-item text-success" onclick="return confirm('Are you sure you want to activate this account?');">
+                                                        <i class="bx bx-check-circle me-1"></i> Activate
+                                                    </button>
+                                                </form>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">No accounts found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
