@@ -165,3 +165,4 @@ d:\ShopDAL\ShopAPI\obj\Debug\net8.0\ShopAPI.pdb
 d:\ShopDAL\ShopAPI\obj\Debug\net8.0\ShopAPI.genruntimeconfig.cache
 d:\ShopDAL\ShopAPI\obj\Debug\net8.0\ref\ShopAPI.dll
 D:\ShopDAL\ShopAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\ShopDAL\ShopAPI\obj\Debug\net8.0\ShopAPI.sourcelink.json

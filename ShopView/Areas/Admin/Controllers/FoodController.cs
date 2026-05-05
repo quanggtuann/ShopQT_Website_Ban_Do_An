@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopDAL.Models;
-using ShopDAL.Models.Dto;
+using ShopView.Areas.Admin.Models;
 using System.Net.Http.Json;
 namespace ShopView.Areas.Admin.Controllers
 {
@@ -166,7 +165,7 @@ namespace ShopView.Areas.Admin.Controllers
                     ViewData["ErrorMessage"] = "Food not found";
                     return View("Error", "Shared");
                 }
-                var food = await response.Content.ReadFromJsonAsync<ShopDAL.Models.FoodItem>();
+                var food = await response.Content.ReadFromJsonAsync<FoodItemDto>();
                 ViewBag.Categories = await GetActiveCategoriesAsync();
                 ViewBag.ImageBaseUrl = "https://localhost:7130/";
                 return View(food);

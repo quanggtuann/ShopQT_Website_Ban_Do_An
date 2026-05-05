@@ -176,3 +176,4 @@ D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.pdb
 D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.genruntimeconfig.cache
 D:\ShopDAL\ShopView\obj\Debug\net8.0\ref\ShopView.dll
 D:\ShopDAL\ShopView\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.sourcelink.json

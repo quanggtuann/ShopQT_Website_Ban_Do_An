@@ -1,5 +1,5 @@
-@using ShopDAL.Models
-@model FoodItem
+@using ShopView.Areas.Admin.Models
+@model FoodItemDto
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
@@ -7,7 +7,7 @@
     </h4>
 
     <div class="card">
-        <h5 class="card-header">Edit Food #@Model.FoodItemId</h5>
+        <h5 class="card-header">Edit Food #@Model.FoodItemID</h5>
         <div class="card-body">
             @if (TempData["SuccessMessage"] != null)
             {
@@ -23,9 +23,8 @@
                 </div>
             }
 
-            <form asp-area="Admin" asp-action="Edit" asp-controller="Food" asp-route-id="@Model.FoodItemId" method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="FoodItemId" />
-                <input type="hidden" asp-for="CreateDate" />
+            <form asp-area="Admin" asp-action="Edit" asp-controller="Food" asp-route-id="@Model.FoodItemID" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="FoodItemID" value="@Model.FoodItemID" />
                 <input type="hidden" asp-for="ImagePath" />
 
                 <div class="mb-3">

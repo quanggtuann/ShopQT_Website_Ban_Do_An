@@ -1,5 +1,4 @@
-@using ShopView.Models
-@using ShopDAL.Models.Dto
+@using ShopView.Areas.Admin.Models
 @model ComboCreateViewModel
 
 @{
@@ -9,7 +8,7 @@
     string? currentImage = ViewBag.CurrentImage;
 
     // Lấy danh sách food đã chọn với quantity
-    var selectedFoods = ViewBag.SelectedFoods as List<ShopDAL.Models.Dto.ComboFoodItemDto> ?? new List<ShopDAL.Models.Dto.ComboFoodItemDto>();
+    var selectedFoods = ViewBag.SelectedFoods as List<ComboFoodItemDto> ?? new List<ComboFoodItemDto>();
     var selectedFoodIds = selectedFoods.Select(f => f.FoodItemId).ToList();
 }
 

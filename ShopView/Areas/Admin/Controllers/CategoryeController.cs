@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopView.Areas.Admin.Models;
 using System.Net.Http.Json;
 
 namespace ShopView.Areas.Admin.Controllers
@@ -29,7 +30,7 @@ namespace ShopView.Areas.Admin.Controllers
                 var response = await _httpClient.GetAsync("api/categoryes");
                 if (response.IsSuccessStatusCode)
                 {
-                    var categories = await response.Content.ReadFromJsonAsync<List<ShopDAL.Models.Category>>();
+                    var categories = await response.Content.ReadFromJsonAsync<List<CategoryViewModel>>();
                     return View(categories);
                 }
 
@@ -96,7 +97,7 @@ namespace ShopView.Areas.Admin.Controllers
                 using var doc = System.Text.Json.JsonDocument.Parse(jsonString);
                 var root = doc.RootElement;
                 
-                var category = new ShopDAL.Models.Category
+                var category = new CategoryViewModel
                 {
                     CategoryId = root.GetProperty("categoryId").GetInt32(),
                     Name = root.GetProperty("name").GetString() ?? "",

@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Account\" />
     <Folder Include="wwwroot\Admin\" />
     <Folder Include="wwwroot\img\foods\" />
   </ItemGroup>

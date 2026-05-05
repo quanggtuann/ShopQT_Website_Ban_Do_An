@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopDAL.Areas.Models;
 using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Models;
 namespace ShopAPI.Controllers

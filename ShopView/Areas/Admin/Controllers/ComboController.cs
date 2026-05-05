@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopDAL.Models;
-using ShopDAL.Models.Dto;
-using ShopView.Models;
+using ShopView.Areas.Admin.Models;
 using System.Net.Http.Json;
 
 namespace ShopView.Areas.Admin.Controllers
@@ -50,7 +48,7 @@ namespace ShopView.Areas.Admin.Controllers
                 var result = await response.Content.ReadFromJsonAsync<ComboListResponse>();
                 var viewModel = new ComboIndexViewModel
                 {
-                    Filter = new ShopDAL.Models.ComboFilterViewmodel
+                    Filter = new ComboFilterViewModel
                     {
                         KeyWord = keyWord,
                         FromPrice = fromPrice,
@@ -81,10 +79,10 @@ namespace ShopView.Areas.Admin.Controllers
             try
             {
                 var response = await _httpClient.GetAsync("api/foods/all");
-                List<FoodItemDto> foods = new();
+                List<FoodOptionDto> foods = new();
                 if (response.IsSuccessStatusCode)
                 {
-                    foods = await response.Content.ReadFromJsonAsync<List<FoodItemDto>>() ?? new();
+                    foods = await response.Content.ReadFromJsonAsync<List<FoodOptionDto>>() ?? new();
                 }
                 var viewModel = new ComboCreateViewModel
                 {
@@ -146,7 +144,7 @@ namespace ShopView.Areas.Admin.Controllers
                 TempData["Error"] = $"{error}";
 
                 var foodsResponse = await _httpClient.GetAsync("api/foods/all");
-                var foods = await foodsResponse.Content.ReadFromJsonAsync<List<FoodItemDto>>() ?? new();
+                var foods = await foodsResponse.Content.ReadFromJsonAsync<List<FoodOptionDto>>() ?? new();
 
                 var viewModel = new ComboCreateViewModel
                 {
@@ -183,10 +181,10 @@ namespace ShopView.Areas.Admin.Controllers
                 }
                 var combo = await comboResponse.Content.ReadFromJsonAsync<ComboDto>();
                 var foodsResponse = await _httpClient.GetAsync("api/foods/all");
-                List<FoodItemDto> foods = new();
+                List<FoodOptionDto> foods = new();
                 if (foodsResponse.IsSuccessStatusCode)
                 {
-                    foods = await foodsResponse.Content.ReadFromJsonAsync<List<FoodItemDto>>() ?? new();
+                    foods = await foodsResponse.Content.ReadFromJsonAsync<List<FoodOptionDto>>() ?? new();
                 }
                 var viewModel = new ComboCreateViewModel
                 {
@@ -203,7 +201,7 @@ namespace ShopView.Areas.Admin.Controllers
                 ViewBag.ComboId = id;
                 ViewBag.CurrentImage = combo?.ImagePath;
 
-                ViewBag.SelectedFoods = combo?.FoodItems ?? new List<ShopDAL.Models.Dto.ComboFoodItemDto>();
+                ViewBag.SelectedFoods = combo?.FoodItems ?? new List<ComboFoodItemDto>();
 
                 return View(viewModel);
             }

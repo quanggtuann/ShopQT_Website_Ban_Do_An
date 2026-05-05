@@ -1,5 +1,4 @@
-@using ShopView.Models
-@using ShopDAL.Models
+@using ShopView.Areas.Admin.Models
 @model FoodIndexViewModel
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -105,7 +104,7 @@
                         @foreach (var food in Model.FoodItems)
                         {
                             <tr>
-                                <td>@food.FoodItemId</td>
+                                <td>@food.FoodItemID</td>
                                 <td>
                                     @if (!string.IsNullOrEmpty(food.ImagePath))
                                     {
@@ -117,7 +116,7 @@
                                     }
                                 </td>
                                 <td>@food.Name</td>
-                                <td>@(food.Category?.Name ?? "N/A")</td>
+                                <td>@food.CategoryName</td>
                                 <td>@food.Price.ToString("N0") VND</td>
                                 <td>
                                     <span class="badge @((food.IsAvailable ? "bg-label-success" : "bg-label-danger"))">
@@ -130,13 +129,13 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@food.FoodItemId">
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@food.FoodItemID">
                                                 <i class="bx bx-edit-alt me-1"></i> Edit
                                             </a>
                                             @if (food.IsAvailable)
                                             {
                                                 <form asp-area="Admin" asp-controller="Food" asp-action="Deactive" method="post" style="display:inline;">
-                                                    <input type="hidden" name="id" value="@food.FoodItemId" />
+                                                    <input type="hidden" name="id" value="@food.FoodItemID" />
                                                     <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure you want to deactivate this food?');">
                                                         <i class="bx bx-trash me-1"></i> Deactivate
                                                     </button>
@@ -145,7 +144,7 @@
                                             else
                                             {
                                                 <form asp-area="Admin" asp-controller="Food" asp-action="Active" method="post" style="display:inline;">
-                                                    <input type="hidden" name="id" value="@food.FoodItemId" />
+                                                    <input type="hidden" name="id" value="@food.FoodItemID" />
                                                     <button type="submit" class="dropdown-item text-success" onclick="return confirm('Are you sure you want to activate this food?');">
                                                         <i class="bx bx-check-circle me-1"></i> Activate
                                                     </button>

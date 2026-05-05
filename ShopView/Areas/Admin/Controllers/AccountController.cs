@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopDAL.Areas.Models;
+using ShopView.Areas.Admin.Models;
 
 namespace ShopView.Areas.Admin.Controllers
 {
@@ -16,7 +16,7 @@ namespace ShopView.Areas.Admin.Controllers
         private bool IsAdmin()
         {
             var userRole = HttpContext.Session.GetString("UserRole");
-            return userRole == null;
+            return userRole == "admin";
         }
         public async Task<IActionResult> Index(
             string keyword,
@@ -49,16 +49,16 @@ namespace ShopView.Areas.Admin.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var accounts = await response.Content.ReadFromJsonAsync<List<ShopDAL.Models.User>>();
+                    var accounts = await response.Content.ReadFromJsonAsync<List<UserListItem>>();
 
-                    var viewModel = new AccountFilterViewModels
+                    var viewModel = new AccountIndexViewModel
                     {
                         KeyWord = keyword,
                         IsActive = isActive,
                         Role = role,
                         SortBy = sortBy ?? "id",
                         SortOrder = sortOrder ?? "asc",
-                        Accounts = accounts
+                        Accounts = accounts ?? new List<UserListItem>()
                     };
 
                     return View(viewModel);
@@ -132,7 +132,7 @@ namespace ShopView.Areas.Admin.Controllers
 
         // POST: /Admin/Account/Create
         [HttpPost]
-        public async Task<IActionResult> Create(ShopDAL.Models.User user)
+        public async Task<IActionResult> Create(UserEditViewModel user)
         {
             if (!IsAdmin())
                 return RedirectToAction("Login", "Account", new { area = "" });
@@ -178,7 +178,7 @@ namespace ShopView.Areas.Admin.Controllers
                     return NotFound();
                 }
 
-                var account = await response.Content.ReadFromJsonAsync<ShopDAL.Models.User>();
+                var account = await response.Content.ReadFromJsonAsync<UserEditViewModel>();
                 return View(account);
             }
             catch (Exception ex)
@@ -190,7 +190,7 @@ namespace ShopView.Areas.Admin.Controllers
 
         // POST: /Admin/Account/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ShopDAL.Models.User user)
+        public async Task<IActionResult> Edit(int id, UserEditViewModel user)
         {
             if (!IsAdmin())
                 return RedirectToAction("Login", "Account", new { area = "" });
