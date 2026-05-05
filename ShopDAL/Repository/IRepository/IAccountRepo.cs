@@ -6,7 +6,7 @@ namespace ShopDAL.Repository.IRepository
     {
         void CreateCartForUser(int userId);
         User Getnameuser(string username);
-       bool Login(string username, string password);
+        bool Login(string username, string password);
         bool Register(User registerUser);
         void Update(User updateuser);
     }

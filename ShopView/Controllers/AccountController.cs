@@ -75,7 +75,7 @@ namespace ShopView.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-                    
+
                     // Store in session
                     HttpContext.Session.SetInt32("UserID", result.userId);
                     HttpContext.Session.SetString("Username", result.username);

@@ -43,7 +43,7 @@ namespace ShopView.Areas.Admin.Controllers
                 return View("Error", "Shared");
             }
         }
-        // GET: /Admin/Categorye/Create
+       // GET: /Admin/Categorye/Create
         public IActionResult Create()
         {
             if (!IsAdmin())
