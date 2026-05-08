@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopView.Models;
 using System.Net.Http.Json;
 
 namespace ShopView.Controllers
@@ -76,7 +75,6 @@ namespace ShopView.Controllers
                 {
                     var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
 
-                    // Store in session
                     HttpContext.Session.SetInt32("UserID", result.userId);
                     HttpContext.Session.SetString("Username", result.username);
                     HttpContext.Session.SetString("UserRole", result.role);

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rnfearWYdVRbS8eVFLnSZYx1Bgla+YO/80hDsun5Knk=",
+  "Hash": "+9aBAb0IEARBvFGpVzBs7GWfqdExiSCCirMxaeb1W9E=",
   "Source": "ShopView",
   "BasePath": "_content/ShopView",
   "Mode": "Default",
@@ -5444,6 +5444,27 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\css\\style.css",
+      "SourceId": "ShopView",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ShopDAL\\ShopView\\wwwroot\\",
+      "BasePath": "_content/ShopView",
+      "RelativePath": "css/style#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "pvrhqo2g6a",
+      "Integrity": "m34pamePJjndfHDPKvUU7L5Zfsuc4JH8HC9p92E5Hzw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
       "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\favicon.ico",
       "SourceId": "ShopView",
       "SourceType": "Discovered",
@@ -5463,6 +5484,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "SourceId": "ShopView",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ShopDAL\\ShopView\\wwwroot\\",
+      "BasePath": "_content/ShopView",
+      "RelativePath": "img/page-header#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5uulzy7l40",
+      "Integrity": "XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\page-header.png"
     },
     {
       "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\js\\site.js",
@@ -27505,6 +27547,88 @@
       ]
     },
     {
+      "Route": "css/style.css",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44954"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"m34pamePJjndfHDPKvUU7L5Zfsuc4JH8HC9p92E5Hzw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 08 May 2026 08:27:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-m34pamePJjndfHDPKvUU7L5Zfsuc4JH8HC9p92E5Hzw="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.pvrhqo2g6a.css",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44954"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"m34pamePJjndfHDPKvUU7L5Zfsuc4JH8HC9p92E5Hzw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 08 May 2026 08:27:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pvrhqo2g6a"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-m34pamePJjndfHDPKvUU7L5Zfsuc4JH8HC9p92E5Hzw="
+        }
+      ]
+    },
+    {
       "Route": "favicon.61n19gt1b8.ico",
       "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\favicon.ico",
       "Selectors": [],
@@ -27583,6 +27707,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "img/page-header.5uulzy7l40.png",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "860285"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 08 May 2026 08:42:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5uulzy7l40"
+        },
+        {
+          "Name": "label",
+          "Value": "img/page-header.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ="
+        }
+      ]
+    },
+    {
+      "Route": "img/page-header.png",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "860285"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 08 May 2026 08:42:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ="
         }
       ]
     },

@@ -949,8 +949,16 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
       "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "PackagePath": "staticwebassets\\img\\page-header.png"
     },
     {
       "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\js\\site.js",

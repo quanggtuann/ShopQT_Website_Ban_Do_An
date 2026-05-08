@@ -13,10 +13,7 @@ namespace ShopDAL.Repository
         }
         public void CreateCartForUser(int userId)
         {
-            var cart = new Cart
-            {
-                CartID = userId,
-            };
+            var cart = new Cart { UserID = userId }; 
             _context.Carts.Add(cart);
             _context.SaveChanges();
         }
@@ -51,10 +48,26 @@ namespace ShopDAL.Repository
             {
                 throw new Exception("Email already exists");
             }
-            _context.Users.Add(registerUser);
-            _context.SaveChanges();
-            CreateCartForUser(registerUser.UserID);
-            return true;
+            
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _context.Users.Add(registerUser);
+                _context.SaveChanges();
+                
+                // Tạo Cart trong cùng transaction
+                var cart = new Cart { UserID = registerUser.UserID };
+                _context.Carts.Add(cart);
+                _context.SaveChanges();
+                
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
         public void Update(User updateuser)
         {

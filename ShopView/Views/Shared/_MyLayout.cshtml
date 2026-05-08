@@ -1,0 +1,129 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fast Food - ShopQT</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Nunito:600,700" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        .page-header {
+            position: relative;
+            margin-bottom: 45px;
+            padding: 150px 0 90px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('@Url.Content("~/img/page-header.png")');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav Bar Start -->
+    <div class="navbar navbar-expand-lg navbar-light" id="navbar">
+        <div class="container-fluid">
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">Fast <span>Food</span></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto">
+                    <a href="@Url.Action("Index", "Food")" class="nav-item nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Food" ? "active" : "")">Food</a>
+                    <a href="@Url.Action("Index", "Combo")" class="nav-item nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Combo" ? "active" : "")">Combo</a>
+
+                    @{
+                        var userRole = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
+                        var userId = HttpContextAccessor.HttpContext?.Session.GetInt32("UserID");
+                    }
+
+                    @if (userRole == null)
+                    {
+                        <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
+                        <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Login</a>
+                    }
+                    else if (userRole == "customer")
+                    {
+                        <a href="@Url.Action("Cart", "Order")" class="nav-item nav-link">Cart</a>
+                        <a href="@Url.Action("Logout", "Account")" class="nav-item nav-link">Logout</a>
+                    }
+                    else if (userRole == "admin")
+                    {
+                        <a href="@Url.Action("Index", "Account", new { area = "Admin" })" class="nav-item nav-link">Admin</a>
+                        <a href="@Url.Action("Logout", "Account")" class="nav-item nav-link">Logout</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Nav Bar End -->
+
+    <!-- Page Header Start -->
+    <div class="page-header">
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Body Content Start -->
+    @RenderBody()
+    <!-- Body Content End -->
+
+    <!-- Footer Start -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="footer-contact">
+                                <h2>Our Address</h2>
+                                <p><i class="fa fa-map-marker-alt"></i>Ha Noi, Vietnam</p>
+                                <p><i class="fa fa-phone-alt"></i>+977790375</p>
+                                <p><i class="fa fa-envelope"></i>tuannqph51813@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+    <!-- Sticky Navbar Script -->
+    <script>
+        $(window).on('scroll', function() {
+            if ($(this).scrollTop() > 100) {
+                $('#navbar').addClass('nav-sticky');
+            } else {
+                $('#navbar').removeClass('nav-sticky');
+            }
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

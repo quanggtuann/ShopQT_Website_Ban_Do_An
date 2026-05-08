@@ -1,27 +1,63 @@
-<h2>Login</h2>
-
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger">@ViewBag.Error</div>
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = "Login";
 }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4 fw-bold" style="color: #fbaf32;">Login</h2>
 
-<form asp-action="Login" method="post">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" class="form-control" required />
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-circle-fill me-2"></i>@ViewBag.Error
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Login" method="post" class="needs-validation" novalidate>
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label fw-bold"><i class="bi bi-person me-2"></i>Username</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required />
+                            <div class="invalid-feedback">Please enter your username</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label fw-bold"><i class="bi bi-lock me-2"></i>Password</label>
+                            <input type="password" id="passwordInput" name="password" class="form-control" placeholder="Enter password" required />
+                            <div class="invalid-feedback">Please enter your password</div>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input type="checkbox" class="form-check-input" id="showPassword" onchange="document.getElementById('passwordInput').type = this.checked ? 'text' : 'password'">
+                            <label class="form-check-label" for="showPassword">Show password</label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn custom-btn btn-lg w-100">
+                                <i class="fa fa-sign-in-alt me-2"></i>Login
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <p class="text-center mb-0">
+                        Don't have an account? 
+                        <a asp-action="Register" class="text-decoration-none fw-bold">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-
-<p>Don't have an account? <a asp-action="Register">Register here</a></p>
+</div>

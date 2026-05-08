@@ -234,7 +234,9 @@ wwwroot\admin\tasks\prod.js
 wwwroot\admin\webpack.config.js
 wwwroot\admin\yarn.lock
 wwwroot\css\site.css
+wwwroot\css\style.css
 wwwroot\favicon.ico
+wwwroot\img\page-header.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

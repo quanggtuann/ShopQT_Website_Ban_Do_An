@@ -1,44 +1,72 @@
 @model ShopView.Controllers.RegisterViewModel
 
-<h2>Register</h2>
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = "Register";
+}
 
-<form asp-action="Register" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4 fw-bold" style="color: #fbaf32;">Create Account</h2>
 
-    <div class="form-group">
-        <label asp-for="Username">Username</label>
-        <input asp-for="Username" class="form-control" />
-        <span asp-validation-for="Username" class="text-danger"></span>
+                    <form asp-action="Register" method="post" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Username" class="form-label fw-bold"><i class="bi bi-person me-2"></i>Username</label>
+                            <input asp-for="Username" class="form-control" placeholder="Enter username" required />
+                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Password" class="form-label fw-bold"><i class="bi bi-lock me-2"></i>Password</label>
+                            <input asp-for="Password" type="password" class="form-control" id="passwordInput" placeholder="Enter password" required />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="showPassword" onchange="document.getElementById('passwordInput').type = this.checked ? 'text' : 'password'">
+                            <label class="form-check-label" for="showPassword">Show password</label>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label fw-bold"><i class="bi bi-envelope me-2"></i>Email</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" required />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PhoneNumber" class="form-label fw-bold"><i class="bi bi-telephone me-2"></i>Phone Number</label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" required />
+                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="DateofBirth" class="form-label fw-bold"><i class="bi bi-calendar me-2"></i>Date of Birth</label>
+                            <input asp-for="DateofBirth" type="date" class="form-control" required />
+                            <span asp-validation-for="DateofBirth" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn custom-btn btn-lg w-100">
+                                <i class="fa fa-user-plus me-2"></i>Register
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <p class="text-center mb-0">
+                        Already have an account? 
+                        <a asp-action="Login" class="text-decoration-none fw-bold">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Password">Password</label>
-        <input asp-for="Password" type="password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" type="email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhoneNumber">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="DateofBirth">Date of Birth</label>
-        <input asp-for="DateofBirth" type="date" class="form-control" />
-        <span asp-validation-for="DateofBirth" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
-
-<p>Already have an account? <a asp-action="Login">Login here</a></p>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

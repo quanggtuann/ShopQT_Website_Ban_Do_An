@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowShopView", policy =>
     {
-        policy.WithOrigins("https://localhost:5000", "https://localhost:5001", "https://localhost:7000", "https://localhost:7001")
+        policy.WithOrigins("https://localhost:7106")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
