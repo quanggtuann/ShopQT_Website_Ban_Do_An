@@ -151,7 +151,6 @@ ShopQT/
 └── ShopView/                   # Presentation Layer (MVC)
     ├── Areas/
     │   ├── Admin/
-    │   └── Customer/
     ├── Controllers/
     ├── Models/
     └── Views/
