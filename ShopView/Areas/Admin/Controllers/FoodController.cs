@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopView.Areas.Admin.Models;
+using ShopView.Areas.Admin.ViewModel;
 using System.Net.Http.Json;
 namespace ShopView.Areas.Admin.Controllers
 {
@@ -70,7 +71,7 @@ namespace ShopView.Areas.Admin.Controllers
                     TempData["Error"] = "Failed to load food items";
                     return View(new FoodIndexViewModel());
                 }
-                var result = await response.Content.ReadFromJsonAsync<FoodListResponse>();
+                var result = await response.Content.ReadFromJsonAsync<PagedResponse<FoodItemDto>>();
                 var categories = await GetActiveCategoriesAsync();
                 var viewModel = new FoodIndexViewModel
                 {
@@ -85,10 +86,8 @@ namespace ShopView.Areas.Admin.Controllers
                         page = page,
                         pageSize = pageSize
                     },
-                    FoodItems = result?.Data ?? new List<FoodItemDto>(),
+                    PagedResult = result ?? new PagedResponse<FoodItemDto>(),
                     Categories = categories,
-                    TotalPage = result?.TotalPages ?? 1,
-                    CurrentPage = result?.CurrentPage ?? 1,
                     ImageBaseUrl = "https://localhost:7130/"
                 };
 

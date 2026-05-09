@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopView.Areas.Admin.Models;
+using ShopView.Areas.Admin.ViewModel;
 using System.Net.Http.Json;
-
 namespace ShopView.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -45,7 +45,7 @@ namespace ShopView.Areas.Admin.Controllers
                     TempData["Error"] = "Failed to load combo";
                     return View(new ComboIndexViewModel());
                 }
-                var result = await response.Content.ReadFromJsonAsync<ComboListResponse>();
+                var result = await response.Content.ReadFromJsonAsync<PagedResponse<ComboDto>>();
                 var viewModel = new ComboIndexViewModel
                 {
                     Filter = new ComboFilterViewModel
@@ -59,7 +59,7 @@ namespace ShopView.Areas.Admin.Controllers
                         pageSize = pageSize
                     },
                     Combos = result?.Data ?? new List<ComboDto>(),
-                    TotalPage = result?.ToTalPage ?? 1,
+                    TotalPage = result?.TotalPages ?? 1,
                     CurrentPage = result?.CurrentPage ?? 1,
                     ImageBaseUrl = "https://localhost:7130/"
                 };

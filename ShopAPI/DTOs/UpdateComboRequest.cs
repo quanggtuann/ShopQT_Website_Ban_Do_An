@@ -1,4 +1,4 @@
-namespace ShopDAL.Models.Dto
+namespace ShopAPI.DTOs
 {
     public class UpdateComboRequest
     {
@@ -6,7 +6,8 @@ namespace ShopDAL.Models.Dto
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool IsAvailabale { get; set; }
+        public string? ImagePath { get; set; }
         public List<ComboFoodItemRequest>? FoodItems { get; set; }
-        public bool RemoveImage { get; set; } = false; 
+        public bool RemoveImage { get; set; } = false;
     }
 }

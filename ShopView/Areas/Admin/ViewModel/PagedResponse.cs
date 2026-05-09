@@ -1,10 +1,10 @@
-﻿namespace ShopDAL.Models.Dto
+namespace ShopView.Areas.Admin.ViewModel
 {
-    public class FoodListResponse
+    public class PagedResponse<T>
     {
         public int TotalItems { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
-        public List<FoodItemDto> Data { get; set; }
+        public List<T> Data { get; set; } = new List<T>();
     }
 }

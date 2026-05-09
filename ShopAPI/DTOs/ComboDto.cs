@@ -1,4 +1,4 @@
-﻿namespace ShopDAL.Models.Dto
+﻿namespace ShopAPI.DTOs
 {
     public class ComboDto
     {

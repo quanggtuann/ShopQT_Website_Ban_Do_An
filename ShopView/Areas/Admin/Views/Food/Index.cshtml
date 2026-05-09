@@ -99,9 +99,9 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @if (Model.FoodItems != null)
+                    @if (Model.PagedResult.Data != null)
                     {
-                        @foreach (var food in Model.FoodItems)
+                        @foreach (var food in Model.PagedResult.Data)
                         {
                             <tr>
                                 <td>@food.FoodItemID</td>
@@ -159,14 +159,24 @@
                 </tbody>
             </table>
 
-            @if (Model.TotalPage > 1)
+            @if (Model.PagedResult.TotalPages > 1)
             {
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
-                        @for (int i = 1; i <= Model.TotalPage; i++)
+                        @for (int i = 1; i <= Model.PagedResult.TotalPages; i++)
                         {
-                            <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Index", "Food", new { page = i, keyword = Model.Filter.Keyword, categoryId = Model.Filter.categoryID, priceFrom = Model.Filter.PriceFrom, priceTo = Model.Filter.PriceTo, sortBy = Model.Filter.SortBy, sortOrder = Model.Filter.SortOrder })">
+                            <li class="page-item @(Model.PagedResult.CurrentPage == i ? "active" : "")">
+                                <a class="page-link"
+                                   href="@Url.Action("Index", "Food", new
+                       {
+                           page = i,
+                           keyword = Model.Filter.Keyword,
+                           categoryId = Model.Filter.categoryID,
+                           priceFrom = Model.Filter.PriceFrom,
+                           priceTo = Model.Filter.PriceTo,
+                           sortBy = Model.Filter.SortBy,
+                           sortOrder = Model.Filter.SortOrder
+                       })">
                                     @i
                                 </a>
                             </li>

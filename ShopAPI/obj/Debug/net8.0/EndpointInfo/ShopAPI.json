@@ -442,13 +442,16 @@
                   "IsAvailabale": {
                     "type": "boolean"
                   },
+                  "ImagePath": {
+                    "type": "string"
+                  },
                   "FoodItems": {
                     "type": "array",
                     "items": {
                       "$ref": "#/components/schemas/ComboFoodItemRequest"
                     }
                   },
-                  "ImageFile": {
+                  "imageFile": {
                     "type": "string",
                     "format": "binary"
                   }
@@ -467,10 +470,13 @@
                 "IsAvailabale": {
                   "style": "form"
                 },
+                "ImagePath": {
+                  "style": "form"
+                },
                 "FoodItems": {
                   "style": "form"
                 },
-                "ImageFile": {
+                "imageFile": {
                   "style": "form"
                 }
               }
@@ -540,6 +546,9 @@
                   "IsAvailabale": {
                     "type": "boolean"
                   },
+                  "ImagePath": {
+                    "type": "string"
+                  },
                   "FoodItems": {
                     "type": "array",
                     "items": {
@@ -549,7 +558,7 @@
                   "RemoveImage": {
                     "type": "boolean"
                   },
-                  "ImageFile": {
+                  "imageFile": {
                     "type": "string",
                     "format": "binary"
                   }
@@ -568,13 +577,16 @@
                 "IsAvailabale": {
                   "style": "form"
                 },
+                "ImagePath": {
+                  "style": "form"
+                },
                 "FoodItems": {
                   "style": "form"
                 },
                 "RemoveImage": {
                   "style": "form"
                 },
-                "ImageFile": {
+                "imageFile": {
                   "style": "form"
                 }
               }
@@ -611,7 +623,7 @@
         }
       }
     },
-    "/api/Combos/{id}/Activate": {
+    "/api/Combos/{id}/activate": {
       "patch": {
         "tags": [
           "Combos"
@@ -1133,7 +1145,7 @@
                       "$ref": "#/components/schemas/CartItem"
                     }
                   },
-                  "formFile": {
+                  "imageFile": {
                     "type": "string",
                     "format": "binary"
                   }
@@ -1188,7 +1200,7 @@
                 "CartItem": {
                   "style": "form"
                 },
-                "formFile": {
+                "imageFile": {
                   "style": "form"
                 }
               }

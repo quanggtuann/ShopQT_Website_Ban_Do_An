@@ -223,7 +223,7 @@
   },
   {
     "ContainingType": "ShopAPI.Controllers.CombosController",
-    "Method": "Getall",
+    "Method": "GetAll",
     "RelativePath": "api/Combos",
     "HttpMethod": "GET",
     "IsController": true,
@@ -269,7 +269,7 @@
   },
   {
     "ContainingType": "ShopAPI.Controllers.CombosController",
-    "Method": "CreateCombo",
+    "Method": "Create",
     "RelativePath": "api/Combos",
     "HttpMethod": "POST",
     "IsController": true,
@@ -296,12 +296,17 @@
         "IsRequired": false
       },
       {
-        "Name": "FoodItems",
-        "Type": "System.Collections.Generic.List\u00601[[ShopDAL.Models.Dto.ComboFoodItemRequest, ShopDAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Name": "ImagePath",
+        "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "ImageFile",
+        "Name": "FoodItems",
+        "Type": "System.Collections.Generic.List\u00601[[ShopAPI.DTOs.ComboFoodItemRequest, ShopAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "imageFile",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       }
@@ -326,12 +331,17 @@
   },
   {
     "ContainingType": "ShopAPI.Controllers.CombosController",
-    "Method": "UpdateCombo",
+    "Method": "Update",
     "RelativePath": "api/Combos/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
       {
         "Name": "Name",
         "Type": "System.String",
@@ -353,8 +363,13 @@
         "IsRequired": false
       },
       {
+        "Name": "ImagePath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "FoodItems",
-        "Type": "System.Collections.Generic.List\u00601[[ShopDAL.Models.Dto.ComboFoodItemRequest, ShopDAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[ShopAPI.DTOs.ComboFoodItemRequest, ShopAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": false
       },
       {
@@ -363,14 +378,9 @@
         "IsRequired": false
       },
       {
-        "Name": "ImageFile",
+        "Name": "imageFile",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
-      },
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -378,7 +388,7 @@
   {
     "ContainingType": "ShopAPI.Controllers.CombosController",
     "Method": "Activate",
-    "RelativePath": "api/Combos/{id}/Activate",
+    "RelativePath": "api/Combos/{id}/activate",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -454,7 +464,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ShopDAL.Models.Dto.LoginRequest",
+        "Type": "ShopAPI.DTOs.LoginRequest",
         "IsRequired": true
       }
     ],
@@ -743,7 +753,7 @@
         "IsRequired": false
       },
       {
-        "Name": "formFile",
+        "Name": "imageFile",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       }

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopDAL.Models;
-using ShopDAL.Models.Dto;
+using ShopAPI.DTOs;
 using ShopDAL.Repository.IRepository;
 
 namespace ShopAPI.Controllers

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ShopView.Areas.Admin.ViewModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShopView.Areas.Admin.Models
@@ -7,10 +8,8 @@ namespace ShopView.Areas.Admin.Models
     public class FoodIndexViewModel
     {
         public FoodItemFilterViewModel Filter { get; set; }
-        public List<FoodItemDto> FoodItems { get; set; } = new();
+        public PagedResponse<FoodItemDto> PagedResult { get; set; } = new();
         public List<SelectListItem> Categories { get; set; } = new();
-        public int TotalPage { get; set; }
-        public int CurrentPage { get; set; }
         public string ImageBaseUrl { get; set; }
     }
 
@@ -48,21 +47,13 @@ namespace ShopView.Areas.Admin.Models
         public string? Description { get; set; }
 
         [Required]
-        [Range(0.01, 1000000)]
+        [Range(0.01, double.MaxValue)]
         public decimal Price { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
 
         public bool IsAvailable { get; set; } = true;
-    }
-
-    // Response from API
-    public class FoodListResponse
-    {
-        public List<FoodItemDto> Data { get; set; }
-        public int TotalPages { get; set; }
-        public int CurrentPage { get; set; }
     }
 
     // Category DTO for dropdown

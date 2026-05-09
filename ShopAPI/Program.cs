@@ -4,6 +4,8 @@ using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Context;
 using ShopDAL.Repository;
 using ShopDAL.Repository.IRepository;
+using ShopAPI.Services;
+using ShopAPI.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,10 @@ builder.Services.AddScoped<IAdminComboRepo, AdminComboRepo>();
 builder.Services.AddScoped<IAdminOrderRepo, AdminOrderRepo>();
 //customer
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+
+// Business Services
+builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IComboService, ComboService>();
 
 var app = builder.Build();
 

@@ -64,14 +64,6 @@ namespace ShopView.Areas.Admin.Models
         public int Quantity { get; set; }
     }
 
-    // Response from API
-    public class ComboListResponse
-    {
-        public List<ComboDto> Data { get; set; }
-        public int ToTalPage { get; set; }
-        public int CurrentPage { get; set; }
-    }
-
     // FoodItem DTO for dropdown
     public class FoodOptionDto
     {
