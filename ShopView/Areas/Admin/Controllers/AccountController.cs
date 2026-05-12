@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopView.Areas.Admin.Models;
+using ShopView.Areas.Admin.ViewModel;
 
 namespace ShopView.Areas.Admin.Controllers
 {
@@ -18,12 +19,15 @@ namespace ShopView.Areas.Admin.Controllers
             var userRole = HttpContext.Session.GetString("UserRole");
             return userRole == "admin";
         }
+
         public async Task<IActionResult> Index(
-            string keyword,
+            string? keyword,
             bool? isActive,
-            string role,
-            string sortBy,
-            string sortOrder)
+            string? role,
+            string? sortBy,
+            string? sortOrder,
+            int page = 1,
+            int pageSize = 10)
         {
             if (!IsAdmin())
                 return RedirectToAction("Login", "Account", new { area = "" });
@@ -40,25 +44,31 @@ namespace ShopView.Areas.Admin.Controllers
                 if (!string.IsNullOrWhiteSpace(sortBy))
                     queryParams.Add($"sortBy={Uri.EscapeDataString(sortBy)}");
                 if (!string.IsNullOrWhiteSpace(sortOrder))
-                    queryParams.Add($"sortOrder={Uri.EscapeDataString(sortOrder)}"); 
-                var url = "api/accounts";
-                if (queryParams.Any())
-                    url += "?" + string.Join("&", queryParams);
+                    queryParams.Add($"sortOrder={Uri.EscapeDataString(sortOrder)}");
+                queryParams.Add($"page={page}");
+                queryParams.Add($"pageSize={pageSize}");
+
+                var url = "api/accounts?" + string.Join("&", queryParams);
 
                 var response = await _httpClient.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var accounts = await response.Content.ReadFromJsonAsync<List<UserListItem>>();
+                    var result = await response.Content.ReadFromJsonAsync<PagedResponse<UserListItem>>();
 
                     var viewModel = new AccountIndexViewModel
                     {
-                        KeyWord = keyword,
-                        IsActive = isActive,
-                        Role = role,
-                        SortBy = sortBy ?? "id",
-                        SortOrder = sortOrder ?? "asc",
-                        Accounts = accounts ?? new List<UserListItem>()
+                        Filter = new AccountFilterViewModel
+                        {
+                            Keyword = keyword,
+                            IsActive = isActive,
+                            Role = role,
+                            SortBy = sortBy ?? "id",
+                            SortOrder = sortOrder ?? "asc",
+                            page = page,
+                            pageSize = pageSize
+                        },
+                        PagedResult = result ?? new PagedResponse<UserListItem>()
                     };
 
                     return View(viewModel);

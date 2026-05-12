@@ -1,19 +1,24 @@
 using System.ComponentModel.DataAnnotations;
+using ShopView.Areas.Admin.ViewModel;
 
 namespace ShopView.Areas.Admin.Models
 {
-    // For Index view - Filter and list
-    public class AccountIndexViewModel
+    public class AccountFilterViewModel
     {
-        public string KeyWord { get; set; }
+        public string? Keyword { get; set; }
         public bool? IsActive { get; set; }
-        public string Role { get; set; }
-        public string SortBy { get; set; }
-        public string SortOrder { get; set; }
-        public List<UserListItem> Accounts { get; set; } = new();
+        public string? Role { get; set; }
+        public string? SortBy { get; set; } = "id";
+        public string? SortOrder { get; set; } = "asc";
+        public int page { get; set; } = 1;
+        public int pageSize { get; set; } = 10;
     }
 
-    // For displaying user in list
+    public class AccountIndexViewModel
+    {
+        public AccountFilterViewModel Filter { get; set; } = new();
+        public PagedResponse<UserListItem> PagedResult { get; set; } = new();
+    }
     public class UserListItem
     {
         public int UserID { get; set; }
@@ -22,8 +27,6 @@ namespace ShopView.Areas.Admin.Models
         public string Role { get; set; }
         public bool IsActive { get; set; }
     }
-
-    // For Create/Edit user
     public class UserEditViewModel
     {
         public int UserID { get; set; }

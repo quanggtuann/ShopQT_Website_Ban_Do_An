@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopDAL.Areas.Repository.Irepository;
-using ShopDAL.Models;
+using ShopAPI.DTOs;
+using ShopAPI.Services.IServices;
 
 namespace ShopAPI.Controllers
 {
@@ -8,11 +8,11 @@ namespace ShopAPI.Controllers
     [ApiController]
     public class CategoryesController : ControllerBase
     {
-        private readonly IAdminCategoryRepo _categoryRepo;
+        private readonly ICategoryesService _categoryService;
 
-        public CategoryesController(IAdminCategoryRepo categoryRepo)
+        public CategoryesController(ICategoryesService categoryService)
         {
-            _categoryRepo = categoryRepo;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -20,13 +20,7 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                var categories = _categoryRepo.GetAll();
-                
-                if (activeOnly == true)
-                {
-                    categories = categories.Where(c => c.IsActive).ToList();
-                }
-                
+                var categories = _categoryService.GetAll(activeOnly);
                 return Ok(categories);
             }
             catch (Exception ex)
@@ -38,50 +32,49 @@ namespace ShopAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var category = _categoryRepo.GetById(id);
-            if (category == null)
-            {
-                return NotFound(new { ErrorMessage = "Category not found" });
-            }
-            return Ok(category);
-        }
-
-        [HttpPost]
-        public IActionResult Create([FromBody] Category category)
-        {
             try
             {
-                if (string.IsNullOrWhiteSpace(category.Name))
-                {
-                    return BadRequest(new { ErrorMessage = "Category name is required" });
-                }
-
-                _categoryRepo.Add(category);
-                return CreatedAtAction(nameof(GetById), new { id = category.CategoryId }, category);
+                var category = _categoryService.GetById(id);
+                return Ok(category);
             }
             catch (Exception ex)
             {
+                return ex.Message.Contains("not found")
+                    ? NotFound(new { ErrorMessage = ex.Message })
+                    : StatusCode(500, new { ErrorMessage = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateCategoryRequest request)
+        {
+            try
+            {
+                var result = _categoryService.Create(request);
+                return CreatedAtAction(nameof(GetById), new { id = result.CategoryId }, result);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("already exists") || ex.Message.Contains("required"))
+                    return BadRequest(new { ErrorMessage = ex.Message });
                 return StatusCode(500, new { ErrorMessage = ex.Message });
             }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Category category)
+        public IActionResult Update(int id, [FromBody] UpdateCategoryRequest request)
         {
             try
             {
-                var existingCategory = _categoryRepo.GetById(id);
-                if (existingCategory == null)
-                {
-                    return NotFound(new { ErrorMessage = "Category not found" });
-                }
-
-                category.CategoryId = id;
-                _categoryRepo.Update(category);
-                return Ok(category);
+                var result = _categoryService.Update(id, request);
+                return Ok(result);
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("not found"))
+                    return NotFound(new { ErrorMessage = ex.Message });
+                if (ex.Message.Contains("already exists") || ex.Message.Contains("required"))
+                    return BadRequest(new { ErrorMessage = ex.Message });
                 return StatusCode(500, new { ErrorMessage = ex.Message });
             }
         }
@@ -91,12 +84,14 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                _categoryRepo.Deactive(id);
+                _categoryService.Deactivate(id);
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { ErrorMessage = ex.Message });
+                return ex.Message.Contains("not found")
+                    ? NotFound(new { ErrorMessage = ex.Message })
+                    : StatusCode(500, new { ErrorMessage = ex.Message });
             }
         }
 
@@ -105,12 +100,14 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                _categoryRepo.Activate(id);
+                _categoryService.Activate(id);
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { ErrorMessage = ex.Message });
+                return ex.Message.Contains("not found")
+                    ? NotFound(new { ErrorMessage = ex.Message })
+                    : StatusCode(500, new { ErrorMessage = ex.Message });
             }
         }
     }

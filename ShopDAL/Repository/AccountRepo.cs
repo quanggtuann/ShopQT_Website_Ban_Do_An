@@ -54,8 +54,6 @@ namespace ShopDAL.Repository
             {
                 _context.Users.Add(registerUser);
                 _context.SaveChanges();
-                
-                // Tạo Cart trong cùng transaction
                 var cart = new Cart { UserID = registerUser.UserID };
                 _context.Carts.Add(cart);
                 _context.SaveChanges();

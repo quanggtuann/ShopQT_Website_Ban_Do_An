@@ -12,17 +12,17 @@
         </a>
     </div>
 
-    @if (TempData["Success"] != null)
+    @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success">
-            @TempData["Success"]
+            @TempData["SuccessMessage"]
         </div>
     }
 
-    @if (TempData["Error"] != null)
+    @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger">
-            @TempData["Error"]
+            @TempData["ErrorMessage"]
         </div>
     }
 

@@ -136,12 +136,12 @@ namespace ShopView.Areas.Admin.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["Success"] = "Combo created successfully";
+                    TempData["SuccessMessage"] = "Combo created successfully";
                     return RedirectToAction(nameof(Index));
                 }
 
                 var error = await response.Content.ReadAsStringAsync();
-                TempData["Error"] = $"{error}";
+                TempData["ErrorMessage"] = $"{error}";
 
                 var foodsResponse = await _httpClient.GetAsync("api/foods/all");
                 var foods = await foodsResponse.Content.ReadFromJsonAsync<List<FoodOptionDto>>() ?? new();
@@ -161,7 +161,7 @@ namespace ShopView.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -176,7 +176,7 @@ namespace ShopView.Areas.Admin.Controllers
                 var comboResponse = await _httpClient.GetAsync($"api/Combos/{id}");
                 if (!comboResponse.IsSuccessStatusCode)
                 {
-                    TempData["Error"] = "Combo not found";
+                    TempData["ErrorMessage"] = "Combo not found";
                     return RedirectToAction(nameof(Index));
                 }
                 var combo = await comboResponse.Content.ReadFromJsonAsync<ComboDto>();
@@ -207,7 +207,7 @@ namespace ShopView.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -257,17 +257,17 @@ namespace ShopView.Areas.Admin.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["Success"] = "Combo updated successfully";
+                    TempData["SuccessMessage"] = "Combo updated successfully";
                     return RedirectToAction(nameof(Index));
                 }
 
                 var error = await response.Content.ReadAsStringAsync();
-                TempData["Error"] = $"{error}";
+                TempData["ErrorMessage"] = $"{error}";
                 return RedirectToAction(nameof(Edit), new { id });
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Edit), new { id });
             }
         }

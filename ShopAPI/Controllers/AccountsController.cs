@@ -1,36 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopDAL.Areas.Repository.Irepository;
+using ShopAPI.Services.IServices;
 using ShopDAL.Models;
+
 namespace ShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IAdminAccountRepo _adminAccountRepo;
-        public AccountsController(IAdminAccountRepo adminAccountRepo)
+        private readonly IAccountService _accountService;
+        public AccountsController(IAccountService accountService)
         {
-            _adminAccountRepo = adminAccountRepo;
+            _accountService = accountService;
         }
+
         [HttpGet]
-        public IActionResult GetAccounts(
-            [FromQuery] string? keyword = null,
-            [FromQuery] bool? isActive = null,
-            [FromQuery] string? role = null,
-            [FromQuery] string? sortBy = "id",
-            [FromQuery] string? sortOrder = "asc")
+        public IActionResult GetAccounts([FromQuery] AccountFilterViewModel filter)
         {
-            var accounts = _adminAccountRepo.GetFiltered(keyword, isActive, role, sortBy, sortOrder);
-            return Ok(accounts);
+            try
+            {
+                var result = _accountService.GetAllPaged(filter);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ErrorMessage = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetAccount(int id)
         {
-            var account = _adminAccountRepo.GetById(id);
-            if (account == null)
-                return NotFound();
-            return Ok(account);
+            try
+            {
+                var account = _accountService.GetAccount(id);
+                return Ok(account);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.Contains("not found")
+                    ? NotFound(new { ErrorMessage = ex.Message })
+                    : StatusCode(500, new { ErrorMessage = ex.Message });
+            }
         }
 
         [HttpPost]
@@ -38,46 +49,63 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                _adminAccountRepo.Add(user);
-                return CreatedAtAction(nameof(GetAccount), new { id = user.UserID }, user);
+                var result = _accountService.CreateAccount(user);
+                return CreatedAtAction(nameof(GetAccount), new { id = result.UserID }, result);
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { ErrorMessage = ex.Message });
             }
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateAccount(int id, [FromBody] User user)
         {
-            if (id != user.UserID)
-                return BadRequest(new { message = "ID mismatch" });
-
             try
             {
-                _adminAccountRepo.Update(user);
-                return NoContent();
+                var result = _accountService.UpdateAccount(id, user);
+                return Ok(result);
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                if (ex.Message.Contains("not found"))
+                    return NotFound(new { ErrorMessage = ex.Message });
+                if (ex.Message.Contains("ID mismatch"))
+                    return BadRequest(new { ErrorMessage = ex.Message });
+                return StatusCode(500, new { ErrorMessage = ex.Message });
             }
         }
-        [HttpPost("{id}/deactivate")]
+
+        [HttpPatch("{id}/deactivate")]
         public IActionResult DeactivateAccount(int id)
         {
-            _adminAccountRepo.Deactive(id);
-            return NoContent();
+            try
+            {
+                _accountService.DeactivateAccount(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.Contains("not found")
+                    ? NotFound(new { ErrorMessage = ex.Message })
+                    : StatusCode(500, new { ErrorMessage = ex.Message });
+            }
         }
-        [HttpPost("{id}/activate")]
+
+        [HttpPatch("{id}/activate")]
         public IActionResult ActivateAccount(int id)
         {
-            _adminAccountRepo.ActiveUser(id);
-            return NoContent();
+            try
+            {
+                _accountService.ActivateAccount(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.Contains("not found")
+                    ? NotFound(new { ErrorMessage = ex.Message })
+                    : StatusCode(500, new { ErrorMessage = ex.Message });
+            }
         }
     }
-
 }
-
-
-

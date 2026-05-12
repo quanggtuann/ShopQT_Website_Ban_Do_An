@@ -1,0 +1,130 @@
+﻿@model ShopView.ViewModels.FoodMenuViewModel
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = "Food Menu";
+}
+
+<div class="container">
+    <div class="section-header text-center">
+        <p>Food Menu</p>
+        <h2>Delicious Food Menu</h2>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <form method="get" asp-controller="Food" asp-action="Index" class="p-3 mb-4" style="background:#f7fbf2;border:1px solid #e2f0d8;">
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <input type="text" class="form-control" name="Keyword" value="@Model.Filter.Keyword" placeholder="Search by name/description" />
+            </div>
+            <div class="col-md-2 mb-2">
+                <input type="number" step="0.01" class="form-control" name="PriceFrom" value="@Model.Filter.PriceFrom" placeholder="Min price" />
+            </div>
+            <div class="col-md-2 mb-2">
+                <input type="number" step="0.01" class="form-control" name="PriceTo" value="@Model.Filter.PriceTo" placeholder="Max price" />
+            </div>
+            <div class="col-md-2 mb-2">
+                <select class="form-control" name="categoryID">
+                    <option value="">All categories</option>
+                    @foreach (var c in Model.Categories)
+                    {
+                        if (Model.Filter.categoryID == c.CategoryId)
+                        {
+                            <option selected value="@c.CategoryId">@c.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@c.CategoryId">@c.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-1 mb-2">
+                <select class="form-control" name="SortBy">
+                    @if (Model.Filter.SortBy?.ToLower() == "price")
+                    {
+                        <option value="name">Name</option>
+                        <option value="price" selected>Price</option>
+                    }
+                    else
+                    {
+                        <option value="name" selected>Name</option>
+                        <option value="price">Price</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-1 mb-2">
+                <select class="form-control" name="SortOrder">
+                    @if (Model.Filter.SortOrder?.ToLower() == "desc")
+                    {
+                        <option value="asc">Asc</option>
+                        <option value="desc" selected>Desc</option>
+                    }
+                    else
+                    {
+                        <option value="asc" selected>Asc</option>
+                        <option value="desc">Desc</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="pageSize" value="@Model.Filter.pageSize" />
+        <button type="submit" class="btn custom-btn mt-2">Apply Filters</button>
+    </form>
+
+    <div class="row">
+        @if (Model.PagedResult.Data == null || !Model.PagedResult.Data.Any())
+        {
+            <div class="col-12">
+                <div class="alert alert-info">No foods found.</div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.PagedResult.Data)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex align-items-center p-2" style="border:1px solid #efefef;border-radius:6px;">
+                        <img src="@(string.IsNullOrWhiteSpace(item.ImagePath) ? "https://via.placeholder.com/80x80?text=Food" : Model.ImageBaseUrl + item.ImagePath)"
+                             style="width:80px;height:80px;object-fit:cover;border-radius:50%;margin-right:15px;" />
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">@item.Name</h5>
+                            <small class="text-muted">@item.Description</small>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-weight-bold text-success mb-2">@item.Price.ToString("N0") VND</div>
+                            <a asp-controller="Food" asp-action="Detail" asp-route-id="@item.FoodItemId" class="btn btn-sm btn-outline-success">Detail</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    @if (Model.PagedResult.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                @for (var i = 1; i <= Model.PagedResult.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PagedResult.CurrentPage ? "active" : "")">
+                        <a class="page-link"
+                           asp-controller="Food"
+                           asp-action="Index"
+                           asp-route-page="@i"
+                           asp-route-pageSize="@Model.Filter.pageSize"
+                           asp-route-Keyword="@Model.Filter.Keyword"
+                           asp-route-categoryID="@Model.Filter.categoryID"
+                           asp-route-PriceFrom="@Model.Filter.PriceFrom"
+                           asp-route-PriceTo="@Model.Filter.PriceTo"
+                           asp-route-SortBy="@Model.Filter.SortBy"
+                           asp-route-SortOrder="@Model.Filter.SortOrder">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>

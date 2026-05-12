@@ -28,39 +28,39 @@
                     <div class="col-md-6">
                         <label class="form-label">SEARCH</label>
                         <input type="text" name="keyword" class="form-control" placeholder="Search by username, email, phone"
-                               value="@Model.KeyWord" />
+                               value="@Model.Filter.Keyword" />
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">ROLE</label>
                         <select name="role" class="form-select">
                             <option value="">Select Role</option>
-                            <option value="admin" selected="@(Model.Role == "admin" ? "selected" : null)">Admin</option>
-                            <option value="customer" selected="@(Model.Role == "customer" ? "selected" : null)">Customer</option>
+                            <option value="admin" selected="@(Model.Filter.Role == "admin" ? "selected" : null)">Admin</option>
+                            <option value="customer" selected="@(Model.Filter.Role == "customer" ? "selected" : null)">Customer</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">STATUS</label>
                         <select name="isActive" class="form-select">
                             <option value="">Select Status</option>
-                            <option value="true" selected="@(Model.IsActive == true ? "selected" : null)">Active</option>
-                            <option value="false" selected="@(Model.IsActive == false ? "selected" : null)">Inactive</option>
+                            <option value="true" selected="@(Model.Filter.IsActive == true ? "selected" : null)">Active</option>
+                            <option value="false" selected="@(Model.Filter.IsActive == false ? "selected" : null)">Inactive</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">SORT BY</label>
                         <select name="sortBy" class="form-select">
-                            <option value="id" selected="@(Model.SortBy == "id" ? "selected" : null)">ID</option>
-                            <option value="username" selected="@(Model.SortBy == "username" ? "selected" : null)">Username</option>
-                            <option value="email" selected="@(Model.SortBy == "email" ? "selected" : null)">Email</option>
-                            <option value="role" selected="@(Model.SortBy == "role" ? "selected" : null)">Role</option>
-                            <option value="status" selected="@(Model.SortBy == "status" ? "selected" : null)">Status</option>
+                            <option value="id" selected="@(Model.Filter.SortBy == "id" ? "selected" : null)">ID</option>
+                            <option value="username" selected="@(Model.Filter.SortBy == "username" ? "selected" : null)">Username</option>
+                            <option value="email" selected="@(Model.Filter.SortBy == "email" ? "selected" : null)">Email</option>
+                            <option value="role" selected="@(Model.Filter.SortBy == "role" ? "selected" : null)">Role</option>
+                            <option value="status" selected="@(Model.Filter.SortBy == "status" ? "selected" : null)">Status</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">SORT ORDER</label>
                         <select name="sortOrder" class="form-select">
-                            <option value="asc" selected="@(Model.SortOrder == "asc" ? "selected" : null)">Ascending</option>
-                            <option value="desc" selected="@(Model.SortOrder == "desc" ? "selected" : null)">Descending</option>
+                            <option value="asc" selected="@(Model.Filter.SortOrder == "asc" ? "selected" : null)">Ascending</option>
+                            <option value="desc" selected="@(Model.Filter.SortOrder == "desc" ? "selected" : null)">Descending</option>
                         </select>
                     </div>
                 </div>
@@ -97,9 +97,9 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @if (Model.Accounts != null && Model.Accounts.Any())
+                    @if (Model.PagedResult?.Data != null && Model.PagedResult.Data.Any())
                     {
-                        @foreach (var account in Model.Accounts)
+                        @foreach (var account in Model.PagedResult.Data)
                         {
                             <tr>
                                 <td>@account.UserID</td>
@@ -157,5 +157,55 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Pagination -->
+        @if (Model.PagedResult.TotalPages > 1)
+        {
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mt-3">
+                    @if (Model.PagedResult.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index" 
+                               asp-route-page="@(Model.PagedResult.CurrentPage - 1)"
+                               asp-route-pageSize="@Model.Filter.pageSize"
+                               asp-route-keyword="@Model.Filter.Keyword"
+                               asp-route-isActive="@Model.Filter.IsActive"
+                               asp-route-role="@Model.Filter.Role"
+                               asp-route-sortBy="@Model.Filter.SortBy"
+                               asp-route-sortOrder="@Model.Filter.SortOrder">Previous</a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= Model.PagedResult.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.PagedResult.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-page="@i"
+                               asp-route-pageSize="@Model.Filter.pageSize"
+                               asp-route-keyword="@Model.Filter.Keyword"
+                               asp-route-isActive="@Model.Filter.IsActive"
+                               asp-route-role="@Model.Filter.Role"
+                               asp-route-sortBy="@Model.Filter.SortBy"
+                               asp-route-sortOrder="@Model.Filter.SortOrder">@i</a>
+                        </li>
+                    }
+
+                    @if (Model.PagedResult.CurrentPage < Model.PagedResult.TotalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-page="@(Model.PagedResult.CurrentPage + 1)"
+                               asp-route-pageSize="@Model.Filter.pageSize"
+                               asp-route-keyword="@Model.Filter.Keyword"
+                               asp-route-isActive="@Model.Filter.IsActive"
+                               asp-route-role="@Model.Filter.Role"
+                               asp-route-sortBy="@Model.Filter.SortBy"
+                               asp-route-sortOrder="@Model.Filter.SortOrder">Next</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
     </div>
 </div>

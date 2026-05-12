@@ -51,10 +51,14 @@ builder.Services.AddScoped<IAdminComboRepo, AdminComboRepo>();
 builder.Services.AddScoped<IAdminOrderRepo, AdminOrderRepo>();
 //customer
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+builder.Services.AddScoped<IFoodRepo, FoodRepo>();
 
 // Business Services
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IComboService, ComboService>();
+builder.Services.AddScoped<ICategoryesService, CategoryesService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICustomerFoodService, CustomerFoodService>();
 
 var app = builder.Build();
 

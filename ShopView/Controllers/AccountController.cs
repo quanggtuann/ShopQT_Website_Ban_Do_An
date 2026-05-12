@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
-
+using ShopView.ViewModels;
 namespace ShopView.Controllers
 {
     public class AccountController : Controller
@@ -101,23 +101,6 @@ namespace ShopView.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-    }
-
-    public class RegisterViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public DateTime DateofBirth { get; set; }
-    }
-
-    public class LoginResponse
-    {
-        public int userId { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
-        public string role { get; set; }
     }
 }
 

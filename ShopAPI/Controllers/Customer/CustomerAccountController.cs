@@ -31,7 +31,6 @@ namespace ShopAPI.Controllers
               return BadRequest(new { success = false, message = ex.Message });
             }
         }
-
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
@@ -78,7 +77,6 @@ namespace ShopAPI.Controllers
         {
             if (id != user.UserID)
                 return BadRequest("ID mismatch");
-
             try
             {
                 _accountRepo.Update(user);

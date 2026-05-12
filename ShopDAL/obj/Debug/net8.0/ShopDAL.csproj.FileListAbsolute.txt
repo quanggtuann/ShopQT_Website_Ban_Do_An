@@ -152,5 +152,4 @@ d:\ShopDAL\ShopDAL\obj\Debug\net8.0\refint\ShopDAL.dll
 d:\ShopDAL\ShopDAL\obj\Debug\net8.0\ShopDAL.pdb
 d:\ShopDAL\ShopDAL\obj\Debug\net8.0\ShopDAL.genruntimeconfig.cache
 d:\ShopDAL\ShopDAL\obj\Debug\net8.0\ref\ShopDAL.dll
-D:\ShopDAL\ShopDAL\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\ShopDAL\ShopDAL\obj\Debug\net8.0\ShopDAL.sourcelink.json

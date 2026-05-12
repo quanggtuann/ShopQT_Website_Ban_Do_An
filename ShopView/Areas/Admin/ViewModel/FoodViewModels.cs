@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShopView.Areas.Admin.Models
 {
-    // For Food Index
     public class FoodIndexViewModel
     {
         public FoodItemFilterViewModel Filter { get; set; }
@@ -12,7 +11,6 @@ namespace ShopView.Areas.Admin.Models
         public List<SelectListItem> Categories { get; set; } = new();
         public string ImageBaseUrl { get; set; }
     }
-
     public class FoodItemFilterViewModel
     {
         public string? Keyword { get; set; }
@@ -24,7 +22,6 @@ namespace ShopView.Areas.Admin.Models
         public int page { get; set; }
         public int pageSize { get; set; }
     }
-
     public class FoodItemDto
     {
         public int FoodItemID { get; set; }
@@ -36,27 +33,19 @@ namespace ShopView.Areas.Admin.Models
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
     }
-
-    // For Create/Edit
     public class FoodItemCreateViewModel
     {
         [Required]
         [StringLength(200)]
         public string Name { get; set; }
-
         public string? Description { get; set; }
-
         [Required]
         [Range(0.01, double.MaxValue)]
         public decimal Price { get; set; }
-
         [Required]
         public int CategoryId { get; set; }
-
         public bool IsAvailable { get; set; } = true;
     }
-
-    // Category DTO for dropdown
     public class CategoryDto
     {
         public int CategoryId { get; set; }

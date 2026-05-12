@@ -12,40 +12,54 @@
         ],
         "parameters": [
           {
-            "name": "keyword",
+            "name": "Keyword",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "isActive",
+            "name": "IsActive",
             "in": "query",
             "schema": {
               "type": "boolean"
             }
           },
           {
-            "name": "role",
+            "name": "Role",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "sortBy",
+            "name": "SortBy",
             "in": "query",
             "schema": {
-              "type": "string",
-              "default": "id"
+              "type": "string"
             }
           },
           {
-            "name": "sortOrder",
+            "name": "SortOrder",
             "in": "query",
             "schema": {
-              "type": "string",
-              "default": "asc"
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -149,7 +163,7 @@
       }
     },
     "/api/Accounts/{id}/deactivate": {
-      "post": {
+      "patch": {
         "tags": [
           "Accounts"
         ],
@@ -172,7 +186,7 @@
       }
     },
     "/api/Accounts/{id}/activate": {
-      "post": {
+      "patch": {
         "tags": [
           "Accounts"
         ],
@@ -222,17 +236,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CreateCategoryRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CreateCategoryRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CreateCategoryRequest"
               }
             }
           }
@@ -285,17 +299,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/UpdateCategoryRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/UpdateCategoryRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/UpdateCategoryRequest"
               }
             }
           }
@@ -764,6 +778,124 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/customer/foods": {
+      "get": {
+        "tags": [
+          "CustomerFoods"
+        ],
+        "parameters": [
+          {
+            "name": "Keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PriceFrom",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "PriceTo",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "categoryID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "FoodItems",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/FoodItem"
+              }
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/customer/foods/{id}": {
+      "get": {
+        "tags": [
+          "CustomerFoods"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1520,6 +1652,16 @@
         },
         "additionalProperties": false
       },
+      "CreateCategoryRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "FoodItem": {
         "required": [
           "name"
@@ -1695,6 +1837,16 @@
         "type": "integer",
         "format": "int32"
       },
+      "UpdateCategoryRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "User": {
         "required": [
           "dateorBirth",
@@ -1792,6 +1944,9 @@
     },
     {
       "name": "CustomerAccount"
+    },
+    {
+      "name": "CustomerFoods"
     },
     {
       "name": "Foods"

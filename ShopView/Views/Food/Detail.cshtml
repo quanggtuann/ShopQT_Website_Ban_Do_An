@@ -1,0 +1,26 @@
+@model ShopAPI.DTOs.FoodItemDto
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = "Food Detail";
+    var imageBaseUrl = ViewBag.ImageBaseUrl as string ?? "https://localhost:7130/";
+}
+
+<div class="container">
+    <div class="section-header text-center">
+        <p>Food Detail</p>
+        <h2>@Model.Name</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="@(string.IsNullOrWhiteSpace(Model.ImagePath) ? "https://via.placeholder.com/700x450?text=Food" : imageBaseUrl + Model.ImagePath)"
+                 class="img-fluid rounded" />
+        </div>
+        <div class="col-md-6">
+            <h4 class="text-success mb-3">@Model.Price.ToString("N0") VND</h4>
+            <p>@Model.Description</p>
+            <p><strong>Category:</strong> @(Model.Category?.Name ?? "N/A")</p>
+            <a asp-controller="Food" asp-action="Index" class="btn custom-btn">Back to menu</a>
+        </div>
+    </div>
+</div>
