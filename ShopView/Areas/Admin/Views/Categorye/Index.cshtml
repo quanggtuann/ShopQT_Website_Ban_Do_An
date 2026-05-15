@@ -1,88 +1,447 @@
 @using ShopView.Areas.Admin.Models
 @model IEnumerable<CategoryViewModel>
 
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Admin/</span> Category Management
-    </h4>
+<style>
 
+    body {
+        background: #f4f7fb;
+    }
+
+    .category-page {
+        max-width: 1450px;
+        margin: auto;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+
+        .page-header h2 {
+            font-size: 40px;
+            font-weight: 900;
+            color: #111827;
+            margin: 0;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+    .btn-create {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white;
+        padding: 14px 28px;
+        border-radius: 18px;
+        font-weight: 800;
+        transition: .3s;
+        box-shadow: 0 10px 25px rgba(105,108,255,.25);
+    }
+
+        .btn-create:hover {
+            transform: translateY(-3px);
+            color: white;
+            box-shadow: 0 18px 35px rgba(105,108,255,.35);
+        }
+
+    .alert {
+        border: none;
+        border-radius: 18px;
+        padding: 18px 22px;
+        font-weight: 700;
+        box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
+
+    .table-card {
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0,0,0,.06);
+    }
+
+    .table-header {
+        padding: 28px 35px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .table-header h4 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+    .category-table {
+        margin: 0;
+    }
+
+        .category-table thead {
+            background: #f8fafc;
+        }
+
+        .category-table th {
+            border: none;
+            padding: 22px;
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .category-table td {
+            padding: 22px;
+            vertical-align: middle;
+            border-top: 1px solid #f1f5f9;
+        }
+
+    .category-row {
+        transition: .25s;
+    }
+
+        .category-row:hover {
+            background: #fafcff;
+        }
+
+    .category-id {
+        font-weight: 800;
+        color: #696cff;
+        font-size: 15px;
+    }
+
+    .category-name {
+        font-size: 17px;
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .category-sub {
+        color: #9ca3af;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .badge-active {
+        background: rgba(16,185,129,.12);
+        color: #10b981;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .badge-inactive {
+        background: rgba(239,68,68,.12);
+        color: #ef4444;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .action-btn {
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 14px;
+        background: #f3f4f6;
+        transition: .25s;
+    }
+
+        .action-btn:hover {
+            background: #696cff;
+            color: white;
+        }
+
+    .dropdown-menu {
+        border: none;
+        border-radius: 18px;
+        padding: 10px;
+        box-shadow: 0 15px 35px rgba(0,0,0,.1);
+    }
+
+    .dropdown-item {
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-weight: 700;
+        transition: .2s;
+    }
+
+        .dropdown-item:hover {
+            background: #f3f4f6;
+        }
+
+    .empty-box {
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+        .empty-box i {
+            font-size: 70px;
+            color: #d1d5db;
+            margin-bottom: 20px;
+        }
+
+        .empty-box h5 {
+            font-weight: 800;
+            color: #374151;
+        }
+
+        .empty-box p {
+            color: #9ca3af;
+        }
+
+    @@media(max-width:992px) {
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .category-table {
+            min-width: 850px;
+        }
+    }
+</style>
+
+<div class="container-xxl py-4 category-page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+
+        <div>
+
+            <h2>Category Management</h2>
+
+            <p>
+                Manage all food categories professionally and beautifully
+            </p>
+
+        </div>
+
+        <a href="/Admin/Categorye/Create"
+           class="btn btn-create">
+
+            <i class="bx bx-plus me-2"></i>
+            Create New Category
+
+        </a>
+
+    </div>
+
+    <!-- ALERT -->
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success">
+        <div class="alert alert-success mb-4">
             @TempData["SuccessMessage"]
         </div>
     }
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger mb-4">
             @TempData["ErrorMessage"]
         </div>
     }
 
-    <div class="text-end mb-4">
-        <a href="/Admin/Categorye/Create" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i> Create New Category
-        </a>
-    </div>
+    <!-- TABLE -->
+    <div class="table-card">
 
-    <div class="card">
-        <h5 class="card-header">Category List</h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table">
+        <div class="table-header">
+
+            <h4>
+                Category List
+            </h4>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table category-table">
+
                 <thead>
+
                     <tr>
+
                         <th>ID</th>
-                        <th>Name</th>
+
+                        <th>Category Name</th>
+
                         <th>Status</th>
-                        <th>Actions</th>
+
+                        <th class="text-center">
+                            Actions
+                        </th>
+
                     </tr>
+
                 </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach (var category in Model)
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var category in Model)
+                        {
+                            <tr class="category-row">
+
+                                <td>
+
+                                    <div class="category-id">
+                                        #@category.CategoryId
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="category-name">
+                                        @category.Name
+                                    </div>
+
+                                    <div class="category-sub">
+                                        Food Category
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    @if (category.IsActive)
+                                    {
+                                        <span class="badge-active">
+                                            Active
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-inactive">
+                                            Inactive
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    <div class="dropdown">
+
+                                        <button type="button"
+                                                class="action-btn"
+                                                data-bs-toggle="dropdown">
+
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+
+                                        </button>
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+
+                                            <a class="dropdown-item"
+                                               asp-action="Edit"
+                                               asp-route-id="@category.CategoryId">
+
+                                                <i class="bx bx-edit-alt me-2"></i>
+                                                Edit
+
+                                            </a>
+
+                                            @if (category.IsActive)
+                                            {
+                                                <form asp-area="Admin"
+                                                      asp-controller="Categorye"
+                                                      asp-action="Deaction"
+                                                      method="post">
+
+                                                    <input type="hidden"
+                                                           name="id"
+                                                           value="@category.CategoryId" />
+
+                                                    <button type="submit"
+                                                            class="dropdown-item text-danger"
+                                                            onclick="return confirm('Deactivate this category?');">
+
+                                                        <i class="bx bx-trash me-2"></i>
+                                                        Deactivate
+
+                                                    </button>
+
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-area="Admin"
+                                                      asp-controller="Categorye"
+                                                      asp-action="Action"
+                                                      method="post">
+
+                                                    <input type="hidden"
+                                                           name="id"
+                                                           value="@category.CategoryId" />
+
+                                                    <button type="submit"
+                                                            class="dropdown-item text-success"
+                                                            onclick="return confirm('Activate this category?');">
+
+                                                        <i class="bx bx-check-circle me-2"></i>
+                                                        Activate
+
+                                                    </button>
+
+                                                </form>
+                                            }
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td>@category.CategoryId</td>
-                            <td>@category.Name</td>
-                            <td>
-                                <span class="badge @((category.IsActive ? "bg-label-success" : "bg-label-danger"))">
-                                    @(category.IsActive ? "Active" : "Inactive")
-                                </span>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@category.CategoryId">
-                                            <i class="bx bx-edit-alt me-1"></i> Edit
-                                        </a>
-                                        @if (category.IsActive)
-                                        {
-                                            <form asp-area="Admin" asp-controller="Categorye" asp-action="Deaction" method="post" style="display:inline;">
-                                                <input type="hidden" name="id" value="@category.CategoryId" />
-                                                <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure you want to deactivate this category?');">
-                                                    <i class="bx bx-trash me-1"></i> Deactivate
-                                                </button>
-                                            </form>
-                                        }
-                                        else
-                                        {
-                                            <form asp-area="Admin" asp-controller="Categorye" asp-action="Action" method="post" style="display:inline;">
-                                                <input type="hidden" name="id" value="@category.CategoryId" />
-                                                <button type="submit" class="dropdown-item text-success" onclick="return confirm('Are you sure you want to activate this category?');">
-                                                    <i class="bx bx-check-circle me-1"></i> Activate
-                                                </button>
-                                            </form>
-                                        }
-                                    </div>
+
+                            <td colspan="4">
+
+                                <div class="empty-box">
+
+                                    <i class="bx bx-category"></i>
+
+                                    <h5>
+                                        No Categories Found
+                                    </h5>
+
+                                    <p>
+                                        Start by creating your first category
+                                    </p>
+
                                 </div>
+
                             </td>
+
                         </tr>
                     }
+
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
+
 </div>

@@ -4,31 +4,208 @@
     ViewData["Title"] = "Food Menu";
 }
 
-<div class="container">
-    <div class="section-header text-center">
-        <p>Food Menu</p>
-        <h2>Delicious Food Menu</h2>
-    </div>
-
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+<style>
+    body {
+        background: #f4f7fb;
     }
 
-    <form method="get" asp-controller="Food" asp-action="Index" class="p-3 mb-4" style="background:#f7fbf2;border:1px solid #e2f0d8;">
+    .section-title {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+        .section-title h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 17px;
+        }
+
+    .filter-box {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.06);
+        margin-bottom: 40px;
+    }
+
+        .filter-box .form-control {
+            border-radius: 12px;
+            height: 48px;
+            border: 1px solid #e4e4e4;
+            box-shadow: none;
+        }
+
+    .btn-food {
+        background: linear-gradient(45deg,#ff6b35,#ff9f1c);
+        border: none;
+        color: white;
+        border-radius: 12px;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-food:hover {
+            transform: translateY(-2px);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255,107,53,.3);
+        }
+
+    .food-card {
+        background: white;
+        border-radius: 22px;
+        overflow: hidden;
+        transition: .35s;
+        box-shadow: 0 10px 30px rgba(0,0,0,.06);
+        height: 100%;
+    }
+
+        .food-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.12);
+        }
+
+    .food-image {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .food-content {
+        padding: 22px;
+    }
+
+    .food-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .food-description {
+        color: #777;
+        height: 50px;
+        overflow: hidden;
+    }
+
+    .food-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .food-price {
+        font-size: 28px;
+        font-weight: 800;
+        color: #ff6b35;
+    }
+
+    .btn-detail {
+        background: #111;
+        color: white;
+        border-radius: 10px;
+        padding: 10px 18px;
+        transition: .3s;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .btn-detail:hover {
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+        }
+
+    .pagination {
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    .page-link {
+        border: none;
+        margin: 0 6px;
+        border-radius: 12px !important;
+        color: #111;
+        padding: 12px 18px;
+        font-weight: 600;
+        box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    }
+
+    .page-item.active .page-link {
+        background: linear-gradient(45deg,#ff6b35,#ff9f1c);
+        color: white;
+    }
+
+    .empty-box {
+        background: white;
+        padding: 60px;
+        text-align: center;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
+
+    @@media(max-width:768px) {
+
+        .section-title h1 {
+            font-size: 34px;
+        }
+
+        .food-card {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+<div class="container py-5">
+
+    <!-- TITLE -->
+    <div class="section-title">
+        <h1>Food Menu</h1>
+        <p>Explore our delicious dishes made with passion</p>
+    </div>
+
+    <!-- FILTER -->
+    <form method="get" asp-controller="Food" asp-action="Index" class="filter-box">
+
         <div class="row">
-            <div class="col-md-4 mb-2">
-                <input type="text" class="form-control" name="Keyword" value="@Model.Filter.Keyword" placeholder="Search by name/description" />
+
+            <div class="col-lg-4 mb-3">
+                <input type="text"
+                       class="form-control"
+                       name="Keyword"
+                       value="@Model.Filter.Keyword"
+                       placeholder="Search delicious food..." />
             </div>
-            <div class="col-md-2 mb-2">
-                <input type="number" step="0.01" class="form-control" name="PriceFrom" value="@Model.Filter.PriceFrom" placeholder="Min price" />
+
+            <div class="col-lg-2 mb-3">
+                <input type="number"
+                       step="0.01"
+                       class="form-control"
+                       name="PriceFrom"
+                       value="@Model.Filter.PriceFrom"
+                       placeholder="Min price" />
             </div>
-            <div class="col-md-2 mb-2">
-                <input type="number" step="0.01" class="form-control" name="PriceTo" value="@Model.Filter.PriceTo" placeholder="Max price" />
+
+            <div class="col-lg-2 mb-3">
+                <input type="number"
+                       step="0.01"
+                       class="form-control"
+                       name="PriceTo"
+                       value="@Model.Filter.PriceTo"
+                       placeholder="Max price" />
             </div>
-            <div class="col-md-2 mb-2">
+
+            <div class="col-lg-2 mb-3">
                 <select class="form-control" name="categoryID">
-                    <option value="">All categories</option>
+
+                    <option value="">All Categories</option>
+
                     @foreach (var c in Model.Categories)
                     {
                         if (Model.Filter.categoryID == c.CategoryId)
@@ -40,10 +217,13 @@
                             <option value="@c.CategoryId">@c.Name</option>
                         }
                     }
+
                 </select>
             </div>
-            <div class="col-md-1 mb-2">
+
+            <div class="col-lg-1 mb-3">
                 <select class="form-control" name="SortBy">
+
                     @if (Model.Filter.SortBy?.ToLower() == "price")
                     {
                         <option value="name">Name</option>
@@ -54,10 +234,13 @@
                         <option value="name" selected>Name</option>
                         <option value="price">Price</option>
                     }
+
                 </select>
             </div>
-            <div class="col-md-1 mb-2">
+
+            <div class="col-lg-1 mb-3">
                 <select class="form-control" name="SortOrder">
+
                     @if (Model.Filter.SortOrder?.ToLower() == "desc")
                     {
                         <option value="asc">Asc</option>
@@ -68,49 +251,98 @@
                         <option value="asc" selected>Asc</option>
                         <option value="desc">Desc</option>
                     }
+
                 </select>
             </div>
+
         </div>
+
         <input type="hidden" name="pageSize" value="@Model.Filter.pageSize" />
-        <button type="submit" class="btn custom-btn mt-2">Apply Filters</button>
+
+        <button type="submit" class="btn btn-food">
+            Apply Filters
+        </button>
+
     </form>
 
+    <!-- ERROR -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-pill shadow-sm">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- FOOD LIST -->
     <div class="row">
+
         @if (Model.PagedResult.Data == null || !Model.PagedResult.Data.Any())
         {
             <div class="col-12">
-                <div class="alert alert-info">No foods found.</div>
+                <div class="empty-box">
+                    <h3>No Foods Found</h3>
+                    <p>Try another keyword or category.</p>
+                </div>
             </div>
         }
         else
         {
             @foreach (var item in Model.PagedResult.Data)
             {
-                <div class="col-md-6 mb-3">
-                    <div class="d-flex align-items-center p-2" style="border:1px solid #efefef;border-radius:6px;">
-                        <img src="@(string.IsNullOrWhiteSpace(item.ImagePath) ? "https://via.placeholder.com/80x80?text=Food" : Model.ImageBaseUrl + item.ImagePath)"
-                             style="width:80px;height:80px;object-fit:cover;border-radius:50%;margin-right:15px;" />
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">@item.Name</h5>
-                            <small class="text-muted">@item.Description</small>
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="food-card">
+
+                        <img class="food-image"
+                             src="@(string.IsNullOrWhiteSpace(item.ImagePath)
+                                 ? "https://via.placeholder.com/500x400?text=Food"
+                                 : Model.ImageBaseUrl + item.ImagePath)" />
+
+                        <div class="food-content">
+
+                            <div class="food-title">
+                                @item.Name
+                            </div>
+
+                            <div class="food-description">
+                                @item.Description
+                            </div>
+
+                            <div class="food-footer">
+
+                                <div class="food-price">
+                                    @item.Price.ToString("N0")đ
+                                </div>
+
+                                <a asp-controller="Food"
+                                   asp-action="Detail"
+                                   asp-route-id="@item.FoodItemId"
+                                   class="btn-detail">
+                                    View Detail
+                                </a>
+
+                            </div>
+
                         </div>
-                        <div class="text-right">
-                            <div class="font-weight-bold text-success mb-2">@item.Price.ToString("N0") VND</div>
-                            <a asp-controller="Food" asp-action="Detail" asp-route-id="@item.FoodItemId" class="btn btn-sm btn-outline-success">Detail</a>
-                        </div>
+
                     </div>
+
                 </div>
             }
         }
+
     </div>
 
+    <!-- PAGINATION -->
     @if (Model.PagedResult.TotalPages > 1)
     {
         <nav>
             <ul class="pagination">
+
                 @for (var i = 1; i <= Model.PagedResult.TotalPages; i++)
                 {
                     <li class="page-item @(i == Model.PagedResult.CurrentPage ? "active" : "")">
+
                         <a class="page-link"
                            asp-controller="Food"
                            asp-action="Index"
@@ -121,10 +353,18 @@
                            asp-route-PriceFrom="@Model.Filter.PriceFrom"
                            asp-route-PriceTo="@Model.Filter.PriceTo"
                            asp-route-SortBy="@Model.Filter.SortBy"
-                           asp-route-SortOrder="@Model.Filter.SortOrder">@i</a>
+                           asp-route-SortOrder="@Model.Filter.SortOrder">
+
+                            @i
+
+                        </a>
+
                     </li>
                 }
+
             </ul>
         </nav>
     }
+
 </div>
+```

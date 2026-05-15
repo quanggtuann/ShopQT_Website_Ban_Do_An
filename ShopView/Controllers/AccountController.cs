@@ -79,10 +79,14 @@ namespace ShopView.Controllers
                     HttpContext.Session.SetString("Username", result.username);
                     HttpContext.Session.SetString("UserRole", result.role);
 
+                    if (result.role == "customer")
+                    {
+                        return RedirectToAction("Index", "Food");
+                    }
                     if (result.role == "admin")
-                        return RedirectToAction("Index", "Account", new { area = "Admin" });
-                    else
-                        return RedirectToAction("Index", "Home");
+                    {
+                        return Redirect("/Admin/Home/Index");
+                    }
                 }
 
                 ViewBag.Error = "Invalid username or password";

@@ -1,96 +1,452 @@
 @using ShopView.Areas.Admin.Models
 @model FoodItemDto
 
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Admin/</span> Food Management
-    </h4>
+<style>
 
-    <div class="card">
-        <h5 class="card-header">Edit Food #@Model.FoodItemID</h5>
-        <div class="card-body">
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="alert alert-success">
-                    @TempData["SuccessMessage"]
-                </div>
-            }
+    body {
+        background: #f4f7fb;
+    }
 
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger">
-                    @TempData["ErrorMessage"]
-                </div>
-            }
+    .food-edit-page {
+        max-width: 1100px;
+        margin: auto;
+    }
 
-            <form asp-area="Admin" asp-action="Edit" asp-controller="Food" asp-route-id="@Model.FoodItemID" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="FoodItemID" value="@Model.FoodItemID" />
-                <input type="hidden" asp-for="ImagePath" />
+    .page-header {
+        margin-bottom: 35px;
+    }
 
-                <div class="mb-3">
-                    <label asp-for="Name" class="form-label"></label>
-                    <input asp-for="Name" class="form-control" placeholder="Enter food name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Description" class="form-label"></label>
-                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="CategoryId" class="form-label">Category</label>
-                    @Html.DropDownListFor(model => model.CategoryId,
-                             new SelectList((IEnumerable<SelectListItem>)ViewBag.Categories ?? new List<SelectListItem>(), "Value", "Text"),
-                             "Select Category",
-                             new { @class = "form-select" })
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Price" class="form-label"></label>
-                    <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="Enter price" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
+        .page-header h2 {
+            font-size: 40px;
+            font-weight: 900;
+            color: #111827;
+            margin-bottom: 10px;
+        }
 
-                <div class="mb-3">
-                    <label class="form-label">Current Image</label>
-                    @if (!string.IsNullOrEmpty(Model.ImagePath))
-                    {
-                        <div>
-                            <img src="@((ViewBag.ImageBaseUrl ?? "") + Model.ImagePath)" alt="Food Image" class="img-fluid rounded" style="max-height: 150px; margin-bottom: 10px;" />
-                            <p>Current File: <strong>@System.IO.Path.GetFileName(Model.ImagePath)</strong></p>
-                        </div>
-                    }
-                    else
-                    {
-                        <p>No image uploaded yet.</p>
-                    }
-                </div>
+        .page-header p {
+            color: #6b7280;
+            font-size: 16px;
+            margin: 0;
+        }
 
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Upload New Image</label>
-                    <input type="file" class="form-control" id="formFile" name="formFile" accept="image/*" />
-                    <small class="form-text text-muted">Leave empty if you don't want to change the image.</small>
-                </div>
+    .modern-card {
+        background: white;
+        border: none;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0,0,0,.06);
+    }
 
-                <div class="mb-3">
-                    <label asp-for="IsAvailable" class="form-label">Status</label>
-                    <div class="form-check">
-                        <input asp-for="IsAvailable" class="form-check-input" type="radio" value="true" />
-                        <label class="form-check-label">Active</label>
-                    </div>
-                    <div class="form-check">
-                        <input asp-for="IsAvailable" class="form-check-input" type="radio" value="false" />
-                        <label class="form-check-label">Inactive</label>
-                    </div>
-                </div>
+    .card-header-modern {
+        padding: 30px 35px;
+        border-bottom: 1px solid #f1f5f9;
+    }
 
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
-        </div>
+        .card-header-modern h4 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 900;
+            color: #111827;
+        }
+
+        .card-header-modern p {
+            margin-top: 8px;
+            color: #6b7280;
+        }
+
+    .card-body-modern {
+        padding: 35px;
+    }
+
+    .modern-label {
+        font-size: 14px;
+        font-weight: 800;
+        color: #374151;
+        margin-bottom: 10px;
+    }
+
+    .modern-input,
+    .modern-select,
+    .modern-textarea {
+        border-radius: 18px !important;
+        border: 1px solid #e5e7eb !important;
+        min-height: 56px;
+        padding: 14px 18px !important;
+        box-shadow: none !important;
+        transition: .25s;
+    }
+
+    .modern-textarea {
+        min-height: 140px;
+        resize: none;
+    }
+
+        .modern-input:focus,
+        .modern-select:focus,
+        .modern-textarea:focus {
+            border-color: #696cff !important;
+            box-shadow: 0 0 0 4px rgba(105,108,255,.12) !important;
+        }
+
+    .image-preview-box {
+        background: #f9fafb;
+        border: 2px dashed #d1d5db;
+        border-radius: 24px;
+        padding: 25px;
+        text-align: center;
+    }
+
+    .food-image {
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 24px;
+        box-shadow: 0 12px 30px rgba(0,0,0,.1);
+        margin-bottom: 18px;
+    }
+
+    .status-box {
+        background: #f9fafb;
+        border-radius: 20px;
+        padding: 20px;
+    }
+
+    .form-check-modern {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        transition: .25s;
+    }
+
+        .form-check-modern:hover {
+            border-color: #696cff;
+            background: #fafbff;
+        }
+
+    .form-check-input:checked {
+        background-color: #696cff;
+        border-color: #696cff;
+    }
+
+    .btn-update {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white;
+        padding: 14px 34px;
+        border-radius: 18px;
+        font-weight: 800;
+        transition: .3s;
+        box-shadow: 0 10px 25px rgba(105,108,255,.25);
+    }
+
+        .btn-update:hover {
+            transform: translateY(-3px);
+            color: white;
+            box-shadow: 0 18px 35px rgba(105,108,255,.35);
+        }
+
+    .btn-cancel {
+        border-radius: 18px;
+        padding: 14px 30px;
+        font-weight: 800;
+    }
+
+    .alert {
+        border: none;
+        border-radius: 20px;
+        padding: 18px 22px;
+        font-weight: 700;
+        box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
+
+    .text-danger {
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+    }
+
+    @@media(max-width:768px) {
+
+        .card-body-modern {
+            padding: 25px;
+        }
+
+        .food-image {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+<div class="container-xxl py-4 food-edit-page">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+
+        <h2>
+            Edit Food
+        </h2>
+
+        <p>
+            Update food information professionally and beautifully
+        </p>
+
     </div>
+
+    <!-- ALERT -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mb-4">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mb-4">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- CARD -->
+    <div class="modern-card">
+
+        <div class="card-header-modern">
+
+            <h4>
+                Food #@Model.FoodItemID
+            </h4>
+
+            <p>
+                Edit food details, image, category and availability
+            </p>
+
+        </div>
+
+        <div class="card-body-modern">
+
+            <form asp-area="Admin"
+                  asp-action="Edit"
+                  asp-controller="Food"
+                  asp-route-id="@Model.FoodItemID"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <input type="hidden"
+                       name="FoodItemID"
+                       value="@Model.FoodItemID" />
+
+                <input type="hidden"
+                       asp-for="ImagePath" />
+
+                <div class="row">
+
+                    <!-- LEFT -->
+                    <div class="col-lg-8">
+
+                        <div class="mb-4">
+
+                            <label asp-for="Name"
+                                   class="modern-label">
+                            </label>
+
+                            <input asp-for="Name"
+                                   class="form-control modern-input"
+                                   placeholder="Enter food name" />
+
+                            <span asp-validation-for="Name"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Description"
+                                   class="modern-label">
+                            </label>
+
+                            <textarea asp-for="Description"
+                                      class="form-control modern-textarea"
+                                      placeholder="Enter food description"></textarea>
+
+                            <span asp-validation-for="Description"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-4">
+
+                                <label asp-for="CategoryId"
+                                       class="modern-label">
+
+                                    Category
+
+                                </label>
+
+                                @Html.DropDownListFor(model => model.CategoryId,
+                                         new SelectList((IEnumerable<SelectListItem>)ViewBag.Categories ?? new List<SelectListItem>(), "Value", "Text"),
+                                         "Select Category",
+                                         new { @class = "form-select modern-select" })
+
+                                <span asp-validation-for="CategoryId"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+
+                                <label asp-for="Price"
+                                       class="modern-label">
+                                </label>
+
+                                <input asp-for="Price"
+                                       type="number"
+                                       step="0.01"
+                                       class="form-control modern-input"
+                                       placeholder="Enter price" />
+
+                                <span asp-validation-for="Price"
+                                      class="text-danger">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- STATUS -->
+                        <div class="status-box">
+
+                            <label class="modern-label mb-3">
+                                Food Status
+                            </label>
+
+                            <div class="form-check-modern">
+
+                                <input asp-for="IsAvailable"
+                                       class="form-check-input me-2"
+                                       type="radio"
+                                       value="true"
+                                       id="activeStatus" />
+
+                                <label class="form-check-label fw-bold"
+                                       for="activeStatus">
+
+                                    Active
+
+                                </label>
+
+                            </div>
+
+                            <div class="form-check-modern">
+
+                                <input asp-for="IsAvailable"
+                                       class="form-check-input me-2"
+                                       type="radio"
+                                       value="false"
+                                       id="inactiveStatus" />
+
+                                <label class="form-check-label fw-bold"
+                                       for="inactiveStatus">
+
+                                    Inactive
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div class="col-lg-4">
+
+                        <div class="image-preview-box">
+
+                            <label class="modern-label d-block mb-3">
+                                Current Image
+                            </label>
+
+                            @if (!string.IsNullOrEmpty(Model.ImagePath))
+                            {
+                                <img src="@((ViewBag.ImageBaseUrl ?? "") + Model.ImagePath)"
+                                     alt="Food Image"
+                                     class="food-image" />
+
+                                <div class="fw-bold text-dark mb-2">
+                                    @System.IO.Path.GetFileName(Model.ImagePath)
+                                </div>
+                            }
+                            else
+                            {
+                                <img src="https://via.placeholder.com/300x300?text=No+Image"
+                                     class="food-image" />
+
+                                <div class="text-muted fw-semibold">
+                                    No image uploaded
+                                </div>
+                            }
+
+                            <div class="mt-4">
+
+                                <label for="formFile"
+                                       class="modern-label">
+
+                                    Upload New Image
+
+                                </label>
+
+                                <input type="file"
+                                       class="form-control modern-input"
+                                       id="formFile"
+                                       name="formFile"
+                                       accept="image/*" />
+
+                                <small class="text-muted d-block mt-2">
+                                    Leave empty if you don't want to change image
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="d-flex justify-content-end gap-3 mt-5">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary btn-cancel">
+
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-update">
+
+                        <i class="bx bx-save me-2"></i>
+                        Update Food
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </div>
 
 @section Scripts {

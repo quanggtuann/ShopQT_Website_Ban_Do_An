@@ -1,193 +1,791 @@
 ﻿@using ShopView.Areas.Admin.Models
 @model ComboIndexViewModel
 
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Admin/</span> Combo Management
-    </h4>
+<style>
 
-    <div class="text-end mb-4">
-        <a href="/Admin/Combo/Create" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i> Create New Combo
+    body {
+        background: #f5f7ff;
+    }
+
+    .combo-page {
+        max-width: 1700px;
+        margin: auto;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        gap: 20px;
+    }
+
+    .page-title {
+        font-size: 40px;
+        font-weight: 900;
+        color: #111827;
+        margin: 0;
+        letter-spacing: -.5px;
+    }
+
+    .page-subtitle {
+        color: #6b7280;
+        margin-top: 8px;
+        font-size: 15px;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white !important;
+        padding: 14px 26px;
+        border-radius: 18px;
+        font-weight: 800;
+        box-shadow: 0 10px 25px rgba(105,108,255,.25);
+        transition: .25s;
+    }
+
+        .btn-create:hover {
+            transform: translateY(-3px);
+        }
+
+    .modern-card {
+        background: white;
+        border-radius: 32px;
+        border: none;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,.06);
+    }
+
+    .filter-section {
+        padding: 35px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 28px;
+    }
+
+    .modern-label {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #4b5563;
+    }
+
+    .modern-input,
+    .modern-select {
+        min-height: 56px;
+        border-radius: 18px !important;
+        border: 1px solid #e5e7eb !important;
+        padding: 14px 18px !important;
+        box-shadow: none !important;
+        transition: .2s;
+    }
+
+        .modern-input:focus,
+        .modern-select:focus {
+            border-color: #696cff !important;
+            box-shadow: 0 0 0 4px rgba(105,108,255,.12) !important;
+        }
+
+    .btn-filter {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white;
+        border-radius: 16px;
+        padding: 14px 28px;
+        font-weight: 800;
+        transition: .2s;
+    }
+
+        .btn-filter:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    .btn-reset {
+        border-radius: 16px;
+        padding: 14px 28px;
+        font-weight: 800;
+    }
+
+    .alert {
+        border: none;
+        border-radius: 20px;
+        padding: 18px 22px;
+        font-weight: 700;
+    }
+
+    .table-card {
+        background: white;
+        border-radius: 32px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,.06);
+    }
+
+    .table-header {
+        padding: 28px 35px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .table-header h4 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 900;
+            color: #111827;
+        }
+
+    .combo-table {
+        margin: 0;
+    }
+
+        .combo-table thead {
+            background: #f8fafc;
+        }
+
+        .combo-table th {
+            border: none;
+            padding: 20px 24px;
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 800;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .combo-table td {
+            border-top: 1px solid #f1f5f9;
+            padding: 24px;
+            vertical-align: middle;
+        }
+
+    .combo-row {
+        transition: .2s;
+    }
+
+        .combo-row:hover {
+            background: #fafcff;
+        }
+
+    .combo-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 24px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
+
+    .combo-name {
+        font-size: 18px;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 4px;
+    }
+
+    .combo-type {
+        color: #9ca3af;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .combo-desc {
+        max-width: 260px;
+        color: #6b7280;
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    .combo-price {
+        color: #10b981;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    .food-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 350px;
+    }
+
+    .food-badge {
+        background: #f3f4f6;
+        color: #374151;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .food-qty {
+        background: #696cff;
+        color: white;
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 11px;
+        font-weight: 900;
+    }
+
+    .badge-active {
+        background: rgba(16,185,129,.12);
+        color: #10b981;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .badge-inactive {
+        background: rgba(239,68,68,.12);
+        color: #ef4444;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .action-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: none;
+        background: #f3f4f6;
+        transition: .2s;
+    }
+
+        .action-btn:hover {
+            background: #696cff;
+            color: white;
+        }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .dropdown-menu {
+        border: none;
+        border-radius: 18px;
+        padding: 10px;
+        box-shadow: 0 20px 40px rgba(0,0,0,.12);
+    }
+
+    .dropdown-item {
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-weight: 700;
+    }
+
+        .dropdown-item:hover {
+            background: #f3f4f6;
+        }
+
+    .pagination {
+        margin-top: 35px;
+    }
+
+    .page-link {
+        border: none;
+        margin: 0 5px;
+        border-radius: 14px !important;
+        padding: 12px 18px;
+        font-weight: 800;
+        color: #111827;
+        box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    }
+
+    .page-item.active .page-link {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        color: white;
+    }
+
+    @@media(max-width:992px) {
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .combo-table {
+            min-width: 1200px;
+        }
+
+        .filter-section {
+            padding: 25px;
+        }
+    }
+
+</style>
+
+<div class="container-xxl py-4 combo-page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+
+        <div>
+
+            <h2 class="page-title">
+                Combo Management
+            </h2>
+
+            <div class="page-subtitle">
+                Manage restaurant combos professionally and beautifully
+            </div>
+
+        </div>
+
+        <a href="/Admin/Combo/Create"
+           class="btn btn-create">
+
+            <i class="bx bx-plus me-2"></i>
+            Create New Combo
+
         </a>
+
     </div>
 
+    <!-- ALERT -->
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success">
+        <div class="alert alert-success shadow-sm mb-4">
             @TempData["SuccessMessage"]
         </div>
     }
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger shadow-sm mb-4">
             @TempData["ErrorMessage"]
         </div>
     }
 
-    <!-- Filter Form -->
-    <div class="filter-form p-4 mb-4 shadow-sm rounded bg-light">
-        <form method="get" asp-action="Index" class="needs-validation">
-            <h4 class="mb-4 text-primary text-center fw-bold">Filter Combos</h4>
+    <!-- FILTER -->
+    <div class="modern-card mb-4">
 
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold text-muted">Search by Name/Description:</label>
-                    <input type="text" name="keyWord" class="form-control" placeholder="Enter keyword" value="@Model.Filter.KeyWord" />
-                </div>
+        <div class="filter-section">
 
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold text-muted">Price Range:</label>
-                    <div class="input-group">
-                        <input type="number" name="fromPrice" class="form-control border-end-0" placeholder="Min" value="@Model.Filter.FromPrice" />
-                        <span class="input-group-text">to</span>
-                        <input type="number" name="toPrice" class="form-control border-start-0" placeholder="Max" value="@Model.Filter.ToPrice" />
+            <div class="section-title">
+                Filter Combos
+            </div>
+
+            <form method="get" asp-action="Index">
+
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="modern-label">
+                            Search Combo
+                        </label>
+
+                        <input type="text"
+                               name="keyWord"
+                               value="@Model.Filter.KeyWord"
+                               class="form-control modern-input"
+                               placeholder="Search combo name or description..." />
+
                     </div>
-                </div>
-            </div>
 
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold text-muted">Sort by:</label>
-                    <select name="sortBy" class="form-select">
-                        <option value="">-- Select --</option>
-                        <option value="Name" selected="@(Model.Filter.ShortBy == "Name")">Name</option>
-                        <option value="Price" selected="@(Model.Filter.ShortBy == "Price")">Price</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold text-muted">Sort Order:</label>
-                    <select name="sortOrder" class="form-select">
-                        <option value="asc" selected="@(Model.Filter.ShortOrder == "asc")">Ascending</option>
-                        <option value="desc" selected="@(Model.Filter.ShortOrder == "desc")">Descending</option>
-                    </select>
-                </div>
-            </div>
+                    <div class="col-lg-6 mb-4">
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm me-2">
-                    <i class="fa fa-filter"></i> Apply
-                </button>
-                <a asp-action="Index" class="btn btn-secondary btn-lg px-5 shadow-sm">
-                    <i class="fa fa-redo"></i> Reset
-                </a>
-            </div>
-        </form>
+                        <label class="modern-label">
+                            Price Range
+                        </label>
+
+                        <div class="input-group">
+
+                            <input type="number"
+                                   name="fromPrice"
+                                   value="@Model.Filter.FromPrice"
+                                   class="form-control modern-input"
+                                   placeholder="Min price" />
+
+                            <span class="input-group-text bg-white border-0">
+                                →
+                            </span>
+
+                            <input type="number"
+                                   name="toPrice"
+                                   value="@Model.Filter.ToPrice"
+                                   class="form-control modern-input"
+                                   placeholder="Max price" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="modern-label">
+                            Sort By
+                        </label>
+
+                        <select name="sortBy"
+                                class="form-select modern-select">
+
+                            <option value="">
+                                -- Select --
+                            </option>
+
+                            <option value="Name"
+                                    selected="@(Model.Filter.ShortBy == "Name")">
+
+                                Name
+
+                            </option>
+
+                            <option value="Price"
+                                    selected="@(Model.Filter.ShortBy == "Price")">
+
+                                Price
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="modern-label">
+                            Sort Order
+                        </label>
+
+                        <select name="sortOrder"
+                                class="form-select modern-select">
+
+                            <option value="asc"
+                                    selected="@(Model.Filter.ShortOrder == "asc")">
+
+                                Ascending
+
+                            </option>
+
+                            <option value="desc"
+                                    selected="@(Model.Filter.ShortOrder == "desc")">
+
+                                Descending
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+
+                    <button type="submit"
+                            class="btn btn-filter me-2">
+
+                        <i class="bx bx-filter-alt me-1"></i>
+                        Apply Filters
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary btn-reset">
+
+                        Reset
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 
-    <!-- Combo List -->
-    <div class="card">
-        <h5 class="card-header">Combo List</h5>
-        <div class="table-responsive text-nowrap">
-            <table class="table">
+    <!-- TABLE -->
+    <div class="table-card">
+
+        <div class="table-header">
+
+            <h4>
+                Combo List
+            </h4>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table combo-table">
+
                 <thead>
+
                     <tr>
+
                         <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
+
+                        <th>Combo</th>
+
                         <th>Description</th>
+
                         <th>Price</th>
+
                         <th>Food Items</th>
+
                         <th>Status</th>
-                        <th>Actions</th>
+
+                        <th class="text-center">
+                            Actions
+                        </th>
+
                     </tr>
+
                 </thead>
-                <tbody class="table-border-bottom-0">
+
+                <tbody>
+
                     @if (Model.Combos != null && Model.Combos.Any())
                     {
                         @foreach (var combo in Model.Combos)
                         {
-                            <tr>
-                                <td>@combo.ComboId</td>
+                            <tr class="combo-row">
+
                                 <td>
-                                    @if (!string.IsNullOrEmpty(combo.ImagePath))
-                                    {
-                                        <img src="@(Model.ImageBaseUrl + combo.ImagePath)" alt="Combo Image" class="rounded" style="width: 50px; height: 50px;" />
-                                    }
-                                    else
-                                    {
-                                        <span>No image</span>
-                                    }
+                                    <strong>#@combo.ComboId</strong>
                                 </td>
-                                <td>@combo.Name</td>
-                                <td>@(combo.Description?.Length > 50 ? combo.Description.Substring(0, 50) + "..." : combo.Description)</td>
-                                <td>@combo.Price.ToString("N0") VND</td>
+
                                 <td>
+
+                                    <div class="d-flex align-items-center gap-3">
+
+                                        @if (!string.IsNullOrEmpty(combo.ImagePath))
+                                        {
+                                            <img src="@(Model.ImageBaseUrl + combo.ImagePath)"
+                                                 class="combo-image" />
+                                        }
+                                        else
+                                        {
+                                            <img src="https://via.placeholder.com/100x100?text=Combo"
+                                                 class="combo-image" />
+                                        }
+
+                                        <div>
+
+                                            <div class="combo-name">
+                                                @combo.Name
+                                            </div>
+
+                                            <div class="combo-type">
+                                                Restaurant Combo
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="combo-desc">
+
+                                        @(combo.Description?.Length > 80
+                                            ? combo.Description.Substring(0, 80) + "..."
+                                            : combo.Description)
+
+                                    </div>
+
+                                </td>
+
+                                <td class="combo-price">
+
+                                    @combo.Price.ToString("N0") VND
+
+                                </td>
+
+                                <td>
+
                                     @if (combo.FoodItems != null && combo.FoodItems.Any())
                                     {
-                                        <small>
-                                            @string.Join(", ", combo.FoodItems.Select(f => $"{f.FoodName} x{f.Quantity}"))
-                                        </small>
+                                        <div class="food-list">
+
+                                            @foreach (var item in combo.FoodItems)
+                                            {
+                                                <div class="food-badge">
+
+                                                    <span>
+                                                        @item.FoodName
+                                                    </span>
+
+                                                    <span class="food-qty">
+                                                        x@(item.Quantity)
+                                                    </span>
+
+                                                </div>
+                                            }
+
+                                        </div>
                                     }
                                     else
                                     {
-                                        <span class="text-muted">-</span>
+                                        <span class="text-muted">
+                                            No foods
+                                        </span>
                                     }
+
                                 </td>
+
                                 <td>
-                                    <span class="badge @((combo.IsVaiLabel ? "bg-label-success" : "bg-label-danger"))">
-                                        @(combo.IsVaiLabel ? "Active" : "Inactive")
-                                    </span>
+
+                                    @if (combo.IsVaiLabel)
+                                    {
+                                        <span class="badge-active">
+                                            Active
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-inactive">
+                                            Inactive
+                                        </span>
+                                    }
+
                                 </td>
-                                <td>
+
+                                <td class="text-center">
+
                                     <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+
+                                        <button type="button"
+                                                class="action-btn dropdown-toggle"
+                                                data-bs-toggle="dropdown">
+
                                             <i class="bx bx-dots-vertical-rounded"></i>
+
                                         </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@combo.ComboId">
-                                                <i class="bx bx-edit-alt me-1"></i> Edit
+
+                                        <div class="dropdown-menu dropdown-menu-end">
+
+                                            <a class="dropdown-item"
+                                               asp-action="Edit"
+                                               asp-route-id="@combo.ComboId">
+
+                                                <i class="bx bx-edit-alt me-2"></i>
+                                                Edit
+
                                             </a>
+
                                             @if (combo.IsVaiLabel)
                                             {
-                                                <form asp-area="Admin" asp-controller="Combo" asp-action="Deactivate" method="post" style="display:inline;">
-                                                    <input type="hidden" name="id" value="@combo.ComboId" />
-                                                    <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Deactivate this combo?');">
-                                                        <i class="bx bx-trash me-1"></i> Deactivate
+                                                <form asp-area="Admin"
+                                                      asp-controller="Combo"
+                                                      asp-action="Deactivate"
+                                                      method="post">
+
+                                                    <input type="hidden"
+                                                           name="id"
+                                                           value="@combo.ComboId" />
+
+                                                    <button type="submit"
+                                                            class="dropdown-item text-danger"
+                                                            onclick="return confirm('Deactivate this combo?');">
+
+                                                        <i class="bx bx-trash me-2"></i>
+                                                        Deactivate
+
                                                     </button>
+
                                                 </form>
                                             }
                                             else
                                             {
-                                                <form asp-area="Admin" asp-controller="Combo" asp-action="Activate" method="post" style="display:inline;">
-                                                    <input type="hidden" name="id" value="@combo.ComboId" />
-                                                    <button type="submit" class="dropdown-item text-success" onclick="return confirm('Activate this combo?');">
-                                                        <i class="bx bx-check-circle me-1"></i> Activate
+                                                <form asp-area="Admin"
+                                                      asp-controller="Combo"
+                                                      asp-action="Activate"
+                                                      method="post">
+
+                                                    <input type="hidden"
+                                                           name="id"
+                                                           value="@combo.ComboId" />
+
+                                                    <button type="submit"
+                                                            class="dropdown-item text-success"
+                                                            onclick="return confirm('Activate this combo?');">
+
+                                                        <i class="bx bx-check-circle me-2"></i>
+                                                        Activate
+
                                                     </button>
+
                                                 </form>
                                             }
+
                                         </div>
+
                                     </div>
+
                                 </td>
+
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="8" class="text-center text-muted py-4">No combos found</td>
+
+                            <td colspan="7"
+                                class="text-center py-5 text-muted fw-bold">
+
+                                No combos found
+
+                            </td>
+
                         </tr>
                     }
+
                 </tbody>
+
             </table>
 
-            <!-- Pagination -->
-            @if (Model.TotalPage > 1)
-            {
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        @for (int i = 1; i <= Model.TotalPage; i++)
-                        {
-                            <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Index", "Combo", new { page = i, keyWord = Model.Filter.KeyWord, fromPrice = Model.Filter.FromPrice, toPrice = Model.Filter.ToPrice, sortBy = Model.Filter.ShortBy, sortOrder = Model.Filter.ShortOrder })">
-                                    @i
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </nav>
-            }
         </div>
+
     </div>
+
+    <!-- PAGINATION -->
+    @if (Model.TotalPage > 1)
+    {
+        <nav>
+
+            <ul class="pagination justify-content-center">
+
+                @for (int i = 1; i <= Model.TotalPage; i++)
+                {
+                    <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+
+                        <a class="page-link"
+                           href="@Url.Action("Index", "Combo", new {
+                               page = i,
+                               keyWord = Model.Filter.KeyWord,
+                               fromPrice = Model.Filter.FromPrice,
+                               toPrice = Model.Filter.ToPrice,
+                               sortBy = Model.Filter.ShortBy,
+                               sortOrder = Model.Filter.ShortOrder
+                           })">
+
+                            @i
+
+                        </a>
+
+                    </li>
+                }
+
+            </ul>
+
+        </nav>
+    }
+
 </div>
