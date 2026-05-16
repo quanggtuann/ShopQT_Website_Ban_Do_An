@@ -4,8 +4,7 @@ using System.Net.Http.Json;
 
 namespace ShopView.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class CategoryeController : Controller
+    public class CategoryeController : AdminControllerBase
     {
         private readonly HttpClient _httpClient;
 
@@ -13,18 +12,10 @@ namespace ShopView.Areas.Admin.Controllers
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
         }
-        private bool IsAdmin()
-        {
-            var userRole = HttpContext.Session.GetString("UserRole");
-            return userRole == "admin";
-        }
 
         // GET: /Admin/Categorye/Index
         public async Task<IActionResult> Index()
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
-
             try
             {
                 var response = await _httpClient.GetAsync("api/categoryes");
@@ -46,8 +37,6 @@ namespace ShopView.Areas.Admin.Controllers
        // GET: /Admin/Categorye/Create
         public IActionResult Create()
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             return View();
         }
         // POST: /Admin/Categorye/Create
@@ -81,8 +70,6 @@ namespace ShopView.Areas.Admin.Controllers
         // GET: /Admin/Categorye/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.GetAsync($"api/categoryes/{id}");
@@ -141,8 +128,6 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Deaction(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.PatchAsync($"api/categoryes/{id}/deactivate", null);
@@ -165,8 +150,6 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Action(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.PatchAsync($"api/categoryes/{id}/activate", null);

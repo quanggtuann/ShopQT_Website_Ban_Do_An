@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="container py-5 text-center">
+    <h2 class="text-danger mb-3">Access Denied</h2>
+    <p class="mb-4">You do not have permission to view this page.</p>
+    <a asp-controller="Food" asp-action="Index" class="btn btn-primary">Back to Home</a>
+    <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary ms-2">Login</a>
+</div>

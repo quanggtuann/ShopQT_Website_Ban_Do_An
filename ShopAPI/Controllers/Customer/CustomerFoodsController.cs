@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopAPI.Services.IServices;
 using ShopDAL.Models;
@@ -16,6 +16,7 @@ namespace ShopAPI.Controllers.Customer
             _customerFoodService = customerFoodService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAll([FromQuery] FoodItemFilterViewModel filter)
         {
@@ -30,6 +31,7 @@ namespace ShopAPI.Controllers.Customer
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

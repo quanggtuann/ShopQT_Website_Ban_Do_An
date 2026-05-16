@@ -1,4 +1,5 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@using System.Security.Claims
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -61,8 +62,8 @@
 
 <body>
     @{
-        var username = HttpContextAccessor.HttpContext?.Session.GetString("Username");
-        var userid = HttpContextAccessor.HttpContext?.Session.GetString("UserID");
+        var username = User.Identity?.Name;
+        var userid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
 
     <!-- Layout wrapper -->

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopAPI.Services.IServices;
 using ShopDAL.Models;
 
 namespace ShopAPI.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -86,9 +88,8 @@ namespace ShopAPI.Controllers
             }
             catch (Exception ex)
             {
-                return ex.Message.Contains("not found")
-                    ? NotFound(new { ErrorMessage = ex.Message })
-                    : StatusCode(500, new { ErrorMessage = ex.Message });
+                return StatusCode(500, new { ErrorMessage = ex.Message });
+
             }
         }
 
@@ -102,9 +103,8 @@ namespace ShopAPI.Controllers
             }
             catch (Exception ex)
             {
-                return ex.Message.Contains("not found")
-                    ? NotFound(new { ErrorMessage = ex.Message })
-                    : StatusCode(500, new { ErrorMessage = ex.Message });
+                return StatusCode(500, new { ErrorMessage = ex.Message });
+
             }
         }
     }

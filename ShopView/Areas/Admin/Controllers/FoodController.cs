@@ -5,18 +5,12 @@ using ShopView.Areas.Admin.ViewModel;
 using System.Net.Http.Json;
 namespace ShopView.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class FoodController : Controller
+    public class FoodController : AdminControllerBase
     {
         private readonly HttpClient _httpClient;
         public FoodController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
-        }
-        private bool IsAdmin()
-        {
-            var userRole = HttpContext.Session.GetString("UserRole");
-            return userRole == "admin";
         }
         private async Task<List<SelectListItem>> GetActiveCategoriesAsync()
         {
@@ -52,9 +46,6 @@ namespace ShopView.Areas.Admin.Controllers
              [FromQuery] int pageSize = 5)
 
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
-
             try
             {
                 var query = new List<string> { $"page={page}", $"pageSize={pageSize}" };
@@ -102,8 +93,6 @@ namespace ShopView.Areas.Admin.Controllers
         // GET: /Admin/Food/Create
         public async Task<IActionResult> Create()
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 ViewBag.Categories = await GetActiveCategoriesAsync();
@@ -154,8 +143,6 @@ namespace ShopView.Areas.Admin.Controllers
         // GET: /Admin/Food/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.GetAsync($"api/foods/{id}");
@@ -211,8 +198,6 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Deactive(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.PatchAsync($"api/foods/{id}/deactivate", null);
@@ -235,8 +220,6 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Active(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.PatchAsync($"api/foods/{id}/activate", null);

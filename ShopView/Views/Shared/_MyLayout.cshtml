@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using System.Security.Claims
 @inject IHttpContextAccessor HttpContextAccessor
 
 <!DOCTYPE html>
@@ -51,11 +51,11 @@
                     <a href="@Url.Action("Index", "Combo")" class="nav-item nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Combo" ? "active" : "")">Combo</a>
 
                     @{
-                        var userRole = HttpContextAccessor.HttpContext?.Session.GetString("UserRole");
-                        var userId = HttpContextAccessor.HttpContext?.Session.GetInt32("UserID");
+                        var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+                        var isAuthenticated = User.Identity?.IsAuthenticated == true;
                     }
 
-                    @if (userRole == null)
+                    @if (!isAuthenticated)
                     {
                         <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
                         <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Login</a>

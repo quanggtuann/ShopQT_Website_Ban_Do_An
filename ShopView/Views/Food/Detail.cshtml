@@ -1,26 +1,301 @@
-@model ShopAPI.DTOs.FoodItemDto
+﻿@model ShopAPI.DTOs.FoodItemDto
+
 @{
     Layout = "_MyLayout";
     ViewData["Title"] = "Food Detail";
-    var imageBaseUrl = ViewBag.ImageBaseUrl as string ?? "https://localhost:7130/";
+
+    var imageBaseUrl = ViewBag.ImageBaseUrl as string
+        ?? "https://localhost:7130/";
 }
 
-<div class="container">
-    <div class="section-header text-center">
-        <p>Food Detail</p>
-        <h2>@Model.Name</h2>
+<style>
+
+    body {
+        background: #f4f7fb;
+    }
+
+    .food-detail-page {
+        padding: 80px 0;
+    }
+
+    .food-card {
+        background: white;
+        border-radius: 36px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,.08);
+    }
+
+    .food-image-wrapper {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .food-image {
+        width: 100%;
+        height: 100%;
+        min-height: 620px;
+        object-fit: cover;
+        transition: .4s;
+    }
+
+        .food-image:hover {
+            transform: scale(1.03);
+        }
+
+    .food-content {
+        padding: 55px;
+    }
+
+    .food-category {
+        display: inline-block;
+        background: rgba(105,108,255,.12);
+        color: #696cff;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+        margin-bottom: 22px;
+    }
+
+    .food-title {
+        font-size: 48px;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 18px;
+        line-height: 1.2;
+    }
+
+    .food-price {
+        font-size: 42px;
+        font-weight: 900;
+        color: #10b981;
+        margin-bottom: 30px;
+    }
+
+    .food-description {
+        color: #6b7280;
+        font-size: 16px;
+        line-height: 1.9;
+        margin-bottom: 35px;
+    }
+
+    .food-info-box {
+        background: #f8fafc;
+        border-radius: 24px;
+        padding: 24px;
+        margin-bottom: 35px;
+    }
+
+    .food-info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+        .food-info-item:last-child {
+            border-bottom: none;
+        }
+
+    .food-info-label {
+        font-weight: 700;
+        color: #6b7280;
+    }
+
+    .food-info-value {
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .food-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .btn-back {
+        background: #eef2ff;
+        color: #696cff;
+        border: none;
+        border-radius: 18px;
+        padding: 16px 28px;
+        font-weight: 800;
+        transition: .25s;
+    }
+
+        .btn-back:hover {
+            background: #696cff;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-order {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white;
+        border-radius: 18px;
+        padding: 16px 34px;
+        font-weight: 800;
+        transition: .3s;
+        box-shadow: 0 15px 30px rgba(105,108,255,.25);
+    }
+
+        .btn-order:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+
+    @@media(max-width:992px) {
+
+        .food-content {
+            padding: 35px;
+        }
+
+        .food-title {
+            font-size: 36px;
+        }
+
+        .food-price {
+            font-size: 32px;
+        }
+
+        .food-image {
+            min-height: 400px;
+        }
+    }
+
+</style>
+
+<div class="container food-detail-page">
+
+    <div class="food-card">
+
+        <div class="row g-0">
+
+            <!-- IMAGE -->
+            <div class="col-lg-6">
+
+                <div class="food-image-wrapper">
+
+                    <img src="@(string.IsNullOrWhiteSpace(Model.ImagePath)
+                            ? "https://via.placeholder.com/900x700?text=Food+Image"
+                            : imageBaseUrl + Model.ImagePath)"
+                         class="food-image"
+                         alt="@Model.Name" />
+
+                </div>
+
+            </div>
+
+            <!-- CONTENT -->
+            <div class="col-lg-6">
+
+                <div class="food-content">
+
+                    <div class="food-category">
+
+                        <i class="bx bx-category-alt me-1"></i>
+
+                        @(Model.Category?.Name ?? "Food Category")
+
+                    </div>
+
+                    <h1 class="food-title">
+                        @Model.Name
+                    </h1>
+
+                    <div class="food-price">
+                        @Model.Price.ToString("N0") VND
+                    </div>
+
+                    <div class="food-description">
+
+                        @(string.IsNullOrWhiteSpace(Model.Description)
+                            ? "No description available for this food item."
+                            : Model.Description)
+
+                    </div>
+
+                    <!-- INFO -->
+                    <div class="food-info-box">
+
+                        <div class="food-info-item">
+
+                            <div class="food-info-label">
+                                Category
+                            </div>
+
+                            <div class="food-info-value">
+                                @(Model.Category?.Name ?? "N/A")
+                            </div>
+
+                        </div>
+
+                        <div class="food-info-item">
+
+                            <div class="food-info-label">
+                                Availability
+                            </div>
+
+                            <div class="food-info-value text-success">
+                                Available
+                            </div>
+
+                        </div>               
+
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div class="food-actions">
+
+                        <a asp-controller="Food"
+                           asp-action="Index"
+                           class="btn btn-back">
+
+                            <i class="bx bx-arrow-back me-1"></i>
+
+                            Back To Menu
+
+                        </a>
+
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <!-- Đã đăng nhập -->
+                            <a asp-controller="Cart"
+                               asp-action="AddToCart"
+                               asp-route-id="@Model.FoodItemId"
+                               class="btn btn-order">
+
+                                <i class="bx bx-cart-add me-1"></i>
+
+                                Order Now
+
+                            </a>
+                        }
+                        else
+                        {
+                            <!-- Chưa đăng nhập -->
+                            <a asp-controller="Account"
+                               asp-action="Login"
+                               asp-route-returnUrl="@Url.Action("Detail", "Food", new { id = Model.FoodItemId })"
+                               class="btn btn-order">
+
+                                <i class="bx bx-lock-alt me-1"></i>
+
+                                Login To Order
+
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <img src="@(string.IsNullOrWhiteSpace(Model.ImagePath) ? "https://via.placeholder.com/700x450?text=Food" : imageBaseUrl + Model.ImagePath)"
-                 class="img-fluid rounded" />
-        </div>
-        <div class="col-md-6">
-            <h4 class="text-success mb-3">@Model.Price.ToString("N0") VND</h4>
-            <p>@Model.Description</p>
-            <p><strong>Category:</strong> @(Model.Category?.Name ?? "N/A")</p>
-            <a asp-controller="Food" asp-action="Index" class="btn custom-btn">Back to menu</a>
-        </div>
-    </div>
 </div>

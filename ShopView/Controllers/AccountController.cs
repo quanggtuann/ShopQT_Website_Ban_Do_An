@@ -1,24 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
+using System.Security.Claims;
+using ShopView.Infrastructure;
 using ShopView.ViewModels;
+
 namespace ShopView.Controllers
 {
     public class AccountController : Controller
     {
         private readonly HttpClient _httpClient;
+
         public AccountController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
         }
 
-        // GET: /Account/Register
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -56,14 +63,21 @@ namespace ShopView.Controllers
             }
         }
 
-        // GET: /Account/Login
+        [AllowAnonymous]
         public IActionResult Login()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                if (User.IsInRole("admin"))
+                    return Redirect("/Admin/Home/Index");
+                return RedirectToAction("Index", "Food");
+            }
+
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string username, string password)
         {
             try
@@ -74,19 +88,36 @@ namespace ShopView.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-
-                    HttpContext.Session.SetInt32("UserID", result.userId);
-                    HttpContext.Session.SetString("Username", result.username);
-                    HttpContext.Session.SetString("UserRole", result.role);
-
-                    if (result.role == "customer")
+                    if (result == null || string.IsNullOrEmpty(result.token))
                     {
-                        return RedirectToAction("Index", "Food");
+                        ViewBag.Error = "Invalid login response from server";
+                        return View();
                     }
+
+                    var claims = new List<Claim>
+                    {
+                        new(ClaimTypes.NameIdentifier, result.userId.ToString()),
+                        new(ClaimTypes.Name, result.username),
+                        new(ClaimTypes.Role, result.role),
+                        new(AuthClaimTypes.AccessToken, result.token)
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal,
+                        new AuthenticationProperties
+                        {
+                            IsPersistent = false,
+                            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                        });
+
                     if (result.role == "admin")
-                    {
                         return Redirect("/Admin/Home/Index");
-                    }
+
+                    return RedirectToAction("Index", "Food");
                 }
 
                 ViewBag.Error = "Invalid username or password";
@@ -99,12 +130,17 @@ namespace ShopView.Controllers
             }
         }
 
-        // GET: /Account/Logout
-        public IActionResult Logout()
+        [Authorize]
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
-

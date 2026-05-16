@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopAPI.DTOs;
 using ShopAPI.Services.IServices;
 
 namespace ShopAPI.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryesController : ControllerBase
@@ -15,6 +17,7 @@ namespace ShopAPI.Controllers
             _categoryService = categoryService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetAll([FromQuery] bool? activeOnly = null)
         {

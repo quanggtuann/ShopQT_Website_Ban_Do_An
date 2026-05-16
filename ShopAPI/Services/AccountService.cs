@@ -60,17 +60,11 @@ namespace ShopAPI.Services
         }
 
         public void DeactivateAccount(int id)
-        {
-            var account = _accountRepo.GetById(id);
-            if (account == null)
-                throw new Exception("Account not found");           
+        {      
             _accountRepo.Deactive(id);
         }
         public void ActivateAccount(int id)
-        {
-            var account = _accountRepo.GetById(id);
-            if (account == null)
-                throw new Exception("Account not found");           
+        {       
             _accountRepo.ActiveUser(id);
         }
     }

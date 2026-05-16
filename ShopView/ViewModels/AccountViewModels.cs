@@ -12,8 +12,9 @@
     public class LoginResponse
     {
         public int userId { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
-        public string role { get; set; }
+        public string username { get; set; } = string.Empty;
+        public string email { get; set; } = string.Empty;
+        public string role { get; set; } = string.Empty;
+        public string token { get; set; } = string.Empty;
     }
 }

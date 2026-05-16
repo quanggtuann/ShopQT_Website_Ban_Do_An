@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopAPI.Services;
 using ShopAPI.Services.IServices;
 using ShopDAL.Models;
@@ -6,6 +7,7 @@ using ShopAPI.DTOs;
 
 namespace ShopAPI.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CombosController : ControllerBase
