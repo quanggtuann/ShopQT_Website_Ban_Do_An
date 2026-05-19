@@ -1,8 +1,12 @@
 {
   "Files": [
     {
-      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
-      "PackagePath": "staticwebassets\\img\\combos\\Combo Gia Dinh.png"
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\ComboUpdate.jpg",
+      "PackagePath": "staticwebassets\\img\\combos\\ComboUpdate.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
+      "PackagePath": "staticwebassets\\img\\combos\\combooooo.jpg"
     },
     {
       "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\omaiii.jpg",

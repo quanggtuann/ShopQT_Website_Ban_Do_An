@@ -10,7 +10,6 @@ namespace ShopView.ViewModels
         public string ImageBaseUrl { get; set; } = string.Empty;
     }
 
-    // View-layer filter model: keep ShopView independent from DAL model classes.
     public class FoodFilterViewModel
     {
         public string? Keyword { get; set; }

@@ -1,16 +1,28 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/Combo Gia Dinh.dzk2sjybf6.png">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\Combo Gia Dinh.png'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/combooooo.eqopxxg2d2.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\combooooo.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dzk2sjybf6"},{"Name":"integrity","Value":"sha256-R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s="},{"Name":"label","Value":"_content/ShopAPI/img/combos/Combo Gia Dinh.png"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"918893"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s=\u0022"},{"Name":"Last-Modified","Value":"Sat, 25 Apr 2026 02:27:42 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"eqopxxg2d2"},{"Name":"integrity","Value":"sha256-dq6BlOt1cbFpVBu4AOwR7d\u002BS1/cTMyG1pGvIcttahNI="},{"Name":"label","Value":"_content/ShopAPI/img/combos/combooooo.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"11950"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022dq6BlOt1cbFpVBu4AOwR7d\u002BS1/cTMyG1pGvIcttahNI=\u0022"},{"Name":"Last-Modified","Value":"Tue, 19 May 2026 10:00:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/Combo Gia Dinh.png">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\Combo Gia Dinh.png'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/combooooo.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\combooooo.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"918893"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s=\u0022"},{"Name":"Last-Modified","Value":"Sat, 25 Apr 2026 02:27:42 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-dq6BlOt1cbFpVBu4AOwR7d\u002BS1/cTMyG1pGvIcttahNI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"11950"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022dq6BlOt1cbFpVBu4AOwR7d\u002BS1/cTMyG1pGvIcttahNI=\u0022"},{"Name":"Last-Modified","Value":"Tue, 19 May 2026 10:00:51 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/ComboUpdate.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\ComboUpdate.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"12961"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u00224N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=\u0022"},{"Name":"Last-Modified","Value":"Tue, 19 May 2026 10:01:19 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/ComboUpdate.wcxon26wgv.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\ComboUpdate.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"wcxon26wgv"},{"Name":"integrity","Value":"sha256-4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24="},{"Name":"label","Value":"_content/ShopAPI/img/combos/ComboUpdate.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"12961"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u00224N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=\u0022"},{"Name":"Last-Modified","Value":"Tue, 19 May 2026 10:01:19 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/omaiii.eqopxxg2d2.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\omaiii.jpg'))</AssetFile>

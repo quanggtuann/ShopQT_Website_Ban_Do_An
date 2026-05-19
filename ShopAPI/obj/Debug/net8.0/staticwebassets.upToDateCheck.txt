@@ -1,4 +1,5 @@
-wwwroot\img\combos\Combo Gia Dinh.png
+wwwroot\img\combos\combooooo.jpg
+wwwroot\img\combos\ComboUpdate.jpg
 wwwroot\img\combos\omaiii.jpg
 wwwroot\img\combos\shiba.jpg
 wwwroot\img\combos\shiba2.jpg

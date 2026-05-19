@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ShopAPI.Configuration;
 using ShopAPI.Services;
+using ShopAPI.Services.Customer;
+using ShopAPI.Services.Customer.IServices;
 using ShopAPI.Services.IServices;
 using ShopDAL.Areas.Repository;
 using ShopDAL.Areas.Repository.Irepository;
@@ -62,14 +64,19 @@ builder.Services.AddScoped<IAdminCategoryRepo, AdminCategoryRepo>();
 builder.Services.AddScoped<IAdminAccountRepo, AdminAccountRepo>();
 builder.Services.AddScoped<IAdminComboRepo, AdminComboRepo>();
 builder.Services.AddScoped<IAdminOrderRepo, AdminOrderRepo>();
+
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 builder.Services.AddScoped<IFoodRepo, FoodRepo>();
+builder.Services.AddScoped<IComboRepo, ComboRepo>();
 
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IComboService, ComboService>();
 builder.Services.AddScoped<ICategoryesService, CategoryesService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+
 builder.Services.AddScoped<ICustomerFoodService, CustomerFoodService>();
+builder.Services.AddScoped<ICustomerComboSevice, CustomerComboSevice>();
+
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 var app = builder.Build();

@@ -96,7 +96,7 @@ namespace ShopView.Areas.Admin.Controllers
                 content.Add(new StringContent(form["Name"]!), "Name");
                 content.Add(new StringContent(form["Description"]!), "Description");
                 content.Add(new StringContent(form["Price"]!), "Price");
-                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailable");
+                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailabale");
                 int formIndex = 0;
                 int sendIndex = 0;
                 while (form.ContainsKey($"FoodItems[{formIndex}].Quantity"))
@@ -205,7 +205,7 @@ namespace ShopView.Areas.Admin.Controllers
                 content.Add(new StringContent(form["Name"]!), "Name");
                 content.Add(new StringContent(form["Description"]!), "Description");
                 content.Add(new StringContent(form["Price"]!), "Price");
-                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailable");
+                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailabale");
 
                 int formIndex = 0;
                 int sendIndex = 0;

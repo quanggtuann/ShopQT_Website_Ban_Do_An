@@ -167,53 +167,8 @@
       ]
     },
     {
-      "Route": "img/combos/Combo Gia Dinh.dzk2sjybf6.png",
-      "AssetFile": "img/combos/Combo Gia Dinh.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "918893"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 25 Apr 2026 02:27:42 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "dzk2sjybf6"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
-        },
-        {
-          "Name": "label",
-          "Value": "img/combos/Combo Gia Dinh.png"
-        }
-      ]
-    },
-    {
-      "Route": "img/combos/Combo Gia Dinh.png",
-      "AssetFile": "img/combos/Combo Gia Dinh.png",
+      "Route": "img/combos/ComboUpdate.jpg",
+      "AssetFile": "img/combos/ComboUpdate.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -226,25 +181,152 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "918893"
+          "Value": "12961"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/png"
+          "Value": "image/jpeg"
         },
         {
           "Name": "ETag",
-          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+          "Value": "\"4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 25 Apr 2026 02:27:42 GMT"
+          "Value": "Tue, 19 May 2026 10:01:19 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
+          "Value": "sha256-4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24="
+        }
+      ]
+    },
+    {
+      "Route": "img/combos/ComboUpdate.wcxon26wgv.jpg",
+      "AssetFile": "img/combos/ComboUpdate.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 19 May 2026 10:01:19 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wcxon26wgv"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24="
+        },
+        {
+          "Name": "label",
+          "Value": "img/combos/ComboUpdate.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "img/combos/combooooo.eqopxxg2d2.jpg",
+      "AssetFile": "img/combos/combooooo.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11950"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 19 May 2026 10:00:51 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "eqopxxg2d2"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI="
+        },
+        {
+          "Name": "label",
+          "Value": "img/combos/combooooo.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "img/combos/combooooo.jpg",
+      "AssetFile": "img/combos/combooooo.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11950"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 19 May 2026 10:00:51 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI="
         }
       ]
     },

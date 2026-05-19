@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+9aBAb0IEARBvFGpVzBs7GWfqdExiSCCirMxaeb1W9E=",
+  "Hash": "PttP2YWeF44K9NVByHWlPCYoSw/Y11WpjBz9m5EpyyY=",
   "Source": "ShopView",
   "BasePath": "_content/ShopView",
   "Mode": "Default",
@@ -89,12 +89,12 @@
       "OriginalItemSpec": "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.25\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
       "SourceId": "ShopAPI",
       "SourceType": "Project",
       "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
       "BasePath": "_content/ShopAPI",
-      "RelativePath": "img/combos/Combo Gia Dinh#[.{fingerprint}]?.png",
+      "RelativePath": "img/combos/combooooo#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -103,11 +103,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "dzk2sjybf6",
-      "Integrity": "R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=",
+      "Fingerprint": "eqopxxg2d2",
+      "Integrity": "dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png"
+      "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\ComboUpdate.jpg",
+      "SourceId": "ShopAPI",
+      "SourceType": "Project",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/combos/ComboUpdate#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wcxon26wgv",
+      "Integrity": "4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\ComboUpdate.jpg"
     },
     {
       "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\omaiii.jpg",
@@ -6801,8 +6822,8 @@
       ]
     },
     {
-      "Route": "_content/ShopAPI/img/combos/Combo Gia Dinh.dzk2sjybf6.png",
-      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Route": "_content/ShopAPI/img/combos/combooooo.eqopxxg2d2.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6815,39 +6836,39 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "918893"
+          "Value": "11950"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/png"
+          "Value": "image/jpeg"
         },
         {
           "Name": "ETag",
-          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+          "Value": "\"dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 25 Apr 2026 02:27:42 GMT"
+          "Value": "Tue, 19 May 2026 10:00:51 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dzk2sjybf6"
+          "Value": "eqopxxg2d2"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
+          "Value": "sha256-dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI="
         },
         {
           "Name": "label",
-          "Value": "_content/ShopAPI/img/combos/Combo Gia Dinh.png"
+          "Value": "_content/ShopAPI/img/combos/combooooo.jpg"
         }
       ]
     },
     {
-      "Route": "_content/ShopAPI/img/combos/Combo Gia Dinh.png",
-      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Route": "_content/ShopAPI/img/combos/combooooo.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6860,25 +6881,107 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "918893"
+          "Value": "11950"
         },
         {
           "Name": "Content-Type",
-          "Value": "image/png"
+          "Value": "image/jpeg"
         },
         {
           "Name": "ETag",
-          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+          "Value": "\"dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 25 Apr 2026 02:27:42 GMT"
+          "Value": "Tue, 19 May 2026 10:00:51 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
+          "Value": "sha256-dq6BlOt1cbFpVBu4AOwR7d+S1/cTMyG1pGvIcttahNI="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ShopAPI/img/combos/ComboUpdate.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\ComboUpdate.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 19 May 2026 10:01:19 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24="
+        }
+      ]
+    },
+    {
+      "Route": "_content/ShopAPI/img/combos/ComboUpdate.wcxon26wgv.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\ComboUpdate.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 19 May 2026 10:01:19 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wcxon26wgv"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4N1y2EkoElUimS2owYK0L4YjXuOJ1/meGWOqwh2JA24="
+        },
+        {
+          "Name": "label",
+          "Value": "_content/ShopAPI/img/combos/ComboUpdate.jpg"
         }
       ]
     },
