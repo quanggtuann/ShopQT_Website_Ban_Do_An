@@ -44,9 +44,15 @@ namespace ShopDAL.Migrations
             modelBuilder.Entity("ShopDAL.Models.CartItem", b =>
                 {
                     b.Property<int>("CartItemId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
+
                     b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ComboID")
                         .HasColumnType("int");
 
                     b.Property<int?>("FoodItemID")
@@ -59,14 +65,13 @@ namespace ShopDAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("comboID")
-                        .HasColumnType("int");
-
                     b.HasKey("CartItemId");
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("comboID");
+                    b.HasIndex("ComboID");
+
+                    b.HasIndex("FoodItemID");
 
                     b.ToTable("CartItems");
                 });
@@ -309,15 +314,13 @@ namespace ShopDAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
-                        .WithMany("CartItem")
-                        .HasForeignKey("CartItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ShopDAL.Models.Combo", "Combo")
                         .WithMany("CartItem")
-                        .HasForeignKey("comboID");
+                        .HasForeignKey("ComboID");
+
+                    b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
+                        .WithMany("CartItem")
+                        .HasForeignKey("FoodItemID");
 
                     b.Navigation("Cart");
 

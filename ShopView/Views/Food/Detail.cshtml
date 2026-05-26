@@ -263,8 +263,9 @@
                         {
                             <!-- Đã đăng nhập -->
                             <a asp-controller="Cart"
-                               asp-action="AddToCart"
+                               asp-action="AddFood"
                                asp-route-id="@Model.FoodItemId"
+                               asp-route-returnUrl="@Context.Request.Path"
                                class="btn btn-order">
 
                                 <i class="bx bx-cart-add me-1"></i>

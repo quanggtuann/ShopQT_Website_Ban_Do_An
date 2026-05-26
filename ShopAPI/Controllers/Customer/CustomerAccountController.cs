@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopAPI.DTOs;
-using ShopAPI.Services.IServices;
+using ShopAPI.Services.Customer.IServices;
 using ShopDAL.Models;
-using ShopDAL.Repository.IRepository;
 
 namespace ShopAPI.Controllers
 {
@@ -11,13 +10,11 @@ namespace ShopAPI.Controllers
     [ApiController]
     public class CustomerAccountController : ControllerBase
     {
-        private readonly IAccountRepo _accountRepo;
-        private readonly IJwtTokenService _jwtTokenService;
+        private readonly ICustomerAccountService _accountService;
 
-        public CustomerAccountController(IAccountRepo accountRepo, IJwtTokenService jwtTokenService)
+        public CustomerAccountController(ICustomerAccountService accountService)
         {
-            _accountRepo = accountRepo;
-            _jwtTokenService = jwtTokenService;
+            _accountService = accountService;
         }
 
         [AllowAnonymous]
@@ -26,14 +23,22 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                user.Role = "customer";
-                user.IsActive = true;
-                _accountRepo.Register(user);
-                return Ok(new { success = true, message = "Registration successful", userId = user.UserID });
+                var userId = _accountService.Register(user);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Registration successful",
+                    userId
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { success = false, message = ex.Message });
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
             }
         }
 
@@ -43,26 +48,17 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                _accountRepo.Login(request.Username, request.Password);
-                var user = _accountRepo.Getnameuser(request.Username);
-                if (user == null)
-                    return BadRequest(new { success = false, message = "User not found" });
+                var result = _accountService.Login(request);
 
-                var token = _jwtTokenService.GenerateToken(user);
-
-                return Ok(new LoginResponseDto
-                {
-                    Success = true,
-                    UserId = user.UserID,
-                    Username = user.Username,
-                    Email = user.Email,
-                    Role = user.Role,
-                    Token = token
-                });
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest(new { success = false, message = ex.Message });
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
             }
         }
 
@@ -73,20 +69,29 @@ namespace ShopAPI.Controllers
             if (!CanAccessUser(id))
                 return Forbid();
 
-            var user = _accountRepo.Getnameuser(id.ToString());
-            if (user == null)
-                return NotFound();
-
-            return Ok(new
+            try
             {
-                user.UserID,
-                user.Username,
-                user.Email,
-                user.PhoneNumber,
-                user.DateorBirth,
-                user.Role,
-                user.IsActive
-            });
+                var user = _accountService.GetProfile(id);
+
+                return Ok(new
+                {
+                    user.UserID,
+                    user.Username,
+                    user.Email,
+                    user.PhoneNumber,
+                    user.DateorBirth,
+                    user.Role,
+                    user.IsActive
+                });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
         }
 
         [Authorize]
@@ -101,18 +106,30 @@ namespace ShopAPI.Controllers
 
             try
             {
-                _accountRepo.Update(user);
-                return Ok(new { success = true, message = "Profile updated" });
+                _accountService.UpdateProfile(user);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Profile updated"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { success = false, message = ex.Message });
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
             }
         }
 
         private bool CanAccessUser(int id)
         {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userIdClaim = User.FindFirst(
+                System.Security.Claims.ClaimTypes.NameIdentifier
+            )?.Value;
+
             if (!int.TryParse(userIdClaim, out var currentUserId))
                 return false;
 

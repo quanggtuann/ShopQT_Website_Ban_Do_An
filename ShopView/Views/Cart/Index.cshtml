@@ -1,0 +1,349 @@
+﻿@model ShopView.ViewModels.CartViewModel
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = "My Cart";
+
+    var imageBaseUrl = "https://localhost:7130/";
+}
+
+<div class="container py-5">
+
+    <!-- TITLE -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-5">
+            🛒 My Shopping Cart
+        </h1>
+
+        <p class="text-muted fs-5">
+            Review your delicious items before checkout
+        </p>
+    </div>
+
+    <!-- ALERT -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-4 shadow-sm">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success rounded-4 shadow-sm">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <!-- EMPTY CART -->
+    @if (Model?.CartItems == null || !Model.CartItems.Any())
+    {
+        <div class="card border-0 shadow-lg rounded-4 text-center py-5">
+
+            <div class="card-body">
+
+                <h2 class="fw-bold mb-3">
+                    😢 Your cart is empty
+                </h2>
+
+                <p class="text-muted mb-4">
+                    Add some delicious food and combos now!
+                </p>
+
+                <a asp-controller="Food"
+                   asp-action="Index"
+                   class="btn btn-danger px-5 py-3 rounded-pill fw-bold">
+
+                    🍔 Continue Shopping
+
+                </a>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        decimal grandTotal = 0;
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+            <!-- TABLE -->
+            <div class="table-responsive">
+
+                <table class="table align-middle mb-0">
+
+                    <thead class="cart-header">
+
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Subtotal</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model.CartItems)
+                        {
+                            var name = item.FoodItemID != null
+                            ? item.FoodItem?.Name
+                            : item.Combo?.Name;
+
+                            var imagePath = item.FoodItemID != null
+                            ? item.FoodItem?.ImagePath
+                            : item.Combo?.ImagePath;
+
+                            var imageUrl = string.IsNullOrWhiteSpace(imagePath)
+                            ? "https://via.placeholder.com/100x100?text=Food"
+                            : imageBaseUrl.TrimEnd('/') + "/" + imagePath.TrimStart('/');
+
+                            var type = item.FoodItemID != null
+                            ? "Food"
+                            : "Combo";
+
+                            var price = item.Price ?? 0m;
+
+                            var lineTotal = price * item.Quantity;
+
+                            grandTotal += lineTotal;
+
+                            <tr class="cart-row">
+
+                                <!-- PRODUCT -->
+                                <td>
+                                    <div class="d-flex align-items-center">
+
+                                        <img src="@imageUrl"
+                                             class="cart-image me-3"
+                                             alt="@name" />
+
+                                        <div>
+
+                                            <h5 class="fw-bold mb-1">
+                                                @name
+                                            </h5>
+
+                                            <span class="badge bg-danger rounded-pill px-3 py-2">
+                                                @type
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <!-- PRICE -->
+                                <td class="text-center fw-semibold">
+                                    @price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) ₫
+                                </td>
+
+                                <!-- QUANTITY -->
+                                <td class="text-center">
+
+                                    <form asp-controller="Cart"
+                                          asp-action="Update"
+                                          method="post"
+                                          class="d-flex justify-content-center align-items-center gap-2">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="cartItemId"
+                                               value="@item.CartItemId" />
+
+                                        <input type="number"
+                                               name="quantity"
+                                               value="@item.Quantity"
+                                               min="1"
+                                               class="form-control quantity-input" />
+
+                                        <button type="submit"
+                                                class="btn btn-primary rounded-pill px-3">
+
+                                            Update
+
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                                <!-- SUBTOTAL -->
+                                <td class="text-center fw-bold text-danger">
+                                    @lineTotal.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) ₫
+                                </td>
+
+                                <!-- REMOVE -->
+                                <td class="text-center">
+
+                                    <form asp-controller="Cart"
+                                          asp-action="Remove"
+                                          method="post">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="cartItemId"
+                                               value="@item.CartItemId" />
+
+                                        <button type="submit"
+                                                class="btn btn-danger rounded-pill px-3">
+
+                                            🗑 Remove
+
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- TOTAL -->
+        <div class="row mt-5">
+
+            <div class="col-lg-5 ms-auto">
+
+                <div class="card border-0 shadow-lg rounded-4">
+
+                    <div class="card-body p-4">
+
+                        <h3 class="fw-bold mb-4">
+                            Cart Summary
+                        </h3>
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <span class="text-muted">
+                                Total Items
+                            </span>
+
+                            <span class="fw-semibold">
+                                @Model.CartItems.Count()
+                            </span>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center border-top pt-3">
+
+                            <h4 class="fw-bold mb-0">
+                                Grand Total
+                            </h4>
+
+                            <h3 class="text-danger fw-bold mb-0">
+                                @grandTotal.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) ₫
+                            </h3>
+
+                        </div>
+
+                        <div class="d-grid gap-3 mt-4">
+
+                            <a asp-controller="Food"
+                               asp-action="Index"
+                               class="btn btn-outline-dark rounded-pill py-3 fw-bold">
+
+                                ← Continue Shopping
+
+                            </a>
+
+                            <a asp-controller="Order"
+                               asp-action="Checkout"
+                               class="btn btn-danger rounded-pill py-3 fw-bold">
+
+                                💳 Proceed To Checkout
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+<style>
+
+    body {
+        background: #f5f7fb;
+    }
+
+    .cart-header {
+        background: #212529;
+        color: white;
+    }
+
+        .cart-header th {
+            padding: 20px;
+            font-size: 16px;
+        }
+
+    .cart-row td {
+        padding: 20px;
+        vertical-align: middle;
+    }
+
+    .cart-row:hover {
+        background: #fafafa;
+    }
+
+    .cart-image {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 18px;
+        border: 2px solid #eee;
+    }
+
+    .quantity-input {
+        width: 90px;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .card {
+        overflow: hidden;
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+    @@media(max-width: 768px) {
+
+        .cart-image {
+            width: 70px;
+            height: 70px;
+        }
+
+        .quantity-input {
+            width: 70px;
+        }
+    }
+</style>

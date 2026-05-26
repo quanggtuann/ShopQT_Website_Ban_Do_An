@@ -190,8 +190,9 @@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <a asp-controller="Cart"
-                               asp-action="AddToCart"
+                               asp-action="AddCombo"
                                asp-route-id="@Model.ComboId"
+                               asp-route-returnUrl="@Context.Request.Path"
                                class="btn btn-order">
                                 Order Now
                             </a>

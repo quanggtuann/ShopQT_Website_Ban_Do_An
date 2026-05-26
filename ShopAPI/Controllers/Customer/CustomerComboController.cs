@@ -9,9 +9,9 @@ namespace ShopAPI.Controllers.Customer
     [ApiController]
     public class CustomerComboController : ControllerBase
     {
-        private readonly ICustomerComboSevice _comboService;
+        private readonly ICustomerComboService _comboService;
 
-        public CustomerComboController(ICustomerComboSevice comboService)
+        public CustomerComboController(ICustomerComboService comboService)
         {
             _comboService = comboService;
         }

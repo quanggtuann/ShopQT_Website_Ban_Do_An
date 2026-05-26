@@ -8,7 +8,7 @@ namespace ShopDAL.Models
         [Required]
         public int UserID {  get; set; }
         public virtual User Users { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     }
 }

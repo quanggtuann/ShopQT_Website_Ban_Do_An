@@ -1,5 +1,6 @@
 ﻿@using System.Security.Claims
 @inject IHttpContextAccessor HttpContextAccessor
+@inject ShopView.Infrastructure.ICartCountProvider CartCountProvider
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +63,8 @@
                     }
                     else if (userRole == "customer")
                     {
-                        <a href="@Url.Action("Cart", "Order")" class="nav-item nav-link">Cart</a>
+                        var cartCount = await CartCountProvider.GetCartItemCountAsync();
+                        <a href="@Url.Action("Index", "Cart")" class="nav-item nav-link">Cart (@cartCount)</a>
                         <a href="@Url.Action("Logout", "Account")" class="nav-item nav-link">Logout</a>
                     }
                     else if (userRole == "admin")

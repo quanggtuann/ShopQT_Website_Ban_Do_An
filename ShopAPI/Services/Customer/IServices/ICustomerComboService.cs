@@ -3,7 +3,7 @@ using ShopDAL.Models;
 
 namespace ShopAPI.Services.Customer.IServices
 {
-    public interface ICustomerComboSevice
+    public interface ICustomerComboService
     {
         PagedResult<ComboDto> Getall(ComboFilterViewmodel comboFilterViewmodel);
         ComboDto GetById(int id);

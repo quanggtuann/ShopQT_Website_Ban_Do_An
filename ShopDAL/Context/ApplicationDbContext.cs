@@ -63,11 +63,11 @@ namespace ShopDAL.Context
             modelBuilder.Entity<CartItem>()
                 .HasOne(fi => fi.FoodItem)
                 .WithMany(ci => ci.CartItem)
-                .HasForeignKey(fi => fi.CartItemId);
+                .HasForeignKey(fi => fi.FoodItemID);
             modelBuilder.Entity<CartItem>()
                 .HasOne(cb => cb.Combo)
                 .WithMany(ci => ci.CartItem)
-                .HasForeignKey(cb => cb.comboID);
+                .HasForeignKey(cb => cb.ComboID);
         }
 
     }

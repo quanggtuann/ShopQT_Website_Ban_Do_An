@@ -19,6 +19,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 
 builder.Services.AddTransient<JwtBearerHandler>();
+builder.Services.AddScoped<ICartCountProvider, CartCountProvider>();
 
 builder.Services.AddHttpClient("ShopAPI", client =>
 {

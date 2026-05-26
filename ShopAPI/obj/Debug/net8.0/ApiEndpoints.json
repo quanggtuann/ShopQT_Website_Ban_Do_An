@@ -497,6 +497,80 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ShopAPI.Controllers.Customer.CustomerCartsController",
+    "Method": "GetMyCart",
+    "RelativePath": "api/customer/cart",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShopAPI.Controllers.Customer.CustomerCartsController",
+    "Method": "Delete",
+    "RelativePath": "api/customer/cart/{CartItemId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CartItemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShopAPI.Controllers.Customer.CustomerCartsController",
+    "Method": "AddComboToCart",
+    "RelativePath": "api/customer/cart/add-combo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ShopAPI.DTOs.AddComboToCartRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShopAPI.Controllers.Customer.CustomerCartsController",
+    "Method": "AddToCart",
+    "RelativePath": "api/customer/cart/add-food",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ShopAPI.DTOs.AddToCartRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShopAPI.Controllers.Customer.CustomerCartsController",
+    "Method": "UpdateCartItem",
+    "RelativePath": "api/customer/cart/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateCartItem",
+        "Type": "ShopAPI.DTOs.UpdateCartItem",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ShopAPI.Controllers.Customer.CustomerComboController",
     "Method": "GetAll",
     "RelativePath": "api/customer/combos",

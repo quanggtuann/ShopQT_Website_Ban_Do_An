@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "y3q49h/ntp2dOC950zzt0SUm5U444XN6cMhhi2t85PI=",
+  "Hash": "u1xh9tDw/TSa8vSsVdWIUeQkK8onXuLIJt4dv6SywnI=",
   "Source": "ShopAPI",
   "BasePath": "_content/ShopAPI",
   "Mode": "Default",
@@ -568,7 +568,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 19 May 2026 10:00:51 GMT"
+          "Value": "Tue, 19 May 2026 10:53:26 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -613,7 +613,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 19 May 2026 10:00:51 GMT"
+          "Value": "Tue, 19 May 2026 10:53:26 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -650,7 +650,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 19 May 2026 10:01:19 GMT"
+          "Value": "Tue, 19 May 2026 10:53:26 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -687,7 +687,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 19 May 2026 10:01:19 GMT"
+          "Value": "Tue, 19 May 2026 10:53:26 GMT"
         },
         {
           "Name": "Cache-Control",

@@ -5,11 +5,11 @@ using ShopDAL.Repository.IRepository;
 
 namespace ShopAPI.Services.Customer
 {
-    public class CustomerComboSevice : ICustomerComboSevice
+    public class CustomerComboService : ICustomerComboService
     {
         private readonly IComboRepo _comboRepo;
 
-        public CustomerComboSevice(IComboRepo comboRepo)
+        public CustomerComboService(IComboRepo comboRepo)
         {
             _comboRepo = comboRepo;
         }
