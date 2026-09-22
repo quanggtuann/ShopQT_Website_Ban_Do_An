@@ -46,6 +46,13 @@ namespace ShopDAL.Repository
         {
             _dbContext.CartItems.Remove(cartItem);
         }
+
+        public void ClearCartItems(int cartId)
+        {
+            var cartItems = _dbContext.CartItems.Where(item => item.CartId == cartId);
+            _dbContext.CartItems.RemoveRange(cartItems);
+        }
+
         public void Save()
         {
             _dbContext.SaveChanges();

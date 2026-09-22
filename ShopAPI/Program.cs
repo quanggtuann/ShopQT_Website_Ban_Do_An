@@ -64,23 +64,41 @@ builder.Services.AddScoped<IAdminCategoryRepo, AdminCategoryRepo>();
 builder.Services.AddScoped<IAdminAccountRepo, AdminAccountRepo>();
 builder.Services.AddScoped<IAdminComboRepo, AdminComboRepo>();
 builder.Services.AddScoped<IAdminOrderRepo, AdminOrderRepo>();
+builder.Services.AddScoped<IAdminDiscountCampaignRepo, AdminDiscountCampaignRepo>();
+builder.Services.AddScoped<IAdminStatisticsRepo, AdminStatisticsRepo>();
 
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 builder.Services.AddScoped<IFoodRepo, FoodRepo>();
 builder.Services.AddScoped<IComboRepo, ComboRepo>();
 builder.Services.AddScoped<ICartRepo, CartRepo>();
+builder.Services.AddScoped<IAddressRepo, AddressRepo>();
+builder.Services.AddScoped<IFavoriteRepo, FavoriteRepo>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IComboService, ComboService>();
 builder.Services.AddScoped<ICategoryesService, CategoryesService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IDiscountCampaignService, DiscountCampaignService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAdminStatisticsService, AdminStatisticsService>();
 
 builder.Services.AddScoped<ICustomerFoodService, CustomerFoodService>();
 builder.Services.AddScoped<ICustomerComboService, CustomerComboService>();
 builder.Services.AddScoped<ICustomerAccountService, CustomerAccountService>();
 builder.Services.AddScoped<ICustomerCartService, CustomerCartService>();
+builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
+builder.Services.AddScoped<ICustomerDiscountPriceService, CustomerDiscountPriceService>();
+builder.Services.AddScoped<ICustomerFavoriteService, CustomerFavoriteService>();
+builder.Services.AddScoped<ICustomerOrderService, CustomerOrderService>();
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddHttpClient<LocationService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopAPI.DTOs;
 using ShopAPI.Services.Customer.IServices;
 using ShopDAL.Models;
+using System.Security.Claims;
 
 namespace ShopAPI.Controllers
 {
@@ -96,17 +97,14 @@ namespace ShopAPI.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult UpdateProfile(int id, [FromBody] User user)
+        public IActionResult UpdateProfile(int id, [FromBody] UpdateProfileDto dto)
         {
-            if (id != user.UserID)
-                return BadRequest("ID mismatch");
-
             if (!CanAccessUser(id))
                 return Forbid();
 
             try
             {
-                _accountService.UpdateProfile(user);
+                _accountService.UpdateProfile(id,dto);
 
                 return Ok(new
                 {
@@ -124,11 +122,36 @@ namespace ShopAPI.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPut("{id}/change-password")]
+        public IActionResult ChangePassword(int id, [FromBody] ChangePasswordRequestDto request)
+        {
+            if (!CanAccessUser(id))
+                return Forbid();
+
+            try
+            {
+                _accountService.ChangePassword(id, request.CurrentPassword, request.NewPassword);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Password updated"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
         private bool CanAccessUser(int id)
         {
-            var userIdClaim = User.FindFirst(
-                System.Security.Claims.ClaimTypes.NameIdentifier
-            )?.Value;
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (!int.TryParse(userIdClaim, out var currentUserId))
                 return false;

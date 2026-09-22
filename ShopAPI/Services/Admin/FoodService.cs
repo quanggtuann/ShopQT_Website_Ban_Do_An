@@ -1,6 +1,7 @@
 using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Models;
 using ShopAPI.DTOs;
+using ShopAPI.Services.Customer.IServices;
 using ShopAPI.Services.IServices;
 
 namespace ShopAPI.Services
@@ -8,10 +9,12 @@ namespace ShopAPI.Services
     public class FoodService : IFoodService
     {
         private readonly IAdminFoodRepo _foodRepo;
+        private readonly ICustomerDiscountPriceService _discountPriceService;
 
-        public FoodService(IAdminFoodRepo foodRepo)
+        public FoodService(IAdminFoodRepo foodRepo, ICustomerDiscountPriceService discountPriceService)
         {
             _foodRepo = foodRepo;
+            _discountPriceService = discountPriceService;
         }
 
         public List<FoodItemDto> GetAllForDropdown()
@@ -24,6 +27,8 @@ namespace ShopAPI.Services
                     Name = f.Name,
                     Description = f.Description,
                     Price = f.Price,
+                    OriginalPrice = f.Price,
+                    FinalPrice = f.Price,
                     IsAvailable = f.IsAvailable,
                     CreateDate = f.CreateDate,
                     ImagePath = f.ImagePath,
@@ -70,20 +75,33 @@ namespace ShopAPI.Services
             }
 
             var totalItem = query.Count();
-            var foodItems = query
+            var pagedFoods = query
                 .Skip((filter.page - 1) * filter.pageSize)
                 .Take(filter.pageSize)
-                .Select(f => new FoodItemDto
+                .ToList();
+            var discounts = _discountPriceService.GetFoodDiscounts(pagedFoods.Select(f => f.FoodItemId));
+            var foodItems = pagedFoods
+                .Select(f =>
                 {
-                    FoodItemId = f.FoodItemId,
-                    Name = f.Name,
-                    Description = f.Description,
-                    Price = f.Price,
-                    IsAvailable = f.IsAvailable,
-                    CreateDate = f.CreateDate,
-                    ImagePath = f.ImagePath,
-                    CategoryId = f.CategoryId,
-                    Category = f.Category == null ? null : new CategoryDto { CategoryId = f.Category.CategoryId, Name = f.Category.Name }
+                    var discount = discounts.GetValueOrDefault(f.FoodItemId);
+                    return new FoodItemDto
+                    {
+                        FoodItemId = f.FoodItemId,
+                        Name = f.Name,
+                        Description = f.Description,
+                        Price = f.Price,
+                        OriginalPrice = f.Price,
+                        FinalPrice = discount?.FinalPrice ?? f.Price,
+                        HasDiscount = discount?.HasDiscount ?? false,
+                        DiscountCampaignName = discount?.CampaignName,
+                        DiscountType = discount?.DiscountType,
+                        DiscountValue = discount?.DiscountValue,
+                        IsAvailable = f.IsAvailable,
+                        CreateDate = f.CreateDate,
+                        ImagePath = f.ImagePath,
+                        CategoryId = f.CategoryId,
+                        Category = f.Category == null ? null : new CategoryDto { CategoryId = f.Category.CategoryId, Name = f.Category.Name }
+                    };
                 })
                 .ToList();
 
@@ -129,6 +147,8 @@ namespace ShopAPI.Services
                 Name = food.Name,
                 Description = food.Description,
                 Price = food.Price,
+                OriginalPrice = food.Price,
+                FinalPrice = _discountPriceService.GetFoodDiscount(food.FoodItemId, food.Price).FinalPrice,
                 IsAvailable = food.IsAvailable,
                 CreateDate = food.CreateDate,
                 ImagePath = food.ImagePath,

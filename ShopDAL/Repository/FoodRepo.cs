@@ -15,6 +15,7 @@ namespace ShopDAL.Repository
         public List<FoodItem> Getall()
         {
             return _context.FoodItems
+                .AsNoTracking()
                 .Include(f => f.Category)
                 .ToList();
         }

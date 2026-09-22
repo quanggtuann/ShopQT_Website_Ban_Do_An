@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "PackagePath": "staticwebassets\\img\\combos\\Combo Gia Dinh.png"
+    },
+    {
       "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\ComboUpdate.jpg",
       "PackagePath": "staticwebassets\\img\\combos\\ComboUpdate.jpg"
     },
@@ -53,6 +57,10 @@
       "PackagePath": "staticwebassets\\img\\foods\\bimbimed.jpg"
     },
     {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\ga ran nuong.jpg"
+    },
+    {
       "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kakckadc.jpg",
       "PackagePath": "staticwebassets\\img\\foods\\kakckadc.jpg"
     },
@@ -71,6 +79,10 @@
     {
       "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\tra sua.jpg",
       "PackagePath": "staticwebassets\\img\\foods\\tra sua.jpg"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "PackagePath": "staticwebassets\\img\\foods\\xucxich.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ShopAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

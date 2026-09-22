@@ -20,7 +20,7 @@ namespace ShopAPI.Controllers.Customer
             _customerCartService = customerCartService;
         }
         [HttpGet]
-        public ActionResult GetMyCart()
+        public IActionResult GetMyCart()
         {
             try
             {

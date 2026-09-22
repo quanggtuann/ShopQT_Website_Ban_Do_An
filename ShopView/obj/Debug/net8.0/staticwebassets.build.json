@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7Pglqe+tJKgDuQkPKZ2hhfkvLWSrSUZxc9dy6N3dQHo=",
+  "Hash": "oUpokXvymbRZNptQhQLqTjG4NWmHhozLulbgb0SsRXU=",
   "Source": "ShopView",
   "BasePath": "_content/ShopView",
   "Mode": "Default",
@@ -87,6 +87,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.25\\staticwebassets\\QuickGrid.razor.js"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "SourceId": "ShopAPI",
+      "SourceType": "Project",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/combos/Combo Gia Dinh#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dzk2sjybf6",
+      "Integrity": "R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png"
     },
     {
       "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
@@ -362,6 +383,27 @@
       "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\bimbimed.jpg"
     },
     {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "SourceId": "ShopAPI",
+      "SourceType": "Project",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/foods/ga ran nuong#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dqr5d45wff",
+      "Integrity": "W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg"
+    },
+    {
       "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kakckadc.jpg",
       "SourceId": "ShopAPI",
       "SourceType": "Project",
@@ -465,6 +507,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\tra sua.jpg"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "SourceId": "ShopAPI",
+      "SourceType": "Project",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/foods/xucxich#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dqr5d45wff",
+      "Integrity": "W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg"
     },
     {
       "Identity": "D:\\ShopDAL\\ShopView\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ShopView.styles.css",
@@ -5507,12 +5570,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png",
       "SourceId": "ShopView",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\ShopDAL\\ShopView\\wwwroot\\",
       "BasePath": "_content/ShopView",
-      "RelativePath": "img/page-header#[.{fingerprint}]?.png",
+      "RelativePath": "img/08b9b2d8-f0db-4822-9dfc-d6bb659e63b3#[.{fingerprint}]?.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -5521,11 +5584,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "5uulzy7l40",
-      "Integrity": "XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ=",
+      "Fingerprint": "7dohxhifs5",
+      "Integrity": "mxokmGOOG2VtnQSe8bwYz6SmPjRA6xrSIFToYDEP13k=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\page-header.png"
+      "OriginalItemSpec": "wwwroot\\img\\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\85b97dee-8209-46e8-bac6-9911c69a55eb.png",
+      "SourceId": "ShopView",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ShopDAL\\ShopView\\wwwroot\\",
+      "BasePath": "_content/ShopView",
+      "RelativePath": "img/85b97dee-8209-46e8-bac6-9911c69a55eb#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "b89klgojxd",
+      "Integrity": "uyBAIFF+ThlecWJugS5Eh31fjmqHTnlpHXASkRWxgBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\85b97dee-8209-46e8-bac6-9911c69a55eb.png"
     },
     {
       "Identity": "D:\\ShopDAL\\ShopView\\wwwroot\\js\\site.js",
@@ -6822,6 +6906,88 @@
       ]
     },
     {
+      "Route": "_content/ShopAPI/img/combos/Combo Gia Dinh.dzk2sjybf6.png",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "918893"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 26 May 2026 11:15:25 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dzk2sjybf6"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
+        },
+        {
+          "Name": "label",
+          "Value": "_content/ShopAPI/img/combos/Combo Gia Dinh.png"
+        }
+      ]
+    },
+    {
+      "Route": "_content/ShopAPI/img/combos/Combo Gia Dinh.png",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "918893"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 26 May 2026 11:15:25 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
+        }
+      ]
+    },
+    {
       "Route": "_content/ShopAPI/img/combos/combooooo.eqopxxg2d2.jpg",
       "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
       "Selectors": [],
@@ -7888,6 +8054,88 @@
       ]
     },
     {
+      "Route": "_content/ShopAPI/img/foods/ga ran nuong.dqr5d45wff.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:41:16 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dqr5d45wff"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
+        },
+        {
+          "Name": "label",
+          "Value": "_content/ShopAPI/img/foods/ga ran nuong.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "_content/ShopAPI/img/foods/ga ran nuong.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:41:16 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
+        }
+      ]
+    },
+    {
       "Route": "_content/ShopAPI/img/foods/kakckadc.jpg",
       "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kakckadc.jpg",
       "Selectors": [],
@@ -8294,6 +8542,88 @@
         {
           "Name": "label",
           "Value": "_content/ShopAPI/img/foods/tra sua.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "_content/ShopAPI/img/foods/xucxich.dqr5d45wff.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:40:39 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dqr5d45wff"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
+        },
+        {
+          "Name": "label",
+          "Value": "_content/ShopAPI/img/foods/xucxich.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "_content/ShopAPI/img/foods/xucxich.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:40:39 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
         }
       ]
     },
@@ -27814,8 +28144,8 @@
       ]
     },
     {
-      "Route": "img/page-header.5uulzy7l40.png",
-      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "Route": "img/08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.7dohxhifs5.png",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -27824,7 +28154,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "860285"
+          "Value": "1899479"
         },
         {
           "Name": "Content-Type",
@@ -27832,11 +28162,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ=\""
+          "Value": "\"mxokmGOOG2VtnQSe8bwYz6SmPjRA6xrSIFToYDEP13k=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 19 May 2026 10:53:26 GMT"
+          "Value": "Tue, 09 Jun 2026 10:43:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -27846,21 +28176,21 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "5uulzy7l40"
+          "Value": "7dohxhifs5"
         },
         {
           "Name": "label",
-          "Value": "img/page-header.png"
+          "Value": "img/08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ="
+          "Value": "sha256-mxokmGOOG2VtnQSe8bwYz6SmPjRA6xrSIFToYDEP13k="
         }
       ]
     },
     {
-      "Route": "img/page-header.png",
-      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
+      "Route": "img/08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -27869,7 +28199,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "860285"
+          "Value": "1899479"
         },
         {
           "Name": "Content-Type",
@@ -27877,11 +28207,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ=\""
+          "Value": "\"mxokmGOOG2VtnQSe8bwYz6SmPjRA6xrSIFToYDEP13k=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 19 May 2026 10:53:26 GMT"
+          "Value": "Tue, 09 Jun 2026 10:43:50 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -27891,7 +28221,89 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-XQrDKq54GrpQVAw0eA2BkdNC33yooGucUP+Xd0bUfbQ="
+          "Value": "sha256-mxokmGOOG2VtnQSe8bwYz6SmPjRA6xrSIFToYDEP13k="
+        }
+      ]
+    },
+    {
+      "Route": "img/85b97dee-8209-46e8-bac6-9911c69a55eb.b89klgojxd.png",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\85b97dee-8209-46e8-bac6-9911c69a55eb.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2945500"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uyBAIFF+ThlecWJugS5Eh31fjmqHTnlpHXASkRWxgBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 19 Jun 2026 05:58:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b89klgojxd"
+        },
+        {
+          "Name": "label",
+          "Value": "img/85b97dee-8209-46e8-bac6-9911c69a55eb.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uyBAIFF+ThlecWJugS5Eh31fjmqHTnlpHXASkRWxgBw="
+        }
+      ]
+    },
+    {
+      "Route": "img/85b97dee-8209-46e8-bac6-9911c69a55eb.png",
+      "AssetFile": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\85b97dee-8209-46e8-bac6-9911c69a55eb.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2945500"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uyBAIFF+ThlecWJugS5Eh31fjmqHTnlpHXASkRWxgBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 19 Jun 2026 05:58:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uyBAIFF+ThlecWJugS5Eh31fjmqHTnlpHXASkRWxgBw="
         }
       ]
     },

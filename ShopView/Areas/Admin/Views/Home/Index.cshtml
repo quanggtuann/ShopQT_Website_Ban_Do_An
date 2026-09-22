@@ -1,1 +1,644 @@
-﻿<h1>Admin Homepage</h1>
+@using System.Globalization
+@model ShopView.Areas.Admin.ViewModel.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+    var vi = new CultureInfo("vi-VN");
+    var stats = Model.Statistics;
+    var maxDailyRevenue = stats.DailyRevenue.Any() ? stats.DailyRevenue.Max(day => day.Revenue) : 0m;
+}
+
+<div class="container-fluid dashboard-page">
+    <div class="dashboard-header mb-4">
+        <div>
+            <span class="dashboard-kicker">Analytics</span>
+            <h1 class="fw-bold mb-2">FastFood Admin Statistics</h1>
+            <p class="text-muted mb-0">
+                Detailed order, revenue, product and customer performance.
+            </p>
+        </div>
+
+        <form method="get" asp-area="Admin" asp-controller="Home" asp-action="Index" class="date-filter">
+            <input type="date" name="fromDate" value="@Model.FromDate?.ToString("yyyy-MM-dd")" />
+            <span>to</span>
+            <input type="date" name="toDate" value="@Model.ToDate?.ToString("yyyy-MM-dd")" />
+            <button type="submit">
+                <i class="bx bx-filter-alt"></i>
+                Apply
+            </button>
+        </form>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger shadow-sm">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row g-4">
+        <div class="col-xl-4 col-md-6">
+            <div class="stat-card stat-orange">
+                <div>
+                    <span>Total Revenue</span>
+                    <h2>@stats.GrossRevenue.ToString("N0", vi) ₫</h2>
+                    <small>All non-cancelled orders</small>
+                </div>
+                <i class="bx bx-wallet"></i>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6">
+            <div class="stat-card stat-green">
+                <div>
+                    <span>Completed Revenue</span>
+                    <h2>@stats.CompletedRevenue.ToString("N0", vi) ₫</h2>
+                    <small>Completed orders only</small>
+                </div>
+                <i class="bx bx-check-circle"></i>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-4">
+            <div class="stat-card stat-blue">
+                <div>
+                    <span>Total Orders</span>
+                    <h2>@stats.TotalOrders</h2>
+                    <small>Selected date range</small>
+                </div>
+                <i class="bx bx-receipt"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-xl-3 col-md-6">
+            <div class="mini-card">
+                <span>Today Revenue</span>
+                <strong>@stats.TodayRevenue.ToString("N0", vi) ₫</strong>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="mini-card">
+                <span>Month Revenue</span>
+                <strong>@stats.MonthRevenue.ToString("N0", vi) ₫</strong>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="mini-card">
+                <span>Year Revenue</span>
+                <strong>@stats.YearRevenue.ToString("N0", vi) ₫</strong>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="mini-card">
+                <span>Customers / Foods / Combos</span>
+                <strong>@stats.TotalCustomers / @stats.TotalFoods / @stats.TotalCombos</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-xl-7">
+            <div class="dashboard-panel">
+                <div class="panel-title">
+                    <div>
+                        <h4>Daily Revenue</h4>
+                        <p>Completed sales in the selected range.</p>
+                    </div>
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index">View orders</a>
+                </div>
+
+            <div class="daily-chart">
+                    @if (stats.DailyRevenue.Any())
+                    {
+                        @foreach (var day in stats.DailyRevenue)
+                        {
+                            var percent = maxDailyRevenue <= 0 ? 0 : (int)Math.Round(day.Revenue / maxDailyRevenue * 100);
+                            <div class="daily-row">
+                                <div class="daily-label">
+                                    <strong>@day.Date.ToString("dd/MM")</strong>
+                                    <span>@day.OrderCount orders</span>
+                                </div>
+                                <div class="daily-bar-wrap">
+                                    <div class="daily-bar" style="width:@percent%"></div>
+                                </div>
+                                <div class="daily-money">@day.Revenue.ToString("N0", vi) ₫</div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="empty-state">No revenue data in this range.</div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5">
+            <div class="dashboard-panel">
+                <div class="panel-title">
+                    <div>
+                        <h4>Order Status</h4>
+                        <p>Detailed status breakdown.</p>
+                    </div>
+                </div>
+
+                <div class="status-grid">
+                    @foreach (var item in stats.StatusStatistics)
+                    {
+                        <div class="status-box @GetStatusClass(item.Status)">
+                            <span>@item.Status</span>
+                            <strong>@item.Count</strong>
+                            <small>@item.Revenue.ToString("N0", vi) ₫</small>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-xl-6">
+            <div class="dashboard-panel">
+                <div class="panel-title">
+                    <div>
+                        <h4>Top Selling Foods</h4>
+                        <p>Foods with the highest quantity sold.</p>
+                    </div>
+                </div>
+                @RenderTopItems(stats.TopFoods, Model.ImageBaseUrl, vi)
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="dashboard-panel">
+                <div class="panel-title">
+                    <div>
+                        <h4>Top Selling Combos</h4>
+                        <p>Combos with the highest quantity sold.</p>
+                    </div>
+                </div>
+                @RenderTopItems(stats.TopCombos, Model.ImageBaseUrl, vi)
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-panel mt-4">
+        <div class="panel-title">
+            <div>
+                <h4>Recent Orders</h4>
+                <p>Latest orders inside selected date range.</p>
+            </div>
+            <a asp-area="Admin" asp-controller="Order" asp-action="Index">Manage all</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Items</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (stats.RecentOrders.Any())
+                    {
+                        @foreach (var order in stats.RecentOrders)
+                        {
+                            <tr>
+                                <td class="fw-bold">#@order.OrderId</td>
+                                <td>@order.CustomerName</td>
+                                <td>@order.OrderTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@order.ItemCount</td>
+                                <td><span class="status-pill @GetStatusClass(order.Status)">@order.Status</span></td>
+                                <td class="money">@order.TotalAmount.ToString("N0", vi) ₫</td>
+                                <td class="text-end">
+                                    <a asp-area="Admin"
+                                       asp-controller="Order"
+                                       asp-action="Details"
+                                       asp-route-id="@order.OrderId"
+                                       class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Detail
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">No recent orders.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    .dashboard-page {
+        padding-bottom: 40px;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .dashboard-kicker {
+        color: #696cff;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    .date-filter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border-radius: 18px;
+        padding: 10px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, .06);
+    }
+
+    .date-filter input {
+        border: 1px solid #edf0f4;
+        border-radius: 12px;
+        height: 42px;
+        padding: 0 12px;
+        font-weight: 700;
+    }
+
+    .date-filter button {
+        border: 0;
+        height: 42px;
+        border-radius: 12px;
+        padding: 0 16px;
+        color: #fff;
+        font-weight: 800;
+        background: linear-gradient(135deg, #696cff, #5f61e6);
+    }
+
+    .stat-card {
+        min-height: 160px;
+        color: #fff;
+        border-radius: 28px;
+        padding: 26px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        box-shadow: 0 18px 42px rgba(17, 24, 39, .12);
+    }
+
+    .stat-card span,
+    .stat-card small {
+        color: rgba(255, 255, 255, .82);
+        font-weight: 700;
+    }
+
+    .stat-card h2 {
+        margin: 8px 0;
+        font-weight: 900;
+        font-size: 27px;
+    }
+
+    .stat-card i {
+        font-size: 42px;
+        opacity: .9;
+    }
+
+    .stat-orange {
+        background: linear-gradient(135deg, #ff6b35, #ff9f1c);
+    }
+
+    .stat-green {
+        background: linear-gradient(135deg, #10b981, #34d399);
+    }
+
+    .stat-blue {
+        background: linear-gradient(135deg, #2563eb, #60a5fa);
+    }
+
+    .stat-purple {
+        background: linear-gradient(135deg, #696cff, #9b5cff);
+    }
+
+    .mini-card,
+    .dashboard-panel {
+        background: #fff;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, .8);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+    }
+
+    .mini-card {
+        padding: 22px;
+    }
+
+    .mini-card span,
+    .mini-card strong {
+        display: block;
+    }
+
+    .mini-card span {
+        color: #6b7280;
+        font-weight: 800;
+    }
+
+    .mini-card strong {
+        margin-top: 6px;
+        color: #111827;
+        font-size: 22px;
+        font-weight: 900;
+    }
+
+    .dashboard-panel {
+        padding: 26px;
+    }
+
+    .panel-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: flex-start;
+        margin-bottom: 22px;
+    }
+
+    .panel-title h4 {
+        margin: 0;
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .panel-title p {
+        margin: 5px 0 0;
+        color: #6b7280;
+        font-weight: 700;
+    }
+
+    .panel-title a {
+        color: #696cff;
+        font-weight: 900;
+    }
+
+    .daily-chart {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .daily-row {
+        display: grid;
+        grid-template-columns: 80px 1fr 130px;
+        gap: 14px;
+        align-items: center;
+    }
+
+    .daily-label strong,
+    .daily-label span {
+        display: block;
+    }
+
+    .daily-label strong {
+        color: #111827;
+    }
+
+    .daily-label span {
+        color: #8b98aa;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .daily-bar-wrap {
+        height: 14px;
+        border-radius: 999px;
+        background: #eef0f6;
+        overflow: hidden;
+    }
+
+    .daily-bar {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #ff6b35, #ff9f1c);
+    }
+
+    .daily-money,
+    .money {
+        color: #10b981;
+        font-weight: 900;
+        text-align: right;
+    }
+
+    .status-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .status-box {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .status-box span,
+    .status-box strong,
+    .status-box small {
+        display: block;
+    }
+
+    .status-box span {
+        font-weight: 900;
+    }
+
+    .status-box strong {
+        margin: 6px 0;
+        font-size: 28px;
+        color: #111827;
+    }
+
+    .status-box small {
+        color: #6b7280;
+        font-weight: 800;
+    }
+
+    .status-pending {
+        background: #fef3c7;
+        color: #b45309;
+    }
+
+    .status-confirmed {
+        background: #e0e7ff;
+        color: #4f46e5;
+    }
+
+    .status-shipping {
+        background: #dbeafe;
+        color: #2563eb;
+    }
+
+    .status-completed {
+        background: #d1fae5;
+        color: #059669;
+    }
+
+    .status-cancelled {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .status-pill {
+        display: inline-flex;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 900;
+    }
+
+    .top-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .top-item {
+        display: grid;
+        grid-template-columns: 66px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 14px;
+        border-radius: 18px;
+        background: #f8fafc;
+    }
+
+    .top-item img {
+        width: 66px;
+        height: 66px;
+        border-radius: 16px;
+        object-fit: cover;
+    }
+
+    .top-item strong,
+    .top-item span {
+        display: block;
+    }
+
+    .top-item strong {
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .top-item span {
+        color: #6b7280;
+        font-weight: 700;
+    }
+
+    .top-revenue {
+        color: #ff6b35;
+        font-weight: 900;
+        text-align: right;
+    }
+
+    .dashboard-table th {
+        color: #6b7280;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+    }
+
+    .dashboard-table td {
+        font-weight: 700;
+    }
+
+    .empty-state {
+        padding: 35px 15px;
+        color: #8b98aa;
+        font-weight: 800;
+        text-align: center;
+        border-radius: 18px;
+        background: #f8fafc;
+    }
+
+    @@media(max-width: 992px) {
+        .dashboard-header,
+        .date-filter,
+        .panel-title {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .daily-row {
+            grid-template-columns: 1fr;
+        }
+
+        .daily-money {
+            text-align: left;
+        }
+
+        .status-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+@functions {
+    private static string GetStatusClass(string status)
+    {
+        return status.ToLowerInvariant() switch
+        {
+            "pending" => "status-pending",
+            "confirmed" => "status-confirmed",
+            "shipping" => "status-shipping",
+            "completed" => "status-completed",
+            "cancelled" => "status-cancelled",
+            _ => "status-pending"
+        };
+    }
+
+    private Microsoft.AspNetCore.Html.IHtmlContent RenderTopItems(
+        List<ShopView.Areas.Admin.ViewModel.TopSellingItemViewModel> items,
+        string imageBaseUrl,
+        CultureInfo vi)
+    {
+        var builder = new System.Text.StringBuilder();
+
+        if (!items.Any())
+        {
+            builder.Append("<div class=\"empty-state\">No sales data.</div>");
+            return new Microsoft.AspNetCore.Html.HtmlString(builder.ToString());
+        }
+
+        builder.Append("<div class=\"top-list\">");
+        foreach (var item in items)
+        {
+            var imageUrl = string.IsNullOrWhiteSpace(item.ImagePath)
+                ? "https://via.placeholder.com/90x90?text=Food"
+                : imageBaseUrl.TrimEnd('/') + "/" + item.ImagePath.TrimStart('/');
+
+            builder.Append("<div class=\"top-item\">");
+            builder.Append($"<img src=\"{imageUrl}\" alt=\"{System.Net.WebUtility.HtmlEncode(item.Name)}\" />");
+            builder.Append("<div>");
+            builder.Append($"<strong>{System.Net.WebUtility.HtmlEncode(item.Name)}</strong>");
+            builder.Append($"<span>{item.QuantitySold} sold · {System.Net.WebUtility.HtmlEncode(item.ItemType)}</span>");
+            builder.Append("</div>");
+            builder.Append($"<div class=\"top-revenue\">{item.Revenue.ToString("N0", vi)} ₫</div>");
+            builder.Append("</div>");
+        }
+        builder.Append("</div>");
+
+        return new Microsoft.AspNetCore.Html.HtmlString(builder.ToString());
+    }
+}

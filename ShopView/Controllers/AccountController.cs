@@ -6,6 +6,8 @@ using System.Net.Http.Json;
 using System.Security.Claims;
 using ShopView.Infrastructure;
 using ShopView.ViewModels;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ShopView.Controllers
 {
@@ -135,6 +137,199 @@ namespace ShopView.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!int.TryParse(userIdClaim, out var userId))
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var response = await _httpClient.GetAsync($"api/customer/account/{userId}");
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToAction("Login", new { returnUrl = Url.Action("Profile") });
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+                    TempData["ErrorMessage"] = $"Cannot load profile. ({(int)response.StatusCode}) {body}";
+                    return View(new CustomerProfileViewModel { Username = User.Identity?.Name ?? string.Empty });
+                }
+
+                var profile = await response.Content.ReadFromJsonAsync<CustomerProfileViewModel>(new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new CustomerProfileViewModel();
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return View(new CustomerProfileViewModel { Username = User.Identity?.Name ?? string.Empty });
+            }
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> UpdateProfile()
+        {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!int.TryParse(userIdClaim, out var userId))
+                {
+                    return RedirectToAction("Login");
+                }
+                var response = await _httpClient.GetAsync($"api/customer/account/{userId}");
+                if (!response.IsSuccessStatusCode)
+                {
+                TempData["ErrorMessage"] = "Cannot load profile";
+                return RedirectToAction("Profile");
+            }
+                var profile= await response.Content.ReadFromJsonAsync<UpdateProfile>();
+            return View(profile);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(UpdateProfile model)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (!int.TryParse(userIdClaim, out var userId))
+                    return RedirectToAction("Login");
+
+                var response = await _httpClient.PutAsJsonAsync(
+                    $"api/customer/account/{userId}",
+                    model);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+
+                    TempData["ErrorMessage"] = body;
+
+                    return View(model);
+                }
+
+                TempData["SuccessMessage"] = "Profile updated successfully";
+
+                return RedirectToAction("Profile");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+
+                return View(model);
+            }
+        }
+        [Authorize]
+        public IActionResult MyAddresses()
+        {
+            return RedirectToAction("Index", "Address");
+        }
+
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (!string.Equals(model.NewPassword, model.ConfirmPassword, StringComparison.Ordinal))
+            {
+                ModelState.AddModelError(string.Empty, "New password and confirm password do not match.");
+                return View(model);
+            }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return RedirectToAction("Login");
+            }
+
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync(
+                    $"api/customer/account/{userId}/change-password",
+                    new
+                    {
+                        CurrentPassword = model.CurrentPassword,
+                        NewPassword = model.NewPassword
+                    });
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToAction("Login", new { returnUrl = Url.Action("ChangePassword") });
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    TempData["SuccessMessage"] = "Password changed successfully. Please login again.";
+                    return RedirectToAction("Login");
+                }
+
+                var body = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, $"Change password failed. ({(int)response.StatusCode}) {body}");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        public async Task<IActionResult> OrderHistory(int page = 1, int pageSize = 6)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/customer/orders?page={page}&pageSize={pageSize}");
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    TempData["ErrorMessage"] = "Your session has expired. Please login again.";
+                    return RedirectToAction("Login", new { returnUrl = Url.Action(nameof(OrderHistory), "Account", new { page, pageSize }) });
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+                    TempData["ErrorMessage"] = $"Cannot load orders. ({(int)response.StatusCode}) {body}";
+                    return View(new PagedResponse<CustomerOrderViewModel>());
+                }
+
+                var orders = await response.Content.ReadFromJsonAsync<PagedResponse<CustomerOrderViewModel>>(
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        NumberHandling = JsonNumberHandling.AllowReadingFromString
+                    }) ?? new PagedResponse<CustomerOrderViewModel>();
+
+                return View(orders);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return View(new PagedResponse<CustomerOrderViewModel>());
+            }
         }
 
         [AllowAnonymous]

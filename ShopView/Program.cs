@@ -1,10 +1,17 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Localization;
 using ShopView.Infrastructure;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services
+    .AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -14,6 +21,19 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Account/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.SlidingExpiration = true;
+        options.Events.OnRedirectToAccessDenied = async context =>
+        {
+            if (context.Request.Path.StartsWithSegments("/Cart")
+                || context.Request.Path.StartsWithSegments("/Favorite"))
+            {
+                await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                var returnUrl = Uri.EscapeDataString(context.Request.PathBase + context.Request.Path + context.Request.QueryString);
+                context.Response.Redirect($"/Account/Login?returnUrl={returnUrl}");
+                return;
+            }
+
+            context.Response.Redirect(context.RedirectUri);
+        };
     });
 
 builder.Services.AddAuthorization();
@@ -29,6 +49,11 @@ builder.Services.AddHttpClient("ShopAPI", client =>
 .AddHttpMessageHandler<JwtBearerHandler>();
 
 var app = builder.Build();
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("vi")
+};
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -39,6 +64,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
 
 app.UseRouting();
 

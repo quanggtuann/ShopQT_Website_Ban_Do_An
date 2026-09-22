@@ -534,6 +534,10 @@
 
                         <th>Price</th>
 
+                        <th>Discount</th>
+
+                        <th>Final Price</th>
+
                         <th>Food Items</th>
 
                         <th>Status</th>
@@ -604,6 +608,27 @@
                                 <td class="combo-price">
 
                                     @combo.Price.ToString("N0") VND
+
+                                </td>
+
+                                <td>
+                                    @if (combo.HasDiscount)
+                                    {
+                                        <span class="badge bg-danger rounded-pill">
+                                            @combo.DiscountCampaignName
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            No discount
+                                        </span>
+                                    }
+                                </td>
+
+                                <td class="combo-price">
+
+                                    @((combo.FinalPrice > 0 ? combo.FinalPrice : combo.Price).ToString("N0")) VND
 
                                 </td>
 

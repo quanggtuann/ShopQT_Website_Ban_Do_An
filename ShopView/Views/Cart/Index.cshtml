@@ -1,8 +1,10 @@
-﻿@model ShopView.ViewModels.CartViewModel
+﻿@using Microsoft.Extensions.Localization
+@model ShopView.ViewModels.CartViewModel
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
 
 @{
     Layout = "_MyLayout";
-    ViewData["Title"] = "My Cart";
+    ViewData["Title"] = Localizer["MyCart"];
 
     var imageBaseUrl = "https://localhost:7130/";
 }
@@ -12,11 +14,11 @@
     <!-- TITLE -->
     <div class="text-center mb-5">
         <h1 class="fw-bold display-5">
-            🛒 My Shopping Cart
+            🛒 @Localizer["MyShoppingCart"]
         </h1>
 
         <p class="text-muted fs-5">
-            Review your delicious items before checkout
+            @Localizer["ReviewCart"]
         </p>
     </div>
 
@@ -43,18 +45,18 @@
             <div class="card-body">
 
                 <h2 class="fw-bold mb-3">
-                    😢 Your cart is empty
+                    😢 @Localizer["EmptyCart"]
                 </h2>
 
                 <p class="text-muted mb-4">
-                    Add some delicious food and combos now!
+                    @Localizer["AddFoodComboNow"]
                 </p>
 
                 <a asp-controller="Food"
                    asp-action="Index"
                    class="btn btn-danger px-5 py-3 rounded-pill fw-bold">
 
-                    🍔 Continue Shopping
+                    🍔 @Localizer["ContinueShopping"]
 
                 </a>
 
@@ -76,11 +78,11 @@
                     <thead class="cart-header">
 
                         <tr>
-                            <th>Product</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-center">Subtotal</th>
-                            <th class="text-center">Action</th>
+                            <th>@Localizer["Product"]</th>
+                            <th class="text-center">@Localizer["Price"]</th>
+                            <th class="text-center">@Localizer["Quantity"]</th>
+                            <th class="text-center">@Localizer["Subtotal"]</th>
+                            <th class="text-center">@Localizer["Action"]</th>
                         </tr>
 
                     </thead>
@@ -102,8 +104,8 @@
                             : imageBaseUrl.TrimEnd('/') + "/" + imagePath.TrimStart('/');
 
                             var type = item.FoodItemID != null
-                            ? "Food"
-                            : "Combo";
+                            ? Localizer["Food"]
+                            : Localizer["Combo"];
 
                             var price = item.Price ?? 0m;
 
@@ -164,7 +166,7 @@
                                         <button type="submit"
                                                 class="btn btn-primary rounded-pill px-3">
 
-                                            Update
+                                            @Localizer["Update"]
 
                                         </button>
 
@@ -193,7 +195,7 @@
                                         <button type="submit"
                                                 class="btn btn-danger rounded-pill px-3">
 
-                                            🗑 Remove
+                                            🗑 @Localizer["Remove"]
 
                                         </button>
 
@@ -222,13 +224,13 @@
                     <div class="card-body p-4">
 
                         <h3 class="fw-bold mb-4">
-                            Cart Summary
+                            @Localizer["CartSummary"]
                         </h3>
 
                         <div class="d-flex justify-content-between mb-3">
 
                             <span class="text-muted">
-                                Total Items
+                                @Localizer["TotalItems"]
                             </span>
 
                             <span class="fw-semibold">
@@ -240,7 +242,7 @@
                         <div class="d-flex justify-content-between align-items-center border-top pt-3">
 
                             <h4 class="fw-bold mb-0">
-                                Grand Total
+                                @Localizer["GrandTotal"]
                             </h4>
 
                             <h3 class="text-danger fw-bold mb-0">
@@ -255,7 +257,7 @@
                                asp-action="Index"
                                class="btn btn-outline-dark rounded-pill py-3 fw-bold">
 
-                                ← Continue Shopping
+                                ← @Localizer["ContinueShopping"]
 
                             </a>
 
@@ -263,7 +265,7 @@
                                asp-action="Checkout"
                                class="btn btn-danger rounded-pill py-3 fw-bold">
 
-                                💳 Proceed To Checkout
+                                💳 @Localizer["ProceedCheckout"]
 
                             </a>
 
@@ -347,3 +349,6 @@
         }
     }
 </style>
+
+
+

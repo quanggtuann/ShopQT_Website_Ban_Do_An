@@ -178,3 +178,10 @@ D:\ShopDAL\ShopView\obj\Debug\net8.0\ref\ShopView.dll
 D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.sourcelink.json
 D:\ShopDAL\ShopView\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\ShopDAL\ShopView\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\ShopDAL\ShopView\bin\Debug\net8.0\en\ShopView.resources.dll
+D:\ShopDAL\ShopView\bin\Debug\net8.0\vi\ShopView.resources.dll
+D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.Resources.SharedResource.en.resources
+D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.Resources.SharedResource.vi.resources
+D:\ShopDAL\ShopView\obj\Debug\net8.0\ShopView.csproj.GenerateResource.cache
+D:\ShopDAL\ShopView\obj\Debug\net8.0\en\ShopView.resources.dll
+D:\ShopDAL\ShopView\obj\Debug\net8.0\vi\ShopView.resources.dll

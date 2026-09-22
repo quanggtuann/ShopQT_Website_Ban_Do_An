@@ -1,0 +1,48 @@
+@using ShopView.Areas.Admin.Models
+@model DiscountCampaignFormViewModel
+
+@{
+    ViewData["Title"] = "Create Discount Campaign";
+    ViewBag.SubmitText = "Create Campaign";
+}
+
+<style>
+    body { background: #f5f7ff; }
+    .discount-page { max-width: 1500px; margin: auto; }
+    .page-title { font-size: 36px; font-weight: 900; color: #111827; margin: 0; }
+    .page-subtitle { color: #6b7280; margin-top: 6px; }
+    .discount-card { background: #fff; border-radius: 28px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,.06); border: 1px solid #eef2f7; }
+    .card-heading { margin-bottom: 24px; }
+    .card-heading h5 { font-weight: 900; color: #111827; margin-bottom: 5px; }
+    .card-heading span { color: #6b7280; }
+    .admin-input { min-height: 54px; border-radius: 16px !important; border: 1px solid #e5e7eb !important; box-shadow: none !important; }
+    .admin-input:focus { border-color: #696cff !important; box-shadow: 0 0 0 4px rgba(105,108,255,.12) !important; }
+    .status-toggle { min-height: 54px; border: 1px solid #e5e7eb; border-radius: 16px; display: flex; align-items: center; gap: 12px; padding: 0 16px; font-weight: 800; color: #111827; }
+    .sticky-summary { position: sticky; top: 24px; }
+    .guide-list { display: grid; gap: 14px; color: #4b5563; font-weight: 700; }
+    .guide-list i { color: #10b981; margin-right: 8px; }
+    .action-primary, .action-secondary { border-radius: 16px; padding: 13px 18px; font-weight: 800; }
+    .select-grid { display: grid; gap: 12px; max-height: 430px; overflow: auto; padding-right: 4px; }
+    .select-item { border: 1px solid #e5e7eb; border-radius: 18px; padding: 14px; display: flex; gap: 12px; align-items: center; cursor: pointer; transition: .2s; }
+    .select-item:hover { border-color: #696cff; background: #f8f9ff; }
+    .select-item input { width: 18px; height: 18px; }
+    .select-item span { display: flex; justify-content: space-between; width: 100%; gap: 12px; }
+    .select-item small { color: #ff6b1a; font-weight: 900; white-space: nowrap; }
+    .empty-note { color: #9ca3af; font-weight: 700; padding: 16px; border: 1px dashed #d1d5db; border-radius: 16px; }
+</style>
+
+<div class="container-xxl py-4 discount-page">
+    <div class="mb-4">
+        <h2 class="page-title">Create Discount Campaign</h2>
+        <p class="page-subtitle">Create a promotion for selected foods and combos.</p>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-4">@TempData["ErrorMessage"]</div>
+    }
+
+    <form asp-action="Create" method="post">
+        <partial name="_Form" model="Model" />
+    </form>
+</div>

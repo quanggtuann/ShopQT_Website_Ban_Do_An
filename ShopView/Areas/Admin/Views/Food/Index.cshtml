@@ -385,6 +385,8 @@
                         <th>Food</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>Discount</th>
+                        <th>Final Price</th>
                         <th>Status</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -432,11 +434,28 @@
                                 </td>
 
                                 <td>
-                                    @food.CategoryName
+                                    @(food.Category?.Name ?? food.CategoryName ?? "No category")
                                 </td>
 
                                 <td class="food-price">
                                     @food.Price.ToString("N0") VND
+                                </td>
+
+                                <td>
+                                    @if (food.HasDiscount)
+                                    {
+                                        <span class="badge bg-danger rounded-pill">
+                                            @food.DiscountCampaignName
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No discount</span>
+                                    }
+                                </td>
+
+                                <td class="food-price">
+                                    @((food.FinalPrice > 0 ? food.FinalPrice : food.Price).ToString("N0")) VND
                                 </td>
 
                                 <td>

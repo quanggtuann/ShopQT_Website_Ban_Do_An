@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using ShopView.ViewModels;
 using System.Net.Http.Json;
@@ -24,7 +26,7 @@ namespace ShopView.Controllers
                 var response = await _httpClient.GetAsync("api/customer/cart");
                 if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Index", "Cart") });
+                    return await ExpireSessionAsync(Url.Action("Index", "Cart"));
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -74,14 +76,42 @@ namespace ShopView.Controllers
                 });
                 if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl ?? Url.Action("Index", "Cart") });
+                    if (IsAjaxRequest())
+                    {
+                        return Unauthorized(new
+                        {
+                            success = false,
+                            message = "Your session has expired. Please login again."
+                        });
+                    }
+
+                    return await ExpireSessionAsync(returnUrl ?? Url.Action("Index", "Cart"));
                 }
 
                 if (!response.IsSuccessStatusCode)
                 {
                     var body = await response.Content.ReadAsStringAsync();
+                    if (IsAjaxRequest())
+                    {
+                        return StatusCode((int)response.StatusCode, new
+                        {
+                            success = false,
+                            message = body
+                        });
+                    }
+
                     TempData["ErrorMessage"] = $"Add to cart failed. ({(int)response.StatusCode}) {body}";
                     return RedirectToLocal(returnUrl) ?? RedirectToAction(nameof(Index));
+                }
+
+                if (IsAjaxRequest())
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Added to cart.",
+                        quantity
+                    });
                 }
 
                 TempData["SuccessMessage"] = "Added to cart.";
@@ -89,6 +119,15 @@ namespace ShopView.Controllers
             }
             catch (Exception ex)
             {
+                if (IsAjaxRequest())
+                {
+                    return StatusCode(500, new
+                    {
+                        success = false,
+                        message = ex.Message
+                    });
+                }
+
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToLocal(returnUrl) ?? RedirectToAction(nameof(Index));
             }
@@ -108,14 +147,42 @@ namespace ShopView.Controllers
                 });
                 if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl ?? Url.Action("Index", "Cart") });
+                    if (IsAjaxRequest())
+                    {
+                        return Unauthorized(new
+                        {
+                            success = false,
+                            message = "Your session has expired. Please login again."
+                        });
+                    }
+
+                    return await ExpireSessionAsync(returnUrl ?? Url.Action("Index", "Cart"));
                 }
 
                 if (!response.IsSuccessStatusCode)
                 {
                     var body = await response.Content.ReadAsStringAsync();
+                    if (IsAjaxRequest())
+                    {
+                        return StatusCode((int)response.StatusCode, new
+                        {
+                            success = false,
+                            message = body
+                        });
+                    }
+
                     TempData["ErrorMessage"] = $"Add to cart failed. ({(int)response.StatusCode}) {body}";
                     return RedirectToLocal(returnUrl) ?? RedirectToAction(nameof(Index));
+                }
+
+                if (IsAjaxRequest())
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Added to cart.",
+                        quantity
+                    });
                 }
 
                 TempData["SuccessMessage"] = "Added to cart.";
@@ -123,6 +190,15 @@ namespace ShopView.Controllers
             }
             catch (Exception ex)
             {
+                if (IsAjaxRequest())
+                {
+                    return StatusCode(500, new
+                    {
+                        success = false,
+                        message = ex.Message
+                    });
+                }
+
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToLocal(returnUrl) ?? RedirectToAction(nameof(Index));
             }
@@ -141,7 +217,7 @@ namespace ShopView.Controllers
                 });
                 if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Index", "Cart") });
+                    return await ExpireSessionAsync(Url.Action("Index", "Cart"));
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -172,7 +248,7 @@ namespace ShopView.Controllers
                 var response = await _httpClient.DeleteAsync($"api/customer/cart/{cartItemId}");
                 if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action("Index", "Cart") });
+                    return await ExpireSessionAsync(Url.Action("Index", "Cart"));
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -201,6 +277,18 @@ namespace ShopView.Controllers
                 return Redirect(returnUrl);
             }
             return null;
+        }
+
+        private bool IsAjaxRequest()
+        {
+            return string.Equals(Request.Headers["X-Requested-With"], "XMLHttpRequest", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private async Task<IActionResult> ExpireSessionAsync(string? returnUrl)
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            TempData["ErrorMessage"] = "Your session has expired. Please login again.";
+            return RedirectToAction("Login", "Account", new { returnUrl });
         }
 
         private static CartViewModel CreateEmptyCartModel()

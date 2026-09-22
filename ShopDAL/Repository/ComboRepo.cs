@@ -16,7 +16,11 @@ namespace ShopDAL.Repository
 
         public IQueryable<Combo> GetAllCombos()
         {
-            return _dbContext.Combos.AsQueryable();
+            return _dbContext.Combos
+                .AsNoTracking()
+                .Include(c => c.ComboFoodItem)
+                .ThenInclude(cf => cf.FoodItem)
+                .AsQueryable();
         }
 
         public Combo? GetById(int id)

@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/Combo Gia Dinh.dzk2sjybf6.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\Combo Gia Dinh.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dzk2sjybf6"},{"Name":"integrity","Value":"sha256-R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s="},{"Name":"label","Value":"_content/ShopAPI/img/combos/Combo Gia Dinh.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"918893"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s=\u0022"},{"Name":"Last-Modified","Value":"Tue, 26 May 2026 11:15:25 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/Combo Gia Dinh.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\Combo Gia Dinh.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"918893"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022R4FSaYP/QVmEl\u002BVK7X/7sHf4lIvtAMatvT0k3PIGP4s=\u0022"},{"Name":"Last-Modified","Value":"Tue, 26 May 2026 11:15:25 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ShopAPI/img/combos/combooooo.eqopxxg2d2.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\combos\combooooo.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -156,6 +168,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xvpdlte7wc"},{"Name":"integrity","Value":"sha256-TS2PIdOxAVZYebv\u002BkWN8j19cOHFgl60k0YT6J/Rn/wc="},{"Name":"label","Value":"_content/ShopAPI/img/foods/bimbimed.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6787"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022TS2PIdOxAVZYebv\u002BkWN8j19cOHFgl60k0YT6J/Rn/wc=\u0022"},{"Name":"Last-Modified","Value":"Mon, 27 Apr 2026 03:49:22 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/foods/ga ran nuong.dqr5d45wff.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\foods\ga ran nuong.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dqr5d45wff"},{"Name":"integrity","Value":"sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8="},{"Name":"label","Value":"_content/ShopAPI/img/foods/ga ran nuong.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"77703"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8=\u0022"},{"Name":"Last-Modified","Value":"Sat, 13 Jun 2026 07:41:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/foods/ga ran nuong.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\foods\ga ran nuong.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"77703"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8=\u0022"},{"Name":"Last-Modified","Value":"Sat, 13 Jun 2026 07:41:16 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ShopAPI/img/foods/kakckadc.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\foods\kakckadc.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -215,6 +239,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xvpdlte7wc"},{"Name":"integrity","Value":"sha256-TS2PIdOxAVZYebv\u002BkWN8j19cOHFgl60k0YT6J/Rn/wc="},{"Name":"label","Value":"_content/ShopAPI/img/foods/tra sua.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6787"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022TS2PIdOxAVZYebv\u002BkWN8j19cOHFgl60k0YT6J/Rn/wc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 24 Apr 2026 01:58:13 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/foods/xucxich.dqr5d45wff.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\foods\xucxich.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dqr5d45wff"},{"Name":"integrity","Value":"sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8="},{"Name":"label","Value":"_content/ShopAPI/img/foods/xucxich.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"77703"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8=\u0022"},{"Name":"Last-Modified","Value":"Sat, 13 Jun 2026 07:40:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ShopAPI/img/foods/xucxich.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\foods\xucxich.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"77703"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R\u002BnjAXv3gv8=\u0022"},{"Name":"Last-Modified","Value":"Sat, 13 Jun 2026 07:40:39 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

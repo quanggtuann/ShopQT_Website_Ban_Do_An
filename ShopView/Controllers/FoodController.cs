@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopAPI.DTOs;
 using System.Net.Http.Json;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 using ShopView.ViewModels;
 
@@ -20,6 +21,9 @@ namespace ShopView.Controllers
         {
             try
             {
+                if (filter.page <= 0) filter.page = 1;
+                if (filter.pageSize <= 0) filter.pageSize = 12;
+
                 var query = new List<string>
                 {
                     $"page={filter.page}",
@@ -54,12 +58,26 @@ namespace ShopView.Controllers
                 }
 
                 result.Data = result.Data.Where(x => x.IsAvailable).ToList();
+                var comboResponse = await _httpClient.GetAsync("api/customer/combos?page=1&pageSize=20");
+                var combos = new List<ComboDto>();
+                if (comboResponse.IsSuccessStatusCode)
+                {
+                    var comboResult = await comboResponse.Content.ReadFromJsonAsync<PagedResult<ComboDto>>(new System.Text.Json.JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        NumberHandling = JsonNumberHandling.AllowReadingFromString
+                    });
+                    combos = comboResult?.Data?.Where(x => x.IsVaiLabel && x.HasDiscount).ToList() ?? new List<ComboDto>();
+                }
+
+                ViewBag.FavoriteFoodIds = await GetFavoriteFoodIdsAsync();
 
                 var vm = new FoodMenuViewModel
                 {
                     Filter = filter,
                     PagedResult = result,
                     Categories = categories,
+                    FeaturedCombos = combos,
                     ImageBaseUrl = "https://localhost:7130/"
                 };
 
@@ -100,6 +118,36 @@ namespace ShopView.Controllers
             catch
             {
                 return RedirectToAction(nameof(Index));
+            }
+        }
+
+        private async Task<HashSet<int>> GetFavoriteFoodIdsAsync()
+        {
+            if (User.Identity?.IsAuthenticated != true ||
+                !string.Equals(User.FindFirst(ClaimTypes.Role)?.Value, "customer", StringComparison.OrdinalIgnoreCase))
+            {
+                return new HashSet<int>();
+            }
+
+            try
+            {
+                var response = await _httpClient.GetAsync("api/customer/favorites");
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new HashSet<int>();
+                }
+
+                var favorites = await response.Content.ReadFromJsonAsync<List<FavoriteDto>>(new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString
+                }) ?? new List<FavoriteDto>();
+
+                return favorites.Select(f => f.FoodId).ToHashSet();
+            }
+            catch
+            {
+                return new HashSet<int>();
             }
         }
     }

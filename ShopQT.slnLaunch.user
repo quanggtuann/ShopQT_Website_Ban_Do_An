@@ -4,12 +4,12 @@
     "Projects": [
       {
         "Path": "ShopView\\ShopView.csproj",
-        "Action": "Start",
+        "Action": "StartWithoutDebugging",
         "DebugTarget": "https"
       },
       {
         "Path": "ShopAPI\\ShopAPI.csproj",
-        "Action": "StartWithoutDebugging",
+        "Action": "Start",
         "DebugTarget": "https"
       }
     ]

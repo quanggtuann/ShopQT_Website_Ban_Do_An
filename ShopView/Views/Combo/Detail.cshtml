@@ -1,8 +1,10 @@
-﻿@model ShopAPI.DTOs.ComboDto
+﻿@using Microsoft.Extensions.Localization
+@model ShopAPI.DTOs.ComboDto
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
 
 @{
     Layout = "_MyLayout";
-    ViewData["Title"] = "Combo Detail";
+    ViewData["Title"] = Localizer["ComboDetail"];
 
     var imageBaseUrl = ViewBag.ImageBaseUrl as string ?? "https://localhost:7130/";
 }
@@ -156,22 +158,32 @@
 
             <div class="col-lg-6">
                 <div class="combo-content">
-                    <div class="combo-badge">Combo Meal</div>
+                    <div class="combo-badge">@Localizer["ComboMeal"]</div>
 
                     <h1 class="combo-title">@Model.Name</h1>
 
-                    <div class="combo-price">@Model.Price.ToString("N0") VND</div>
+                    @if (Model.HasDiscount)
+                    {
+                        <div class="text-muted text-decoration-line-through fs-5">
+                            @String.Format("{0:N0} \u20AB", Model.OriginalPrice)
+                        </div>
+                        <div class="badge rounded-pill bg-danger px-3 py-2 mb-2">
+                            @Model.DiscountCampaignName
+                        </div>
+                    }
+
+                    <div class="combo-price">@String.Format("{0:N0} \u20AB", Model.Price)</div>
 
                     <div class="combo-description">
                         @(string.IsNullOrWhiteSpace(Model.Description)
-                            ? "No description available for this combo."
+                            ? Localizer["NoDescriptionCombo"]
                             : Model.Description)
                     </div>
 
                     @if (Model.FoodItems != null && Model.FoodItems.Any())
                     {
                         <div class="food-list-box">
-                            <h5 class="fw-bold mb-3">Included Items</h5>
+                            <h5 class="fw-bold mb-3">@Localizer["IncludedItems"]</h5>
                             @foreach (var food in Model.FoodItems)
                             {
                                 <div class="food-list-item">
@@ -184,7 +196,7 @@
 
                     <div class="combo-actions">
                         <a asp-controller="Combo" asp-action="Index" class="btn btn-back">
-                            Back To Menu
+                            @Localizer["BackToMenu"]
                         </a>
 
                         @if (User.Identity?.IsAuthenticated == true)
@@ -194,7 +206,7 @@
                                asp-route-id="@Model.ComboId"
                                asp-route-returnUrl="@Context.Request.Path"
                                class="btn btn-order">
-                                Order Now
+                                @Localizer["OrderNow"]
                             </a>
                         }
                         else
@@ -203,7 +215,7 @@
                                asp-action="Login"
                                asp-route-returnUrl="@Url.Action("Details", "Combo", new { id = Model.ComboId })"
                                class="btn btn-order">
-                                Login To Order
+                                @Localizer["LoginToOrder"]
                             </a>
                         }
                     </div>
@@ -212,3 +224,7 @@
         </div>
     </div>
 </div>
+
+
+
+

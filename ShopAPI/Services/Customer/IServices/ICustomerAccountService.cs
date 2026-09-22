@@ -11,6 +11,8 @@ namespace ShopAPI.Services.Customer.IServices
 
         User GetProfile(int id);
 
-        void UpdateProfile(User user);
+        void UpdateProfile( int id,UpdateProfileDto updateProfileDto);
+
+        void ChangePassword(int userId, string currentPassword, string newPassword);
     }
 }

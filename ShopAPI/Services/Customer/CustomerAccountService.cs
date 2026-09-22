@@ -56,7 +56,7 @@ namespace ShopAPI.Services.Customer
 
         public User GetProfile(int id)
         {
-            var user = _accountRepo.Getnameuser(id.ToString());
+            var user = _accountRepo.GetById(id);
 
             if (user == null)
             {
@@ -66,8 +66,34 @@ namespace ShopAPI.Services.Customer
             return user;
         }
 
-        public void UpdateProfile(User user)
+        public void UpdateProfile(int id,UpdateProfileDto updateProfileDto )
         {
+            var user = _accountRepo.GetById(id);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            user.PhoneNumber = updateProfileDto.PhoneNumber;
+            user.DateorBirth = updateProfileDto.DateorBirth;
+            user.Email = updateProfileDto.Email;
+            _accountRepo.Save();
+        }
+
+        public void ChangePassword(int userId, string currentPassword, string newPassword)
+        {
+            var user = _accountRepo.GetById(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            if (!string.Equals(user.Password, currentPassword, StringComparison.Ordinal))
+            {
+                throw new Exception("Current password is incorrect");
+            }
+
+            user.Password = newPassword;
             _accountRepo.Update(user);
         }
     }

@@ -1,370 +1,670 @@
-﻿@model ShopView.ViewModels.FoodMenuViewModel
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@using ShopAPI.DTOs
+@model ShopView.ViewModels.FoodMenuViewModel
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
 @{
     Layout = "_MyLayout";
-    ViewData["Title"] = "Food Menu";
+    ViewData["Title"] = Localizer["FoodMenu"];
+
+    var viCulture = CultureInfo.GetCultureInfo("vi-VN");
+    var invariantCulture = CultureInfo.InvariantCulture;
+    var foods = Model.PagedResult.Data ?? new List<FoodItemDto>();
+    var sellerFoods = foods.Where(item => item.HasDiscount)
+        .GroupBy(item => item.FoodItemId)
+        .Select(group => group.First())
+        .Take(6)
+        .ToList();
+    var popularFoods = foods.Skip(1)
+        .Concat(foods)
+        .GroupBy(item => item.FoodItemId)
+        .Select(group => group.First())
+        .Take(10)
+        .ToList();
+    var sideFoods = sellerFoods.Skip(1).Take(4).ToList();
+    var discountedCombos = Model.FeaturedCombos.Where(combo => combo.HasDiscount).Take(4).ToList();
+    var priceFrom = Model.Filter.PriceFrom ?? 0m;
+    var priceTo = Model.Filter.PriceTo ?? 300000m;
+    var highestFoodPrice = foods.Any()
+        ? foods.Max(item => item.OriginalPrice > 0 ? item.OriginalPrice : item.Price)
+        : 300000m;
+    var maxRangePrice = Math.Max(300000m, Math.Max(priceTo, highestFoodPrice));
+    var priceFromValue = priceFrom.ToString("0", invariantCulture);
+    var priceToValue = priceTo.ToString("0", invariantCulture);
+    var maxRangeValue = Math.Ceiling(maxRangePrice).ToString("0", invariantCulture);
+    var favoriteFoodIds = ViewBag.FavoriteFoodIds as HashSet<int> ?? new HashSet<int>();
+    var currentReturnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+
+    var categoryPageSize = 6;
+    var categoryPages = Math.Max(1, (int)Math.Ceiling(Model.Categories.Count / (double)categoryPageSize));
+    var selectedCategoryIndex = Model.Filter.categoryID.HasValue
+        ? Model.Categories.FindIndex(category => category.CategoryId == Model.Filter.categoryID.Value)
+        : -1;
+    var selectedCategoryPage = selectedCategoryIndex >= 0 ? selectedCategoryIndex / categoryPageSize : 0;
+
+    string FormatMoney(decimal value) => $"{value.ToString("N0", viCulture)} \u20AB";
+    string FoodImage(FoodItemDto item) => string.IsNullOrWhiteSpace(item.ImagePath)
+        ? "https://via.placeholder.com/900x600?text=Food"
+        : $"{Model.ImageBaseUrl.TrimEnd('/')}/{item.ImagePath.TrimStart('/')}";
+    string ComboImage(ComboDto item) => string.IsNullOrWhiteSpace(item.ImagePath)
+        ? "https://via.placeholder.com/900x600?text=Combo"
+        : $"{Model.ImageBaseUrl.TrimEnd('/')}/{item.ImagePath.TrimStart('/')}";
+    string Description(string? text) => string.IsNullOrWhiteSpace(text) ? Localizer["FreshTastyDish"].Value : text;
+    decimal SaveAmount(decimal originalPrice, decimal finalPrice) => Math.Max(0, originalPrice - finalPrice);
+    string DiscountText(decimal? value, string? type)
+    {
+        if (!value.HasValue)
+        {
+            return "-";
+        }
+
+        return string.Equals(type, "Percent", StringComparison.OrdinalIgnoreCase)
+            ? $"-{value.Value:N0}%"
+            : $"-{FormatMoney(value.Value)}";
+    }
 }
 
 <style>
-    body {
-        background: #f4f7fb;
+    body { background:#f5f6f8; }
+    .ff-page { max-width:1440px; }
+    .ff-section, .ff-filter { background:#fff; border-radius:22px; padding:18px; box-shadow:0 10px 24px rgba(15,23,42,.05); margin-bottom:20px; }
+    .ff-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .ff-title { margin:0; color:#111827; font-weight:900; font-size:20px; letter-spacing:-.03em; }
+    .ff-subtitle { margin:3px 0 0; color:#8b95a1; font-size:13px; }
+    .ff-view, .ff-soft-btn { color:#111827; text-decoration:none; font-size:13px; font-weight:900; border:0; background:#fff; transition:.25s ease; }
+    .ff-view:hover, .ff-soft-btn:hover { color:#ff641f; transform:translateX(3px); }
+    .dish-grid { display:grid; grid-template-columns:1.08fr .92fr; gap:16px; align-items:stretch; }
+    .hero-carousel { height:100%; min-height:520px; border-radius:18px; overflow:hidden; color:#fff; background:#111827; }
+    .hero-track { display:flex; height:100%; min-height:inherit; animation:heroTrack var(--hero-duration, 24s) steps(var(--hero-steps, 1), end) infinite; }
+    .hero-carousel:hover .hero-track { animation-play-state:paused; }
+    @@keyframes heroTrack { 0%,18%{transform:translateX(0)} 100%{transform:translateX(calc(-100% * var(--hero-last, 0)))} }
+    .hero-slide { position:relative; flex:0 0 100%; min-height:inherit; overflow:hidden; }
+    .hero-slide img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; transition:transform .45s ease; }
+    .hero-slide::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.74)); }
+    .hero-slide:hover img, .product-card:hover img, .side-card:hover img, .deal-card:hover img { transform:scale(1.06); }
+    .hero-info { position:absolute; z-index:2; left:18px; right:18px; bottom:18px; }
+    .hero-info h2 { font-size:28px; font-weight:900; margin:0 0 5px; }
+    .hero-info p { color:rgba(255,255,255,.78); margin:0 0 10px; }
+    .price-row { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .price { color:#ff4d24; font-weight:900; font-size:18px; }
+    .hero-info .price { font-size:24px; }
+    .old-price { color:#9ca3af; text-decoration:line-through; font-size:12px; }
+    .save-line { color:#ffcf33; font-weight:900; font-size:12px; margin-top:3px; }
+    .side-card .save-line, .product-card .save-line { color:#ff641f; }
+    .add-btn, .details-btn, .filter-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; text-decoration:none; font-weight:900; transition:transform .25s ease, box-shadow .25s ease, background .25s ease; }
+    .add-btn { position:relative; z-index:5; background:#ff641f; color:#fff; min-width:38px; height:38px; padding:0 14px; box-shadow:0 8px 14px rgba(255,100,31,.20); }
+    .add-btn:hover, .filter-btn:hover { color:#fff; transform:translateY(-2px); box-shadow:0 10px 20px rgba(255,100,31,.22); background:#f04f12; }
+    .details-btn { background:#fff; color:#111827; padding:10px 16px; box-shadow:0 8px 14px rgba(0,0,0,.10); }
+    .details-btn:hover { color:#ff641f; transform:translateY(-3px); }
+    .side-list { display:grid; gap:12px; }
+    .side-card { display:grid; grid-template-columns:116px 1fr auto; gap:12px; align-items:center; padding:9px; border-radius:15px; background:#fff; box-shadow:0 8px 18px rgba(15,23,42,.05); overflow:hidden; transition:.25s ease; }
+    .side-card:hover, .product-card:hover, .deal-card:hover { transform:translateY(-3px); box-shadow:0 12px 24px rgba(15,23,42,.09); }
+    .side-card img { width:116px; height:76px; object-fit:cover; border-radius:13px; transition:.35s ease; }
+    .side-card h3, .product-card h3, .deal-card h3 { margin:0 0 4px; font-size:14px; font-weight:900; color:#111827; }
+    .side-card p, .product-card p, .deal-card p { margin:0 0 6px; color:#8b95a1; font-size:12px; line-height:1.35; }
+    .badge-hot { position:absolute; top:12px; left:12px; z-index:2; color:#fff; background:#ff4d24; border-radius:999px; padding:6px 10px; font-size:11px; font-weight:900; display:inline-flex; align-items:center; gap:7px; }
+    .heart { position:absolute; top:12px; right:12px; z-index:4; width:34px; height:34px; border-radius:50%; border:0; background:rgba(255,255,255,.92); color:#6b7280; transition:.25s ease; display:flex; align-items:center; justify-content:center; text-decoration:none; }
+    .heart:hover, .heart.active { color:#ff4d24; transform:scale(1.08) rotate(6deg); text-decoration:none; }
+    .product-carousel { overflow:hidden; }
+    .carousel-track { display:flex; gap:14px; width:max-content; animation:slideFoods 28s linear infinite; }
+    .product-carousel:hover .carousel-track { animation-play-state:paused; }
+    @@keyframes slideFoods { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .product-card { position:relative; flex:0 0 210px; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 8px 18px rgba(15,23,42,.06); transition:.25s ease; }
+    .product-card img { width:100%; height:126px; object-fit:cover; display:block; transition:.35s ease; }
+    .product-body { padding:12px; }
+    .hover-details { position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; background:rgba(17,24,39,.38); opacity:0; transition:.25s ease; pointer-events:none; }
+    .hover-details .details-btn { pointer-events:auto; }
+    .hero-slide:hover .hover-details, .product-card:hover .hover-details, .deal-card:hover .hover-details { opacity:1; }
+    .deal-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch; }
+    .deal-card { position:relative; min-height:260px; border-radius:16px; background:#fff; box-shadow:0 8px 18px rgba(15,23,42,.05); overflow:hidden; transition:.25s ease; }
+    .deal-card img { width:100%; height:142px; object-fit:cover; transition:.35s ease; }
+    .deal-body { padding:13px; }
+    .deal-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:8px; }
+    .deal-card .add-btn { min-width:34px; width:34px; height:34px; padding:0; }
+    .discount-corner { position:absolute; top:10px; right:10px; z-index:2; width:52px; height:52px; border-radius:14px; background:#ffd335; color:#111827; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:900; line-height:1; box-shadow:0 10px 20px rgba(0,0,0,.12); }
+    .discount-corner small { font-size:9px; margin-top:3px; }
+    .product-card .discount-corner, .hero-slide .discount-corner { top:12px; right:12px; }
+    .product-card .discount-corner span, .hero-slide .discount-corner span { font-size:12px; }
+    .product-card .discount-corner + .heart, .hero-slide .discount-corner + .heart { top:76px; }
+    .promo { grid-column:1/-1; border-radius:18px; padding:24px 28px; background:linear-gradient(105deg,#fff1e7 0%,#fff9f3 55%,#ffd9bd 100%); display:flex; align-items:center; justify-content:space-between; gap:22px; overflow:hidden; min-height:150px; }
+    .promo strong { color:#ff4d24; font-size:38px; line-height:1; }
+    .promo .promo-note { max-width:520px; color:#6b7280; font-size:13px; margin-top:6px; }
+    .category-slider { position:relative; }
+    .category-radio { position:absolute; opacity:0; pointer-events:none; }
+    .category-viewport { overflow:hidden; }
+    .category-track { display:flex; transition:transform .4s ease; }
+    .category-page { flex:0 0 100%; }
+    .category-page-inner { display:flex; gap:24px; align-items:center; min-width:max-content; padding:2px 0; }
+    .category-pill { min-width:126px; min-height:42px; padding:0 22px; border-radius:999px; border:1px solid #e5e7eb; background:#fff; color:#111827; font-size:13px; font-weight:900; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; transition:.25s ease; }
+    .category-pill:hover, .category-pill.active { background:#ff641f; color:#fff; border-color:#ff641f; transform:translateY(-2px); }
+    .category-controls { position:absolute; top:-50px; right:0; display:flex; gap:10px; }
+    .category-arrow, .category-continue { min-height:38px; border-radius:999px; border:1px solid #e5e7eb; background:#fff; color:#111827; display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:900; cursor:pointer; padding:0 14px; transition:.25s ease; }
+    .category-arrow { width:38px; padding:0; }
+    .category-arrow:hover, .category-continue:hover { color:#ff641f; transform:translateY(-2px); }
+    @for (var pageIndex = 0; pageIndex < categoryPages; pageIndex++)
+    {
+        <text>
+        #categorySlide-@pageIndex:checked ~ .category-viewport .category-track { transform:translateX(calc(-100% * @pageIndex)); }
+        #categorySlide-@pageIndex:checked ~ .category-controls .controls-set-@pageIndex { display:flex; }
+        </text>
     }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 35px;
+    .controls-set { display:none; gap:10px; }
+    .filter-control { height:46px; border-radius:14px; border:1px solid #e5e7eb; box-shadow:none; }
+    .filter-label { color:#111827; font-weight:900; font-size:13px; margin-bottom:8px; }
+    .filter-shell { padding:0; overflow:hidden; }
+    .filter-grid { display:grid; grid-template-columns:.85fr 1.55fr; gap:0; }
+    .filter-left, .filter-right { padding:28px; }
+    .filter-left { border-right:1px solid #eef2f7; }
+    .filter-title { display:flex; align-items:center; gap:10px; color:#111827; font-weight:900; margin-bottom:18px; }
+    .filter-title i { color:#ff641f; }
+    .search-wrap { position:relative; }
+    .search-wrap input { padding-right:42px; }
+    .search-wrap i { position:absolute; right:15px; top:50%; transform:translateY(-50%); color:#9ca3af; }
+    .sort-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    .price-range-box { border:0; padding:0; background:transparent; }
+    .price-range-head { display:flex; align-items:center; gap:10px; color:#111827; font-weight:900; margin-bottom:18px; }
+    .price-range-head i { color:#ff641f; }
+    .price-range-values { display:grid; grid-template-columns:1fr auto 1fr auto; align-items:end; gap:18px; margin-bottom:16px; }
+    .price-field label { display:block; color:#111827; font-size:12px; font-weight:900; margin-bottom:8px; }
+    .price-input-wrap { position:relative; }
+    .price-input-wrap input { height:58px; border-radius:15px; border:1px solid #e5e7eb; padding:0 42px 0 18px; font-weight:900; width:100%; }
+    .price-input-wrap span { position:absolute; right:16px; top:50%; transform:translateY(-50%); color:#111827; font-weight:900; }
+    .price-separator { align-self:center; color:#9ca3af; font-weight:900; padding-top:20px; }
+    .clear-price { align-self:center; border:1px solid #ff641f; color:#ff641f; border-radius:13px; padding:10px 24px; font-weight:900; text-decoration:none; transition:.25s ease; margin-top:20px; }
+    .clear-price:hover { background:#ff641f; color:#fff; transform:translateY(-2px); }
+    .quick-row { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:12px; }
+    .quick-label { color:#6b7280; font-size:12px; font-weight:900; margin-right:2px; }
+    .quick-chip { border:1px solid #e5e7eb; border-radius:999px; padding:8px 12px; color:#111827; background:#fff; font-size:12px; font-weight:900; text-decoration:none; transition:.25s ease; }
+    .quick-chip:hover, .quick-chip.active { background:#ff641f; border-color:#ff641f; color:#fff; transform:translateY(-2px); }
+    .filter-btn { background:#ff641f; color:#fff; padding:0 18px; min-height:42px; }
+    .filter-actions { border-top:1px solid #eef2f7; padding:20px 28px; display:flex; justify-content:flex-end; gap:14px; }
+    .all-toolbar { display:flex; justify-content:space-between; align-items:center; color:#6b7280; font-size:13px; margin:0 0 18px; }
+    .show-select { border:0; border-radius:10px; padding:9px 12px; background:#fff; box-shadow:0 6px 18px rgba(15,23,42,.05); color:#374151; font-weight:700; }
+    .all-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .all-grid .product-card { flex:auto; }
+    .all-grid .product-card img { height:178px; }
+    .product-empty { padding:40px 20px; text-align:center; background:#fff; border-radius:18px; }
+    .pagination { justify-content:center; gap:8px; margin-top:24px; }
+    .page-link { width:38px; height:38px; display:flex; align-items:center; justify-content:center; border:0; border-radius:12px!important; color:#6b7280; font-weight:900; box-shadow:0 8px 20px rgba(15,23,42,.05); transition:.25s ease; }
+    .page-link:hover, .page-item.active .page-link { color:#fff; background:#ff641f; transform:translateY(-2px); }
+    .ff-section, .ff-filter {
+        background: linear-gradient(145deg, rgba(255,250,241,.98), rgba(255,244,226,.94));
+        border: 1px solid rgba(184, 119, 39, .18);
+        box-shadow: 0 12px 30px rgba(101, 67, 33, .08);
     }
-
-        .section-title h1 {
-            font-size: 48px;
-            font-weight: 800;
-            color: #111;
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: #777;
-            font-size: 17px;
-        }
-
-    .filter-box {
-        background: white;
-        border-radius: 20px;
-        padding: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,.06);
-        margin-bottom: 40px;
+    .ff-title, .filter-title, .price-range-head, .filter-label, .side-card h3, .product-card h3, .deal-card h3 {
+        color: #2d1b0f;
     }
-
-        .filter-box .form-control {
-            border-radius: 12px;
-            height: 48px;
-            border: 1px solid #e4e4e4;
-            box-shadow: none;
-        }
-
-    .btn-food {
-        background: linear-gradient(45deg,#ff6b35,#ff9f1c);
-        border: none;
-        color: white;
-        border-radius: 12px;
-        padding: 12px 30px;
-        font-weight: 600;
-        transition: .3s;
+    .ff-subtitle, .side-card p, .product-card p, .deal-card p, .quick-label, .all-toolbar {
+        color: #7c6a58;
     }
-
-        .btn-food:hover {
-            transform: translateY(-2px);
-            color: white;
-            box-shadow: 0 10px 20px rgba(255,107,53,.3);
-        }
-
-    .food-card {
-        background: white;
-        border-radius: 22px;
-        overflow: hidden;
-        transition: .35s;
-        box-shadow: 0 10px 30px rgba(0,0,0,.06);
-        height: 100%;
+    .side-card, .product-card, .deal-card, .product-empty, .category-pill, .category-arrow, .category-continue, .quick-chip, .show-select, .details-btn {
+        background: linear-gradient(145deg, #fffdf8, #fff6e8);
+        border: 1px solid rgba(184, 119, 39, .14);
     }
-
-        .food-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,.12);
-        }
-
-    .food-image {
-        width: 100%;
-        height: 240px;
-        object-fit: cover;
+    .filter-control, .price-input-wrap input {
+        background: rgba(255, 253, 248, .92);
+        border-color: rgba(184, 119, 39, .20);
+        color: #2d1b0f;
     }
-
-    .food-content {
-        padding: 22px;
+    .filter-left, .filter-actions {
+        border-color: rgba(184, 119, 39, .15);
     }
-
-    .food-title {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 10px;
+    .side-card:hover, .product-card:hover, .deal-card:hover {
+        box-shadow: 0 14px 28px rgba(101, 67, 33, .12);
     }
-
-    .food-description {
-        color: #777;
-        height: 50px;
-        overflow: hidden;
+    .promo {
+        background: linear-gradient(105deg, #fff4df 0%, #fffaf2 52%, #ffd7a8 100%);
+        border: 1px solid rgba(184, 119, 39, .18);
     }
-
-    .food-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 20px;
-    }
-
-    .food-price {
-        font-size: 28px;
-        font-weight: 800;
-        color: #ff6b35;
-    }
-
-    .btn-detail {
-        background: #111;
-        color: white;
-        border-radius: 10px;
-        padding: 10px 18px;
-        transition: .3s;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-        .btn-detail:hover {
-            background: #ff6b35;
-            color: white;
-            text-decoration: none;
-        }
-
-    .pagination {
-        justify-content: center;
-        margin-top: 50px;
-    }
-
     .page-link {
-        border: none;
-        margin: 0 6px;
-        border-radius: 12px !important;
-        color: #111;
-        padding: 12px 18px;
-        font-weight: 600;
-        box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        background: #fffaf2;
+        color: #7c4a18;
     }
-
-    .page-item.active .page-link {
-        background: linear-gradient(45deg,#ff6b35,#ff9f1c);
-        color: white;
-    }
-
-    .empty-box {
-        background: white;
-        padding: 60px;
-        text-align: center;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,.05);
-    }
-
-    @@media(max-width:768px) {
-
-        .section-title h1 {
-            font-size: 34px;
-        }
-
-        .food-card {
-            margin-bottom: 20px;
-        }
-    }
+    @@media(max-width:1100px) { .all-grid { grid-template-columns:repeat(3,1fr); } .deal-row { grid-template-columns:repeat(2,1fr); } .filter-grid { grid-template-columns:1fr; } .filter-left { border-right:0; border-bottom:1px solid rgba(184, 119, 39, .15); } }
+    @@media(max-width:768px) { .dish-grid,.deal-row { grid-template-columns:1fr; } .all-grid { grid-template-columns:repeat(2,1fr); } .side-card { grid-template-columns:96px 1fr auto; } .category-controls { position:static; justify-content:flex-end; margin-bottom:12px; } .price-range-values { grid-template-columns:1fr; } .price-separator { display:none; } .promo { flex-direction:column; align-items:flex-start; } }
+    @@media(max-width:520px) { .all-grid { grid-template-columns:1fr; } .ff-head,.all-toolbar { align-items:flex-start; flex-direction:column; } }
 </style>
 
-<div class="container py-5">
-
-    <!-- TITLE -->
-    <div class="section-title">
-        <h1>Food Menu</h1>
-        <p>Explore our delicious dishes made with passion</p>
-    </div>
-
-    <!-- FILTER -->
-    <form method="get" asp-controller="Food" asp-action="Index" class="filter-box">
-
-        <div class="row">
-
-            <div class="col-lg-4 mb-3">
-                <input type="text"
-                       class="form-control"
-                       name="Keyword"
-                       value="@Model.Filter.Keyword"
-                       placeholder="Search delicious food..." />
-            </div>
-
-            <div class="col-lg-2 mb-3">
-                <input type="number"
-                       step="0.01"
-                       class="form-control"
-                       name="PriceFrom"
-                       value="@Model.Filter.PriceFrom"
-                       placeholder="Min price" />
-            </div>
-
-            <div class="col-lg-2 mb-3">
-                <input type="number"
-                       step="0.01"
-                       class="form-control"
-                       name="PriceTo"
-                       value="@Model.Filter.PriceTo"
-                       placeholder="Max price" />
-            </div>
-
-            <div class="col-lg-2 mb-3">
-                <select class="form-control" name="categoryID">
-
-                    <option value="">All Categories</option>
-
-                    @foreach (var c in Model.Categories)
-                    {
-                        if (Model.Filter.categoryID == c.CategoryId)
-                        {
-                            <option selected value="@c.CategoryId">@c.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@c.CategoryId">@c.Name</option>
-                        }
-                    }
-
-                </select>
-            </div>
-
-            <div class="col-lg-1 mb-3">
-                <select class="form-control" name="SortBy">
-
-                    @if (Model.Filter.SortBy?.ToLower() == "price")
-                    {
-                        <option value="name">Name</option>
-                        <option value="price" selected>Price</option>
-                    }
-                    else
-                    {
-                        <option value="name" selected>Name</option>
-                        <option value="price">Price</option>
-                    }
-
-                </select>
-            </div>
-
-            <div class="col-lg-1 mb-3">
-                <select class="form-control" name="SortOrder">
-
-                    @if (Model.Filter.SortOrder?.ToLower() == "desc")
-                    {
-                        <option value="asc">Asc</option>
-                        <option value="desc" selected>Desc</option>
-                    }
-                    else
-                    {
-                        <option value="asc" selected>Asc</option>
-                        <option value="desc">Desc</option>
-                    }
-
-                </select>
-            </div>
-
-        </div>
-
-        <input type="hidden" name="pageSize" value="@Model.Filter.pageSize" />
-
-        <button type="submit" class="btn btn-food">
-            Apply Filters
-        </button>
-
-    </form>
-
-    <!-- ERROR -->
+<div class="container ff-page py-4">
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger rounded-pill shadow-sm">
-            @TempData["ErrorMessage"]
-        </div>
+        <div class="alert alert-danger rounded-4">@TempData["ErrorMessage"]</div>
     }
 
-    <!-- FOOD LIST -->
-    <div class="row">
-
-        @if (Model.PagedResult.Data == null || !Model.PagedResult.Data.Any())
-        {
-            <div class="col-12">
-                <div class="empty-box">
-                    <h3>No Foods Found</h3>
-                    <p>Try another keyword or category.</p>
+    @if (!Model.Filter.ViewAll)
+    {
+        <section class="ff-section">
+            <div class="ff-head">
+                <div>
+                    <h2 class="ff-title">🔥 @Localizer["BestSeller"]</h2>
+                    <p class="ff-subtitle">@Localizer["BestSellerSubtitle"]</p>
                 </div>
+                <a class="ff-view" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="12">@Localizer["ViewAll"] <i class="fa fa-arrow-right ms-1"></i></a>
+            </div>
+
+            @if (!sellerFoods.Any())
+            {
+                <div class="product-empty">
+                    <h3>@Localizer["NoDiscountedFood"]</h3>
+                    <p class="mb-0 text-muted">@Localizer["TryAnotherFood"]</p>
+                </div>
+            }
+            else
+            {
+                <div class="dish-grid">
+                    <div id="sellerCarousel" class="hero-carousel" style="--hero-last:@Math.Max(0, sellerFoods.Count - 1); --hero-steps:@Math.Max(1, sellerFoods.Count - 1); --hero-duration:@($"{Math.Max(1, sellerFoods.Count) * 5}s");">
+                        <div class="hero-track">
+                            @for (var index = 0; index < sellerFoods.Count; index++)
+                            {
+                                var item = sellerFoods[index];
+                                <article class="hero-slide">
+                                    <img src="@FoodImage(item)" alt="@item.Name" />
+                                    <span class="badge-hot">
+                                        🔥 @Localizer["BestSeller"]
+                                    </span>
+                                    <div class="discount-corner">
+                                        <span>@DiscountText(item.DiscountValue, item.DiscountType)</span>
+                                        <small>SAVE</small>
+                                    </div>
+                                    <a class="heart @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
+                                       asp-controller="Favorite"
+                                       asp-action="ToggleFood"
+                                       asp-route-id="@item.FoodItemId"
+                                       asp-route-returnUrl="@currentReturnUrl">
+                                        <i class="fa @(favoriteFoodIds.Contains(item.FoodItemId) ? "fa-heart" : "fa-heart-o")"></i>
+                                    </a>
+                                    <div class="hover-details">
+                                        <a class="details-btn" asp-controller="Food" asp-action="Detail" asp-route-id="@item.FoodItemId">@Localizer["ViewDetails"]</a>
+                                    </div>
+                                    <div class="hero-info">
+                                        <h2>@item.Name</h2>
+                                        <p>@Description(item.Description)</p>
+                                        <div class="price-row">
+                                            <div>
+                                                <div class="old-price">@FormatMoney(item.OriginalPrice)</div>
+                                                <div class="price">@FormatMoney(item.Price)</div>
+                                                <div class="save-line">Save @FormatMoney(SaveAmount(item.OriginalPrice, item.Price))</div>
+                                            </div>
+                                            <a class="add-btn" asp-controller="Cart" asp-action="AddFood" asp-route-id="@item.FoodItemId" asp-route-quantity="1" asp-route-returnUrl="@Context.Request.Path">
+                                                <i class="fa fa-shopping-cart"></i> @Localizer["AddToCart"]
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="side-list">
+                        @foreach (var item in sideFoods)
+                        {
+                            <article class="side-card">
+                                <img src="@FoodImage(item)" alt="@item.Name" />
+                                <div>
+                                    <h3>@item.Name</h3>
+                                    <p>@Description(item.Description)</p>
+                                    <div class="old-price">@FormatMoney(item.OriginalPrice)</div>
+                                    <div class="price">@FormatMoney(item.Price)</div>
+                                    <div class="save-line">Save @FormatMoney(SaveAmount(item.OriginalPrice, item.Price))</div>
+                                </div>
+                                <a class="add-btn" asp-controller="Cart" asp-action="AddFood" asp-route-id="@item.FoodItemId" asp-route-quantity="1" asp-route-returnUrl="@Context.Request.Path">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </article>
+                        }
+                    </div>
+                </div>
+            }
+        </section>
+
+        <section class="ff-section">
+            <div class="ff-head">
+                <div>
+                    <h2 class="ff-title">🔥 @Localizer["PopularDishes"]</h2>
+                    <p class="ff-subtitle">@Localizer["ModernCardsSubtitle"]</p>
+                </div>
+                <a class="ff-view" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="12">@Localizer["ViewAll"] <i class="fa fa-arrow-right ms-1"></i></a>
+            </div>
+
+            <div class="product-carousel">
+                <div class="carousel-track">
+                    @foreach (var item in popularFoods.Concat(popularFoods))
+                    {
+                        <article class="product-card">
+                            <img src="@FoodImage(item)" alt="@item.Name" />
+                            @if (item.HasDiscount)
+                            {
+                                <span class="badge-hot">
+                                    🔥 @Localizer["BestSeller"]
+                                </span>
+                                <div class="discount-corner">
+                                    <span>@DiscountText(item.DiscountValue, item.DiscountType)</span>
+                                    <small>SAVE</small>
+                                </div>
+                            }
+                            <a class="heart @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
+                               asp-controller="Favorite"
+                               asp-action="ToggleFood"
+                               asp-route-id="@item.FoodItemId"
+                               asp-route-returnUrl="@currentReturnUrl">
+                                <i class="fa @(favoriteFoodIds.Contains(item.FoodItemId) ? "fa-heart" : "fa-heart-o")"></i>
+                            </a>
+                            <div class="hover-details">
+                                <a class="details-btn" asp-controller="Food" asp-action="Detail" asp-route-id="@item.FoodItemId">@Localizer["ViewDetails"]</a>
+                            </div>
+                            <div class="product-body">
+                                <h3>@item.Name</h3>
+                                <p>@Description(item.Description)</p>
+                                @if (item.HasDiscount)
+                                {
+                                    <div class="old-price">@FormatMoney(item.OriginalPrice)</div>
+                                }
+                                <div class="price-row">
+                                    <div>
+                                        <div class="price">@FormatMoney(item.Price)</div>
+                                        @if (item.HasDiscount)
+                                        {
+                                            <div class="save-line">Save @FormatMoney(SaveAmount(item.OriginalPrice, item.Price))</div>
+                                        }
+                                    </div>
+                                    <a class="add-btn" asp-controller="Cart" asp-action="AddFood" asp-route-id="@item.FoodItemId" asp-route-quantity="1" asp-route-returnUrl="@Context.Request.Path"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="ff-section">
+            <div class="ff-head">
+                <div>
+                    <h2 class="ff-title">🎁 @Localizer["ComboDeals"]</h2>
+                    <p class="ff-subtitle">@Localizer["BestCombosForYou"]</p>
+                </div>
+                <a class="ff-view" asp-controller="Combo" asp-action="Index">@Localizer["ViewAll"] <i class="fa fa-arrow-right ms-1"></i></a>
+            </div>
+
+            @if (!discountedCombos.Any())
+            {
+                <div class="product-empty">
+                    <h3>@Localizer["ComboDeals"]</h3>
+                    <p class="mb-0 text-muted">@Localizer["BestCombosForYou"]</p>
+                </div>
+            }
+            else
+            {
+                <div class="deal-row">
+                    @foreach (var combo in discountedCombos)
+                    {
+                        <article class="deal-card">
+                            <img src="@ComboImage(combo)" alt="@combo.Name" />
+                            <span class="badge-hot">
+                                🔥 @Localizer["BestSeller"]
+                            </span>
+                            <div class="discount-corner">
+                                <span>@DiscountText(combo.DiscountValue, combo.DiscountType)</span>
+                                <small>SAVE</small>
+                            </div>
+                            <div class="hover-details">
+                                <a class="details-btn" asp-controller="Combo" asp-action="Details" asp-route-id="@combo.ComboId">@Localizer["ViewComboDetail"]</a>
+                            </div>
+                            <div class="deal-body">
+                                <h3>@combo.Name</h3>
+                                <p>@Description(combo.Description)</p>
+                                <div class="deal-foot">
+                                    <div>
+                                        <div class="price">@FormatMoney(combo.Price)</div>
+                                        <div class="old-price">@FormatMoney(combo.OriginalPrice)</div>
+                                        <div class="save-line">Save @FormatMoney(SaveAmount(combo.OriginalPrice, combo.Price))</div>
+                                    </div>
+                                    <a class="add-btn" asp-controller="Cart" asp-action="AddCombo" asp-route-id="@combo.ComboId" asp-route-quantity="1" asp-route-returnUrl="@Context.Request.Path"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                    <div class="promo">
+                        <div>
+                            <div class="ff-subtitle">🔥 @Localizer["DealToday"]</div>
+                            <strong>30%</strong>
+                            <div class="ff-subtitle">@Localizer["DiscountLabel"]</div>
+                            <p class="promo-note">@Localizer["BestCombosForYou"]</p>
+                            <a class="add-btn mt-3" asp-controller="Combo" asp-action="Index">@Localizer["ViewAll"] <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+    }
+    else
+    {
+        <section class="ff-filter">
+            <div class="ff-head">
+                <div>
+                    <p class="ff-subtitle text-uppercase mb-1">@Localizer["Categories"]</p>
+                    <h2 class="ff-title">@Localizer["ChooseCategory"]</h2>
+                    <p class="ff-subtitle">@Localizer["CategoryGuide"]</p>
+                </div>
+            </div>
+
+            <div class="category-slider">
+                @for (var pageIndex = 0; pageIndex < categoryPages; pageIndex++)
+                {
+                    <input type="radio" name="categorySlide" id="categorySlide-@pageIndex" class="category-radio" @(pageIndex == selectedCategoryPage ? "checked" : null) />
+                }
+
+                <div class="category-controls">
+                    @for (var pageIndex = 0; pageIndex < categoryPages; pageIndex++)
+                    {
+                        <div class="controls-set controls-set-@pageIndex">
+                            <label class="category-arrow" for="categorySlide-@(Math.Max(0, pageIndex - 1))"><i class="fa fa-arrow-left"></i></label>
+                            <label class="category-continue" for="categorySlide-@(Math.Min(categoryPages - 1, pageIndex + 1))">@Localizer["Continue"] <i class="fa fa-arrow-right"></i></label>
+                        </div>
+                    }
+                </div>
+
+                <div class="category-viewport">
+                    <div class="category-track">
+                        @for (var pageIndex = 0; pageIndex < categoryPages; pageIndex++)
+                        {
+                            var pageCategories = Model.Categories.Skip(pageIndex * categoryPageSize).Take(categoryPageSize).ToList();
+                            <div class="category-page">
+                                <div class="category-page-inner">
+                                    @if (pageIndex == 0)
+                                    {
+                                        <a class="category-pill @(Model.Filter.categoryID == null ? "active" : "")"
+                                           asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize"
+                                           asp-route-Keyword="@Model.Filter.Keyword" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo"
+                                           asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["All"]</a>
+                                    }
+                                    @foreach (var category in pageCategories)
+                                    {
+                                        <a class="category-pill @(Model.Filter.categoryID == category.CategoryId ? "active" : "")"
+                                           asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize"
+                                           asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@category.CategoryId"
+                                           asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo"
+                                           asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@category.Name</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ff-filter filter-shell">
+            <form method="get" asp-action="Index">
+                <input type="hidden" name="ViewAll" value="true" />
+                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="categoryID" value="@Model.Filter.categoryID" />
+
+                <div class="filter-grid">
+                    <div class="filter-left">
+                        <div class="filter-title"><i class="fa fa-search"></i> @Localizer["SearchFood"]</div>
+                        <div class="search-wrap">
+                            <input class="form-control filter-control" name="Keyword" value="@Model.Filter.Keyword" placeholder="@Localizer["SearchFoodPlaceholder"]" />
+                            <i class="fa fa-search"></i>
+                        </div>
+
+                        <div class="sort-row">
+                            <div>
+                                <label class="filter-label">@Localizer["SortBy"]</label>
+                                <select class="form-select filter-control" name="SortBy">
+                                    <option value="name" selected="@(Model.Filter.SortBy == "name")">@Localizer["Name"]</option>
+                                    <option value="price" selected="@(Model.Filter.SortBy == "price")">@Localizer["Price"]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="filter-label">@Localizer["Order"]</label>
+                                <select class="form-select filter-control" name="SortOrder">
+                                    <option value="asc" selected="@(Model.Filter.SortOrder == "asc")">@Localizer["Ascending"]</option>
+                                    <option value="desc" selected="@(Model.Filter.SortOrder == "desc")">@Localizer["Descending"]</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-right">
+                        <div class="price-range-box">
+                            <div class="price-range-head"><i class="fa fa-tag"></i> @Localizer["PriceRange"] (&#273;)</div>
+                            <div class="price-range-values">
+                                <div class="price-field">
+                                    <label>@Localizer["FromLabel"]</label>
+                                    <div class="price-input-wrap">
+                                        <input type="number" min="0" step="1000" name="PriceFrom" value="@priceFromValue" />
+                                        <span>&#273;</span>
+                                    </div>
+                                </div>
+                                <div class="price-separator">&mdash;</div>
+                                <div class="price-field">
+                                    <label>@Localizer["ToLabel"]</label>
+                                    <div class="price-input-wrap">
+                                        <input type="number" min="0" step="1000" name="PriceTo" value="@priceToValue" />
+                                        <span>&#273;</span>
+                                    </div>
+                                </div>
+                                <a class="clear-price" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["Clear"]</a>
+                            </div>
+                            <div class="quick-row">
+                                <span class="quick-label">@Localizer["QuickSelect"]:</span>
+                                <a class="quick-chip @(Model.Filter.PriceFrom == null && Model.Filter.PriceTo == null ? "active" : "")" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["All"]</a>
+                                <a class="quick-chip" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="0" asp-route-PriceTo="50000" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["Under50k"]</a>
+                                <a class="quick-chip" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="50000" asp-route-PriceTo="100000" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["From50To100k"]</a>
+                                <a class="quick-chip" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="100000" asp-route-PriceTo="200000" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["From100To200k"]</a>
+                                <a class="quick-chip" asp-action="Index" asp-route-ViewAll="true" asp-route-page="1" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="200000" asp-route-PriceTo="@maxRangeValue" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@Localizer["Over200k"]</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-actions">
+                    <a class="btn btn-outline-secondary rounded-pill fw-bold px-4" asp-action="Index" asp-route-ViewAll="true"><i class="fa fa-refresh me-1"></i> @Localizer["Reset"]</a>
+                    <button class="filter-btn" type="submit"><i class="fa fa-filter"></i> @Localizer["ApplyFilters"]</button>
+                </div>
+            </form>
+        </section>
+
+        <div class="all-toolbar">
+            <div>@Model.PagedResult.TotalItems @Localizer["ItemsFound"]</div>
+            <form method="get" asp-action="Index">
+                <input type="hidden" name="ViewAll" value="true" />
+                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="Keyword" value="@Model.Filter.Keyword" />
+                <input type="hidden" name="categoryID" value="@Model.Filter.categoryID" />
+                <input type="hidden" name="PriceFrom" value="@Model.Filter.PriceFrom" />
+                <input type="hidden" name="PriceTo" value="@Model.Filter.PriceTo" />
+                <input type="hidden" name="SortBy" value="@Model.Filter.SortBy" />
+                <input type="hidden" name="SortOrder" value="@Model.Filter.SortOrder" />
+                <label class="me-2">@Localizer["Show"]:</label>
+                <select name="pageSize" class="show-select">
+                    <option value="12" selected="@(Model.Filter.pageSize == 12)">12 @Localizer["PerPage"]</option>
+                    <option value="20" selected="@(Model.Filter.pageSize == 20)">20 @Localizer["PerPage"]</option>
+                    <option value="40" selected="@(Model.Filter.pageSize == 40)">40 @Localizer["PerPage"]</option>
+                </select>
+                <button class="ff-soft-btn ms-2" type="submit">@Localizer["ApplyFilters"]</button>
+            </form>
+        </div>
+
+        @if (!foods.Any())
+        {
+            <div class="product-empty">
+                <h3>@Localizer["NoFoodFound"]</h3>
+                <p class="mb-0 text-muted">@Localizer["TryAnotherFood"]</p>
             </div>
         }
         else
         {
-            @foreach (var item in Model.PagedResult.Data)
-            {
-                <div class="col-lg-4 col-md-6 mb-4">
-
-                    <div class="food-card">
-
-                        <img class="food-image"
-                             src="@(string.IsNullOrWhiteSpace(item.ImagePath)
-                                 ? "https://via.placeholder.com/500x400?text=Food"
-                                 : Model.ImageBaseUrl + item.ImagePath)" />
-
-                        <div class="food-content">
-
-                            <div class="food-title">
-                                @item.Name
+            <section class="all-grid">
+                @foreach (var item in foods)
+                {
+                    <article class="product-card">
+                        <img src="@FoodImage(item)" alt="@item.Name" />
+                        @if (item.HasDiscount)
+                        {
+                            <span class="badge-hot">
+                                🔥 @Localizer["BestSeller"]
+                            </span>
+                            <div class="discount-corner">
+                                <span>@DiscountText(item.DiscountValue, item.DiscountType)</span>
+                                <small>SAVE</small>
                             </div>
-
-                            <div class="food-description">
-                                @item.Description
-                            </div>
-
-                            <div class="food-footer">
-
-                                <div class="food-price">
-                                    @item.Price.ToString("N0")đ
-                                </div>
-
-                                <a asp-controller="Food"
-                                   asp-action="Detail"
-                                   asp-route-id="@item.FoodItemId"
-                                   class="btn-detail">
-                                    View Detail
-                                </a>
-
-                            </div>
-
+                        }
+                        <a class="heart @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
+                           asp-controller="Favorite"
+                           asp-action="ToggleFood"
+                           asp-route-id="@item.FoodItemId"
+                           asp-route-returnUrl="@currentReturnUrl">
+                            <i class="fa @(favoriteFoodIds.Contains(item.FoodItemId) ? "fa-heart" : "fa-heart-o")"></i>
+                        </a>
+                        <div class="hover-details">
+                            <a class="details-btn" asp-controller="Food" asp-action="Detail" asp-route-id="@item.FoodItemId">@Localizer["ViewDetails"]</a>
                         </div>
-
-                    </div>
-
-                </div>
-            }
+                        <div class="product-body">
+                            <h3>@item.Name</h3>
+                            <p>@Description(item.Description)</p>
+                            @if (item.HasDiscount)
+                            {
+                                <div class="old-price">@FormatMoney(item.OriginalPrice)</div>
+                            }
+                            <div class="price-row">
+                                <div>
+                                    <div class="price">@FormatMoney(item.Price)</div>
+                                    @if (item.HasDiscount)
+                                    {
+                                        <div class="save-line">Save @FormatMoney(SaveAmount(item.OriginalPrice, item.Price))</div>
+                                    }
+                                </div>
+                                <a class="add-btn" asp-controller="Cart" asp-action="AddFood" asp-route-id="@item.FoodItemId" asp-route-quantity="1" asp-route-returnUrl="@($"{Context.Request.Path}{Context.Request.QueryString}")">
+                                    <i class="fa fa-shopping-cart"></i> @Localizer["AddToCart"]
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </section>
         }
 
-    </div>
-
-    <!-- PAGINATION -->
-    @if (Model.PagedResult.TotalPages > 1)
-    {
-        <nav>
-            <ul class="pagination">
-
-                @for (var i = 1; i <= Model.PagedResult.TotalPages; i++)
-                {
-                    <li class="page-item @(i == Model.PagedResult.CurrentPage ? "active" : "")">
-
-                        <a class="page-link"
-                           asp-controller="Food"
-                           asp-action="Index"
-                           asp-route-page="@i"
-                           asp-route-pageSize="@Model.Filter.pageSize"
-                           asp-route-Keyword="@Model.Filter.Keyword"
-                           asp-route-categoryID="@Model.Filter.categoryID"
-                           asp-route-PriceFrom="@Model.Filter.PriceFrom"
-                           asp-route-PriceTo="@Model.Filter.PriceTo"
-                           asp-route-SortBy="@Model.Filter.SortBy"
-                           asp-route-SortOrder="@Model.Filter.SortOrder">
-
-                            @i
-
-                        </a>
-
+        @if (Model.PagedResult.TotalPages > 1)
+        {
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item @(Model.PagedResult.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-ViewAll="true" asp-route-page="@(Model.PagedResult.CurrentPage - 1)" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder"><i class="fa fa-chevron-left"></i></a>
                     </li>
-                }
-
-            </ul>
-        </nav>
+                    @for (var i = 1; i <= Model.PagedResult.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.PagedResult.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-ViewAll="true" asp-route-page="@i" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.PagedResult.CurrentPage == Model.PagedResult.TotalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-ViewAll="true" asp-route-page="@(Model.PagedResult.CurrentPage + 1)" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-categoryID="@Model.Filter.categoryID" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder"><i class="fa fa-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        }
     }
-
 </div>
-```

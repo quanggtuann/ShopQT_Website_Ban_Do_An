@@ -1,0 +1,385 @@
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@model ShopView.ViewModels.CustomerOrderViewModel
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = $"{Localizer["Order"]} #{Model.OrderId}";
+    var vi = new CultureInfo("vi-VN");
+    var imageBaseUrl = "https://localhost:7130/";
+    var currentReturnUrl = $"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}";
+    var cancelReasons = new[]
+    {
+        "Thay đổi ý định: Tôi không còn nhu cầu mua sản phẩm này nữa.",
+        "Sai thông tin: Tôi muốn thay đổi địa chỉ giao hàng hoặc số điện thoại.",
+        "Đổi sản phẩm: Tôi muốn chọn sản phẩm khác.",
+        "Tìm được giá tốt hơn: Tôi tìm thấy nơi khác bán giá rẻ hơn hoặc có ưu đãi tốt hơn.",
+        "Thời gian giao hàng lâu: Thời gian dự kiến giao hàng quá muộn so với nhu cầu.",
+        "Trùng đơn hàng: Tôi vô tình đặt trùng hai hoặc nhiều đơn giống nhau."
+    };
+}
+
+<div class="order-detail-page container py-5">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success rounded-4 shadow-sm">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-4 shadow-sm">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="detail-header">
+        <div>
+            <span>🍔 @Localizer["OrderDetail"]</span>
+            <h1>@Localizer["Order"] #@Model.OrderId</h1>
+            <p>@Model.OrderTime.ToString("dd/MM/yyyy HH:mm") · @Localizer[Model.Status]</p>
+        </div>
+        <div class="detail-header-actions">
+            <a asp-controller="Account" asp-action="OrderHistory" class="detail-back">
+                <i class="fa fa-arrow-left"></i> @Localizer["OrderHistory"]
+            </a>
+
+            @if (Model.CanCancel)
+            {
+                <details class="detail-cancel-menu">
+                    <summary class="detail-cancel">
+                        <i class="fa fa-times-circle"></i> @Localizer["CancelOrder"]
+                    </summary>
+                    <form asp-controller="Order"
+                          asp-action="Cancel"
+                          method="post"
+                          class="detail-cancel-form">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.OrderId" />
+                        <input type="hidden" name="returnUrl" value="@currentReturnUrl" />
+                        <label>Chọn lý do hủy đơn</label>
+                        <select name="cancelReason" required>
+                            <option value="">-- Chọn lý do --</option>
+                            @foreach (var reason in cancelReasons)
+                            {
+                                <option value="@reason">@reason</option>
+                            }
+                            <option value="Other">Lý do khác</option>
+                        </select>
+                        <textarea name="cancelReasonDetail"
+                                  rows="3"
+                                  placeholder="Nếu chọn lý do khác, hãy nhập nội dung tại đây"></textarea>
+                        <button type="submit">
+                            Xác nhận hủy
+                        </button>
+                    </form>
+                </details>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <div class="detail-card">
+                <h3>@Localizer["OrderItems"]</h3>
+
+                @foreach (var item in Model.Items)
+                {
+                    var imageUrl = string.IsNullOrWhiteSpace(item.ImagePath)
+                        ? "https://via.placeholder.com/90x90?text=Food"
+                        : imageBaseUrl.TrimEnd('/') + "/" + item.ImagePath.TrimStart('/');
+
+                    <div class="detail-item">
+                        <img src="@imageUrl" alt="@item.ProductName" />
+                        <div>
+                            <strong>@item.ProductName</strong>
+                            <span>@Localizer[item.ItemType] · @item.Quantity x @item.Price.ToString("N0", vi) ₫</span>
+                        </div>
+                        <b>@item.Subtotal.ToString("N0", vi) ₫</b>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="detail-card">
+                <h3>@Localizer["DeliveryInformation"]</h3>
+                <div class="info-line">
+                    <span>@Localizer["Receiver"]</span>
+                    <strong>@Model.ReceiverName</strong>
+                </div>
+                <div class="info-line">
+                    <span>@Localizer["PhoneNumber"]</span>
+                    <strong>@Model.ReceiverPhone</strong>
+                </div>
+                <div class="info-block">
+                    <span>@Localizer["Address"]</span>
+                    <p>@Model.ShippingAddress</p>
+                </div>
+                <div class="info-line">
+                    <span>@Localizer["PaymentMethod"]</span>
+                    <strong>@Model.PaymentMethod</strong>
+                </div>
+                <div class="info-line">
+                    <span>@Localizer["PaymentStatus"]</span>
+                    <strong>@(Model.IsPaid ? Localizer["Paid"] : Localizer["Unpaid"])</strong>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.Note))
+                {
+                    <div class="info-block">
+                        <span>@Localizer["OrderNote"]</span>
+                        <p>@Model.Note</p>
+                    </div>
+                }
+                @if (string.Equals(Model.Status, "Cancelled", StringComparison.OrdinalIgnoreCase)
+                     && !string.IsNullOrWhiteSpace(Model.CancelReason))
+                {
+                    <div class="info-block cancel-info">
+                        <span>Lý do hủy</span>
+                        <p>@Model.CancelReason</p>
+                        @if (!string.IsNullOrWhiteSpace(Model.CancelReasonDetail))
+                        {
+                            <p>@Model.CancelReasonDetail</p>
+                        }
+                        @if (Model.CancelledAt.HasValue)
+                        {
+                            <small>@Model.CancelledAt.Value.ToString("dd/MM/yyyy HH:mm")</small>
+                        }
+                    </div>
+                }
+                <div class="detail-total">
+                    <span>@Localizer["GrandTotal"]</span>
+                    <strong>@Model.TotalAmount.ToString("N0", vi) ₫</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .order-detail-page {
+        max-width: 1440px;
+    }
+
+    .detail-header,
+    .detail-card {
+        background: rgba(255, 255, 255, .93);
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, .72);
+        box-shadow: 0 24px 60px rgba(37, 42, 52, .08);
+    }
+
+    .detail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 34px;
+    }
+
+    .detail-header span {
+        color: #ff5a1f;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: .08em;
+    }
+
+    .detail-header h1 {
+        margin: 8px 0;
+        font-weight: 900;
+        color: #111827;
+    }
+
+    .detail-header p {
+        margin: 0;
+        color: #6b7280;
+        font-weight: 800;
+    }
+
+    .detail-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        position: relative;
+    }
+
+    .detail-back,
+    .detail-cancel {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 20px;
+        border-radius: 999px;
+        font-weight: 900;
+    }
+
+    .detail-back {
+        background: #fff4ed;
+        color: #ff5a1f;
+    }
+
+    .detail-cancel {
+        border: 0;
+        background: #fee2e2;
+        color: #dc2626;
+        cursor: pointer;
+    }
+
+    .detail-cancel-menu summary {
+        list-style: none;
+    }
+
+    .detail-cancel-menu summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .detail-cancel-form {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        z-index: 20;
+        width: min(430px, 88vw);
+        padding: 18px;
+        border-radius: 22px;
+        background: white;
+        border: 1px solid #fee2e2;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, .16);
+    }
+
+    .detail-cancel-form label {
+        display: block;
+        margin-bottom: 8px;
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .detail-cancel-form select,
+    .detail-cancel-form textarea {
+        width: 100%;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 11px 13px;
+        color: #111827;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .detail-cancel-form button {
+        width: 100%;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        color: white;
+        background: linear-gradient(135deg, #ef4444, #f97316);
+        font-weight: 900;
+    }
+
+    .detail-back:hover,
+    .detail-cancel:hover {
+        color: #e84a16;
+        text-decoration: none;
+    }
+
+    .detail-card {
+        padding: 28px;
+        height: 100%;
+    }
+
+    .detail-card h3 {
+        margin-bottom: 22px;
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .detail-item {
+        display: grid;
+        grid-template-columns: 84px 1fr auto;
+        gap: 16px;
+        align-items: center;
+        padding: 14px;
+        border-radius: 22px;
+        background: #f8fafc;
+        margin-bottom: 14px;
+    }
+
+    .detail-item img {
+        width: 84px;
+        height: 84px;
+        border-radius: 20px;
+        object-fit: cover;
+    }
+
+    .detail-item strong,
+    .detail-item span {
+        display: block;
+    }
+
+    .detail-item strong {
+        color: #111827;
+        font-size: 17px;
+    }
+
+    .detail-item span,
+    .info-line span,
+    .info-block span {
+        color: #6b7280;
+        font-weight: 800;
+    }
+
+    .detail-item b,
+    .detail-total strong {
+        color: #ff5a1f;
+        font-size: 18px;
+    }
+
+    .info-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .info-block {
+        padding: 14px 0;
+        border-bottom: 1px solid #edf0f5;
+    }
+
+    .info-block p {
+        margin: 6px 0 0;
+        color: #111827;
+        font-weight: 800;
+    }
+
+    .cancel-info {
+        border-radius: 18px;
+        background: #fff7ed;
+        padding: 14px;
+        margin-top: 14px;
+    }
+
+    .cancel-info small {
+        display: block;
+        margin-top: 8px;
+        color: #9a3412;
+        font-weight: 800;
+    }
+
+    .detail-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 20px;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    @@media (max-width: 767.98px) {
+        .detail-header,
+        .detail-item {
+            grid-template-columns: 1fr;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>

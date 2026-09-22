@@ -1,4 +1,4 @@
-﻿using ShopAPI.DTOs;
+using ShopAPI.DTOs;
 using ShopAPI.Services.Customer.IServices;
 using ShopDAL.Models;
 using ShopDAL.Repository.IRepository;
@@ -8,10 +8,12 @@ namespace ShopAPI.Services.Customer
     public class CustomerComboService : ICustomerComboService
     {
         private readonly IComboRepo _comboRepo;
+        private readonly ICustomerDiscountPriceService _discountPriceService;
 
-        public CustomerComboService(IComboRepo comboRepo)
+        public CustomerComboService(IComboRepo comboRepo, ICustomerDiscountPriceService discountPriceService)
         {
             _comboRepo = comboRepo;
+            _discountPriceService = discountPriceService;
         }
 
         public PagedResult<ComboDto> Getall(ComboFilterViewmodel comboFilterViewmodel)
@@ -25,47 +27,66 @@ namespace ShopAPI.Services.Customer
                     (c.Description != null && c.Description.Contains(comboFilterViewmodel.KeyWord)));
             }
 
+            var page = comboFilterViewmodel.page <= 0 ? 1 : comboFilterViewmodel.page;
+            var pageSize = comboFilterViewmodel.pageSize <= 0 ? 6 : comboFilterViewmodel.pageSize;
+            var combos = query.ToList();
+            var discounts = _discountPriceService.GetComboDiscounts(combos.Select(c => c.ComboId));
+            var dataQuery = combos
+                .Select(c =>
+                {
+                    var discount = discounts.GetValueOrDefault(c.ComboId);
+                    return new ComboDto
+                    {
+                        ComboId = c.ComboId,
+                        Name = c.Name,
+                        Description = c.Description ?? string.Empty,
+                        Price = discount?.FinalPrice ?? c.Price,
+                        OriginalPrice = discount?.OriginalPrice ?? c.Price,
+                        FinalPrice = discount?.FinalPrice ?? c.Price,
+                        HasDiscount = discount?.HasDiscount ?? false,
+                        DiscountCampaignName = discount?.CampaignName,
+                        DiscountType = discount?.DiscountType,
+                        DiscountValue = discount?.DiscountValue,
+                        IsVaiLabel = c.IsAvailabale,
+                        CreateDate = c.CreateDate,
+                        ImagePath = c.ImagePath ?? string.Empty,
+                        FoodItems = c.ComboFoodItem?.Select(cf => new ComboFoodItemDto
+                        {
+                            FoodItemId = cf.FoodItemID,
+                            FoodName = cf.FoodItem.Name,
+                            Quantity = cf.Quantity,
+                        }).ToList() ?? new List<ComboFoodItemDto>()
+                    };
+                })
+                .AsQueryable();
+
             if (comboFilterViewmodel.FromPrice.HasValue)
             {
-                query = query.Where(c => c.Price >= comboFilterViewmodel.FromPrice.Value);
+                dataQuery = dataQuery.Where(c => c.Price >= comboFilterViewmodel.FromPrice.Value);
             }
 
             if (comboFilterViewmodel.ToPrice.HasValue)
             {
-                query = query.Where(c => c.Price <= comboFilterViewmodel.ToPrice.Value);
+                dataQuery = dataQuery.Where(c => c.Price <= comboFilterViewmodel.ToPrice.Value);
             }
 
             var sortBy = (comboFilterViewmodel.ShortBy ?? "name").ToLower();
             var sortOrder = (comboFilterViewmodel.ShortOrder ?? "asc").ToLower();
-            query = sortBy switch
+            dataQuery = sortBy switch
             {
                 "price" => sortOrder == "desc"
-                    ? query.OrderByDescending(c => c.Price)
-                    : query.OrderBy(c => c.Price),
+                    ? dataQuery.OrderByDescending(c => c.Price)
+                    : dataQuery.OrderBy(c => c.Price),
                 _ => sortOrder == "desc"
-                    ? query.OrderByDescending(c => c.Name)
-                    : query.OrderBy(c => c.Name),
+                    ? dataQuery.OrderByDescending(c => c.Name)
+                    : dataQuery.OrderBy(c => c.Name),
             };
 
-            var page = comboFilterViewmodel.page <= 0 ? 1 : comboFilterViewmodel.page;
-            var pageSize = comboFilterViewmodel.pageSize <= 0 ? 6 : comboFilterViewmodel.pageSize;
-            var totalItems = query.Count();
-            var combos = query
+            var totalItems = dataQuery.Count();
+            var data = dataQuery
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
-            var data = combos.Select(c => new ComboDto
-            {
-                ComboId = c.ComboId,
-                Name = c.Name,
-                Description = c.Description ?? string.Empty,
-                Price = c.Price,
-                IsVaiLabel = c.IsAvailabale,
-                CreateDate = c.CreateDate,
-                ImagePath = c.ImagePath ?? string.Empty,
-                FoodItems = new List<ComboFoodItemDto>()
-            }).ToList();
 
             return new PagedResult<ComboDto>
             {
@@ -84,12 +105,19 @@ namespace ShopAPI.Services.Customer
                 throw new Exception("Combo not found");
             }
 
+            var discount = _discountPriceService.GetComboDiscount(item.ComboId, item.Price);
             return new ComboDto
             {
                 ComboId = item.ComboId,
                 Name = item.Name,
                 Description = item.Description ?? string.Empty,
-                Price = item.Price,
+                Price = discount.FinalPrice,
+                OriginalPrice = discount.OriginalPrice,
+                FinalPrice = discount.FinalPrice,
+                HasDiscount = discount.HasDiscount,
+                DiscountCampaignName = discount.CampaignName,
+                DiscountType = discount.DiscountType,
+                DiscountValue = discount.DiscountValue,
                 IsVaiLabel = item.IsAvailabale,
                 CreateDate = item.CreateDate,
                 ImagePath = item.ImagePath ?? string.Empty,

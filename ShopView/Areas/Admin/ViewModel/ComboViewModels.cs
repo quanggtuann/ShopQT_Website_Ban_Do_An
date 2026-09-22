@@ -29,6 +29,12 @@ namespace ShopView.Areas.Admin.Models
         public string Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
+        public decimal OriginalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
+        public bool HasDiscount { get; set; }
+        public string? DiscountCampaignName { get; set; }
+        public string? DiscountType { get; set; }
+        public decimal? DiscountValue { get; set; }
         public string? ImagePath { get; set; }
         public bool IsVaiLabel { get; set; }
         public List<ComboFoodItemDto> FoodItems { get; set; } = new();

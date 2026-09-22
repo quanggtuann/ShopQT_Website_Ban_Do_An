@@ -19,6 +19,6 @@ namespace ShopView.ViewModels
         public string? SortBy { get; set; } = "name";
         public string? SortOrder { get; set; } = "asc";
         public int page { get; set; } = 1;
-        public int pageSize { get; set; } = 5;
+        public int pageSize { get; set; } = 6;
     }
 }

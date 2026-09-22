@@ -1,4 +1,5 @@
-﻿using ShopDAL.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopDAL.Context;
 using ShopDAL.Models;
 using ShopDAL.Repository.IRepository;
 
@@ -15,11 +16,16 @@ namespace ShopDAL.Repository
         {
             var cart = new Cart { UserID = userId }; 
             _context.Carts.Add(cart);
-            _context.SaveChanges();
         }
+
+        public User? GetById(int userId)
+        {
+            return _context.Users.AsNoTracking().FirstOrDefault(user => user.UserID == userId);
+        }
+
         public User Getnameuser(string username)
         {
-            return _context.Users.FirstOrDefault(u => u.Username == username);
+            return _context.Users.AsNoTracking().FirstOrDefault(u => u.Username == username);
         }
         public bool Login(string username, string password)
         {
@@ -70,6 +76,9 @@ namespace ShopDAL.Repository
         public void Update(User updateuser)
         {
             _context.Users.Update(updateuser);
+        }
+        public void Save()
+        {
             _context.SaveChanges();
         }
     }

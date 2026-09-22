@@ -1,8 +1,10 @@
-﻿@model ShopAPI.DTOs.FoodItemDto
+﻿@using Microsoft.Extensions.Localization
+@model ShopAPI.DTOs.FoodItemDto
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
 
 @{
     Layout = "_MyLayout";
-    ViewData["Title"] = "Food Detail";
+    ViewData["Title"] = Localizer["FoodDetail"];
 
     var imageBaseUrl = ViewBag.ImageBaseUrl as string
         ?? "https://localhost:7130/";
@@ -49,8 +51,8 @@
 
     .food-category {
         display: inline-block;
-        background: rgba(105,108,255,.12);
-        color: #696cff;
+        background: rgba(220, 53, 69, .12);
+        color: #dc3545;
         padding: 10px 18px;
         border-radius: 999px;
         font-size: 13px;
@@ -69,7 +71,7 @@
     .food-price {
         font-size: 42px;
         font-weight: 900;
-        color: #10b981;
+        color: #dc3545;
         margin-bottom: 30px;
     }
 
@@ -115,8 +117,8 @@
     }
 
     .btn-back {
-        background: #eef2ff;
-        color: #696cff;
+        background: #fee2e2;
+        color: #dc3545;
         border: none;
         border-radius: 18px;
         padding: 16px 28px;
@@ -124,21 +126,21 @@
         transition: .25s;
     }
 
-        .btn-back:hover {
-            background: #696cff;
-            color: white;
-            transform: translateY(-2px);
-        }
+    .btn-back:hover {
+        background: #dc3545;
+        color: white;
+        transform: translateY(-2px);
+    }
 
     .btn-order {
-        background: linear-gradient(135deg,#696cff,#5f61e6);
+        background: linear-gradient(135deg,#dc3545,#b02a37);
         border: none;
         color: white;
         border-radius: 18px;
         padding: 16px 34px;
         font-weight: 800;
         transition: .3s;
-        box-shadow: 0 15px 30px rgba(105,108,255,.25);
+        box-shadow: 0 15px 30px rgba(220, 53, 69,.25);
     }
 
         .btn-order:hover {
@@ -180,7 +182,7 @@
 
                     <img src="@(string.IsNullOrWhiteSpace(Model.ImagePath)
                             ? "https://via.placeholder.com/900x700?text=Food+Image"
-                            : imageBaseUrl + Model.ImagePath)"
+                            : imageBaseUrl.TrimEnd('/') + "/" + Model.ImagePath.TrimStart('/'))"
                          class="food-image"
                          alt="@Model.Name" />
 
@@ -197,7 +199,7 @@
 
                         <i class="bx bx-category-alt me-1"></i>
 
-                        @(Model.Category?.Name ?? "Food Category")
+                        @(Model.Category?.Name ?? Localizer["FoodCategory"])
 
                     </div>
 
@@ -205,14 +207,24 @@
                         @Model.Name
                     </h1>
 
+                    @if (Model.HasDiscount)
+                    {
+                        <div class="text-muted text-decoration-line-through fs-5">
+                            @String.Format("{0:N0} \u20AB", Model.OriginalPrice)
+                        </div>
+                        <div class="badge rounded-pill bg-danger px-3 py-2 mb-2">
+                            @Model.DiscountCampaignName
+                        </div>
+                    }
+
                     <div class="food-price">
-                        @Model.Price.ToString("N0") VND
+                        @String.Format("{0:N0} \u20AB", Model.Price)
                     </div>
 
                     <div class="food-description">
 
                         @(string.IsNullOrWhiteSpace(Model.Description)
-                            ? "No description available for this food item."
+                            ? Localizer["NoDescriptionFood"]
                             : Model.Description)
 
                     </div>
@@ -223,7 +235,7 @@
                         <div class="food-info-item">
 
                             <div class="food-info-label">
-                                Category
+                                @Localizer["Category"]
                             </div>
 
                             <div class="food-info-value">
@@ -235,11 +247,11 @@
                         <div class="food-info-item">
 
                             <div class="food-info-label">
-                                Availability
+                                @Localizer["Availability"]
                             </div>
 
                             <div class="food-info-value text-success">
-                                Available
+                                @Localizer["Available"]
                             </div>
 
                         </div>               
@@ -255,13 +267,13 @@
 
                             <i class="bx bx-arrow-back me-1"></i>
 
-                            Back To Menu
+                            @Localizer["BackToMenu"]
 
                         </a>
 
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            <!-- Đã đăng nhập -->
+                            
                             <a asp-controller="Cart"
                                asp-action="AddFood"
                                asp-route-id="@Model.FoodItemId"
@@ -270,13 +282,13 @@
 
                                 <i class="bx bx-cart-add me-1"></i>
 
-                                Order Now
+                                @Localizer["OrderNow"]
 
                             </a>
                         }
                         else
                         {
-                            <!-- Chưa đăng nhập -->
+                            
                             <a asp-controller="Account"
                                asp-action="Login"
                                asp-route-returnUrl="@Url.Action("Detail", "Food", new { id = Model.FoodItemId })"
@@ -284,7 +296,7 @@
 
                                 <i class="bx bx-lock-alt me-1"></i>
 
-                                Login To Order
+                                @Localizer["LoginToOrder"]
 
                             </a>
                         }
@@ -300,3 +312,7 @@
     </div>
 
 </div>
+
+
+
+

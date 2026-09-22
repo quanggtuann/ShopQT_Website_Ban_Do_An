@@ -1,3 +1,4 @@
+wwwroot\img\combos\Combo Gia Dinh.png
 wwwroot\img\combos\combooooo.jpg
 wwwroot\img\combos\ComboUpdate.jpg
 wwwroot\img\combos\omaiii.jpg
@@ -11,8 +12,10 @@ wwwroot\img\foods\bimbim.png
 wwwroot\img\foods\bimbim2.jpg
 wwwroot\img\foods\bimbim22.jpg
 wwwroot\img\foods\bimbimed.jpg
+wwwroot\img\foods\ga ran nuong.jpg
 wwwroot\img\foods\kakckadc.jpg
 wwwroot\img\foods\kimochii.jpg
 wwwroot\img\foods\ooo.jpg
 wwwroot\img\foods\toii.jpg
 wwwroot\img\foods\tra sua.jpg
+wwwroot\img\foods\xucxich.jpg

@@ -1,0 +1,153 @@
+@using Microsoft.Extensions.Localization
+@using ShopAPI.DTOs
+@using System.Text.Json
+@model ShopView.ViewModels.AddressFormViewModel
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["CreateAddress"];
+    var provinces = ViewBag.Provinces as List<ProvinceDto> ?? new List<ProvinceDto>();
+    var locationJson = JsonSerializer.Serialize(provinces);
+}
+
+<style>
+    .address-page { min-height:80vh; }
+    .address-card { border:0; border-radius:24px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,.08); }
+    .address-header { background:linear-gradient(135deg,#dc3545,#ff6b81); color:#fff; padding:30px; }
+    .address-header h2 { font-weight:800; margin-bottom:5px; }
+    .address-body { padding:40px; background:#fff; }
+    .form-control { border-radius:12px; min-height:50px; border:1px solid #dee2e6; transition:.25s ease; }
+    .form-control:focus { border-color:#dc3545; box-shadow:0 0 0 .2rem rgba(220,53,69,.15); }
+    .form-label { font-weight:700; margin-bottom:8px; }
+    .section-title { font-size:15px; color:#6c757d; margin-bottom:20px; text-transform:uppercase; letter-spacing:.5px; }
+    .btn-save { background:#dc3545; color:#fff; border:0; padding:12px 35px; border-radius:50px; font-weight:700; transition:.3s; }
+    .btn-save:hover { background:#c82333; color:#fff; transform:translateY(-2px); }
+    .btn-back { border-radius:50px; padding:12px 35px; font-weight:700; }
+</style>
+
+<div class="container py-5 address-page">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card address-card">
+                <div class="address-header">
+                    <h2>📍 @Localizer["AddNewAddress"]</h2>
+                    <p class="mb-0">@Localizer["AddDeliveryAddress"]</p>
+                </div>
+
+                <div class="address-body">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="section-title">@Localizer["ReceiverInformation"]</div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ReceiverName" class="form-label">@Localizer["FullName"]</label>
+                                <input asp-for="ReceiverName" class="form-control" placeholder="Nguyen Van A" />
+                                <span asp-validation-for="ReceiverName" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PhoneNumber" class="form-label">@Localizer["PhoneNumber"]</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="0123456789" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="section-title mt-3">@Localizer["AddressInformation"]</div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Province" class="form-label">@Localizer["Province"]</label>
+                                <select asp-for="Province" id="provinceSelect" class="form-control">
+                                    <option value="">@Localizer["SelectProvince"]</option>
+                                </select>
+                                <span asp-validation-for="Province" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Ward" class="form-label">@Localizer["Ward"]</label>
+                                <select asp-for="Ward" id="wardSelect" class="form-control">
+                                    <option value="">@Localizer["SelectWard"]</option>
+                                </select>
+                                <span asp-validation-for="Ward" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="DetailAddress" class="form-label">@Localizer["DetailAddress"]</label>
+                            <textarea asp-for="DetailAddress" rows="4" class="form-control" placeholder="House number, street name..."></textarea>
+                            <span asp-validation-for="DetailAddress" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-back mr-2">@Localizer["Cancel"]</a>
+                            <button type="submit" class="btn btn-save">@Localizer["SaveAddress"]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const locations = @Html.Raw(locationJson);
+    const selectedProvince = @Html.Raw(JsonSerializer.Serialize(Model.Province));
+    const selectedWard = @Html.Raw(JsonSerializer.Serialize(Model.Ward));
+    const selectProvinceText = @Html.Raw(JsonSerializer.Serialize(Localizer["SelectProvince"].Value));
+    const selectWardText = @Html.Raw(JsonSerializer.Serialize(Localizer["SelectWard"].Value));
+    const provinceSelect = document.getElementById('provinceSelect');
+    const wardSelect = document.getElementById('wardSelect');
+
+    function setOptions(select, placeholder, values, selectedValue) {
+        select.innerHTML = `<option value="">${placeholder}</option>`;
+        [...new Set(values.filter(Boolean))].forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = value;
+            option.selected = value === selectedValue;
+            select.appendChild(option);
+        });
+    }
+
+    function provinceName(item) {
+        return item.province || item.Province || '';
+    }
+
+    function districts(item) {
+        return item ? (item.districts || item.Districts || []) : [];
+    }
+
+    function wards(item) {
+        return item ? (item.wards || item.Wards || []) : [];
+    }
+
+    function provinceWards(item) {
+        const directWards = wards(item);
+        if (directWards.length) {
+            return directWards;
+        }
+
+        return districts(item).flatMap(district => wards(district));
+    }
+
+    function selectedProvinceData() {
+        return locations.find(item => provinceName(item) === provinceSelect.value);
+    }
+
+    function fillProvinceOptions(selectedValue = '') {
+        setOptions(provinceSelect, selectProvinceText, locations.map(provinceName), selectedValue);
+    }
+
+    function loadWards(selectedValue = '') {
+        setOptions(wardSelect, selectWardText, provinceWards(selectedProvinceData()), selectedValue);
+    }
+
+    provinceSelect.addEventListener('change', () => loadWards());
+
+    fillProvinceOptions(selectedProvince);
+
+    if (provinceSelect.value) {
+        loadWards(selectedWard);
+    }
+</script>

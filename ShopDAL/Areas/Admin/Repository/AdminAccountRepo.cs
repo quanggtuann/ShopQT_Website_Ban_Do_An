@@ -1,4 +1,5 @@
-﻿using ShopDAL.Areas.Repository.Irepository;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Context;
 using ShopDAL.Models;
 namespace ShopDAL.Areas.Repository
@@ -12,7 +13,7 @@ namespace ShopDAL.Areas.Repository
         }
         public List<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users.AsNoTracking().ToList();
         }
 
         public List<User> GetFiltered(string keyword, bool? isActive, string role, string sortBy, string sortOrder)
@@ -57,7 +58,7 @@ namespace ShopDAL.Areas.Repository
         }
         public User GetById(int id)
         {
-            return _context.Users.FirstOrDefault(u => u.UserID == id);
+            return _context.Users.AsNoTracking().FirstOrDefault(u => u.UserID == id);
         }
         private void validateUser(User user)
         {

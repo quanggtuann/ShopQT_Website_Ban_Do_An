@@ -1,0 +1,488 @@
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+@model ShopView.ViewModels.PagedResponse<ShopView.ViewModels.CustomerOrderViewModel>
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["OrderHistory"];
+    var vi = new CultureInfo("vi-VN");
+    var currentReturnUrl = $"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}";
+    var pageSizeValue = ViewContext.HttpContext.Request.Query["pageSize"].ToString();
+    if (string.IsNullOrWhiteSpace(pageSizeValue))
+    {
+        pageSizeValue = "6";
+    }
+    var orders = Model?.Data ?? new List<ShopView.ViewModels.CustomerOrderViewModel>();
+    var cancelReasons = new[]
+    {
+        "Thay đổi ý định: Tôi không còn nhu cầu mua sản phẩm này nữa.",
+        "Sai thông tin: Tôi muốn thay đổi địa chỉ giao hàng hoặc số điện thoại.",
+        "Đổi sản phẩm: Tôi muốn chọn sản phẩm khác.",
+        "Tìm được giá tốt hơn: Tôi tìm thấy nơi khác bán giá rẻ hơn hoặc có ưu đãi tốt hơn.",
+        "Thời gian giao hàng lâu: Thời gian dự kiến giao hàng quá muộn so với nhu cầu.",
+        "Trùng đơn hàng: Tôi vô tình đặt trùng hai hoặc nhiều đơn giống nhau."
+    };
+}
+
+<div class="order-history-page container py-5">
+    <div class="history-hero mb-4">
+        <div>
+            <span>🍔 @Localizer["Orders"]</span>
+            <h1>@Localizer["OrderHistory"]</h1>
+            <p>@Localizer["OrderHistorySubtitle"]</p>
+        </div>
+        <a asp-controller="Food" asp-action="Index" class="history-action">
+            @Localizer["ContinueShopping"] <i class="fa fa-arrow-right"></i>
+        </a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-4 shadow-sm">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (Model == null || !orders.Any())
+    {
+        <div class="history-empty">
+            <div>🧾</div>
+            <h2>@Localizer["NoOrdersYet"]</h2>
+            <p>@Localizer["NoOrdersHint"]</p>
+            <a asp-controller="Food" asp-action="Index" class="history-primary-btn">
+                @Localizer["BrowseNow"] <i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="history-list">
+            @foreach (var order in orders)
+            {
+                <div class="history-card">
+                    <div class="history-main">
+                        <div class="history-icon">
+                            <i class="fa fa-receipt"></i>
+                        </div>
+                        <div>
+                            <h3>@Localizer["Order"] #@order.OrderId</h3>
+                            <p>@order.OrderTime.ToString("dd/MM/yyyy HH:mm") · @order.Items.Count @Localizer["Items"]</p>
+                        </div>
+                    </div>
+
+                    <div class="history-address">
+                        <span>@Localizer["DeliveryAddress"]</span>
+                        <strong>@order.ShippingAddress</strong>
+                    </div>
+
+                    <div class="history-total">
+                        <span>@Localizer["GrandTotal"]</span>
+                        <strong>@order.TotalAmount.ToString("N0", vi) ₫</strong>
+                    </div>
+
+                    <div class="history-actions">
+                        <span class="status-pill status-@order.Status.ToLowerInvariant()">@Localizer[order.Status]</span>
+                        <a asp-controller="Order"
+                           asp-action="Details"
+                           asp-route-id="@order.OrderId"
+                           class="history-detail-btn">
+                            @Localizer["ViewDetails"]
+                        </a>
+
+                        @if (order.CanCancel)
+                        {
+                            <details class="cancel-reason-menu">
+                                <summary class="history-cancel-btn">@Localizer["CancelOrder"]</summary>
+                                <form asp-controller="Order"
+                                      asp-action="Cancel"
+                                      method="post"
+                                      class="cancel-reason-form">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@order.OrderId" />
+                                    <input type="hidden" name="returnUrl" value="@currentReturnUrl" />
+                                    <label>Chọn lý do hủy đơn</label>
+                                    <select name="cancelReason" required>
+                                        <option value="">-- Chọn lý do --</option>
+                                        @foreach (var reason in cancelReasons)
+                                        {
+                                            <option value="@reason">@reason</option>
+                                        }
+                                        <option value="Other">Lý do khác</option>
+                                    </select>
+                                    <textarea name="cancelReasonDetail"
+                                              rows="3"
+                                              placeholder="Nếu chọn lý do khác, hãy nhập nội dung tại đây"></textarea>
+                                    <button type="submit" class="cancel-confirm-btn">
+                                        Xác nhận hủy
+                                    </button>
+                                </form>
+                            </details>
+                        }
+                    </div>
+
+                    @if (string.Equals(order.Status, "Cancelled", StringComparison.OrdinalIgnoreCase)
+                         && !string.IsNullOrWhiteSpace(order.CancelReason))
+                    {
+                        <div class="history-cancel-reason">
+                            <strong>Lý do hủy:</strong>
+                            <span>@order.CancelReason</span>
+                            @if (!string.IsNullOrWhiteSpace(order.CancelReasonDetail))
+                            {
+                                <p>@order.CancelReasonDetail</p>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        @if (Model.TotalPages > 1)
+        {
+            <nav class="history-pagination mt-4" aria-label="Order history pagination">
+                <ul class="pagination justify-content-center gap-2 flex-wrap">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link"
+                           asp-action="OrderHistory"
+                           asp-route-page="@(Model.CurrentPage - 1)"
+                           asp-route-pageSize="@pageSizeValue">
+                            <i class="fa fa-chevron-left"></i>
+                        </a>
+                    </li>
+
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                            <a class="page-link"
+                               asp-action="OrderHistory"
+                               asp-route-page="@i"
+                               asp-route-pageSize="@pageSizeValue">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link"
+                           asp-action="OrderHistory"
+                           asp-route-page="@(Model.CurrentPage + 1)"
+                           asp-route-pageSize="@pageSizeValue">
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    }
+</div>
+
+<style>
+    .order-history-page {
+        max-width: 1440px;
+    }
+
+    .history-hero,
+    .history-card,
+    .history-empty {
+        background: rgba(255, 255, 255, .93);
+        border: 1px solid rgba(255, 255, 255, .72);
+        border-radius: 28px;
+        box-shadow: 0 24px 60px rgba(37, 42, 52, .08);
+    }
+
+    .history-hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 34px;
+    }
+
+    .history-hero span {
+        color: #ff5a1f;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: .08em;
+    }
+
+    .history-hero h1 {
+        margin: 8px 0;
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .history-hero p {
+        margin: 0;
+        color: #6b7280;
+        font-weight: 700;
+    }
+
+    .history-action,
+    .history-detail-btn,
+    .history-primary-btn,
+    .history-cancel-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border-radius: 999px;
+        font-weight: 900;
+        text-decoration: none;
+        transition: .22s ease;
+    }
+
+    .history-action,
+    .history-detail-btn {
+        color: #ff5a1f;
+        background: #fff4ed;
+        padding: 12px 18px;
+    }
+
+    .history-cancel-btn {
+        border: 0;
+        color: #dc2626;
+        background: #fee2e2;
+        padding: 12px 18px;
+    }
+
+    .history-primary-btn {
+        color: white;
+        padding: 15px 24px;
+        background: linear-gradient(135deg, #ff5722, #ff9800);
+        box-shadow: 0 18px 34px rgba(255, 107, 53, .24);
+    }
+
+    .history-action:hover,
+    .history-detail-btn:hover,
+    .history-cancel-btn:hover {
+        color: #e84a16;
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+
+    .history-primary-btn:hover {
+        color: white;
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+
+    .history-empty {
+        text-align: center;
+        padding: 64px 24px;
+    }
+
+    .history-empty div {
+        font-size: 54px;
+        margin-bottom: 16px;
+    }
+
+    .history-empty h2 {
+        font-weight: 900;
+        color: #111827;
+    }
+
+    .history-empty p {
+        color: #6b7280;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .history-card {
+        display: grid;
+        grid-template-columns: 1.4fr 1.6fr .8fr auto;
+        align-items: center;
+        gap: 24px;
+        padding: 22px;
+    }
+
+    .history-main {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .history-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        background: linear-gradient(135deg, #ff5722, #ff9800);
+        box-shadow: 0 14px 26px rgba(255, 107, 53, .22);
+    }
+
+    .history-main h3,
+    .history-main p {
+        margin: 0;
+    }
+
+    .history-main h3 {
+        color: #111827;
+        font-weight: 900;
+        font-size: 20px;
+    }
+
+    .history-main p,
+    .history-address span,
+    .history-total span {
+        color: #6b7280;
+        font-weight: 700;
+    }
+
+    .history-address strong,
+    .history-address span,
+    .history-total span,
+    .history-total strong {
+        display: block;
+    }
+
+    .history-address strong {
+        color: #111827;
+    }
+
+    .history-total strong {
+        color: #ff5a1f;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    .history-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+    }
+
+    .cancel-reason-menu {
+        position: relative;
+    }
+
+    .cancel-reason-menu summary {
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .cancel-reason-menu summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .cancel-reason-form {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        z-index: 20;
+        width: min(420px, 86vw);
+        padding: 18px;
+        border-radius: 22px;
+        background: white;
+        border: 1px solid #fee2e2;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, .16);
+    }
+
+    .cancel-reason-form label {
+        display: block;
+        margin-bottom: 8px;
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .cancel-reason-form select,
+    .cancel-reason-form textarea {
+        width: 100%;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 11px 13px;
+        color: #111827;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .cancel-confirm-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        color: white;
+        background: linear-gradient(135deg, #ef4444, #f97316);
+        font-weight: 900;
+    }
+
+    .history-cancel-reason {
+        grid-column: 1 / -1;
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: #fff7ed;
+        color: #92400e;
+        font-weight: 800;
+    }
+
+    .history-cancel-reason span,
+    .history-cancel-reason p {
+        margin: 4px 0 0;
+        display: block;
+    }
+
+    .history-pagination .page-link {
+        border: 0;
+        border-radius: 999px;
+        color: #ff5a1f;
+        background: #fff4ed;
+        font-weight: 800;
+        box-shadow: none;
+    }
+
+    .history-pagination .page-item.active .page-link {
+        color: #fff;
+        background: linear-gradient(135deg, #ff5722, #ff9800);
+    }
+
+    .history-pagination .page-item.disabled .page-link {
+        opacity: .45;
+        pointer-events: none;
+    }
+
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 13px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 900;
+        background: #fff4ed;
+        color: #ff5a1f;
+    }
+
+    .status-completed {
+        color: #059669;
+        background: #dff8ee;
+    }
+
+    .status-cancelled {
+        color: #dc2626;
+        background: #fee2e2;
+    }
+
+    .status-shipping {
+        color: #2563eb;
+        background: #dbeafe;
+    }
+
+    @@media (max-width: 991.98px) {
+        .history-hero,
+        .history-card {
+            grid-template-columns: 1fr;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .history-actions {
+            flex-wrap: wrap;
+        }
+    }
+</style>

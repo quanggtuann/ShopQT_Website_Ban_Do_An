@@ -15,7 +15,7 @@ namespace ShopDAL.Areas.Repository
         }
         public IQueryable<Combo> Getall()
         {
-            return _context.Combos.AsQueryable();
+            return _context.Combos.AsNoTracking().AsQueryable();
         }
         public Combo GetById(int id)
         {

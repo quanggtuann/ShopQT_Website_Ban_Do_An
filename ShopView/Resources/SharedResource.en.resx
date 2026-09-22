@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Food" xml:space="preserve"><value>Food</value></data>
+  <data name="Combo" xml:space="preserve"><value>Combo</value></data>
+  <data name="Login" xml:space="preserve"><value>Login</value></data>
+  <data name="Register" xml:space="preserve"><value>Register</value></data>
+  <data name="Orders" xml:space="preserve"><value>Orders</value></data>
+  <data name="Cart" xml:space="preserve"><value>Cart</value></data>
+  <data name="Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="MyAccount" xml:space="preserve"><value>My Account</value></data>
+  <data name="MyAddresses" xml:space="preserve"><value>My Addresses</value></data>
+  <data name="ChangePassword" xml:space="preserve"><value>Change Password</value></data>
+  <data name="OrderHistory" xml:space="preserve"><value>Order History</value></data>
+  <data name="AdminPanel" xml:space="preserve"><value>Admin Panel</value></data>
+  <data name="Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="Menu" xml:space="preserve"><value>Menu</value></data>
+  <data name="Customer" xml:space="preserve"><value>Customer</value></data>
+  <data name="Addresses" xml:space="preserve"><value>Addresses</value></data>
+  <data name="Contact" xml:space="preserve"><value>Contact</value></data>
+  <data name="FooterDescription" xml:space="preserve"><value>Delicious food delivered fast. Fresh ingredients, quality service, and the best customer experience.</value></data>
+  <data name="Copyright" xml:space="preserve"><value>All Rights Reserved.</value></data>
+  <data name="FoodMenu" xml:space="preserve"><value>Food Menu</value></data>
+  <data name="ComboMenu" xml:space="preserve"><value>Combo Menu</value></data>
+  <data name="FoodBannerSubtitle" xml:space="preserve"><value>Discover delicious food with a cleaner and faster shopping experience.</value></data>
+  <data name="ComboBannerSubtitle" xml:space="preserve"><value>Explore combo meals with a cleaner and faster shopping experience.</value></data>
+  <data name="BrowseNow" xml:space="preserve"><value>Browse now</value></data>
+  <data name="ViewProducts" xml:space="preserve"><value>View products</value></data>
+  <data name="English" xml:space="preserve"><value>English</value></data>
+  <data name="Vietnamese" xml:space="preserve"><value>Tiếng Việt</value></data>
+  <data name="Categories" xml:space="preserve"><value>Categories</value></data>
+  <data name="ChooseCategory" xml:space="preserve"><value>Choose a category</value></data>
+  <data name="CategoryGuide" xml:space="preserve"><value>Use Back / Continue to move through the category groups.</value></data>
+  <data name="Continue" xml:space="preserve"><value>Continue</value></data>
+  <data name="All" xml:space="preserve"><value>All</value></data>
+  <data name="SearchFood" xml:space="preserve"><value>Search food</value></data>
+  <data name="SearchFoodPlaceholder" xml:space="preserve"><value>Search delicious food...</value></data>
+  <data name="MinPrice" xml:space="preserve"><value>Min price</value></data>
+  <data name="MaxPrice" xml:space="preserve"><value>Max price</value></data>
+  <data name="SortBy" xml:space="preserve"><value>Sort by</value></data>
+  <data name="Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Price" xml:space="preserve"><value>Price</value></data>
+  <data name="Order" xml:space="preserve"><value>Order</value></data>
+  <data name="Ascending" xml:space="preserve"><value>Ascending</value></data>
+  <data name="Descending" xml:space="preserve"><value>Descending</value></data>
+  <data name="ApplyFilters" xml:space="preserve"><value>Apply filters</value></data>
+  <data name="ApplyFilter" xml:space="preserve"><value>Apply Filter</value></data>
+  <data name="Reset" xml:space="preserve"><value>Reset</value></data>
+  <data name="FeaturedFoods" xml:space="preserve"><value>Featured foods</value></data>
+  <data name="PopularDishes" xml:space="preserve"><value>Popular dishes</value></data>
+  <data name="ModernCardsSubtitle" xml:space="preserve"><value>Modern cards with a cleaner, faster layout.</value></data>
+  <data name="NoFoodFound" xml:space="preserve"><value>No food found</value></data>
+  <data name="TryAnotherFood" xml:space="preserve"><value>Try another keyword, price range, or category.</value></data>
+  <data name="FoodFallback" xml:space="preserve"><value>Food</value></data>
+  <data name="Favorite" xml:space="preserve"><value>Favorite</value></data>
+  <data name="ViewDetails" xml:space="preserve"><value>View details</value></data>
+  <data name="ViewDetail" xml:space="preserve"><value>View Detail</value></data>
+  <data name="Featured" xml:space="preserve"><value>Featured</value></data>
+  <data name="NoDescription" xml:space="preserve"><value>No description available.</value></data>
+  <data name="NoDescriptionShort" xml:space="preserve"><value>No description available</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Add to cart</value></data>
+  <data name="Previous" xml:space="preserve"><value>Previous</value></data>
+  <data name="Next" xml:space="preserve"><value>Next</value></data>
+  <data name="ComboSubtitle" xml:space="preserve"><value>Discover delicious combo meals with amazing prices</value></data>
+  <data name="FindFavoriteCombo" xml:space="preserve"><value>Find Your Favorite Combo</value></data>
+  <data name="SearchFilterSort" xml:space="preserve"><value>Search, filter and sort delicious meals</value></data>
+  <data name="SearchCombo" xml:space="preserve"><value>Search Combo</value></data>
+  <data name="SearchComboPlaceholder" xml:space="preserve"><value>Search combo...</value></data>
+  <data name="FromPrice" xml:space="preserve"><value>From Price</value></data>
+  <data name="ToPrice" xml:space="preserve"><value>To Price</value></data>
+  <data name="ComboMeal" xml:space="preserve"><value>Combo Meal</value></data>
+  <data name="NoComboFound" xml:space="preserve"><value>No Combo Found</value></data>
+  <data name="TryAnotherCombo" xml:space="preserve"><value>Please try another keyword or filter.</value></data>  <data name="FoodDetail" xml:space="preserve"><value>Food Detail</value></data>
+  <data name="ComboDetail" xml:space="preserve"><value>Combo Detail</value></data>
+  <data name="FoodCategory" xml:space="preserve"><value>Food Category</value></data>
+  <data name="NoDescriptionFood" xml:space="preserve"><value>No description available for this food item.</value></data>
+  <data name="NoDescriptionCombo" xml:space="preserve"><value>No description available for this combo.</value></data>
+  <data name="Category" xml:space="preserve"><value>Category</value></data>
+  <data name="Availability" xml:space="preserve"><value>Availability</value></data>
+  <data name="Available" xml:space="preserve"><value>Available</value></data>
+  <data name="BackToMenu" xml:space="preserve"><value>Back To Menu</value></data>
+  <data name="OrderNow" xml:space="preserve"><value>Order Now</value></data>
+  <data name="LoginToOrder" xml:space="preserve"><value>Login To Order</value></data>
+  <data name="IncludedItems" xml:space="preserve"><value>Included Items</value></data>
+  <data name="MyCart" xml:space="preserve"><value>My Cart</value></data>
+  <data name="MyShoppingCart" xml:space="preserve"><value>My Shopping Cart</value></data>
+  <data name="ReviewCart" xml:space="preserve"><value>Review your delicious items before checkout</value></data>
+  <data name="EmptyCart" xml:space="preserve"><value>Your cart is empty</value></data>
+  <data name="AddFoodComboNow" xml:space="preserve"><value>Add some delicious food and combos now!</value></data>
+  <data name="ContinueShopping" xml:space="preserve"><value>Continue Shopping</value></data>
+  <data name="Product" xml:space="preserve"><value>Product</value></data>
+  <data name="Quantity" xml:space="preserve"><value>Quantity</value></data>
+  <data name="Subtotal" xml:space="preserve"><value>Subtotal</value></data>
+  <data name="Action" xml:space="preserve"><value>Action</value></data>
+  <data name="Update" xml:space="preserve"><value>Update</value></data>
+  <data name="Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="CartSummary" xml:space="preserve"><value>Cart Summary</value></data>
+  <data name="TotalItems" xml:space="preserve"><value>Total Items</value></data>
+  <data name="GrandTotal" xml:space="preserve"><value>Grand Total</value></data>
+  <data name="ProceedCheckout" xml:space="preserve"><value>Proceed To Checkout</value></data>
+  <data name="Username" xml:space="preserve"><value>Username</value></data>
+  <data name="EnterUsername" xml:space="preserve"><value>Enter username</value></data>
+  <data name="Password" xml:space="preserve"><value>Password</value></data>
+  <data name="EnterPassword" xml:space="preserve"><value>Enter password</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Show password</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Welcome Back</value></data>
+  <data name="SignInToContinue" xml:space="preserve"><value>Sign in to continue ordering food</value></data>
+  <data name="NoAccount" xml:space="preserve"><value>Don&apos;t have an account?</value></data>
+  <data name="AlreadyAccount" xml:space="preserve"><value>Already have an account?</value></data>
+  <data name="JoinFastFood" xml:space="preserve"><value>Join Fast Food</value></data>
+  <data name="FreshHotDelicious" xml:space="preserve"><value>Fresh • Hot • Delicious</value></data>
+  <data name="LoginDesc" xml:space="preserve"><value>Order your favorite meals anytime, anywhere. Fast delivery and premium quality food guaranteed.</value></data>
+  <data name="RegisterDesc" xml:space="preserve"><value>Create your account and enjoy thousands of delicious meals delivered to your door.</value></data>
+  <data name="CreateAccount" xml:space="preserve"><value>Create Account</value></data>
+  <data name="FillInfo" xml:space="preserve"><value>Fill in your information to get started.</value></data>
+  <data name="Email" xml:space="preserve"><value>Email</value></data>
+  <data name="EnterEmail" xml:space="preserve"><value>Enter email</value></data>
+  <data name="EnterPhoneNumber" xml:space="preserve"><value>Enter phone number</value></data>
+  <data name="DateOfBirth" xml:space="preserve"><value>Date Of Birth</value></data>
+  <data name="Online" xml:space="preserve"><value>Online</value></data>
+  <data name="TotalOrders" xml:space="preserve"><value>Total Orders</value></data>
+  <data name="AccountStatus" xml:space="preserve"><value>Account Status</value></data>
+  <data name="Active" xml:space="preserve"><value>Active</value></data>
+  <data name="PersonalInformation" xml:space="preserve"><value>Personal Information</value></data>
+  <data name="Role" xml:space="preserve"><value>Role</value></data>
+  <data name="AccountOverview" xml:space="preserve"><value>Account Overview</value></data>
+  <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="MemberType" xml:space="preserve"><value>Member Type</value></data>
+  <data name="EmailVerified" xml:space="preserve"><value>Email Verified</value></data>
+  <data name="Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="QuickActions" xml:space="preserve"><value>Quick Actions</value></data>
+  <data name="UpdatePersonalInformation" xml:space="preserve"><value>Update your personal information</value></data>
+  <data name="BackToProfile" xml:space="preserve"><value>Back To Profile</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>Email Address</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Save Changes</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>Current Password</value></data>
+  <data name="EnterCurrentPassword" xml:space="preserve"><value>Enter current password</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>New Password</value></data>
+  <data name="EnterNewPassword" xml:space="preserve"><value>Enter new password</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Confirm Password</value></data>
+  <data name="ConfirmNewPassword" xml:space="preserve"><value>Confirm new password</value></data>
+  <data name="KeepAccountSecure" xml:space="preserve"><value>Keep your account secure by updating your password.</value></data>
+  <data name="ConfirmPasswordChange" xml:space="preserve"><value>Confirm Password Change</value></data>
+  <data name="ConfirmChangePasswordQuestion" xml:space="preserve"><value>Are you sure you want to change your password?</value></data>
+  <data name="ConfirmChangePasswordNotice" xml:space="preserve"><value>You will need to use the new password to login next time.</value></data>
+  <data name="NoCancel" xml:space="preserve"><value>No, Cancel</value></data>
+  <data name="YesChange" xml:space="preserve"><value>Yes, Change</value></data>
+  <data name="CreateAddress" xml:space="preserve"><value>Create Address</value></data>
+  <data name="EditAddress" xml:space="preserve"><value>Edit Address</value></data>
+  <data name="AddNewAddress" xml:space="preserve"><value>Add New Address</value></data>
+  <data name="AddDeliveryAddress" xml:space="preserve"><value>Add a delivery address for your orders</value></data>
+  <data name="ReceiverInformation" xml:space="preserve"><value>Receiver Information</value></data>
+  <data name="FullName" xml:space="preserve"><value>Full Name</value></data>
+  <data name="AddressInformation" xml:space="preserve"><value>Address Information</value></data>
+  <data name="Province" xml:space="preserve"><value>Province</value></data>
+  <data name="District" xml:space="preserve"><value>District</value></data>
+  <data name="Ward" xml:space="preserve"><value>Ward</value></data>
+  <data name="DetailAddress" xml:space="preserve"><value>Detail Address</value></data>
+  <data name="SaveAddress" xml:space="preserve"><value>Save Address</value></data>
+  <data name="UpdateAddress" xml:space="preserve"><value>Update Address</value></data>
+  <data name="AddressId" xml:space="preserve"><value>Address ID:</value></data>
+  <data name="MyAddressesDescription" xml:space="preserve"><value>Manage your shipping addresses quickly and securely.</value></data>
+  <data name="AddAddress" xml:space="preserve"><value>Add Address</value></data>
+  <data name="NoAddressesFound" xml:space="preserve"><value>No Addresses Found</value></data>
+  <data name="AddFirstAddress" xml:space="preserve"><value>Add First Address</value></data>
+  <data name="Default" xml:space="preserve"><value>Default</value></data>
+  <data name="Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="SetDefault" xml:space="preserve"><value>Set Default</value></data>
+  <data name="DeleteAddress" xml:space="preserve"><value>Delete Address</value></data>
+  <data name="DeleteAddressQuestion" xml:space="preserve"><value>Are you sure you want to delete this address?</value></data>
+  <data name="CannotBeUndone" xml:space="preserve"><value>This action cannot be undone.</value></data>
+  <data name="YesDelete" xml:space="preserve"><value>Yes, Delete</value></data>
+  <data name="OrderHistoryPlaceholder" xml:space="preserve"><value>Order history is not wired yet.</value></data>
+  <data name="AddressManagementNotWired" xml:space="preserve"><value>Address management is not wired yet.</value></data>
+  <data name="AccessDenied" xml:space="preserve"><value>Access Denied</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Back to Home</value></data>
+  <data name="CustomerType" xml:space="preserve"><value>Customer</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="PhoneNumber" xml:space="preserve"><value>Phone Number</value></data>
+  <data name="AccessDeniedMessage" xml:space="preserve"><value>You do not have permission to view this page.</value></data>
+  <data name="LogoutQuestion" xml:space="preserve"><value>Are you sure you want to logout?</value></data>
+  <data name="LogoutConfirmation" xml:space="preserve"><value>Logout Confirmation</value></data>
+  <data name="BestSeller" xml:space="preserve"><value>Best seller</value></data>
+  <data name="BestSellerSubtitle" xml:space="preserve"><value>Discounted favorites rotate automatically.</value></data>
+  <data name="ComboDeals" xml:space="preserve"><value>Combo deals</value></data>
+  <data name="BestCombosForYou" xml:space="preserve"><value>Best combos for you</value></data>
+  <data name="ViewAll" xml:space="preserve"><value>View all</value></data>
+  <data name="ItemsFound" xml:space="preserve"><value>items found</value></data>
+  <data name="PerPage" xml:space="preserve"><value>per page</value></data>
+  <data name="FreshTastyDish" xml:space="preserve"><value>Fresh and tasty dish</value></data>
+  <data name="FastDeliveryTime" xml:space="preserve"><value>15 min</value></data>
+  <data name="DealToday" xml:space="preserve"><value>Deal today</value></data>
+  <data name="DiscountLabel" xml:space="preserve"><value>discount</value></data>
+  <data name="Show" xml:space="preserve"><value>Show</value></data>
+  <data name="PriceRange" xml:space="preserve"><value>Price range</value></data>
+  <data name="QuickSelect" xml:space="preserve"><value>Quick select</value></data>
+  <data name="Under50k" xml:space="preserve"><value>Under 50k</value></data>
+  <data name="From50To100k" xml:space="preserve"><value>50k - 100k</value></data>
+  <data name="From100To200k" xml:space="preserve"><value>100k - 200k</value></data>
+  <data name="Over200k" xml:space="preserve"><value>Over 200k</value></data>
+  <data name="NoDiscountedFood" xml:space="preserve"><value>No discounted food is available right now.</value></data>
+  <data name="ViewComboDetail" xml:space="preserve"><value>View combo detail</value></data>
+  <data name="FromLabel" xml:space="preserve"><value>From</value></data>
+  <data name="ToLabel" xml:space="preserve"><value>To</value></data>
+  <data name="Clear" xml:space="preserve"><value>Clear</value></data>
+  <data name="Favorites" xml:space="preserve"><value>Favorites</value></data>
+  <data name="FavoriteSubtitle" xml:space="preserve"><value>Your saved favorite foods are here.</value></data>
+  <data name="NoFavorites" xml:space="preserve"><value>No favorites yet</value></data>
+  <data name="NoFavoritesHint" xml:space="preserve"><value>Tap the heart on a food card to save it for later.</value></data>
+  <data name="BestComboOfDay" xml:space="preserve"><value>Best combo of the day</value></data>
+  <data name="BestValue" xml:space="preserve"><value>Best value</value></data>
+  <data name="BigPortion" xml:space="preserve"><value>Big portion</value></data>
+  <data name="FreeDrink" xml:space="preserve"><value>Free drink</value></data>
+  <data name="AllCombos" xml:space="preserve"><value>All combos</value></data>
+  <data name="Checkout" xml:space="preserve"><value>Checkout</value></data>
+  <data name="ReviewAndPlaceOrder" xml:space="preserve"><value>Review and place order</value></data>
+  <data name="CheckoutSubtitle" xml:space="preserve"><value>Choose your delivery address, payment method, and confirm your delicious order.</value></data>
+  <data name="BackToCart" xml:space="preserve"><value>Back to cart</value></data>
+  <data name="Step" xml:space="preserve"><value>Step</value></data>
+  <data name="DeliveryAddress" xml:space="preserve"><value>Delivery address</value></data>
+  <data name="PaymentMethod" xml:space="preserve"><value>Payment method</value></data>
+  <data name="CashOnDelivery" xml:space="preserve"><value>Cash on delivery</value></data>
+  <data name="PayWhenReceive" xml:space="preserve"><value>Pay when you receive your food.</value></data>
+  <data name="OnlinePaymentLater" xml:space="preserve"><value>Online payment will be handled later.</value></data>
+  <data name="OrderNote" xml:space="preserve"><value>Order note</value></data>
+  <data name="OrderNotePlaceholder" xml:space="preserve"><value>Example: less spicy, call me before delivery...</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>Order summary</value></data>
+  <data name="PlaceOrder" xml:space="preserve"><value>Place order</value></data>
+  <data name="OrderDetail" xml:space="preserve"><value>Order detail</value></data>
+  <data name="OrderItems" xml:space="preserve"><value>Order items</value></data>
+  <data name="DeliveryInformation" xml:space="preserve"><value>Delivery information</value></data>
+  <data name="Receiver" xml:space="preserve"><value>Receiver</value></data>
+  <data name="Address" xml:space="preserve"><value>Address</value></data>
+  <data name="PaymentStatus" xml:space="preserve"><value>Payment status</value></data>
+  <data name="Paid" xml:space="preserve"><value>Paid</value></data>
+  <data name="Unpaid" xml:space="preserve"><value>Unpaid</value></data>
+  <data name="Items" xml:space="preserve"><value>items</value></data>
+  <data name="OrderHistorySubtitle" xml:space="preserve"><value>Track your recent orders and view delivery details.</value></data>
+  <data name="NoOrdersYet" xml:space="preserve"><value>No orders yet</value></data>
+  <data name="NoOrdersHint" xml:space="preserve"><value>Your completed checkout orders will appear here.</value></data>
+  <data name="Pending" xml:space="preserve"><value>Pending</value></data>
+  <data name="Confirmed" xml:space="preserve"><value>Confirmed</value></data>
+  <data name="Shipping" xml:space="preserve"><value>Shipping</value></data>
+  <data name="Completed" xml:space="preserve"><value>Completed</value></data>
+  <data name="Cancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="CancelOrder" xml:space="preserve"><value>Cancel order</value></data>
+  <data name="CancelOrderQuestion" xml:space="preserve"><value>Are you sure you want to cancel this order?</value></data>
+</root>
+
+
+
+
+

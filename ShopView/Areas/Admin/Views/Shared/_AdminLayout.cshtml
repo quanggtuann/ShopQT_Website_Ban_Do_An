@@ -159,6 +159,12 @@
                             <div data-i18n="Basic">Combos</div>
                         </a>
                     </li>
+                    <li class="menu-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "DiscountCampaign" ? "active" : "")">
+                        <a href="/Admin/DiscountCampaign/Index" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-purchase-tag"></i>
+                            <div data-i18n="Basic">Discounts</div>
+                        </a>
+                    </li>
                     <li class="menu-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">
                         <a href="/Admin/Order/Index" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-cart"></i>

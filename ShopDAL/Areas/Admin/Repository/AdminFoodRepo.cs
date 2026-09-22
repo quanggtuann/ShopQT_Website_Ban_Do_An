@@ -15,12 +15,13 @@ namespace ShopDAL.Areas.Repository
         public List<FoodItem> GetAll()
         {
             return _context.FoodItems
+                .AsNoTracking()
                 .Include(f=>f.Category)
                 .ToList();
         }
         public FoodItem GetById(int id)
         {
-            return _context.FoodItems.FirstOrDefault(f => f.FoodItemId == id);
+            return _context.FoodItems.AsNoTracking().FirstOrDefault(f => f.FoodItemId == id);
         }
         public void Add(FoodItem food)
         {

@@ -957,8 +957,12 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\page-header.png",
-      "PackagePath": "staticwebassets\\img\\page-header.png"
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png",
+      "PackagePath": "staticwebassets\\img\\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png"
+    },
+    {
+      "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\img\\85b97dee-8209-46e8-bac6-9911c69a55eb.png",
+      "PackagePath": "staticwebassets\\img\\85b97dee-8209-46e8-bac6-9911c69a55eb.png"
     },
     {
       "Id": "D:\\ShopDAL\\ShopView\\wwwroot\\js\\site.js",

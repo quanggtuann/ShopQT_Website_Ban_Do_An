@@ -1,0 +1,428 @@
+@using System.Globalization
+@model ShopView.Areas.Admin.ViewModel.AdminOrderDetailViewModel
+
+@{
+    ViewData["Title"] = $"Order #{Model.Order.OrderId}";
+    var vi = new CultureInfo("vi-VN");
+    var order = Model.Order;
+    var currentReturnUrl = $"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}";
+}
+
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    .detail-header,
+    .detail-card {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+        border: none;
+    }
+
+    .detail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px;
+        margin-bottom: 28px;
+    }
+
+    .detail-header h2 {
+        margin: 0 0 8px;
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .detail-header p {
+        margin: 0;
+        color: #6b7280;
+        font-weight: 700;
+    }
+
+    .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .btn-soft {
+        border-radius: 14px;
+        padding: 12px 18px;
+        font-weight: 800;
+    }
+
+    .btn-next {
+        color: #fff;
+        border: none;
+        background: linear-gradient(135deg, #696cff, #5f61e6);
+    }
+
+    .detail-card {
+        padding: 26px;
+        margin-bottom: 24px;
+    }
+
+    .detail-card h4 {
+        color: #111827;
+        font-weight: 900;
+        margin-bottom: 20px;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 14px 0;
+        border-bottom: 1px solid #f1f3f5;
+    }
+
+    .info-row:last-child {
+        border-bottom: 0;
+    }
+
+    .info-row span {
+        color: #6b7280;
+        font-weight: 700;
+    }
+
+    .info-row strong {
+        color: #111827;
+        text-align: right;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+    .status-pending {
+        color: #b45309;
+        background: #fef3c7;
+    }
+
+    .status-confirmed {
+        color: #4f46e5;
+        background: #e0e7ff;
+    }
+
+    .status-shipping {
+        color: #2563eb;
+        background: #dbeafe;
+    }
+
+    .status-completed {
+        color: #059669;
+        background: #d1fae5;
+    }
+
+    .status-cancelled {
+        color: #dc2626;
+        background: #fee2e2;
+    }
+
+    .order-item {
+        display: grid;
+        grid-template-columns: 76px 1fr auto;
+        gap: 16px;
+        align-items: center;
+        padding: 16px;
+        border-radius: 18px;
+        background: #f9fafb;
+        margin-bottom: 14px;
+    }
+
+    .order-item img {
+        width: 76px;
+        height: 76px;
+        border-radius: 16px;
+        object-fit: cover;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, .08);
+    }
+
+    .order-item strong,
+    .order-item span {
+        display: block;
+    }
+
+    .order-item strong {
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .order-item span {
+        color: #6b7280;
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    .item-money,
+    .total-money {
+        color: #10b981;
+        font-weight: 900;
+    }
+
+    .total-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f1f3f5;
+        padding-top: 20px;
+        margin-top: 8px;
+        font-size: 22px;
+    }
+
+    .note-box {
+        border-radius: 18px;
+        padding: 18px;
+        background: #fff7ed;
+        color: #92400e;
+        font-weight: 700;
+    }
+
+    .admin-cancel-form {
+        width: min(360px, 100%);
+        padding: 14px;
+        border-radius: 18px;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+    }
+
+    .admin-cancel-form textarea {
+        width: 100%;
+        min-height: 78px;
+        border: 1px solid #fed7aa;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-weight: 700;
+        resize: vertical;
+    }
+
+    .cancel-reason-box {
+        border-radius: 18px;
+        padding: 18px;
+        background: #fee2e2;
+        color: #991b1b;
+        font-weight: 800;
+    }
+
+    .cancel-reason-box p {
+        margin: 6px 0 0;
+    }
+
+    .alert {
+        border: none;
+        border-radius: 16px;
+        padding: 18px;
+        font-weight: 700;
+    }
+
+    @@media(max-width: 992px) {
+        .detail-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .header-actions {
+            justify-content: flex-start;
+        }
+    }
+</style>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success shadow-sm">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger shadow-sm">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="detail-header">
+        <div>
+            <h2>Order #@order.OrderId</h2>
+            <p>@order.OrderTime.ToString("dd/MM/yyyy HH:mm") · @order.Username</p>
+        </div>
+
+        <div class="header-actions">
+            <a asp-area="Admin"
+               asp-controller="Order"
+               asp-action="Index"
+               class="btn btn-outline-secondary btn-soft">
+                <i class="bx bx-arrow-back"></i>
+                Back
+            </a>
+
+            @if (order.CanMoveNext)
+            {
+                <form asp-area="Admin"
+                      asp-controller="Order"
+                      asp-action="NextStatus"
+                      method="post"
+                      data-confirm="@order.NextStatusText?">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@order.OrderId" />
+                    <input type="hidden" name="returnUrl" value="@currentReturnUrl" />
+                    <button type="submit" class="btn btn-next btn-soft">
+                        <i class="bx bx-fast-forward-circle"></i>
+                        @order.NextStatusText
+                    </button>
+                </form>
+            }
+
+            @if (order.CanCancel)
+            {
+                <form asp-area="Admin"
+                      asp-controller="Order"
+                      asp-action="Cancel"
+                      method="post"
+                      class="admin-cancel-form">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@order.OrderId" />
+                    <input type="hidden" name="returnUrl" value="@currentReturnUrl" />
+                    <textarea name="cancelReason"
+                              required
+                              placeholder="Enter reason for cancelling this order"></textarea>
+                    <button type="submit" class="btn btn-danger btn-soft">
+                        <i class="bx bx-x-circle"></i>
+                        Cancel Order
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="detail-card">
+                <h4>Order Items</h4>
+
+                @if (order.Items.Any())
+                {
+                    @foreach (var item in order.Items)
+                    {
+                        var imageUrl = string.IsNullOrWhiteSpace(item.ImagePath)
+                            ? "https://via.placeholder.com/100x100?text=Food"
+                            : Model.ImageBaseUrl.TrimEnd('/') + "/" + item.ImagePath.TrimStart('/');
+
+                        <div class="order-item">
+                            <img src="@imageUrl" alt="@item.ProductName" />
+                            <div>
+                                <strong>@item.ProductName</strong>
+                                <span>@item.ItemType · @item.Quantity x @item.Price.ToString("N0", vi) ₫</span>
+                            </div>
+                            <div class="item-money">@item.Subtotal.ToString("N0", vi) ₫</div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-muted py-4">No items found.</div>
+                }
+
+                <div class="total-box">
+                    <strong>Total</strong>
+                    <strong class="total-money">@order.TotalAmount.ToString("N0", vi) ₫</strong>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(order.Note))
+            {
+                <div class="detail-card">
+                    <h4>Customer Note</h4>
+                    <div class="note-box">@order.Note</div>
+                </div>
+            }
+
+            @if (string.Equals(order.Status, "Cancelled", StringComparison.OrdinalIgnoreCase)
+                 && !string.IsNullOrWhiteSpace(order.CancelReason))
+            {
+                <div class="detail-card">
+                    <h4>Cancellation Reason</h4>
+                    <div class="cancel-reason-box">
+                        <span>Cancelled by @order.CancelledBy</span>
+                        <p>@order.CancelReason</p>
+                        @if (!string.IsNullOrWhiteSpace(order.CancelReasonDetail))
+                        {
+                            <p>@order.CancelReasonDetail</p>
+                        }
+                        @if (order.CancelledAt.HasValue)
+                        {
+                            <p>@order.CancelledAt.Value.ToString("dd/MM/yyyy HH:mm")</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-lg-4">
+            <div class="detail-card">
+                <h4>Order Status</h4>
+                <div class="info-row">
+                    <span>Status</span>
+                    <strong>
+                        <span class="status-badge @GetStatusClass(order.Status)">
+                            <i class="bx bx-radio-circle-marked"></i>
+                            @order.Status
+                        </span>
+                    </strong>
+                </div>
+                <div class="info-row">
+                    <span>Payment</span>
+                    <strong>@order.PaymentMethod</strong>
+                </div>
+                <div class="info-row">
+                    <span>Payment Status</span>
+                    <strong>@(order.IsPaid ? "Paid" : "Unpaid")</strong>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h4>Customer</h4>
+                <div class="info-row">
+                    <span>Account</span>
+                    <strong>@order.Username</strong>
+                </div>
+                <div class="info-row">
+                    <span>Receiver</span>
+                    <strong>@order.ReceiverName</strong>
+                </div>
+                <div class="info-row">
+                    <span>Phone</span>
+                    <strong>@order.ReceiverPhone</strong>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h4>Delivery Address</h4>
+                <p class="text-muted fw-semibold mb-0">@order.ShippingAddress</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private static string GetStatusClass(string status)
+    {
+        return status.ToLowerInvariant() switch
+        {
+            "pending" => "status-pending",
+            "confirmed" => "status-confirmed",
+            "shipping" => "status-shipping",
+            "completed" => "status-completed",
+            "cancelled" => "status-cancelled",
+            _ => "status-pending"
+        };
+    }
+}

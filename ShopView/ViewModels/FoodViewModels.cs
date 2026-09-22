@@ -7,6 +7,7 @@ namespace ShopView.ViewModels
         public FoodFilterViewModel Filter { get; set; } = new();
         public PagedResult<FoodItemDto> PagedResult { get; set; } = new();
         public List<CategoryDto> Categories { get; set; } = new();
+        public List<ComboDto> FeaturedCombos { get; set; } = new();
         public string ImageBaseUrl { get; set; } = string.Empty;
     }
 
@@ -18,7 +19,8 @@ namespace ShopView.ViewModels
         public int? categoryID { get; set; }
         public string? SortBy { get; set; } = "name";
         public string? SortOrder { get; set; } = "asc";
+        public bool ViewAll { get; set; }
         public int page { get; set; } = 1;
-        public int pageSize { get; set; } = 5;
+        public int pageSize { get; set; } = 12;
     }
 }

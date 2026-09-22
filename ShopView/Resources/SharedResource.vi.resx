@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Food" xml:space="preserve"><value>Món ăn</value></data>
+  <data name="Combo" xml:space="preserve"><value>Combo</value></data>
+  <data name="Login" xml:space="preserve"><value>Đăng nhập</value></data>
+  <data name="Register" xml:space="preserve"><value>Đăng ký</value></data>
+  <data name="Orders" xml:space="preserve"><value>Đơn hàng</value></data>
+  <data name="Cart" xml:space="preserve"><value>Giỏ hàng</value></data>
+  <data name="Profile" xml:space="preserve"><value>Hồ sơ</value></data>
+  <data name="MyAccount" xml:space="preserve"><value>Tài khoản của tôi</value></data>
+  <data name="MyAddresses" xml:space="preserve"><value>Địa chỉ của tôi</value></data>
+  <data name="ChangePassword" xml:space="preserve"><value>Đổi mật khẩu</value></data>
+  <data name="OrderHistory" xml:space="preserve"><value>Lịch sử đơn hàng</value></data>
+  <data name="AdminPanel" xml:space="preserve"><value>Trang quản trị</value></data>
+  <data name="Logout" xml:space="preserve"><value>Đăng xuất</value></data>
+  <data name="Menu" xml:space="preserve"><value>Thực đơn</value></data>
+  <data name="Customer" xml:space="preserve"><value>Khách hàng</value></data>
+  <data name="Addresses" xml:space="preserve"><value>Địa chỉ</value></data>
+  <data name="Contact" xml:space="preserve"><value>Liên hệ</value></data>
+  <data name="FooterDescription" xml:space="preserve"><value>Món ngon giao nhanh. Nguyên liệu tươi, dịch vụ chất lượng và trải nghiệm khách hàng tốt nhất.</value></data>
+  <data name="Copyright" xml:space="preserve"><value>Đã đăng ký bản quyền.</value></data>
+  <data name="FoodMenu" xml:space="preserve"><value>Thực đơn món ăn</value></data>
+  <data name="ComboMenu" xml:space="preserve"><value>Thực đơn combo</value></data>
+  <data name="FoodBannerSubtitle" xml:space="preserve"><value>Khám phá món ngon với trải nghiệm mua hàng gọn gàng và nhanh hơn.</value></data>
+  <data name="ComboBannerSubtitle" xml:space="preserve"><value>Khám phá các combo hấp dẫn với trải nghiệm mua hàng gọn gàng và nhanh hơn.</value></data>
+  <data name="BrowseNow" xml:space="preserve"><value>Xem ngay</value></data>
+  <data name="ViewProducts" xml:space="preserve"><value>Xem sản phẩm</value></data>
+  <data name="English" xml:space="preserve"><value>English</value></data>
+  <data name="Vietnamese" xml:space="preserve"><value>Tiếng Việt</value></data>
+  <data name="Categories" xml:space="preserve"><value>Danh mục</value></data>
+  <data name="ChooseCategory" xml:space="preserve"><value>Chọn danh mục</value></data>
+  <data name="CategoryGuide" xml:space="preserve"><value>Dùng Quay lại / Tiếp tục để chuyển nhóm danh mục.</value></data>
+  <data name="Continue" xml:space="preserve"><value>Tiếp tục</value></data>
+  <data name="All" xml:space="preserve"><value>Tất cả</value></data>
+  <data name="SearchFood" xml:space="preserve"><value>Tìm món ăn</value></data>
+  <data name="SearchFoodPlaceholder" xml:space="preserve"><value>Tìm món ăn ngon...</value></data>
+  <data name="MinPrice" xml:space="preserve"><value>Giá từ</value></data>
+  <data name="MaxPrice" xml:space="preserve"><value>Giá đến</value></data>
+  <data name="SortBy" xml:space="preserve"><value>Sắp xếp</value></data>
+  <data name="Name" xml:space="preserve"><value>Tên</value></data>
+  <data name="Price" xml:space="preserve"><value>Giá</value></data>
+  <data name="Order" xml:space="preserve"><value>Thứ tự</value></data>
+  <data name="Ascending" xml:space="preserve"><value>Tăng dần</value></data>
+  <data name="Descending" xml:space="preserve"><value>Giảm dần</value></data>
+  <data name="ApplyFilters" xml:space="preserve"><value>Áp dụng bộ lọc</value></data>
+  <data name="ApplyFilter" xml:space="preserve"><value>Áp dụng bộ lọc</value></data>
+  <data name="Reset" xml:space="preserve"><value>Làm mới</value></data>
+  <data name="FeaturedFoods" xml:space="preserve"><value>Món nổi bật</value></data>
+  <data name="PopularDishes" xml:space="preserve"><value>Món được yêu thích</value></data>
+  <data name="ModernCardsSubtitle" xml:space="preserve"><value>Giao diện món ăn gọn hơn, dễ xem hơn.</value></data>
+  <data name="NoFoodFound" xml:space="preserve"><value>Không tìm thấy món ăn</value></data>
+  <data name="TryAnotherFood" xml:space="preserve"><value>Hãy thử từ khóa, khoảng giá hoặc danh mục khác.</value></data>
+  <data name="FoodFallback" xml:space="preserve"><value>Món ăn</value></data>
+  <data name="Favorite" xml:space="preserve"><value>Yêu thích</value></data>
+  <data name="ViewDetails" xml:space="preserve"><value>Xem chi tiết</value></data>
+  <data name="ViewDetail" xml:space="preserve"><value>Xem chi tiết</value></data>
+  <data name="Featured" xml:space="preserve"><value>Nổi bật</value></data>
+  <data name="NoDescription" xml:space="preserve"><value>Chưa có mô tả.</value></data>
+  <data name="NoDescriptionShort" xml:space="preserve"><value>Chưa có mô tả</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Thêm vào giỏ</value></data>
+  <data name="Previous" xml:space="preserve"><value>Trước</value></data>
+  <data name="Next" xml:space="preserve"><value>Tiếp</value></data>
+  <data name="ComboSubtitle" xml:space="preserve"><value>Khám phá combo ngon với mức giá hấp dẫn</value></data>
+  <data name="FindFavoriteCombo" xml:space="preserve"><value>Tìm combo yêu thích</value></data>
+  <data name="SearchFilterSort" xml:space="preserve"><value>Tìm kiếm, lọc và sắp xếp món ngon</value></data>
+  <data name="SearchCombo" xml:space="preserve"><value>Tìm combo</value></data>
+  <data name="SearchComboPlaceholder" xml:space="preserve"><value>Tìm combo...</value></data>
+  <data name="FromPrice" xml:space="preserve"><value>Giá từ</value></data>
+  <data name="ToPrice" xml:space="preserve"><value>Giá đến</value></data>
+  <data name="ComboMeal" xml:space="preserve"><value>Combo</value></data>
+  <data name="NoComboFound" xml:space="preserve"><value>Không tìm thấy combo</value></data>
+  <data name="TryAnotherCombo" xml:space="preserve"><value>Hãy thử từ khóa hoặc bộ lọc khác.</value></data>
+  <data name="FoodDetail" xml:space="preserve"><value>Chi tiết món ăn</value></data>
+  <data name="ComboDetail" xml:space="preserve"><value>Chi tiết combo</value></data>
+  <data name="FoodCategory" xml:space="preserve"><value>Danh mục món ăn</value></data>
+  <data name="NoDescriptionFood" xml:space="preserve"><value>Chưa có mô tả cho món ăn này.</value></data>
+  <data name="NoDescriptionCombo" xml:space="preserve"><value>Chưa có mô tả cho combo này.</value></data>
+  <data name="Category" xml:space="preserve"><value>Danh mục</value></data>
+  <data name="Availability" xml:space="preserve"><value>Tình trạng</value></data>
+  <data name="Available" xml:space="preserve"><value>Còn hàng</value></data>
+  <data name="BackToMenu" xml:space="preserve"><value>Quay lại thực đơn</value></data>
+  <data name="OrderNow" xml:space="preserve"><value>Đặt ngay</value></data>
+  <data name="LoginToOrder" xml:space="preserve"><value>Đăng nhập để đặt</value></data>
+  <data name="IncludedItems" xml:space="preserve"><value>Món bao gồm</value></data>
+  <data name="MyCart" xml:space="preserve"><value>Giỏ hàng của tôi</value></data>
+  <data name="MyShoppingCart" xml:space="preserve"><value>Giỏ hàng của tôi</value></data>
+  <data name="ReviewCart" xml:space="preserve"><value>Kiểm tra món ngon trước khi thanh toán</value></data>
+  <data name="EmptyCart" xml:space="preserve"><value>Giỏ hàng của bạn đang trống</value></data>
+  <data name="AddFoodComboNow" xml:space="preserve"><value>Thêm món ăn hoặc combo ngon ngay!</value></data>
+  <data name="ContinueShopping" xml:space="preserve"><value>Tiếp tục mua hàng</value></data>
+  <data name="Product" xml:space="preserve"><value>Sản phẩm</value></data>
+  <data name="Quantity" xml:space="preserve"><value>Số lượng</value></data>
+  <data name="Subtotal" xml:space="preserve"><value>Tạm tính</value></data>
+  <data name="Action" xml:space="preserve"><value>Thao tác</value></data>
+  <data name="Update" xml:space="preserve"><value>Cập nhật</value></data>
+  <data name="Remove" xml:space="preserve"><value>Xóa</value></data>
+  <data name="CartSummary" xml:space="preserve"><value>Tổng giỏ hàng</value></data>
+  <data name="TotalItems" xml:space="preserve"><value>Tổng sản phẩm</value></data>
+  <data name="GrandTotal" xml:space="preserve"><value>Tổng tiền</value></data>
+  <data name="ProceedCheckout" xml:space="preserve"><value>Tiến hành thanh toán</value></data>
+  <data name="Username" xml:space="preserve"><value>Tên đăng nhập</value></data>
+  <data name="EnterUsername" xml:space="preserve"><value>Nhập tên đăng nhập</value></data>
+  <data name="Password" xml:space="preserve"><value>Mật khẩu</value></data>
+  <data name="EnterPassword" xml:space="preserve"><value>Nhập mật khẩu</value></data>
+  <data name="ShowPassword" xml:space="preserve"><value>Hiện mật khẩu</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Chào mừng trở lại</value></data>
+  <data name="SignInToContinue" xml:space="preserve"><value>Đăng nhập để tiếp tục đặt món</value></data>
+  <data name="NoAccount" xml:space="preserve"><value>Chưa có tài khoản?</value></data>
+  <data name="AlreadyAccount" xml:space="preserve"><value>Đã có tài khoản?</value></data>
+  <data name="JoinFastFood" xml:space="preserve"><value>Tham gia Fast Food</value></data>
+  <data name="FreshHotDelicious" xml:space="preserve"><value>Tươi • Nóng • Ngon</value></data>
+  <data name="LoginDesc" xml:space="preserve"><value>Đặt món yêu thích mọi lúc, mọi nơi. Giao nhanh và đảm bảo chất lượng.</value></data>
+  <data name="RegisterDesc" xml:space="preserve"><value>Tạo tài khoản để thưởng thức hàng ngàn món ngon giao tận nơi.</value></data>
+  <data name="CreateAccount" xml:space="preserve"><value>Tạo tài khoản</value></data>
+  <data name="FillInfo" xml:space="preserve"><value>Điền thông tin của bạn để bắt đầu.</value></data>
+  <data name="Email" xml:space="preserve"><value>Email</value></data>
+  <data name="EnterEmail" xml:space="preserve"><value>Nhập email</value></data>
+  <data name="EnterPhoneNumber" xml:space="preserve"><value>Nhập số điện thoại</value></data>
+  <data name="DateOfBirth" xml:space="preserve"><value>Ngày sinh</value></data>
+  <data name="Online" xml:space="preserve"><value>Đang hoạt động</value></data>
+  <data name="TotalOrders" xml:space="preserve"><value>Tổng đơn hàng</value></data>
+  <data name="AccountStatus" xml:space="preserve"><value>Trạng thái tài khoản</value></data>
+  <data name="Active" xml:space="preserve"><value>Hoạt động</value></data>
+  <data name="PersonalInformation" xml:space="preserve"><value>Thông tin cá nhân</value></data>
+  <data name="Role" xml:space="preserve"><value>Vai trò</value></data>
+  <data name="AccountOverview" xml:space="preserve"><value>Tổng quan tài khoản</value></data>
+  <data name="Status" xml:space="preserve"><value>Trạng thái</value></data>
+  <data name="MemberType" xml:space="preserve"><value>Loại thành viên</value></data>
+  <data name="EmailVerified" xml:space="preserve"><value>Email đã xác minh</value></data>
+  <data name="Yes" xml:space="preserve"><value>Có</value></data>
+  <data name="QuickActions" xml:space="preserve"><value>Thao tác nhanh</value></data>
+  <data name="UpdatePersonalInformation" xml:space="preserve"><value>Cập nhật thông tin cá nhân</value></data>
+  <data name="BackToProfile" xml:space="preserve"><value>Quay lại hồ sơ</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>Địa chỉ email</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Lưu thay đổi</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>Mật khẩu hiện tại</value></data>
+  <data name="EnterCurrentPassword" xml:space="preserve"><value>Nhập mật khẩu hiện tại</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>Mật khẩu mới</value></data>
+  <data name="EnterNewPassword" xml:space="preserve"><value>Nhập mật khẩu mới</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Xác nhận mật khẩu</value></data>
+  <data name="ConfirmNewPassword" xml:space="preserve"><value>Xác nhận mật khẩu mới</value></data>
+  <data name="KeepAccountSecure" xml:space="preserve"><value>Giữ tài khoản an toàn bằng cách cập nhật mật khẩu.</value></data>
+  <data name="ConfirmPasswordChange" xml:space="preserve"><value>Xác nhận đổi mật khẩu</value></data>
+  <data name="ConfirmChangePasswordQuestion" xml:space="preserve"><value>Bạn có chắc muốn đổi mật khẩu không?</value></data>
+  <data name="ConfirmChangePasswordNotice" xml:space="preserve"><value>Bạn sẽ cần dùng mật khẩu mới cho lần đăng nhập tiếp theo.</value></data>
+  <data name="NoCancel" xml:space="preserve"><value>Không, hủy</value></data>
+  <data name="YesChange" xml:space="preserve"><value>Có, đổi</value></data>
+  <data name="CreateAddress" xml:space="preserve"><value>Tạo địa chỉ</value></data>
+  <data name="EditAddress" xml:space="preserve"><value>Sửa địa chỉ</value></data>
+  <data name="AddNewAddress" xml:space="preserve"><value>Thêm địa chỉ mới</value></data>
+  <data name="AddDeliveryAddress" xml:space="preserve"><value>Thêm địa chỉ giao hàng cho đơn của bạn</value></data>
+  <data name="ReceiverInformation" xml:space="preserve"><value>Thông tin người nhận</value></data>
+  <data name="FullName" xml:space="preserve"><value>Họ và tên</value></data>
+  <data name="AddressInformation" xml:space="preserve"><value>Thông tin địa chỉ</value></data>
+  <data name="Province" xml:space="preserve"><value>Tỉnh/Thành phố</value></data>
+  <data name="District" xml:space="preserve"><value>Quận/Huyện</value></data>
+  <data name="Ward" xml:space="preserve"><value>Phường/Xã</value></data>
+  <data name="DetailAddress" xml:space="preserve"><value>Địa chỉ chi tiết</value></data>
+  <data name="SaveAddress" xml:space="preserve"><value>Lưu địa chỉ</value></data>
+  <data name="UpdateAddress" xml:space="preserve"><value>Cập nhật địa chỉ</value></data>
+  <data name="AddressId" xml:space="preserve"><value>Mã địa chỉ:</value></data>
+  <data name="MyAddressesDescription" xml:space="preserve"><value>Quản lý địa chỉ giao hàng nhanh chóng và an toàn.</value></data>
+  <data name="AddAddress" xml:space="preserve"><value>Thêm địa chỉ</value></data>
+  <data name="NoAddressesFound" xml:space="preserve"><value>Chưa có địa chỉ</value></data>
+  <data name="AddFirstAddress" xml:space="preserve"><value>Thêm địa chỉ đầu tiên</value></data>
+  <data name="Default" xml:space="preserve"><value>Mặc định</value></data>
+  <data name="Edit" xml:space="preserve"><value>Sửa</value></data>
+  <data name="Delete" xml:space="preserve"><value>Xóa</value></data>
+  <data name="SetDefault" xml:space="preserve"><value>Đặt mặc định</value></data>
+  <data name="DeleteAddress" xml:space="preserve"><value>Xóa địa chỉ</value></data>
+  <data name="DeleteAddressQuestion" xml:space="preserve"><value>Bạn có chắc muốn xóa địa chỉ này không?</value></data>
+  <data name="CannotBeUndone" xml:space="preserve"><value>Hành động này không thể hoàn tác.</value></data>
+  <data name="YesDelete" xml:space="preserve"><value>Có, xóa</value></data>
+  <data name="OrderHistoryPlaceholder" xml:space="preserve"><value>Lịch sử đơn hàng chưa được kết nối.</value></data>
+  <data name="AddressManagementNotWired" xml:space="preserve"><value>Quản lý địa chỉ chưa được kết nối.</value></data>
+  <data name="AccessDenied" xml:space="preserve"><value>Không có quyền truy cập</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Quay về trang chủ</value></data>
+  <data name="CustomerType" xml:space="preserve"><value>Khách hàng</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Hủy</value></data>
+  <data name="PhoneNumber" xml:space="preserve"><value>Số điện thoại</value></data>
+  <data name="AccessDeniedMessage" xml:space="preserve"><value>Bạn không có quyền xem trang này.</value></data>
+  <data name="LogoutQuestion" xml:space="preserve"><value>Bạn có chắc muốn đăng xuất không?</value></data>
+  <data name="LogoutConfirmation" xml:space="preserve"><value>Xác nhận đăng xuất</value></data>
+  <data name="BestSeller" xml:space="preserve"><value>Bán chạy</value></data>
+  <data name="BestSellerSubtitle" xml:space="preserve"><value>Các món đang giảm giá tự chuyển nổi bật.</value></data>
+  <data name="ComboDeals" xml:space="preserve"><value>Ưu đãi combo</value></data>
+  <data name="BestCombosForYou" xml:space="preserve"><value>Combo tốt nhất cho bạn</value></data>
+  <data name="ViewAll" xml:space="preserve"><value>Xem tất cả</value></data>
+  <data name="ItemsFound" xml:space="preserve"><value>sản phẩm được tìm thấy</value></data>
+  <data name="PerPage" xml:space="preserve"><value>mỗi trang</value></data>
+  <data name="FreshTastyDish" xml:space="preserve"><value>Món ngon tươi mới</value></data>
+  <data name="FastDeliveryTime" xml:space="preserve"><value>15 phút</value></data>
+  <data name="DealToday" xml:space="preserve"><value>Ưu đãi hôm nay</value></data>
+  <data name="DiscountLabel" xml:space="preserve"><value>giảm giá</value></data>
+  <data name="Show" xml:space="preserve"><value>Hiển thị</value></data>
+  <data name="PriceRange" xml:space="preserve"><value>Khoảng giá</value></data>
+  <data name="QuickSelect" xml:space="preserve"><value>Chọn nhanh</value></data>
+  <data name="Under50k" xml:space="preserve"><value>Dưới 50k</value></data>
+  <data name="From50To100k" xml:space="preserve"><value>50k - 100k</value></data>
+  <data name="From100To200k" xml:space="preserve"><value>100k - 200k</value></data>
+  <data name="Over200k" xml:space="preserve"><value>Trên 200k</value></data>
+  <data name="NoDiscountedFood" xml:space="preserve"><value>Hiện chưa có món ăn đang giảm giá.</value></data>
+  <data name="ViewComboDetail" xml:space="preserve"><value>Xem chi tiết combo</value></data>
+  <data name="FromLabel" xml:space="preserve"><value>Từ</value></data>
+  <data name="ToLabel" xml:space="preserve"><value>Đến</value></data>
+  <data name="Clear" xml:space="preserve"><value>Xóa</value></data>
+  <data name="Favorites" xml:space="preserve"><value>Yêu thích</value></data>
+  <data name="FavoriteSubtitle" xml:space="preserve"><value>Các món ăn bạn đã lưu nằm ở đây.</value></data>
+  <data name="NoFavorites" xml:space="preserve"><value>Chưa có món yêu thích</value></data>
+  <data name="NoFavoritesHint" xml:space="preserve"><value>Bấm biểu tượng trái tim trên món ăn để lưu lại.</value></data>
+  <data name="BestComboOfDay" xml:space="preserve"><value>Combo ngon trong ngày</value></data>
+  <data name="BestValue" xml:space="preserve"><value>Giá tốt</value></data>
+  <data name="BigPortion" xml:space="preserve"><value>Phần lớn</value></data>
+  <data name="FreeDrink" xml:space="preserve"><value>Kèm đồ uống</value></data>
+  <data name="AllCombos" xml:space="preserve"><value>Tất cả combo</value></data>
+  <data name="Checkout" xml:space="preserve"><value>Thanh toán</value></data>
+  <data name="ReviewAndPlaceOrder" xml:space="preserve"><value>Kiểm tra và đặt hàng</value></data>
+  <data name="CheckoutSubtitle" xml:space="preserve"><value>Chọn địa chỉ giao hàng, phương thức thanh toán và xác nhận đơn món ngon của bạn.</value></data>
+  <data name="BackToCart" xml:space="preserve"><value>Quay lại giỏ hàng</value></data>
+  <data name="Step" xml:space="preserve"><value>Bước</value></data>
+  <data name="DeliveryAddress" xml:space="preserve"><value>Địa chỉ giao hàng</value></data>
+  <data name="PaymentMethod" xml:space="preserve"><value>Phương thức thanh toán</value></data>
+  <data name="CashOnDelivery" xml:space="preserve"><value>Thanh toán khi nhận hàng</value></data>
+  <data name="PayWhenReceive" xml:space="preserve"><value>Thanh toán khi bạn nhận món.</value></data>
+  <data name="OnlinePaymentLater" xml:space="preserve"><value>Thanh toán online sẽ xử lý sau.</value></data>
+  <data name="OrderNote" xml:space="preserve"><value>Ghi chú đơn hàng</value></data>
+  <data name="OrderNotePlaceholder" xml:space="preserve"><value>Ví dụ: ít cay, gọi trước khi giao...</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>Tóm tắt đơn hàng</value></data>
+  <data name="PlaceOrder" xml:space="preserve"><value>Đặt hàng</value></data>
+  <data name="OrderDetail" xml:space="preserve"><value>Chi tiết đơn hàng</value></data>
+  <data name="OrderItems" xml:space="preserve"><value>Sản phẩm trong đơn</value></data>
+  <data name="DeliveryInformation" xml:space="preserve"><value>Thông tin giao hàng</value></data>
+  <data name="Receiver" xml:space="preserve"><value>Người nhận</value></data>
+  <data name="Address" xml:space="preserve"><value>Địa chỉ</value></data>
+  <data name="PaymentStatus" xml:space="preserve"><value>Trạng thái thanh toán</value></data>
+  <data name="Paid" xml:space="preserve"><value>Đã thanh toán</value></data>
+  <data name="Unpaid" xml:space="preserve"><value>Chưa thanh toán</value></data>
+  <data name="Items" xml:space="preserve"><value>sản phẩm</value></data>
+  <data name="OrderHistorySubtitle" xml:space="preserve"><value>Theo dõi các đơn gần đây và xem chi tiết giao hàng.</value></data>
+  <data name="NoOrdersYet" xml:space="preserve"><value>Chưa có đơn hàng</value></data>
+  <data name="NoOrdersHint" xml:space="preserve"><value>Các đơn đã thanh toán từ giỏ hàng sẽ xuất hiện ở đây.</value></data>
+  <data name="Pending" xml:space="preserve"><value>Đang chờ</value></data>
+  <data name="Confirmed" xml:space="preserve"><value>Đã xác nhận</value></data>
+  <data name="Shipping" xml:space="preserve"><value>Đang giao</value></data>
+  <data name="Completed" xml:space="preserve"><value>Hoàn thành</value></data>
+  <data name="Cancelled" xml:space="preserve"><value>Đã hủy</value></data>
+  <data name="CancelOrder" xml:space="preserve"><value>Hủy đơn</value></data>
+  <data name="CancelOrderQuestion" xml:space="preserve"><value>Bạn có chắc muốn hủy đơn hàng này không?</value></data>
+</root>
+
+
+
+

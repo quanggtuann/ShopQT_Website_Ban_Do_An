@@ -1,4 +1,5 @@
-﻿using ShopDAL.Areas.Repository.Irepository;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Context;
 using ShopDAL.Models;
 
@@ -13,11 +14,11 @@ namespace ShopDAL.Areas.Repository
         }
         public List<Category> GetAll()
         {
-            return _context.Categorys.ToList();
+            return _context.Categorys.AsNoTracking().ToList();
         }
         public Category GetById(int id)
         {
-            return _context.Categorys.FirstOrDefault(c => c.CategoryId == id);
+            return _context.Categorys.AsNoTracking().FirstOrDefault(c => c.CategoryId == id);
 
         }
         public void Add(Category category)

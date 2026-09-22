@@ -1,469 +1,339 @@
-﻿@model ShopView.ViewModels.ComboViewModels
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@using ShopAPI.DTOs
+@model ShopView.ViewModels.ComboViewModels
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
 
 @{
     Layout = "_MyLayout";
-    ViewData["Title"] = "Combo Menu";
-}
+    ViewData["Title"] = Localizer["ComboMenu"];
 
-<section class="py-5">
-    <div class="container">
+    var viCulture = CultureInfo.GetCultureInfo("vi-VN");
+    var combos = Model.PagedResult.Data ?? new List<ComboDto>();
+    var highlightedCombo = combos
+        .OrderByDescending(combo => combo.HasDiscount)
+        .ThenBy(combo => combo.Price)
+        .FirstOrDefault();
+    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
 
-        @if (TempData["ErrorMessage"] != null)
+    string FormatMoney(decimal value) => $"{value.ToString("N0", viCulture)} ₫";
+    string ComboImage(ComboDto item) => string.IsNullOrWhiteSpace(item.ImagePath)
+        ? "https://via.placeholder.com/900x520?text=Combo"
+        : $"{Model.ImageBaseUrl.TrimEnd('/')}/{item.ImagePath.TrimStart('/')}";
+    decimal SaveAmount(decimal originalPrice, decimal finalPrice) => Math.Max(0, originalPrice - finalPrice);
+    string DiscountText(ComboDto item)
+    {
+        if (!item.HasDiscount)
         {
-            <div class="alert alert-danger rounded-4 mb-4">
-                @TempData["ErrorMessage"]
-            </div>
+            return string.Empty;
         }
 
-        <!-- HEADER -->
-        <div class="text-center mb-5">
+        var save = SaveAmount(item.OriginalPrice, item.Price);
+        if (item.OriginalPrice <= 0 || save <= 0)
+        {
+            return string.Empty;
+        }
 
-            <h1 class="fw-bold display-4 text-dark mb-3">
-                🍔 Combo Menu
-            </h1>
+        var percent = Math.Round(save / item.OriginalPrice * 100, 0);
+        return $"-{percent:N0}%";
+    }
+}
 
-            <p class="text-muted fs-5">
-                Discover delicious combo meals with amazing prices
-            </p>
+<style>
+    body { background:#f6f7fb; }
+    .page-banner-card { min-height:320px; border-radius:26px; background-position:center right!important; }
+    .page-banner-inner { min-height:320px; padding:40px 46px; }
+    .page-banner-title { color:#fff; }
+    .page-banner-title span, .navbar-brand span, .nav-link.active { color:#ff5a18!important; }
+    .combo-page { max-width:1440px; }
+    .combo-filter, .combo-section { background:#fff; border-radius:24px; box-shadow:0 10px 28px rgba(15,23,42,.06); }
+    .combo-filter { padding:20px 28px; margin-bottom:26px; }
+    .combo-filter-grid { display:grid; grid-template-columns:1.25fr 1.25fr .6fr .6fr auto; gap:22px; align-items:end; }
+    .filter-label { display:block; color:#111827; font-weight:900; font-size:13px; margin-bottom:8px; }
+    .filter-control { height:50px; border-radius:13px; border:1px solid #e5e7eb; font-weight:700; color:#374151; }
+    .search-wrap { position:relative; }
+    .search-wrap i { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#9ca3af; }
+    .search-wrap input { padding-left:44px; }
+    .price-pair { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center; }
+    .price-pair span { color:#9ca3af; font-weight:900; padding-top:28px; }
+    .filter-actions { display:flex; flex-direction:column; gap:10px; }
+    .orange-btn, .round-add, .view-link { border:0; text-decoration:none; transition:.25s ease; }
+    .orange-btn { min-height:50px; border-radius:14px; padding:0 26px; color:#fff; background:linear-gradient(135deg,#ff4d20,#ff7a18); font-weight:900; display:inline-flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 10px 18px rgba(255,90,24,.20); }
+    .orange-btn:hover, .round-add:hover { color:#fff; transform:translateY(-2px); box-shadow:0 12px 22px rgba(255,90,24,.22); }
+    .reset-link { color:#374151; font-weight:800; text-align:center; text-decoration:none; }
+    .combo-section { padding:26px; margin-bottom:26px; position:relative; overflow:hidden; }
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .section-title { margin:0; color:#111827; font-size:22px; font-weight:900; letter-spacing:-.03em; }
+    .view-link { color:#111827; font-weight:900; }
+    .view-link:hover { color:#ff5a18; transform:translateX(3px); }
+    .day-grid { display:grid; grid-template-columns:1.15fr .65fr .45fr; gap:26px; align-items:center; }
+    .feature-image { position:relative; min-height:250px; border-radius:18px; overflow:hidden; background:#111827; }
+    .feature-image img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:.4s ease; }
+    .feature-image::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.18)); }
+    .feature-image:hover img, .combo-row:hover img { transform:scale(1.06); }
+    .badge-hot { position:absolute; top:12px; left:12px; z-index:2; border-radius:999px; background:#ff4d20; color:#fff; padding:7px 12px; font-size:12px; font-weight:900; }
+    .discount-tag { position:absolute; top:12px; right:12px; z-index:2; width:66px; min-height:58px; border-radius:14px; background:#ffd535; color:#111827; font-weight:900; display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1.05; box-shadow:0 12px 22px rgba(0,0,0,.12); }
+    .discount-tag small { font-size:10px; margin-top:4px; }
+    .feature-info h3 { color:#111827; font-size:28px; font-weight:900; margin-bottom:8px; }
+    .combo-desc { color:#6b7280; margin-bottom:16px; }
+    .rating-chip { display:inline-flex; align-items:center; gap:5px; color:#ff9f0a; background:#fff7ed; border-radius:999px; padding:6px 10px; font-weight:900; margin-left:10px; }
+    .price { color:#ff4d20; font-weight:900; font-size:24px; }
+    .old-price { color:#9ca3af; text-decoration:line-through; font-size:14px; margin-left:12px; }
+    .save-line { color:#ff5a18; font-weight:900; font-size:13px; margin-top:4px; }
+    .benefit-list { border-left:1px solid #ffd3c3; padding-left:24px; display:grid; gap:20px; }
+    .benefit { display:flex; align-items:center; gap:14px; color:#374151; font-weight:900; }
+    .benefit i { width:42px; height:42px; border-radius:50%; background:#fff1ea; color:#ff5a18; display:flex; align-items:center; justify-content:center; }
+    .combo-list { display:grid; gap:12px; }
+    .combo-row { display:grid; grid-template-columns:390px 1fr 420px auto; gap:24px; align-items:center; min-height:128px; padding:0 16px 0 0; border:1px solid #eef2f7; border-radius:18px; background:#fff; overflow:hidden; transition:.25s ease; }
+    .combo-row:hover { transform:translateY(-3px); box-shadow:0 12px 24px rgba(15,23,42,.09); }
+    .row-image { position:relative; height:128px; overflow:hidden; }
+    .row-image img { width:100%; height:100%; object-fit:cover; transition:.35s ease; }
+    .row-info h3 { margin:0 0 6px; color:#111827; font-size:18px; font-weight:900; }
+    .row-items { display:flex; align-items:center; justify-content:center; gap:11px; flex-wrap:wrap; }
+    .item-chip { min-width:76px; min-height:56px; border:1px solid #eef2f7; border-radius:12px; padding:8px 10px; color:#111827; background:#fff; font-size:12px; font-weight:900; text-align:center; }
+    .plus-sep { color:#ff5a18; font-weight:900; }
+    .round-add { width:46px; height:46px; border-radius:50%; background:#ff5a18; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 9px 18px rgba(255,90,24,.20); }
+    .empty-state { padding:50px 20px; text-align:center; color:#6b7280; }
+    .pagination { justify-content:center; gap:8px; margin-top:28px; }
+    .page-link { width:42px; height:42px; display:flex; align-items:center; justify-content:center; border:0; border-radius:12px!important; color:#6b7280; font-weight:900; box-shadow:0 8px 20px rgba(15,23,42,.06); }
+    .page-link:hover, .page-item.active .page-link { color:#fff; background:#ff5a18; }
+    .combo-filter, .combo-section {
+        background: linear-gradient(145deg, rgba(255,250,241,.98), rgba(255,244,226,.94));
+        border: 1px solid rgba(184, 119, 39, .18);
+        box-shadow: 0 12px 32px rgba(101, 67, 33, .08);
+    }
+    .section-title, .filter-label, .feature-info h3, .row-info h3, .item-chip {
+        color: #2d1b0f;
+    }
+    .combo-desc, .empty-state, .reset-link {
+        color: #7c6a58;
+    }
+    .filter-control, .combo-row, .item-chip, .page-link {
+        background: linear-gradient(145deg, #fffdf8, #fff6e8);
+        border-color: rgba(184, 119, 39, .16);
+    }
+    .filter-control {
+        color: #2d1b0f;
+    }
+    .combo-row:hover {
+        box-shadow: 0 14px 30px rgba(101, 67, 33, .12);
+    }
+    .rating-chip, .benefit i {
+        background: #fff1dc;
+    }
+    .benefit-list {
+        border-left-color: rgba(184, 119, 39, .22);
+    }
+    .page-link {
+        color: #7c4a18;
+    }
+    @@media(max-width:1200px) { .combo-filter-grid { grid-template-columns:1fr 1fr; } .day-grid, .combo-row { grid-template-columns:1fr; } .row-image { height:220px; } .benefit-list { border-left:0; border-top:1px solid rgba(184, 119, 39, .22); padding:20px 0 0; } }
+    @@media(max-width:768px) { .combo-filter-grid, .price-pair { grid-template-columns:1fr; } .price-pair span { display:none; } .combo-section, .combo-filter { padding:18px; } }
+</style>
 
-        </div>
+<section class="py-4">
+    <div class="container combo-page">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger rounded-4 mb-4">@TempData["ErrorMessage"]</div>
+        }
 
-        <!-- FILTER -->
-        <div class="card border-0 shadow-lg rounded-4 mb-5 filter-card">
-
-            <div class="card-body p-4">
-
-                <div class="mb-4">
-                    <h2 class="fw-bold text-dark mb-1">
-                        Find Your Favorite Combo
-                    </h2>
-
-                    <p class="text-muted mb-0">
-                        Search, filter and sort delicious meals
-                    </p>
+        <form class="combo-filter" method="get">
+            <input type="hidden" name="page" value="1" />
+            <input type="hidden" name="pageSize" value="@Model.Filter.pageSize" />
+            <div class="combo-filter-grid">
+                <div>
+                    <label class="filter-label">@Localizer["SearchCombo"]</label>
+                    <div class="search-wrap">
+                        <i class="fa fa-search"></i>
+                        <input class="form-control filter-control" type="text" name="Keyword" value="@Model.Filter.Keyword" placeholder='@Localizer["SearchComboPlaceholder"]' />
+                    </div>
                 </div>
 
-                <form method="get">
-
-                    <div class="row g-3 align-items-end">
-
-                        <!-- SEARCH -->
-                        <div class="col-xl-4 col-lg-6">
-
-                            <label class="form-label fw-semibold">
-                                Search Combo
-                            </label>
-
-                            <div class="input-group search-group">
-
-                                <span class="input-group-text bg-white border-end-0">
-                                    🔍
-                                </span>
-
-                                <input type="text"
-                                       name="Keyword"
-                                       value="@Model.Filter.Keyword"
-                                       class="form-control border-start-0 shadow-none"
-                                       placeholder="Search combo..." />
-
-                            </div>
-
-                        </div>
-
-                        <!-- PRICE FROM -->
-                        <div class="col-xl-2 col-lg-3 col-md-6">
-
-                            <label class="form-label fw-semibold">
-                                From Price
-                            </label>
-
-                            <input type="number"
-                                   name="PriceFrom"
-                                   value="@Model.Filter.PriceFrom"
-                                   class="form-control shadow-none"
-                                   placeholder="$0" />
-
-                        </div>
-
-                        <!-- PRICE TO -->
-                        <div class="col-xl-2 col-lg-3 col-md-6">
-
-                            <label class="form-label fw-semibold">
-                                To Price
-                            </label>
-
-                            <input type="number"
-                                   name="PriceTo"
-                                   value="@Model.Filter.PriceTo"
-                                   class="form-control shadow-none"
-                                   placeholder="$100" />
-
-                        </div>
-
-                        <!-- SORT BY -->
-                        <div class="col-xl-2 col-lg-3 col-md-6">
-
-                            <label class="form-label fw-semibold">
-                                Sort By
-                            </label>
-
-                            <select name="SortBy"
-                                    class="form-select shadow-none">
-
-                                <option value="name"
-                                        selected="@(Model.Filter.SortBy == "name")">
-                                    Name
-                                </option>
-
-                                <option value="price"
-                                        selected="@(Model.Filter.SortBy == "price")">
-                                    Price
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                        <!-- ORDER -->
-                        <div class="col-xl-2 col-lg-3 col-md-6">
-
-                            <label class="form-label fw-semibold">
-                                Order
-                            </label>
-
-                            <select name="SortOrder"
-                                    class="form-select shadow-none">
-
-                                <option value="asc"
-                                        selected="@(Model.Filter.SortOrder == "asc")">
-                                    Ascending
-                                </option>
-
-                                <option value="desc"
-                                        selected="@(Model.Filter.SortOrder == "desc")">
-                                    Descending
-                                </option>
-
-                            </select>
-
-                        </div>
-
+                <div>
+                    <label class="filter-label">@Localizer["PriceRange"]</label>
+                    <div class="price-pair">
+                        <input class="form-control filter-control" type="number" name="PriceFrom" value="@Model.Filter.PriceFrom" placeholder="0 ₫" />
+                        <span>–</span>
+                        <input class="form-control filter-control" type="number" name="PriceTo" value="@Model.Filter.PriceTo" placeholder="500.000 ₫" />
                     </div>
+                </div>
 
-                    <!-- BUTTON -->
-                    <div class="mt-4 text-end">
+                <div>
+                    <label class="filter-label">@Localizer["SortBy"]</label>
+                    <select class="form-control filter-control" name="SortBy">
+                        <option value="name" selected="@(Model.Filter.SortBy == "name")">@Localizer["Name"]</option>
+                        <option value="price" selected="@(Model.Filter.SortBy == "price")">@Localizer["Price"]</option>
+                    </select>
+                </div>
 
-                        <button type="submit"
-                                class="btn btn-danger px-5 py-3 rounded-pill fw-bold shadow-sm">
+                <div>
+                    <label class="filter-label">@Localizer["Order"]</label>
+                    <select class="form-control filter-control" name="SortOrder">
+                        <option value="asc" selected="@(Model.Filter.SortOrder == "asc")">@Localizer["Ascending"]</option>
+                        <option value="desc" selected="@(Model.Filter.SortOrder == "desc")">@Localizer["Descending"]</option>
+                    </select>
+                </div>
 
-                            Apply Filter
+                <div class="filter-actions">
+                    <button class="orange-btn" type="submit">@Localizer["ApplyFilters"] <i class="fa fa-filter"></i></button>
+                    <a class="reset-link" asp-action="Index"><i class="fa fa-refresh"></i> @Localizer["Reset"]</a>
+                </div>
+            </div>
+        </form>
 
-                        </button>
-
-                    </div>
-
-                </form>
-
+        <section class="combo-section">
+            <div class="section-head">
+                <h2 class="section-title">🔥 @Localizer["BestComboOfDay"]</h2>
+                <a class="view-link" href="#combo-grid">@Localizer["ViewAll"] <i class="fa fa-arrow-right ms-1"></i></a>
             </div>
 
-        </div>
-
-        <!-- COMBO LIST -->
-        <div class="row g-4">
-
-            @if (Model.PagedResult.Data != null && Model.PagedResult.Data.Any())
+            @if (highlightedCombo == null)
             {
-                @foreach (var item in Model.PagedResult.Data)
-                {
-                    <div class="col-xl-4 col-md-6">
-
-                        <div class="card combo-card border-0 shadow-sm h-100">
-
-                            <!-- IMAGE -->
-                            <div class="combo-image-wrapper">
-
-                                <img src="@(string.IsNullOrWhiteSpace(item.ImagePath)
-                                        ? "https://via.placeholder.com/600x400?text=Combo"
-                                        : Model.ImageBaseUrl.TrimEnd('/') + "/" + item.ImagePath.TrimStart('/'))"
-                                     class="combo-image"
-                                     alt="@item.Name" />
-
-                                <div class="combo-overlay">
-
-                                    <a asp-action="Details"
-                                       asp-route-id="@item.ComboId"
-                                       class="btn btn-light rounded-pill fw-bold px-4">
-
-                                        View Detail
-
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                            <!-- BODY -->
-                            <div class="card-body d-flex flex-column p-4">
-
-                                <div class="mb-3">
-
-                                    <span class="badge bg-danger px-3 py-2 rounded-pill">
-                                        Combo Meal
-                                    </span>
-
-                                </div>
-
-                                <h3 class="fw-bold text-dark mb-3">
-                                    @item.Name
-                                </h3>
-
-                                <p class="text-muted flex-grow-1">
-
-                                    @(string.IsNullOrWhiteSpace(item.Description)
-                                        ? "No description available"
-                                        : item.Description)
-
-                                </p>
-
-                                <div class="d-flex justify-content-between align-items-center mt-4">
-
-                                    <div>
-
-                                        <small class="text-muted">
-                                            Price
-                                        </small>
-
-                                        <h2 class="text-danger fw-bold mb-0">
-                                            @String.Format("{0:N0} ₫", item.Price)
-                                        </h2>
-
-                                    </div>
-
-                                    <a asp-action="Details"
-                                       asp-route-id="@item.ComboId"
-                                       class="btn btn-dark rounded-pill px-4">
-
-                                        Order Now
-
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                }
+                <div class="empty-state">
+                    <h3>@Localizer["NoComboFound"]</h3>
+                    <p>@Localizer["TryAnotherCombo"]</p>
+                </div>
             }
             else
             {
-                <div class="col-12">
+                <div class="day-grid">
+                    <a class="feature-image" asp-action="Details" asp-route-id="@highlightedCombo.ComboId">
+                        <img src="@ComboImage(highlightedCombo)" alt="@highlightedCombo.Name" />
+                        <span class="badge-hot">🔥 @Localizer["BestSeller"]</span>
+                        @if (highlightedCombo.HasDiscount)
+                        {
+                            <span class="discount-tag">
+                                @DiscountText(highlightedCombo)
+                                <small>SAVE</small>
+                            </span>
+                        }
+                    </a>
 
-                    <div class="alert alert-warning text-center rounded-4 p-5 shadow-sm">
-
-                        <h2 class="fw-bold">
-                            😢 No Combo Found
-                        </h2>
-
-                        <p class="mb-0 mt-3">
-                            Please try another keyword or filter.
-                        </p>
-
+                    <div class="feature-info">
+                        <h3>
+                            @highlightedCombo.Name
+                            <span class="rating-chip"><i class="fa fa-star"></i> @Localizer["BestValue"]</span>
+                        </h3>
+                        <p class="combo-desc">@highlightedCombo.Description</p>
+                        <div>
+                            <span class="price">@FormatMoney(highlightedCombo.Price)</span>
+                            @if (highlightedCombo.HasDiscount)
+                            {
+                                <span class="old-price">@FormatMoney(highlightedCombo.OriginalPrice)</span>
+                                <div class="save-line">Save @FormatMoney(SaveAmount(highlightedCombo.OriginalPrice, highlightedCombo.Price))</div>
+                            }
+                        </div>
+                        <a class="orange-btn mt-3" asp-controller="Cart" asp-action="AddCombo" asp-route-id="@highlightedCombo.ComboId" asp-route-quantity="1" asp-route-returnUrl="@returnUrl">
+                            @Localizer["AddToCart"] <i class="fa fa-plus"></i>
+                        </a>
                     </div>
 
+                    <div class="benefit-list">
+                        <div class="benefit"><i class="fa fa-gift"></i> @Localizer["BestValue"]</div>
+                        <div class="benefit"><i class="fa fa-shopping-bag"></i> @Localizer["BigPortion"]</div>
+                        <div class="benefit"><i class="fa fa-glass-martini"></i> @Localizer["FreeDrink"]</div>
+                    </div>
+                </div>
+            }
+        </section>
+
+        <section id="combo-grid" class="combo-section">
+            <div class="section-head">
+                <h2 class="section-title">@Localizer["AllCombos"]</h2>
+                <a class="view-link" asp-action="Index">@Localizer["ViewAll"] <i class="fa fa-arrow-right ms-1"></i></a>
+            </div>
+
+            @if (!combos.Any())
+            {
+                <div class="empty-state">
+                    <h3>@Localizer["NoComboFound"]</h3>
+                    <p>@Localizer["TryAnotherCombo"]</p>
+                </div>
+            }
+            else
+            {
+                <div class="combo-list">
+                    @foreach (var item in combos)
+                    {
+                        var parts = item.FoodItems?.Take(4).ToList() ?? new List<ComboFoodItemDto>();
+                        <article class="combo-row">
+                            <a class="row-image" asp-action="Details" asp-route-id="@item.ComboId">
+                                <img src="@ComboImage(item)" alt="@item.Name" />
+                                @if (item.HasDiscount)
+                                {
+                                    <span class="discount-tag">
+                                        @DiscountText(item)
+                                        <small>Save @FormatMoney(SaveAmount(item.OriginalPrice, item.Price))</small>
+                                    </span>
+                                }
+                            </a>
+
+                            <div class="row-info">
+                                <h3>@item.Name</h3>
+                                <p class="combo-desc mb-2">@item.Description</p>
+                                <div>
+                                    <span class="price">@FormatMoney(item.Price)</span>
+                                    @if (item.HasDiscount)
+                                    {
+                                        <span class="old-price">@FormatMoney(item.OriginalPrice)</span>
+                                        <div class="save-line">Save @FormatMoney(SaveAmount(item.OriginalPrice, item.Price))</div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row-items">
+                                @if (parts.Any())
+                                {
+                                    @for (var index = 0; index < parts.Count; index++)
+                                    {
+                                        var part = parts[index];
+                                        <span class="item-chip">@part.Quantity x @part.FoodName</span>
+                                        @if (index < parts.Count - 1)
+                                        {
+                                            <span class="plus-sep">+</span>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="item-chip">@Localizer["ComboMeal"]</span>
+                                    <span class="plus-sep">+</span>
+                                    <span class="item-chip">@Localizer["BestValue"]</span>
+                                }
+                            </div>
+
+                            <a class="round-add" asp-controller="Cart" asp-action="AddCombo" asp-route-id="@item.ComboId" asp-route-quantity="1" asp-route-returnUrl="@returnUrl">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </article>
+                    }
                 </div>
             }
 
-        </div>
-
-        <!-- PAGINATION -->
-        @if (Model.PagedResult.TotalPages > 1)
-        {
-            <div class="d-flex justify-content-center mt-5">
-
+            @if (Model.PagedResult.TotalPages > 1)
+            {
                 <nav>
-
-                    <ul class="pagination pagination-lg">
-
-                        <!-- PREVIOUS -->
+                    <ul class="pagination">
                         <li class="page-item @(Model.PagedResult.CurrentPage == 1 ? "disabled" : "")">
-
-                            <a class="page-link"
-                               asp-action="Index"
-                               asp-route-page="@(Model.PagedResult.CurrentPage - 1)"
-                               asp-route-pageSize="@Model.Filter.pageSize"
-                               asp-route-Keyword="@Model.Filter.Keyword"
-                               asp-route-PriceFrom="@Model.Filter.PriceFrom"
-                               asp-route-PriceTo="@Model.Filter.PriceTo"
-                               asp-route-SortBy="@Model.Filter.SortBy"
-                               asp-route-SortOrder="@Model.Filter.SortOrder">
-
-                                Previous
-
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PagedResult.CurrentPage - 1)" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">
+                                <i class="fa fa-chevron-left"></i>
                             </a>
-
                         </li>
-
-                        <!-- PAGE NUMBER -->
-                        @for (int i = 1; i <= Model.PagedResult.TotalPages; i++)
+                        @for (var i = 1; i <= Model.PagedResult.TotalPages; i++)
                         {
                             <li class="page-item @(i == Model.PagedResult.CurrentPage ? "active" : "")">
-
-                                <a class="page-link"
-                                   asp-action="Index"
-                                   asp-route-page="@i"
-                                   asp-route-pageSize="@Model.Filter.pageSize"
-                                   asp-route-Keyword="@Model.Filter.Keyword"
-                                   asp-route-PriceFrom="@Model.Filter.PriceFrom"
-                                   asp-route-PriceTo="@Model.Filter.PriceTo"
-                                   asp-route-SortBy="@Model.Filter.SortBy"
-                                   asp-route-SortOrder="@Model.Filter.SortOrder">
-
-                                    @i
-
-                                </a>
-
+                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">@i</a>
                             </li>
                         }
-
-                        <!-- NEXT -->
                         <li class="page-item @(Model.PagedResult.CurrentPage == Model.PagedResult.TotalPages ? "disabled" : "")">
-
-                            <a class="page-link"
-                               asp-action="Index"
-                               asp-route-page="@(Model.PagedResult.CurrentPage + 1)"
-                               asp-route-pageSize="@Model.Filter.pageSize"
-                               asp-route-Keyword="@Model.Filter.Keyword"
-                               asp-route-PriceFrom="@Model.Filter.PriceFrom"
-                               asp-route-PriceTo="@Model.Filter.PriceTo"
-                               asp-route-SortBy="@Model.Filter.SortBy"
-                               asp-route-SortOrder="@Model.Filter.SortOrder">
-
-                                Next
-
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PagedResult.CurrentPage + 1)" asp-route-pageSize="@Model.Filter.pageSize" asp-route-Keyword="@Model.Filter.Keyword" asp-route-PriceFrom="@Model.Filter.PriceFrom" asp-route-PriceTo="@Model.Filter.PriceTo" asp-route-SortBy="@Model.Filter.SortBy" asp-route-SortOrder="@Model.Filter.SortOrder">
+                                <i class="fa fa-chevron-right"></i>
                             </a>
-
                         </li>
-
                     </ul>
-
                 </nav>
-
-            </div>
-        }
-
+            }
+        </section>
     </div>
 </section>
-
-<style>
-
-    body {
-        background: #f5f7fb;
-    }
-
-    .filter-card {
-        border-radius: 24px;
-        background: #fff;
-    }
-
-    .form-control,
-    .form-select,
-    .input-group-text {
-        height: 54px;
-        border-radius: 14px;
-        border: 1px solid #dee2e6;
-    }
-
-    .input-group .form-control {
-        border-left: 0;
-    }
-
-    .input-group-text {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 56px;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-        border-color: #dc3545;
-        box-shadow: 0 0 0 0.15rem rgba(220,53,69,.15);
-    }
-
-    .combo-card {
-        border-radius: 24px;
-        overflow: hidden;
-        transition: all 0.35s ease;
-        background: white;
-    }
-
-        .combo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.15);
-        }
-
-    .combo-image-wrapper {
-        position: relative;
-        height: 260px;
-        overflow: hidden;
-    }
-
-    .combo-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: 0.5s;
-    }
-
-    .combo-card:hover .combo-image {
-        transform: scale(1.08);
-    }
-
-    .combo-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.45);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: 0.35s;
-    }
-
-    .combo-card:hover .combo-overlay {
-        opacity: 1;
-    }
-
-    .page-link {
-        color: #dc3545;
-        border-radius: 12px !important;
-        margin: 0 4px;
-        border: none;
-        padding: 12px 18px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
-
-        .page-link:hover {
-            background: #dc3545;
-            color: white;
-        }
-
-    .page-item.active .page-link {
-        background: #dc3545;
-        color: white;
-    }
-
-    @@media (max-width: 991px) {
-
-        .text-end {
-            text-align: center !important;
-        }
-
-        .btn-danger {
-            width: 100%;
-        }
-    }
-
-</style>

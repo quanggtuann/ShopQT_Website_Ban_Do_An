@@ -1,0 +1,105 @@
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@using ShopAPI.DTOs
+@model List<FavoriteDto>
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["Favorites"];
+    var viCulture = CultureInfo.GetCultureInfo("vi-VN");
+    var imageBaseUrl = (ViewBag.ImageBaseUrl as string ?? string.Empty).TrimEnd('/');
+
+    string FormatMoney(decimal value) => $"{value.ToString("N0", viCulture)} ₫";
+    string FoodImage(FoodItemDto item) => string.IsNullOrWhiteSpace(item.ImagePath)
+        ? "https://via.placeholder.com/900x600?text=Food"
+        : $"{imageBaseUrl}/{item.ImagePath.TrimStart('/')}";
+}
+
+<style>
+    .favorite-page { max-width: 1240px; }
+    .favorite-shell { background: #fff; border-radius: 24px; padding: 24px; box-shadow: 0 18px 45px rgba(15,23,42,.07); }
+    .favorite-head { display:flex; justify-content:space-between; gap:16px; align-items:center; margin-bottom:20px; }
+    .favorite-title { font-size:28px; font-weight:900; margin:0; color:#111827; }
+    .favorite-subtitle { margin:4px 0 0; color:#7b8794; }
+    .favorite-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .favorite-card { position:relative; overflow:hidden; border-radius:18px; background:#fff; box-shadow:0 12px 30px rgba(15,23,42,.08); transition:.25s ease; }
+    .favorite-card:hover { transform:translateY(-5px); box-shadow:0 18px 40px rgba(15,23,42,.13); }
+    .favorite-card img { width:100%; height:180px; object-fit:cover; transition:.35s ease; }
+    .favorite-card:hover img { transform:scale(1.06); }
+    .favorite-body { padding:14px; }
+    .favorite-name { margin:0 0 6px; font-size:16px; font-weight:900; color:#111827; }
+    .favorite-desc { margin:0 0 12px; color:#7b8794; font-size:13px; min-height:36px; }
+    .favorite-price { color:#ff4d24; font-weight:900; font-size:19px; }
+    .favorite-old { color:#9ca3af; text-decoration:line-through; font-size:12px; }
+    .favorite-actions { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; }
+    .favorite-btn { border:0; border-radius:999px; min-height:38px; padding:0 14px; display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:900; text-decoration:none; transition:.25s ease; }
+    .favorite-btn.primary { background:#ff641f; color:#fff; box-shadow:0 12px 24px rgba(255,100,31,.22); }
+    .favorite-btn.light { background:#fff1eb; color:#ff4d24; }
+    .favorite-btn:hover { transform:translateY(-2px); text-decoration:none; }
+    .favorite-empty { text-align:center; padding:60px 20px; color:#7b8794; }
+    @@media(max-width:1100px) { .favorite-grid { grid-template-columns:repeat(3,1fr); } }
+    @@media(max-width:768px) { .favorite-grid { grid-template-columns:repeat(2,1fr); } .favorite-head { flex-direction:column; align-items:flex-start; } }
+    @@media(max-width:520px) { .favorite-grid { grid-template-columns:1fr; } }
+</style>
+
+<div class="container favorite-page py-4">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-4">@TempData["ErrorMessage"]</div>
+    }
+
+    <section class="favorite-shell">
+        <div class="favorite-head">
+            <div>
+                <h1 class="favorite-title">❤️ @Localizer["Favorites"]</h1>
+                <p class="favorite-subtitle">@Localizer["FavoriteSubtitle"]</p>
+            </div>
+            <a class="favorite-btn light" asp-controller="Food" asp-action="Index">
+                <i class="fa fa-arrow-left"></i> @Localizer["ContinueShopping"]
+            </a>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="favorite-empty">
+                <h3>@Localizer["NoFavorites"]</h3>
+                <p>@Localizer["NoFavoritesHint"]</p>
+            </div>
+        }
+        else
+        {
+            <div class="favorite-grid">
+                @foreach (var favorite in Model)
+                {
+                    var food = favorite.Food;
+                    <article class="favorite-card">
+                        <a asp-controller="Food" asp-action="Detail" asp-route-id="@food.FoodItemId">
+                            <img src="@FoodImage(food)" alt="@food.Name" />
+                        </a>
+                        <div class="favorite-body">
+                            <h3 class="favorite-name">@food.Name</h3>
+                            <p class="favorite-desc">@food.Description</p>
+                            @if (food.HasDiscount)
+                            {
+                                <div class="favorite-old">@FormatMoney(food.OriginalPrice)</div>
+                            }
+                            <div class="favorite-price">@FormatMoney(food.Price)</div>
+                            <div class="favorite-actions">
+                                <a class="favorite-btn primary" asp-controller="Cart" asp-action="AddFood" asp-route-id="@food.FoodItemId" asp-route-quantity="1" asp-route-returnUrl="@Context.Request.Path">
+                                    <i class="fa fa-shopping-cart"></i> @Localizer["AddToCart"]
+                                </a>
+                                <form asp-controller="Favorite" asp-action="RemoveFood" asp-route-id="@food.FoodItemId" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button class="favorite-btn light" type="submit">
+                                        <i class="fa fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    </section>
+</div>

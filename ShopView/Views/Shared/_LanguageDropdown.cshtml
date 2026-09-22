@@ -1,0 +1,29 @@
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+@{
+    var currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "vi" ? "vi" : "en";
+    var currentReturnUrl = $"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}";
+}
+
+<div class="nav-item dropdown language-dropdown">
+    <a href="#"
+       class="nav-link dropdown-toggle language-toggle"
+       data-toggle="dropdown">
+        <span class="language-flag">@currentCulture.ToUpper()</span>
+        <span class="language-code">@currentCulture.ToUpper()</span>
+        <i class="fa fa-chevron-down small"></i>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right language-menu">
+        <a class="dropdown-item @(currentCulture == "vi" ? "active" : "")"
+           href="@Url.Action("Set", "Language", new { culture = "vi", returnUrl = currentReturnUrl })">
+            <strong>VN</strong> @Localizer["Vietnamese"]
+        </a>
+
+        <a class="dropdown-item @(currentCulture == "en" ? "active" : "")"
+           href="@Url.Action("Set", "Language", new { culture = "en", returnUrl = currentReturnUrl })">
+            <strong>US</strong> @Localizer["English"]
+        </a>
+    </div>
+</div>

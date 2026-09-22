@@ -18,6 +18,8 @@ namespace ShopDAL.Models
         public virtual ICollection<ComboFoodItem> ComboFoodItem { get; set; }
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
         public virtual ICollection<CartItem> CartItem { get; set; }
+        public ICollection<DiscountCampaignCombo> CampaignCombos { get; set; }
+    = new List<DiscountCampaignCombo>();
 
     }
 }

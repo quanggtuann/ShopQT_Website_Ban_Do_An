@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "u1xh9tDw/TSa8vSsVdWIUeQkK8onXuLIJt4dv6SywnI=",
+  "Hash": "UmLHJzpP2ag7sILYkAq1HOdoVCayGuGMcnh6EpB8yaA=",
   "Source": "ShopAPI",
   "BasePath": "_content/ShopAPI",
   "Mode": "Default",
@@ -90,6 +90,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ShopDAL\\ShopAPI\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ShopAPI.styles.css"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "SourceId": "ShopAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/combos/Combo Gia Dinh#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dzk2sjybf6",
+      "Integrity": "R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\combos\\Combo Gia Dinh.png"
     },
     {
       "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\combooooo.jpg",
@@ -365,6 +386,27 @@
       "OriginalItemSpec": "wwwroot\\img\\foods\\bimbimed.jpg"
     },
     {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "SourceId": "ShopAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/foods/ga ran nuong#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dqr5d45wff",
+      "Integrity": "W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\foods\\ga ran nuong.jpg"
+    },
+    {
       "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kakckadc.jpg",
       "SourceId": "ShopAPI",
       "SourceType": "Discovered",
@@ -468,6 +510,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\foods\\tra sua.jpg"
+    },
+    {
+      "Identity": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "SourceId": "ShopAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ShopDAL\\ShopAPI\\wwwroot\\",
+      "BasePath": "_content/ShopAPI",
+      "RelativePath": "img/foods/xucxich#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dqr5d45wff",
+      "Integrity": "W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\foods\\xucxich.jpg"
     }
   ],
   "Endpoints": [
@@ -542,6 +605,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-tnamWuQ2F5I2J8hbtBt4/9i8Mb2y2o+9Tepj5tUrSdU="
+        }
+      ]
+    },
+    {
+      "Route": "img/combos/Combo Gia Dinh.dzk2sjybf6.png",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "918893"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 26 May 2026 11:15:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dzk2sjybf6"
+        },
+        {
+          "Name": "label",
+          "Value": "img/combos/Combo Gia Dinh.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
+        }
+      ]
+    },
+    {
+      "Route": "img/combos/Combo Gia Dinh.png",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\combos\\Combo Gia Dinh.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "918893"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 26 May 2026 11:15:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-R4FSaYP/QVmEl+VK7X/7sHf4lIvtAMatvT0k3PIGP4s="
         }
       ]
     },
@@ -1612,6 +1757,88 @@
       ]
     },
     {
+      "Route": "img/foods/ga ran nuong.dqr5d45wff.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:41:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dqr5d45wff"
+        },
+        {
+          "Name": "label",
+          "Value": "img/foods/ga ran nuong.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
+        }
+      ]
+    },
+    {
+      "Route": "img/foods/ga ran nuong.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\ga ran nuong.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:41:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
+        }
+      ]
+    },
+    {
       "Route": "img/foods/kakckadc.jpg",
       "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\kakckadc.jpg",
       "Selectors": [],
@@ -2018,6 +2245,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-TS2PIdOxAVZYebv+kWN8j19cOHFgl60k0YT6J/Rn/wc="
+        }
+      ]
+    },
+    {
+      "Route": "img/foods/xucxich.dqr5d45wff.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:40:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dqr5d45wff"
+        },
+        {
+          "Name": "label",
+          "Value": "img/foods/xucxich.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
+        }
+      ]
+    },
+    {
+      "Route": "img/foods/xucxich.jpg",
+      "AssetFile": "D:\\ShopDAL\\ShopAPI\\wwwroot\\img\\foods\\xucxich.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "77703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 13 Jun 2026 07:40:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-W9fly1AfKnK3ajit8smTNoNTkAJTgLS1R+njAXv3gv8="
         }
       ]
     },

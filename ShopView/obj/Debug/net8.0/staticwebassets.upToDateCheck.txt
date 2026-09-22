@@ -236,7 +236,8 @@ wwwroot\admin\yarn.lock
 wwwroot\css\site.css
 wwwroot\css\style.css
 wwwroot\favicon.ico
-wwwroot\img\page-header.png
+wwwroot\img\08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png
+wwwroot\img\85b97dee-8209-46e8-bac6-9911c69a55eb.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

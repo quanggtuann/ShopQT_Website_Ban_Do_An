@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Models;
 using ShopAPI.DTOs;
+using ShopAPI.Services.Customer.IServices;
 using ShopAPI.Services.IServices;
 
 namespace ShopAPI.Services
@@ -9,10 +10,12 @@ namespace ShopAPI.Services
     public class ComboService : IComboService
     {
         private readonly IAdminComboRepo _comboRepo;
+        private readonly ICustomerDiscountPriceService _discountPriceService;
 
-        public ComboService(IAdminComboRepo comboRepo)
+        public ComboService(IAdminComboRepo comboRepo, ICustomerDiscountPriceService discountPriceService)
         {
             _comboRepo = comboRepo;
+            _discountPriceService = discountPriceService;
         }
 
         public PagedResult<ComboDto> GetAll(ComboFilterViewmodel filter)
@@ -52,24 +55,37 @@ namespace ShopAPI.Services
             }
 
             var totalItem = query.Count();
-            var combos = query
+            var pagedCombos = query
                 .Skip((filter.page - 1) * filter.pageSize)
                 .Take(filter.pageSize)
-                .Select(f => new ComboDto
+                .ToList();
+            var discounts = _discountPriceService.GetComboDiscounts(pagedCombos.Select(c => c.ComboId));
+            var combos = pagedCombos
+                .Select(f =>
                 {
-                    ComboId = f.ComboId,
-                    Name = f.Name,
-                    Description = f.Description,
-                    Price = f.Price,
-                    IsVaiLabel = f.IsAvailabale,
-                    CreateDate = f.CreateDate,
-                    ImagePath = f.ImagePath,
-                    FoodItems = f.ComboFoodItem.Select(cf => new ComboFoodItemDto
+                    var discount = discounts.GetValueOrDefault(f.ComboId);
+                    return new ComboDto
                     {
-                        FoodItemId = cf.FoodItemID,
-                        FoodName = cf.FoodItem.Name,
-                        Quantity = cf.Quantity
-                    }).ToList()
+                        ComboId = f.ComboId,
+                        Name = f.Name,
+                        Description = f.Description,
+                        Price = f.Price,
+                        OriginalPrice = f.Price,
+                        FinalPrice = discount?.FinalPrice ?? f.Price,
+                        HasDiscount = discount?.HasDiscount ?? false,
+                        DiscountCampaignName = discount?.CampaignName,
+                        DiscountType = discount?.DiscountType,
+                        DiscountValue = discount?.DiscountValue,
+                        IsVaiLabel = f.IsAvailabale,
+                        CreateDate = f.CreateDate,
+                        ImagePath = f.ImagePath,
+                        FoodItems = f.ComboFoodItem.Select(cf => new ComboFoodItemDto
+                        {
+                            FoodItemId = cf.FoodItemID,
+                            FoodName = cf.FoodItem.Name,
+                            Quantity = cf.Quantity
+                        }).ToList()
+                    };
                 })
                 .ToList();
 
@@ -93,6 +109,8 @@ namespace ShopAPI.Services
                 Name = combo.Name,
                 Description = combo.Description,
                 Price = combo.Price,
+                OriginalPrice = combo.Price,
+                FinalPrice = _discountPriceService.GetComboDiscount(combo.ComboId, combo.Price).FinalPrice,
                 IsVaiLabel = combo.IsAvailabale,
                 CreateDate = combo.CreateDate,
                 ImagePath = combo.ImagePath,
@@ -173,6 +191,8 @@ namespace ShopAPI.Services
                 Name = combo.Name,
                 Description = combo.Description,
                 Price = combo.Price,
+                OriginalPrice = combo.Price,
+                FinalPrice = _discountPriceService.GetComboDiscount(combo.ComboId, combo.Price).FinalPrice,
                 IsVaiLabel = combo.IsAvailabale,
                 CreateDate = combo.CreateDate,
                 ImagePath = combo.ImagePath,

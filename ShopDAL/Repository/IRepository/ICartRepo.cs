@@ -10,6 +10,7 @@ namespace ShopDAL.Repository.IRepository
         Combo GetCombo(int id);
         CartItem GetCartItem(int id);
         void RemoveCartItem(CartItem cartItem);
+        void ClearCartItems(int cartId);
         void Save();
     }
 }
