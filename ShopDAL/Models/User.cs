@@ -23,7 +23,9 @@ namespace ShopDAL.Models
         public DateTime DateorBirth { get; set; }
         public bool IsActive {  get; set; }=true;
         public virtual ICollection<Order>? Orders { get; set; }
-        public virtual Cart Cart { get; set; }
+        public virtual Cart? Cart { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
+
     }
 }
 

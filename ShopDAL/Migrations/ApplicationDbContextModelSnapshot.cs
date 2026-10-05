@@ -22,6 +22,51 @@ namespace ShopDAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ShopDAL.Models.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
+
+                    b.Property<string>("DetailAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ward")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("ShopDAL.Models.Cart", b =>
                 {
                     b.Property<int>("CartID")
@@ -44,9 +89,15 @@ namespace ShopDAL.Migrations
             modelBuilder.Entity("ShopDAL.Models.CartItem", b =>
                 {
                     b.Property<int>("CartItemId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
+
                     b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ComboID")
                         .HasColumnType("int");
 
                     b.Property<int?>("FoodItemID")
@@ -59,14 +110,13 @@ namespace ShopDAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("comboID")
-                        .HasColumnType("int");
-
                     b.HasKey("CartItemId");
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("comboID");
+                    b.HasIndex("ComboID");
+
+                    b.HasIndex("FoodItemID");
 
                     b.ToTable("CartItems");
                 });
@@ -146,6 +196,130 @@ namespace ShopDAL.Migrations
                     b.ToTable("ComboFoodItems");
                 });
 
+            modelBuilder.Entity("ShopDAL.Models.DiscountCampaign", b =>
+                {
+                    b.Property<int>("DiscountCampaignId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountCampaignId"));
+
+                    b.Property<string>("CampaignName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DiscountValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DiscountCampaignId");
+
+                    b.ToTable("DiscountCampaigns");
+                });
+
+            modelBuilder.Entity("ShopDAL.Models.DiscountCampaignCombo", b =>
+                {
+                    b.Property<int>("DiscountCampaignComboId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountCampaignComboId"));
+
+                    b.Property<int>("ComboId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DiscountCampaignId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiscountCampaignComboId");
+
+                    b.HasIndex("ComboId");
+
+                    b.HasIndex("DiscountCampaignId");
+
+                    b.ToTable("DiscountCampaignCombos");
+                });
+
+            modelBuilder.Entity("ShopDAL.Models.DiscountCampaignProduct", b =>
+                {
+                    b.Property<int>("DiscountCampaignProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountCampaignProductId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DiscountCampaignId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FoodItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiscountCampaignProductId");
+
+                    b.HasIndex("DiscountCampaignId");
+
+                    b.HasIndex("FoodItemId");
+
+                    b.ToTable("DiscountCampaignProducts");
+                });
+
+            modelBuilder.Entity("ShopDAL.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("UserId", "FoodId")
+                        .IsUnique();
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("ShopDAL.Models.FoodItem", b =>
                 {
                     b.Property<int>("FoodItemId")
@@ -193,19 +367,62 @@ namespace ShopDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CancelReason")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("CancelReasonDetail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CancelledBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReceiverName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverPhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("TotalAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("UserId");
 
@@ -220,7 +437,7 @@ namespace ShopDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"));
 
-                    b.Property<int>("ComboID")
+                    b.Property<int?>("ComboID")
                         .HasColumnType("int");
 
                     b.Property<int?>("FoodItemID")
@@ -229,7 +446,7 @@ namespace ShopDAL.Migrations
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
@@ -290,6 +507,17 @@ namespace ShopDAL.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ShopDAL.Models.Address", b =>
+                {
+                    b.HasOne("ShopDAL.Models.User", "User")
+                        .WithMany("Address")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ShopDAL.Models.Cart", b =>
                 {
                     b.HasOne("ShopDAL.Models.User", "Users")
@@ -309,15 +537,13 @@ namespace ShopDAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
-                        .WithMany("CartItem")
-                        .HasForeignKey("CartItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ShopDAL.Models.Combo", "Combo")
                         .WithMany("CartItem")
-                        .HasForeignKey("comboID");
+                        .HasForeignKey("ComboID");
+
+                    b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
+                        .WithMany("CartItem")
+                        .HasForeignKey("FoodItemID");
 
                     b.Navigation("Cart");
 
@@ -345,6 +571,63 @@ namespace ShopDAL.Migrations
                     b.Navigation("FoodItem");
                 });
 
+            modelBuilder.Entity("ShopDAL.Models.DiscountCampaignCombo", b =>
+                {
+                    b.HasOne("ShopDAL.Models.Combo", "Combo")
+                        .WithMany("CampaignCombos")
+                        .HasForeignKey("ComboId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShopDAL.Models.DiscountCampaign", "DiscountCampaign")
+                        .WithMany("CampaignCombos")
+                        .HasForeignKey("DiscountCampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Combo");
+
+                    b.Navigation("DiscountCampaign");
+                });
+
+            modelBuilder.Entity("ShopDAL.Models.DiscountCampaignProduct", b =>
+                {
+                    b.HasOne("ShopDAL.Models.DiscountCampaign", "DiscountCampaign")
+                        .WithMany("CampaignProducts")
+                        .HasForeignKey("DiscountCampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
+                        .WithMany("CampaignProducts")
+                        .HasForeignKey("FoodItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DiscountCampaign");
+
+                    b.Navigation("FoodItem");
+                });
+
+            modelBuilder.Entity("ShopDAL.Models.Favorite", b =>
+                {
+                    b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShopDAL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodItem");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ShopDAL.Models.FoodItem", b =>
                 {
                     b.HasOne("ShopDAL.Models.Category", "Category")
@@ -358,11 +641,17 @@ namespace ShopDAL.Migrations
 
             modelBuilder.Entity("ShopDAL.Models.Order", b =>
                 {
+                    b.HasOne("ShopDAL.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
                     b.HasOne("ShopDAL.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
 
                     b.Navigation("User");
                 });
@@ -372,8 +661,7 @@ namespace ShopDAL.Migrations
                     b.HasOne("ShopDAL.Models.Combo", "Combo")
                         .WithMany("OrderDetail")
                         .HasForeignKey("ComboID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ShopDAL.Models.FoodItem", "FoodItem")
                         .WithMany("OrderDetail")
@@ -405,6 +693,8 @@ namespace ShopDAL.Migrations
 
             modelBuilder.Entity("ShopDAL.Models.Combo", b =>
                 {
+                    b.Navigation("CampaignCombos");
+
                     b.Navigation("CartItem");
 
                     b.Navigation("ComboFoodItem");
@@ -412,8 +702,17 @@ namespace ShopDAL.Migrations
                     b.Navigation("OrderDetail");
                 });
 
+            modelBuilder.Entity("ShopDAL.Models.DiscountCampaign", b =>
+                {
+                    b.Navigation("CampaignCombos");
+
+                    b.Navigation("CampaignProducts");
+                });
+
             modelBuilder.Entity("ShopDAL.Models.FoodItem", b =>
                 {
+                    b.Navigation("CampaignProducts");
+
                     b.Navigation("CartItem");
 
                     b.Navigation("ComboFoodItem");
@@ -428,8 +727,9 @@ namespace ShopDAL.Migrations
 
             modelBuilder.Entity("ShopDAL.Models.User", b =>
                 {
-                    b.Navigation("Cart")
-                        .IsRequired();
+                    b.Navigation("Address");
+
+                    b.Navigation("Cart");
 
                     b.Navigation("Orders");
                 });

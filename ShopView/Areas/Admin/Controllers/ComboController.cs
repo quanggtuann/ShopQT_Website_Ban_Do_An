@@ -1,22 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopView.Areas.Admin.Models;
+using ShopView.Areas.Admin.ViewModel;
 using System.Net.Http.Json;
-
 namespace ShopView.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class ComboController : Controller
+    public class ComboController : AdminControllerBase
     {
         private readonly HttpClient _httpClient;
         public ComboController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
-        }
-        private bool IsAdmin()
-        {
-            var UserRole = HttpContext.Session.GetString("UserRole");
-            return UserRole == "admin";
         }
         public async Task<IActionResult> Index(
             [FromQuery] string? keyWord,
@@ -27,9 +21,6 @@ namespace ShopView.Areas.Admin.Controllers
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 5)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
-
             try 
             {
                 var query = new List<string> { $"page={page}", $"pageSize={pageSize}" };
@@ -45,7 +36,7 @@ namespace ShopView.Areas.Admin.Controllers
                     TempData["Error"] = "Failed to load combo";
                     return View(new ComboIndexViewModel());
                 }
-                var result = await response.Content.ReadFromJsonAsync<ComboListResponse>();
+                var result = await response.Content.ReadFromJsonAsync<PagedResponse<ComboDto>>();
                 var viewModel = new ComboIndexViewModel
                 {
                     Filter = new ComboFilterViewModel
@@ -59,7 +50,7 @@ namespace ShopView.Areas.Admin.Controllers
                         pageSize = pageSize
                     },
                     Combos = result?.Data ?? new List<ComboDto>(),
-                    TotalPage = result?.ToTalPage ?? 1,
+                    TotalPage = result?.TotalPages ?? 1,
                     CurrentPage = result?.CurrentPage ?? 1,
                     ImageBaseUrl = "https://localhost:7130/"
                 };
@@ -74,8 +65,6 @@ namespace ShopView.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
             try
             {
                 var response = await _httpClient.GetAsync("api/foods/all");
@@ -101,16 +90,13 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(IFormCollection form, IFormFile? imageFile)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
-
             try
             {
                 var content = new MultipartFormDataContent();
                 content.Add(new StringContent(form["Name"]!), "Name");
                 content.Add(new StringContent(form["Description"]!), "Description");
                 content.Add(new StringContent(form["Price"]!), "Price");
-                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailable");
+                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailabale");
                 int formIndex = 0;
                 int sendIndex = 0;
                 while (form.ContainsKey($"FoodItems[{formIndex}].Quantity"))
@@ -136,12 +122,12 @@ namespace ShopView.Areas.Admin.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["Success"] = "Combo created successfully";
+                    TempData["SuccessMessage"] = "Combo created successfully";
                     return RedirectToAction(nameof(Index));
                 }
 
                 var error = await response.Content.ReadAsStringAsync();
-                TempData["Error"] = $"{error}";
+                TempData["ErrorMessage"] = $"{error}";
 
                 var foodsResponse = await _httpClient.GetAsync("api/foods/all");
                 var foods = await foodsResponse.Content.ReadFromJsonAsync<List<FoodOptionDto>>() ?? new();
@@ -161,22 +147,19 @@ namespace ShopView.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }
         // GET: /Admin/Combo/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
-
             try
             {
                 var comboResponse = await _httpClient.GetAsync($"api/Combos/{id}");
                 if (!comboResponse.IsSuccessStatusCode)
                 {
-                    TempData["Error"] = "Combo not found";
+                    TempData["ErrorMessage"] = "Combo not found";
                     return RedirectToAction(nameof(Index));
                 }
                 var combo = await comboResponse.Content.ReadFromJsonAsync<ComboDto>();
@@ -207,7 +190,7 @@ namespace ShopView.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -216,16 +199,13 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, IFormCollection form, IFormFile? imageFile)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { area = "" });
-
             try
             {
                 var content = new MultipartFormDataContent();
                 content.Add(new StringContent(form["Name"]!), "Name");
                 content.Add(new StringContent(form["Description"]!), "Description");
                 content.Add(new StringContent(form["Price"]!), "Price");
-                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailable");
+                content.Add(new StringContent(form["IsAvailable"].ToString() == "true" ? "true" : "false"), "IsAvailabale");
 
                 int formIndex = 0;
                 int sendIndex = 0;
@@ -257,25 +237,23 @@ namespace ShopView.Areas.Admin.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    TempData["Success"] = "Combo updated successfully";
+                    TempData["SuccessMessage"] = "Combo updated successfully";
                     return RedirectToAction(nameof(Index));
                 }
 
                 var error = await response.Content.ReadAsStringAsync();
-                TempData["Error"] = $"{error}";
+                TempData["ErrorMessage"] = $"{error}";
                 return RedirectToAction(nameof(Edit), new { id });
             }
             catch (Exception ex)
             {
-                TempData["Error"] = ex.Message;
+                TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction(nameof(Edit), new { id });
             }
         }
         [HttpPost]
         public async Task<IActionResult> Deactivate(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { Areas = "" });
             try
             {
                 var response = await _httpClient.PatchAsync($"api/combos/{id}/deactivate", null);
@@ -297,8 +275,6 @@ namespace ShopView.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Activate(int id)
         {
-            if (!IsAdmin())
-                return RedirectToAction("Login", "Account", new { Areas = "" });
             try
             {
                 var response = await _httpClient.PatchAsync($"api/combos/{id}/activate", null);

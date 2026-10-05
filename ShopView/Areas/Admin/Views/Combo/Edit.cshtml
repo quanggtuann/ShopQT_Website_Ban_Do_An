@@ -3,133 +3,554 @@
 
 @{
     ViewData["Title"] = "Edit Combo";
+
     bool isEdit = ViewBag.IsEdit ?? false;
     int comboId = ViewBag.ComboId ?? 0;
     string? currentImage = ViewBag.CurrentImage;
 
-    // Lấy danh sách food đã chọn với quantity
-    var selectedFoods = ViewBag.SelectedFoods as List<ComboFoodItemDto> ?? new List<ComboFoodItemDto>();
-    var selectedFoodIds = selectedFoods.Select(f => f.FoodItemId).ToList();
+    var selectedFoods = ViewBag.SelectedFoods as List<ComboFoodItemDto>
+                        ?? new List<ComboFoodItemDto>();
+
+    var selectedFoodIds = selectedFoods
+                            .Select(f => f.FoodItemId)
+                            .ToList();
 }
 
-<div class="container mt-4">
-    <h2>Edit Combo</h2>
+<style>
 
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger">@TempData["Error"]</div>
+    body {
+        background: #f5f7fb;
     }
 
-    <form asp-action="Edit" asp-route-id="@comboId" method="post" enctype="multipart/form-data">
-        <div class="card">
-            <div class="card-body">
-                <!-- Name -->
-                <div class="mb-3">
-                    <label class="form-label">Name <span class="text-danger">*</span></label>
-                    <input type="text" name="Name" class="form-control" required value="@Model.Combo.Name" />
+    .combo-container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .combo-header {
+        margin-bottom: 30px;
+    }
+
+        .combo-header h2 {
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .combo-header p {
+            color: #6b7280;
+            margin: 0;
+        }
+
+    .modern-card {
+        border: none;
+        border-radius: 28px;
+        background: white;
+        box-shadow: 0 10px 40px rgba(0,0,0,.06);
+        overflow: hidden;
+    }
+
+    .card-body-modern {
+        padding: 40px;
+    }
+
+    .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #111827;
+    }
+
+    .form-label {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #374151;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 16px;
+        min-height: 52px;
+        border: 1px solid #e5e7eb;
+        box-shadow: none !important;
+        padding: 12px 18px;
+    }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #696cff;
+        }
+
+    textarea.form-control {
+        min-height: 130px;
+    }
+
+    .food-table-wrapper {
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid #eef1f6;
+    }
+
+    .modern-table {
+        margin: 0;
+    }
+
+        .modern-table thead {
+            background: #f9fafb;
+        }
+
+        .modern-table th {
+            padding: 18px;
+            border: none;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .modern-table td {
+            padding: 18px;
+            vertical-align: middle;
+            border-top: 1px solid #f3f4f6;
+        }
+
+    .food-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .food-image {
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 16px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    }
+
+    .food-name {
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .current-image-box {
+        background: #f9fafb;
+        padding: 20px;
+        border-radius: 22px;
+        text-align: center;
+    }
+
+    .current-image {
+        max-width: 260px;
+        max-height: 180px;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
+
+    .status-box {
+        background: #f9fafb;
+        border-radius: 18px;
+        padding: 20px;
+    }
+
+    .form-check-input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .form-check-label {
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .btn-update {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white;
+        border-radius: 16px;
+        padding: 14px 28px;
+        font-weight: 700;
+        transition: .3s;
+    }
+
+        .btn-update:hover {
+            transform: translateY(-2px);
+            color: white;
+            box-shadow: 0 12px 25px rgba(105,108,255,.25);
+        }
+
+    .btn-cancel {
+        border-radius: 16px;
+        padding: 14px 28px;
+        font-weight: 700;
+    }
+
+    .alert {
+        border: none;
+        border-radius: 18px;
+        padding: 18px;
+        font-weight: 600;
+    }
+
+    .custom-checkbox {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    @@media(max-width:768px) {
+
+        .card-body-modern {
+            padding: 25px;
+        }
+
+        .modern-table {
+            min-width: 800px;
+        }
+    }
+</style>
+
+<div class="container py-4 combo-container">
+
+    <!-- HEADER -->
+    <div class="combo-header">
+
+        <h2>Edit Combo</h2>
+
+        <p>
+            Update combo information and manage food items professionally
+        </p>
+
+    </div>
+
+    <!-- ALERT -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger shadow-sm">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- FORM -->
+    <form asp-action="Edit"
+          asp-route-id="@comboId"
+          method="post"
+          enctype="multipart/form-data">
+
+        <div class="modern-card">
+
+            <div class="card-body-modern">
+
+                <!-- BASIC INFO -->
+                <div class="section-title">
+                    Combo Information
                 </div>
 
-                <!-- Description -->
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea name="Description" class="form-control" rows="3">@Model.Combo.Description</textarea>
+                <div class="row">
+
+                    <!-- NAME -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label">
+                            Combo Name
+                        </label>
+
+                        <input type="text"
+                               name="Name"
+                               class="form-control"
+                               placeholder="Enter combo name..."
+                               required
+                               value="@Model.Combo.Name" />
+
+                    </div>
+
+                    <!-- PRICE -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label">
+                            Price
+                        </label>
+
+                        <input type="number"
+                               step="0.01"
+                               name="Price"
+                               class="form-control"
+                               placeholder="Enter combo price..."
+                               required
+                               value="@Model.Combo.Price" />
+
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="col-12 mb-4">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea name="Description"
+                                  class="form-control"
+                                  placeholder="Write combo description...">@Model.Combo.Description</textarea>
+
+                    </div>
+
                 </div>
 
-                <!-- Price -->
-                <div class="mb-3">
-                    <label class="form-label">Price <span class="text-danger">*</span></label>
-                    <input type="decimal" name="Price" step="0.01" class="form-control" required value="@Model.Combo.Price" />
+                <!-- FOOD ITEMS -->
+                <div class="section-title mt-4">
+                    Select Food Items
                 </div>
 
-                <!-- Select Food Items -->
-                <div class="mb-3">
-                    <label class="form-label">Select Food Items</label>
-                    @if (Model.AvailableFoods != null && Model.AvailableFoods.Any())
-                    {
-                        <div style="max-height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 4px;">
-                            <table class="table table-sm mb-0">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50px;">Select</th>
-                                    <th>Food Name</th>
-                                    <th style="width: 100px;">Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < Model.AvailableFoods.Count; i++)
-                                {
-                                    var food = Model.AvailableFoods[i];
-                                    var isSelected = selectedFoodIds.Contains(food.FoodItemId);
-                                    var quantity = isSelected ? selectedFoods.First(f => f.FoodItemId == food.FoodItemId).Quantity : 1;
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="FoodItems[@i].FoodItemId" value="@food.FoodItemId" class="form-check-input" checked="@isSelected" />
-                                        </td>
-                                        <td>
-                                            @food.Name
-                                            @if (!string.IsNullOrEmpty(food.ImagePath))
-                                            {
-                                                <img src="@(Model.ImageBaseUrl + food.ImagePath)" class="ms-2 rounded" style="width: 30px; height: 30px;" loading="lazy" decoding="async" />
-                                            }
-                                        </td>
-                                        <td>
-                                            <input type="number" name="FoodItems[@i].Quantity" value="@quantity" min="1" class="form-control form-control-sm" />
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="alert alert-warning">No food items available. Please create food items first.</div>
-                    }
-                </div>
-
-                <!-- Current Image -->
-                @if (!string.IsNullOrEmpty(currentImage))
+                @if (Model.AvailableFoods != null && Model.AvailableFoods.Any())
                 {
-                    <div class="mb-3">
-                        <label class="form-label">Current Image</label>
-                        <div>
-                            <img src="@(Model.ImageBaseUrl + currentImage)" class="rounded" style="max-width: 200px; max-height: 150px;" loading="lazy" decoding="async" />
+                    <div class="food-table-wrapper">
+
+                        <div class="table-responsive">
+
+                            <table class="table modern-table">
+
+                                <thead>
+                                    <tr>
+                                        <th style="width:80px;">
+                                            Select
+                                        </th>
+
+                                        <th>
+                                            Food Item
+                                        </th>
+
+                                        <th style="width:180px;">
+                                            Quantity
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    @for (int i = 0; i < Model.AvailableFoods.Count; i++)
+                                    {
+                                        var food = Model.AvailableFoods[i];
+
+                                        var isSelected = selectedFoodIds
+                                        .Contains(food.FoodItemId);
+
+                                        var quantity = isSelected
+                                        ? selectedFoods
+                                        .First(f => f.FoodItemId == food.FoodItemId)
+                                        .Quantity
+                                        : 1;
+
+                                        <tr>
+
+                                            <!-- CHECKBOX -->
+                                            <td>
+
+                                                <input type="checkbox"
+                                                       name="FoodItems[@i].FoodItemId"
+                                                       value="@food.FoodItemId"
+                                                       class="form-check-input custom-checkbox"
+                                                       checked="@isSelected" />
+
+                                            </td>
+
+                                            <!-- FOOD -->
+                                            <td>
+
+                                                <div class="food-item">
+
+                                                    @if (!string.IsNullOrEmpty(food.ImagePath))
+                                                    {
+                                                        <img src="@(Model.ImageBaseUrl + food.ImagePath)"
+                                                             class="food-image"
+                                                             loading="lazy" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="https://via.placeholder.com/100x100?text=Food"
+                                                             class="food-image" />
+                                                    }
+
+                                                    <div>
+
+                                                        <div class="food-name">
+                                                            @food.Name
+                                                        </div>
+
+                                                        <small class="text-muted">
+                                                            Restaurant food item
+                                                        </small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
+
+                                            <!-- QUANTITY -->
+                                            <td>
+
+                                                <input type="number"
+                                                       name="FoodItems[@i].Quantity"
+                                                       value="@quantity"
+                                                       min="1"
+                                                       class="form-control" />
+
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+                            </table>
+
                         </div>
-                        <div class="form-check mt-2">
-                            <input type="checkbox" name="RemoveImage" value="true" class="form-check-input" id="removeImage" />
-                            <label class="form-check-label" for="removeImage">Remove current image</label>
-                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        No food items available. Please create foods first.
                     </div>
                 }
 
-                <!-- Image Upload -->
-                <div class="mb-3">
-                    <label class="form-label">New Image</label>
-                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
-                    <small class="form-text text-muted">Upload new image to replace current one (optional).</small>
-                </div>
+                <!-- IMAGE -->
+                <div class="row mt-5">
 
-                <!-- Status -->
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" name="IsAvailable" value="true" class="form-check-input" id="active" checked />
-                            <label class="form-check-label" for="active">Active</label>
+                    <!-- CURRENT IMAGE -->
+                    @if (!string.IsNullOrEmpty(currentImage))
+                    {
+                        <div class="col-lg-6 mb-4">
+
+                            <label class="form-label">
+                                Current Image
+                            </label>
+
+                            <div class="current-image-box">
+
+                                <img src="@(Model.ImageBaseUrl + currentImage)"
+                                     class="current-image"
+                                     loading="lazy" />
+
+                                <div class="form-check mt-4">
+
+                                    <input type="checkbox"
+                                           name="RemoveImage"
+                                           value="true"
+                                           class="form-check-input"
+                                           id="removeImage" />
+
+                                    <label class="form-check-label"
+                                           for="removeImage">
+
+                                        Remove current image
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" name="IsAvailable" value="false" class="form-check-input" id="inactive" />
-                            <label class="form-check-label" for="inactive">Inactive</label>
+                    }
+
+                    <!-- UPLOAD -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label">
+                            Upload New Image
+                        </label>
+
+                        <div class="current-image-box">
+
+                            <input type="file"
+                                   name="imageFile"
+                                   class="form-control"
+                                   accept="image/*" />
+
+                            <small class="text-muted d-block mt-3">
+                                Upload a new image to replace the current one
+                            </small>
+
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Buttons -->
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">Update Combo</button>
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <!-- STATUS -->
+                <div class="section-title mt-4">
+                    Status
                 </div>
+
+                <div class="status-box mb-5">
+
+                    <div class="d-flex gap-4">
+
+                        <div class="form-check">
+
+                            <input type="radio"
+                                   name="IsAvailable"
+                                   value="true"
+                                   class="form-check-input"
+                                   id="active"
+                                   checked />
+
+                            <label class="form-check-label"
+                                   for="active">
+
+                                Active
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input type="radio"
+                                   name="IsAvailable"
+                                   value="false"
+                                   class="form-check-input"
+                                   id="inactive" />
+
+                            <label class="form-check-label"
+                                   for="inactive">
+
+                                Inactive
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="d-flex gap-3">
+
+                    <button type="submit"
+                            class="btn btn-update">
+
+                        Update Combo
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary btn-cancel">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
             </div>
+
         </div>
+
     </form>
+
 </div>
+```

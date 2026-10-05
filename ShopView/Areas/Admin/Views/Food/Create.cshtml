@@ -1,76 +1,477 @@
 @using ShopView.Areas.Admin.Models
 @model FoodItemCreateViewModel
 
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Admin/</span> Food Management
-    </h4>
+<style>
 
-    <div class="card">
-        <h5 class="card-header">Create New Food</h5>
-        <div class="card-body">
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="alert alert-success">
-                    @TempData["SuccessMessage"]
-                </div>
-            }
+    body {
+        background: #f4f7fb;
+    }
 
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger">
-                    @TempData["ErrorMessage"]
-                </div>
-            }
+    .food-create-page {
+        max-width: 1050px;
+        margin: auto;
+    }
 
-            <form asp-area="Admin" asp-action="Create" asp-controller="Food" method="post" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label asp-for="Name" class="form-label"></label>
-                    <input asp-for="Name" class="form-control" placeholder="Enter food name" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Description" class="form-label"></label>
-                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="CategoryId" class="form-label">Category</label>
-                    @Html.DropDownListFor(model => model.CategoryId,
-                             new SelectList((IEnumerable<SelectListItem>)ViewBag.Categories, "Value", "Text"),
-                             "Select Category",
-                             new { @class = "form-select" })
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Price" class="form-label"></label>
-                    <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="Enter price" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label for="imageFile" class="form-label">Upload Image</label>
-                    <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" />
-                </div>
-                <div class="mb-3">
-                    <label asp-for="IsAvailable" class="form-label">Status</label>
-                    <div class="form-check">
-                        <input asp-for="IsAvailable" class="form-check-input" type="radio" value="true" checked />
-                        <label class="form-check-label">Active</label>
-                    </div>
-                    <div class="form-check">
-                        <input asp-for="IsAvailable" class="form-check-input" type="radio" value="false" />
-                        <label class="form-check-label">Inactive</label>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
-        </div>
+    .page-header {
+        margin-bottom: 35px;
+    }
+
+        .page-header h2 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .modern-card {
+        background: white;
+        border-radius: 32px;
+        border: none;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0,0,0,.06);
+    }
+
+    .card-header-modern {
+        padding: 30px 35px;
+        border-bottom: 1px solid #f1f5f9;
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        color: white;
+    }
+
+        .card-header-modern h4 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .card-header-modern p {
+            margin: 6px 0 0;
+            opacity: .9;
+        }
+
+    .card-body-modern {
+        padding: 40px;
+    }
+
+    .modern-label {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #374151;
+    }
+
+    .modern-input,
+    .modern-select,
+    .modern-textarea {
+        border-radius: 18px !important;
+        border: 1px solid #e5e7eb !important;
+        min-height: 56px;
+        padding: 14px 18px !important;
+        transition: .25s;
+        box-shadow: none !important;
+    }
+
+    .modern-textarea {
+        min-height: 130px;
+        resize: none;
+    }
+
+        .modern-input:focus,
+        .modern-select:focus,
+        .modern-textarea:focus {
+            border-color: #696cff !important;
+            box-shadow: 0 0 0 4px rgba(105,108,255,.12) !important;
+        }
+
+    .upload-box {
+        border: 2px dashed #d1d5db;
+        border-radius: 24px;
+        padding: 40px;
+        text-align: center;
+        background: #f9fafb;
+        transition: .25s;
+    }
+
+        .upload-box:hover {
+            border-color: #696cff;
+            background: #f5f7ff;
+        }
+
+    .upload-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        background: rgba(105,108,255,.12);
+        color: #696cff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        margin: auto auto 20px;
+    }
+
+    .status-box {
+        background: #f9fafb;
+        border-radius: 22px;
+        padding: 20px;
+        border: 1px solid #eef2f7;
+    }
+
+    .modern-radio {
+        padding: 18px 20px;
+        border-radius: 18px;
+        border: 1px solid #e5e7eb;
+        transition: .25s;
+        cursor: pointer;
+    }
+
+        .modern-radio:hover {
+            border-color: #696cff;
+            background: #f5f7ff;
+        }
+
+    .form-check-input:checked {
+        background-color: #696cff;
+        border-color: #696cff;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg,#696cff,#5f61e6);
+        border: none;
+        color: white;
+        border-radius: 18px;
+        padding: 15px 35px;
+        font-weight: 800;
+        transition: .3s;
+    }
+
+        .btn-create:hover {
+            transform: translateY(-2px);
+            color: white;
+            box-shadow: 0 12px 25px rgba(105,108,255,.25);
+        }
+
+    .btn-cancel {
+        border-radius: 18px;
+        padding: 15px 30px;
+        font-weight: 700;
+    }
+
+    .alert {
+        border: none;
+        border-radius: 20px;
+        padding: 18px 22px;
+        font-weight: 700;
+    }
+
+    .preview-image {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 24px;
+        margin-top: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.08);
+        display: none;
+    }
+
+    .text-danger {
+        font-size: 14px;
+        margin-top: 6px;
+        display: block;
+    }
+
+    @@media(max-width:768px) {
+
+        .card-body-modern {
+            padding: 25px;
+        }
+
+        .page-header h2 {
+            font-size: 30px;
+        }
+    }
+</style>
+
+<div class="container-xxl py-4 food-create-page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+
+        <h2>Create New Food</h2>
+
+        <p>
+            Add delicious food items professionally for your restaurant menu
+        </p>
+
     </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success shadow-sm mb-4">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger shadow-sm mb-4">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="modern-card">
+
+        <!-- CARD HEADER -->
+        <div class="card-header-modern">
+
+            <h4>
+                New Food Information
+            </h4>
+
+            <p>
+                Fill all required information below
+            </p>
+
+        </div>
+
+        <!-- FORM -->
+        <div class="card-body-modern">
+
+            <form asp-area="Admin"
+                  asp-action="Create"
+                  asp-controller="Food"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <div class="row">
+
+                    <!-- FOOD NAME -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label asp-for="Name"
+                               class="modern-label">
+                        </label>
+
+                        <input asp-for="Name"
+                               class="form-control modern-input"
+                               placeholder="Enter food name..." />
+
+                        <span asp-validation-for="Name"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- PRICE -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label asp-for="Price"
+                               class="modern-label">
+                        </label>
+
+                        <input asp-for="Price"
+                               type="number"
+                               step="0.01"
+                               class="form-control modern-input"
+                               placeholder="Enter food price..." />
+
+                        <span asp-validation-for="Price"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- CATEGORY -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label asp-for="CategoryId"
+                               class="modern-label">
+
+                            Category
+
+                        </label>
+
+                        @Html.DropDownListFor(
+                                 model => model.CategoryId,
+                                 new SelectList(
+                                 (IEnumerable<SelectListItem>)ViewBag.Categories,
+                                 "Value",
+                                 "Text"
+                                 ),
+                                 "Select Category",
+                                 new
+                                 {
+                                     @class = "form-select modern-select"
+                                 })
+
+                        <span asp-validation-for="CategoryId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- STATUS -->
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="modern-label">
+                            Food Status
+                        </label>
+
+                        <div class="status-box">
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3 mb-md-0">
+
+                                    <label class="modern-radio w-100">
+
+                                        <div class="form-check">
+
+                                            <input asp-for="IsAvailable"
+                                                   class="form-check-input"
+                                                   type="radio"
+                                                   value="true"
+                                                   checked />
+
+                                            <span class="fw-bold ms-2">
+                                                Active
+                                            </span>
+
+                                        </div>
+
+                                    </label>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <label class="modern-radio w-100">
+
+                                        <div class="form-check">
+
+                                            <input asp-for="IsAvailable"
+                                                   class="form-check-input"
+                                                   type="radio"
+                                                   value="false" />
+
+                                            <span class="fw-bold ms-2">
+                                                Inactive
+                                            </span>
+
+                                        </div>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="col-12 mb-4">
+
+                        <label asp-for="Description"
+                               class="modern-label">
+                        </label>
+
+                        <textarea asp-for="Description"
+                                  class="form-control modern-textarea"
+                                  placeholder="Enter delicious food description...">
+                        </textarea>
+
+                        <span asp-validation-for="Description"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                    <!-- IMAGE -->
+                    <div class="col-12 mb-4">
+
+                        <label class="modern-label">
+                            Upload Food Image
+                        </label>
+
+                        <div class="upload-box">
+
+                            <div class="upload-icon">
+                                <i class="bx bx-image-add"></i>
+                            </div>
+
+                            <h5 class="fw-bold mb-2">
+                                Choose Food Image
+                            </h5>
+
+                            <p class="text-muted mb-4">
+                                PNG, JPG or JPEG supported
+                            </p>
+
+                            <input type="file"
+                                   class="form-control modern-input"
+                                   id="imageFile"
+                                   name="imageFile"
+                                   accept="image/*"
+                                   onchange="previewImage(event)" />
+
+                            <img id="preview"
+                                 class="preview-image" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="d-flex justify-content-end gap-3 mt-4">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary btn-cancel">
+
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-create">
+
+                        <i class="bx bx-check-circle me-2"></i>
+                        Create Food
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </div>
 
 @section Scripts {
+
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        function previewImage(event) {
+
+            const preview = document.getElementById('preview');
+
+            preview.src = URL.createObjectURL(event.target.files[0]);
+
+            preview.style.display = 'block';
+        }
+
+    </script>
 }

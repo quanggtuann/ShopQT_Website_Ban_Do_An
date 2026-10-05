@@ -1,27 +1,407 @@
-<h2>Login</h2>
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
 
-@if (ViewBag.Error != null)
-{
-    <div class="alert alert-danger">@ViewBag.Error</div>
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["Login"];
 }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
+<div class="login-page">
 
-<form asp-action="Login" method="post">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" class="form-control" required />
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center min-vh-100">
+
+            <div class="col-xl-10 col-lg-11">
+
+                <div class="login-card">
+
+                    <div class="row g-0">
+
+                        <!-- LEFT SIDE -->
+                        <div class="col-lg-6">
+
+                            <div class="login-left">
+
+                                <div class="content">
+
+                                    <div class="food-icon">
+                                        🍔
+                                    </div>
+
+                                    <h1>
+                                        Fast Food
+                                    </h1>
+
+                                    <p class="lead">
+                                        @Localizer["FreshHotDelicious"]
+                                    </p>
+
+                                    <p class="desc">
+                                        @Localizer["LoginDesc"]
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- RIGHT SIDE -->
+                        <div class="col-lg-6">
+
+                            <div class="login-right">
+
+                                <h2>
+                                    @Localizer["WelcomeBack"] 👋
+                                </h2>
+
+                                <p class="text-muted mb-4">
+                                    @Localizer["SignInToContinue"]
+                                </p>
+
+                                @if (ViewBag.Error != null)
+                                {
+                                    <div class="alert alert-danger">
+                                        @ViewBag.Error
+                                    </div>
+                                }
+
+                                @if (TempData["SuccessMessage"] != null)
+                                {
+                                    <div class="alert alert-success">
+                                        @TempData["SuccessMessage"]
+                                    </div>
+                                }
+
+                                <form asp-action="Login" method="post">
+
+                                    <div class="mb-3">
+
+                                        <label class="form-label">
+                                            @Localizer["Username"]
+                                        </label>
+
+                                        <input type="text"
+                                               name="username"
+                                               class="form-control custom-input"
+                                               placeholder='@Localizer["EnterUsername"]'
+                                               required />
+
+                                    </div>
+
+                                    <div class="mb-3">
+
+                                        <label class="form-label">
+                                            @Localizer["Password"]
+                                        </label>
+
+                                        <input type="password"
+                                               id="passwordInput"
+                                               name="password"
+                                               class="form-control custom-input"
+                                               placeholder='@Localizer["EnterPassword"]'
+                                               required />
+
+                                    </div>
+
+                                    <div class="form-check mb-4">
+
+                                        <input type="checkbox"
+                                               class="form-check-input"
+                                               id="showPassword"
+                                               onchange="document.getElementById('passwordInput').type=this.checked ? 'text':'password'">
+
+                                        <label class="form-check-label"
+                                               for="showPassword">
+                                            @Localizer["ShowPassword"]
+                                        </label>
+
+                                    </div>
+
+                                    <button type="submit"
+                                            class="btn btn-login w-100">
+
+                                        @Localizer["Login"]
+
+                                    </button>
+
+                                </form>
+
+                                <hr class="my-4">
+
+                                <div class="text-center">
+
+                                    @Localizer["NoAccount"]
+
+                                    <a asp-action="Register"
+                                       class="register-link">
+
+                                        @Localizer["Register"]
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" required />
-    </div>
+</div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<style>
 
-<p>Don't have an account? <a asp-action="Register">Register here</a></p>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* BACKGROUND */
+
+    .login-page {
+        min-height: 100vh;
+        background: linear-gradient( -45deg, #ff9f43, #ff6b35, #ffb347, #ff7b54 );
+        background-size: 400% 400%;
+        animation: gradientMove 12s ease infinite;
+        padding: 30px 0;
+    }
+
+    @@keyframes gradientMove {
+        0%
+
+    {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+    }
+
+    /* CARD */
+
+    .login-card {
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 25px 70px rgba(0,0,0,.2);
+        animation: cardShow .8s ease;
+    }
+
+    @@keyframes cardShow {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* LEFT */
+
+    .login-left {
+        min-height: 650px;
+        background: linear-gradient( 135deg, #ff9f43, #ff6b35 );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        padding: 60px;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .food-icon {
+        font-size: 90px;
+        animation: floatFood 3s ease-in-out infinite;
+    }
+
+    @@keyframes floatFood {
+        0%
+
+    {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+    }
+
+    .login-left h1 {
+        font-size: 50px;
+        font-weight: 700;
+        margin-top: 15px;
+        animation: fadeLeft .8s ease;
+    }
+
+    .lead {
+        font-size: 22px;
+        font-weight: 500;
+        animation: fadeLeft 1s ease;
+    }
+
+    .desc {
+        opacity: .95;
+        animation: fadeLeft 1.2s ease;
+    }
+
+    @@keyframes fadeLeft {
+        from
+
+    {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    }
+
+    /* RIGHT */
+
+    .login-right {
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 650px;
+    }
+
+        .login-right h2 {
+            font-size: 38px;
+            font-weight: 700;
+            animation: zoomIn .8s ease;
+        }
+
+    @@keyframes zoomIn {
+        from
+
+    {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    }
+
+    /* INPUT */
+
+    .custom-input {
+        height: 58px;
+        border-radius: 14px;
+        transition: .3s;
+    }
+
+        .custom-input:focus {
+            border-color: #ff6b35;
+            box-shadow: 0 10px 25px rgba(255,107,53,.15);
+            transform: translateY(-2px);
+        }
+
+    /* BUTTON */
+
+    .btn-login {
+        height: 58px;
+        border: none;
+        border-radius: 14px;
+        color: white;
+        font-weight: 600;
+        background: linear-gradient( 135deg, #ff9f43, #ff6b35 );
+        position: relative;
+        overflow: hidden;
+        transition: .3s;
+    }
+
+        .btn-login::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,.25);
+            transform: skewX(-20deg);
+            transition: .7s;
+        }
+
+        .btn-login:hover::before {
+            left: 120%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255,107,53,.35);
+            color: white;
+        }
+
+    .register-link {
+        color: #ff6b35;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .register-link:hover {
+            color: #e85b21;
+        }
+
+    /* MOBILE */
+
+    @@media(max-width:991px) {
+
+        .login-left {
+            min-height: 280px;
+        }
+
+        .food-icon {
+            font-size: 70px;
+        }
+
+        .login-left h1 {
+            font-size: 36px;
+        }
+
+        .login-right {
+            min-height: auto;
+            padding: 40px;
+        }
+    }
+
+</style>
+
+

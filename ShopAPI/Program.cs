@@ -1,4 +1,12 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using ShopAPI.Configuration;
+using ShopAPI.Services;
+using ShopAPI.Services.Customer;
+using ShopAPI.Services.Customer.IServices;
+using ShopAPI.Services.IServices;
 using ShopDAL.Areas.Repository;
 using ShopDAL.Areas.Repository.Irepository;
 using ShopDAL.Context;
@@ -7,52 +15,93 @@ using ShopDAL.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>()
+    ?? throw new InvalidOperationException("Jwt configuration is missing.");
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS cho phép ShopView gọi API
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowShopView", policy =>
     {
-        policy.WithOrigins("https://localhost:5000", "https://localhost:5001", "https://localhost:7000", "https://localhost:7001")
+        policy.WithOrigins("https://localhost:7106")
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowAnyMethod();
     });
 });
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-//admin
+
 builder.Services.AddScoped<IAdminFoodRepo, AdminFoodRepo>();
 builder.Services.AddScoped<IAdminCategoryRepo, AdminCategoryRepo>();
 builder.Services.AddScoped<IAdminAccountRepo, AdminAccountRepo>();
 builder.Services.AddScoped<IAdminComboRepo, AdminComboRepo>();
 builder.Services.AddScoped<IAdminOrderRepo, AdminOrderRepo>();
-//customer
+builder.Services.AddScoped<IAdminDiscountCampaignRepo, AdminDiscountCampaignRepo>();
+builder.Services.AddScoped<IAdminStatisticsRepo, AdminStatisticsRepo>();
+
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+builder.Services.AddScoped<IFoodRepo, FoodRepo>();
+builder.Services.AddScoped<IComboRepo, ComboRepo>();
+builder.Services.AddScoped<ICartRepo, CartRepo>();
+builder.Services.AddScoped<IAddressRepo, AddressRepo>();
+builder.Services.AddScoped<IFavoriteRepo, FavoriteRepo>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+
+builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IComboService, ComboService>();
+builder.Services.AddScoped<ICategoryesService, CategoryesService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IDiscountCampaignService, DiscountCampaignService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAdminStatisticsService, AdminStatisticsService>();
+
+builder.Services.AddScoped<ICustomerFoodService, CustomerFoodService>();
+builder.Services.AddScoped<ICustomerComboService, CustomerComboService>();
+builder.Services.AddScoped<ICustomerAccountService, CustomerAccountService>();
+builder.Services.AddScoped<ICustomerCartService, CustomerCartService>();
+builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
+builder.Services.AddScoped<ICustomerDiscountPriceService, CustomerDiscountPriceService>();
+builder.Services.AddScoped<ICustomerFavoriteService, CustomerFavoriteService>();
+builder.Services.AddScoped<ICustomerOrderService, CustomerOrderService>();
+
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddHttpClient<LocationService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -60,19 +109,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Phục vụ ảnh từ wwwroot
+app.UseStaticFiles();
 app.UseCors("AllowShopView");
 app.UseRouting();
-app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllerRoute(
-    name: "areas",
-    pattern : "{areas : exists}/{controller=Home}/{action=index}/{id?}"
-    );
-app.MapControllerRoute(
-    name : "default",
-    pattern : "{controller= Food}/{action= Index}/{id?}"
-    );
 app.MapControllers();
 
 app.Run();

@@ -1,25 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ShopView.Models;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
+using System.Security.Claims;
+using ShopView.Infrastructure;
+using ShopView.ViewModels;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ShopView.Controllers
 {
     public class AccountController : Controller
     {
         private readonly HttpClient _httpClient;
+
         public AccountController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
         }
 
-        // GET: /Account/Register
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -57,14 +65,21 @@ namespace ShopView.Controllers
             }
         }
 
-        // GET: /Account/Login
+        [AllowAnonymous]
         public IActionResult Login()
         {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                if (User.IsInRole("admin"))
+                    return Redirect("/Admin/Home/Index");
+                return RedirectToAction("Index", "Food");
+            }
+
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string username, string password)
         {
             try
@@ -75,16 +90,36 @@ namespace ShopView.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-                    
-                    // Store in session
-                    HttpContext.Session.SetInt32("UserID", result.userId);
-                    HttpContext.Session.SetString("Username", result.username);
-                    HttpContext.Session.SetString("UserRole", result.role);
+                    if (result == null || string.IsNullOrEmpty(result.token))
+                    {
+                        ViewBag.Error = "Invalid login response from server";
+                        return View();
+                    }
+
+                    var claims = new List<Claim>
+                    {
+                        new(ClaimTypes.NameIdentifier, result.userId.ToString()),
+                        new(ClaimTypes.Name, result.username),
+                        new(ClaimTypes.Role, result.role),
+                        new(AuthClaimTypes.AccessToken, result.token)
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal,
+                        new AuthenticationProperties
+                        {
+                            IsPersistent = false,
+                            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                        });
 
                     if (result.role == "admin")
-                        return RedirectToAction("Index", "Account", new { area = "Admin" });
-                    else
-                        return RedirectToAction("Index", "Home");
+                        return Redirect("/Admin/Home/Index");
+
+                    return RedirectToAction("Index", "Food");
                 }
 
                 ViewBag.Error = "Invalid username or password";
@@ -97,29 +132,210 @@ namespace ShopView.Controllers
             }
         }
 
-        // GET: /Account/Logout
-        public IActionResult Logout()
+        [Authorize]
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
-    }
 
-    public class RegisterViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public DateTime DateofBirth { get; set; }
-    }
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!int.TryParse(userIdClaim, out var userId))
+                {
+                    return RedirectToAction("Login");
+                }
 
-    public class LoginResponse
-    {
-        public int userId { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
-        public string role { get; set; }
+                var response = await _httpClient.GetAsync($"api/customer/account/{userId}");
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToAction("Login", new { returnUrl = Url.Action("Profile") });
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+                    TempData["ErrorMessage"] = $"Cannot load profile. ({(int)response.StatusCode}) {body}";
+                    return View(new CustomerProfileViewModel { Username = User.Identity?.Name ?? string.Empty });
+                }
+
+                var profile = await response.Content.ReadFromJsonAsync<CustomerProfileViewModel>(new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new CustomerProfileViewModel();
+
+                return View(profile);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return View(new CustomerProfileViewModel { Username = User.Identity?.Name ?? string.Empty });
+            }
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> UpdateProfile()
+        {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!int.TryParse(userIdClaim, out var userId))
+                {
+                    return RedirectToAction("Login");
+                }
+                var response = await _httpClient.GetAsync($"api/customer/account/{userId}");
+                if (!response.IsSuccessStatusCode)
+                {
+                TempData["ErrorMessage"] = "Cannot load profile";
+                return RedirectToAction("Profile");
+            }
+                var profile= await response.Content.ReadFromJsonAsync<UpdateProfile>();
+            return View(profile);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(UpdateProfile model)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (!int.TryParse(userIdClaim, out var userId))
+                    return RedirectToAction("Login");
+
+                var response = await _httpClient.PutAsJsonAsync(
+                    $"api/customer/account/{userId}",
+                    model);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+
+                    TempData["ErrorMessage"] = body;
+
+                    return View(model);
+                }
+
+                TempData["SuccessMessage"] = "Profile updated successfully";
+
+                return RedirectToAction("Profile");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+
+                return View(model);
+            }
+        }
+        [Authorize]
+        public IActionResult MyAddresses()
+        {
+            return RedirectToAction("Index", "Address");
+        }
+
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (!string.Equals(model.NewPassword, model.ConfirmPassword, StringComparison.Ordinal))
+            {
+                ModelState.AddModelError(string.Empty, "New password and confirm password do not match.");
+                return View(model);
+            }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return RedirectToAction("Login");
+            }
+
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync(
+                    $"api/customer/account/{userId}/change-password",
+                    new
+                    {
+                        CurrentPassword = model.CurrentPassword,
+                        NewPassword = model.NewPassword
+                    });
+
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToAction("Login", new { returnUrl = Url.Action("ChangePassword") });
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    TempData["SuccessMessage"] = "Password changed successfully. Please login again.";
+                    return RedirectToAction("Login");
+                }
+
+                var body = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, $"Change password failed. ({(int)response.StatusCode}) {body}");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        public async Task<IActionResult> OrderHistory(int page = 1, int pageSize = 6)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/customer/orders?page={page}&pageSize={pageSize}");
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    TempData["ErrorMessage"] = "Your session has expired. Please login again.";
+                    return RedirectToAction("Login", new { returnUrl = Url.Action(nameof(OrderHistory), "Account", new { page, pageSize }) });
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync();
+                    TempData["ErrorMessage"] = $"Cannot load orders. ({(int)response.StatusCode}) {body}";
+                    return View(new PagedResponse<CustomerOrderViewModel>());
+                }
+
+                var orders = await response.Content.ReadFromJsonAsync<PagedResponse<CustomerOrderViewModel>>(
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        NumberHandling = JsonNumberHandling.AllowReadingFromString
+                    }) ?? new PagedResponse<CustomerOrderViewModel>();
+
+                return View(orders);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return View(new PagedResponse<CustomerOrderViewModel>());
+            }
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
-

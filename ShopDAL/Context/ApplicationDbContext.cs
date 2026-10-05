@@ -17,9 +17,14 @@ namespace ShopDAL.Context
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Category> Categorys { get; set; }
-
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Combo> Combos { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<DiscountCampaign> DiscountCampaigns { get; set; }
 
+        public DbSet<DiscountCampaignProduct> DiscountCampaignProducts { get; set; }
+
+        public DbSet<DiscountCampaignCombo> DiscountCampaignCombos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ComboFoodItem>().HasKey(cfi => new { cfi.ComboId, cfi.FoodItemID });
@@ -63,11 +68,51 @@ namespace ShopDAL.Context
             modelBuilder.Entity<CartItem>()
                 .HasOne(fi => fi.FoodItem)
                 .WithMany(ci => ci.CartItem)
-                .HasForeignKey(fi => fi.CartItemId);
+                .HasForeignKey(fi => fi.FoodItemID);
             modelBuilder.Entity<CartItem>()
                 .HasOne(cb => cb.Combo)
                 .WithMany(ci => ci.CartItem)
-                .HasForeignKey(cb => cb.comboID);
+                .HasForeignKey(cb => cb.ComboID);
+            modelBuilder.Entity<Address>()
+                .HasOne(us => us.User)
+                .WithMany(ad => ad.Address)
+                .HasForeignKey(us => us.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DiscountCampaignProduct>()
+                 .HasOne(dcp => dcp.DiscountCampaign)
+                 .WithMany(dc => dc.CampaignProducts)
+                 .HasForeignKey(dcp => dcp.DiscountCampaignId);
+
+            modelBuilder.Entity<DiscountCampaignProduct>()
+                .HasOne(dcp => dcp.FoodItem)
+                .WithMany(fi => fi.CampaignProducts)
+                .HasForeignKey(dcp => dcp.FoodItemId);
+
+            modelBuilder.Entity<DiscountCampaignCombo>()
+                 .HasOne(x => x.DiscountCampaign)
+                 .WithMany(x => x.CampaignCombos)
+                 .HasForeignKey(x => x.DiscountCampaignId);
+
+            modelBuilder.Entity<DiscountCampaignCombo>()
+                .HasOne(x => x.Combo)
+                .WithMany(x => x.CampaignCombos)
+                .HasForeignKey(x => x.ComboId);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Favorite>()
+                .HasIndex(x => new { x.UserId, x.FoodId })
+                .IsUnique();
+             modelBuilder.Entity<Favorite>()
+                .HasOne(x=>x.User)
+                .WithMany()
+                .HasForeignKey(x=>x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Favorite>()
+                .HasOne(x=>x.FoodItem)
+                .WithMany()
+                .HasForeignKey(x=>x.FoodId) 
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

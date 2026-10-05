@@ -1,4 +1,5 @@
-﻿using ShopDAL.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopDAL.Context;
 using ShopDAL.Models;
 using ShopDAL.Repository.IRepository;
 
@@ -13,16 +14,18 @@ namespace ShopDAL.Repository
         }
         public void CreateCartForUser(int userId)
         {
-            var cart = new Cart
-            {
-                CartID = userId,
-            };
+            var cart = new Cart { UserID = userId }; 
             _context.Carts.Add(cart);
-            _context.SaveChanges();
         }
+
+        public User? GetById(int userId)
+        {
+            return _context.Users.AsNoTracking().FirstOrDefault(user => user.UserID == userId);
+        }
+
         public User Getnameuser(string username)
         {
-            return _context.Users.FirstOrDefault(u => u.Username == username);
+            return _context.Users.AsNoTracking().FirstOrDefault(u => u.Username == username);
         }
         public bool Login(string username, string password)
         {
@@ -51,14 +54,31 @@ namespace ShopDAL.Repository
             {
                 throw new Exception("Email already exists");
             }
-            _context.Users.Add(registerUser);
-            _context.SaveChanges();
-            CreateCartForUser(registerUser.UserID);
-            return true;
+            
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _context.Users.Add(registerUser);
+                _context.SaveChanges();
+                var cart = new Cart { UserID = registerUser.UserID };
+                _context.Carts.Add(cart);
+                _context.SaveChanges();
+                
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
         public void Update(User updateuser)
         {
             _context.Users.Update(updateuser);
+        }
+        public void Save()
+        {
             _context.SaveChanges();
         }
     }

@@ -1,45 +1,619 @@
-@model ShopView.Controllers.RegisterViewModel
+﻿@using Microsoft.Extensions.Localization
+@model ShopView.ViewModels.RegisterViewModel
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
 
-<h2>Register</h2>
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["Register"];
+}
 
-<form asp-action="Register" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="register-page">
 
-    <div class="form-group">
-        <label asp-for="Username">Username</label>
-        <input asp-for="Username" class="form-control" />
-        <span asp-validation-for="Username" class="text-danger"></span>
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center min-vh-100">
+
+            <div class="col-xl-11 col-lg-12">
+
+                <div class="register-card">
+
+                    <div class="row g-0">
+
+                        <!-- LEFT SIDE -->
+                        <div class="col-lg-5">
+
+                            <div class="register-left">
+
+                                <div class="content">
+
+                                    <div class="food-icon">
+                                        🍕
+                                    </div>
+
+                                    <h1>
+                                        @Localizer["JoinFastFood"]
+                                    </h1>
+
+                                    <p class="lead">
+                                        @Localizer["FreshHotDelicious"]
+                                    </p>
+
+                                    <p class="desc">
+                                        @Localizer["RegisterDesc"]
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- RIGHT SIDE -->
+                        <div class="col-lg-7">
+
+                            <div class="register-right">
+
+                                <h2>
+                                    @Localizer["CreateAccount"] 🚀
+                                </h2>
+
+                                <p class="text-muted mb-4">
+                                    @Localizer["FillInfo"]
+                                </p>
+
+                                <form asp-action="Register" method="post">
+
+                                    <div asp-validation-summary="ModelOnly"
+                                         class="alert alert-danger">
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label asp-for="Username"
+                                                   class="form-label fw-semibold">
+                                            </label>
+
+                                            <input asp-for="Username"
+                                                   class="form-control custom-input"
+                                                   placeholder='@Localizer["EnterUsername"]' />
+
+                                            <span asp-validation-for="Username"
+                                                  class="text-danger small">
+                                            </span>
+
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label asp-for="Email"
+                                                   class="form-label fw-semibold">
+                                            </label>
+
+                                            <input asp-for="Email"
+                                                   class="form-control custom-input"
+                                                   placeholder='@Localizer["EnterEmail"]' />
+
+                                            <span asp-validation-for="Email"
+                                                  class="text-danger small">
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label asp-for="Password"
+                                                   class="form-label fw-semibold">
+                                            </label>
+
+                                            <input asp-for="Password"
+                                                   type="password"
+                                                   id="passwordInput"
+                                                   class="form-control custom-input"
+                                                   placeholder='@Localizer["EnterPassword"]' />
+
+                                            <span asp-validation-for="Password"
+                                                  class="text-danger small">
+                                            </span>
+
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label asp-for="PhoneNumber"
+                                                   class="form-label fw-semibold">
+                                            </label>
+
+                                            <input asp-for="PhoneNumber"
+                                                   class="form-control custom-input"
+                                                   placeholder='@Localizer["EnterPhoneNumber"]' />
+
+                                            <span asp-validation-for="PhoneNumber"
+                                                  class="text-danger small">
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="mb-3">
+
+                                        <label asp-for="DateofBirth"
+                                               class="form-label fw-semibold">
+                                        </label>
+
+                                        <input asp-for="DateofBirth"
+                                               type="date"
+                                               class="form-control custom-input" />
+
+                                        <span asp-validation-for="DateofBirth"
+                                              class="text-danger small">
+                                        </span>
+
+                                    </div>
+
+                                    <div class="form-check mb-4">
+
+                                        <input type="checkbox"
+                                               class="form-check-input"
+                                               id="showPassword"
+                                               onchange="document.getElementById('passwordInput').type=this.checked ? 'text':'password'">
+
+                                        <label class="form-check-label"
+                                               for="showPassword">
+
+                                            @Localizer["ShowPassword"]
+
+                                        </label>
+
+                                    </div>
+
+                                    <button type="submit"
+                                            class="btn btn-register w-100">
+
+                                        @Localizer["CreateAccount"]
+
+                                    </button>
+
+                                </form>
+
+                                <hr class="my-4">
+
+                                <div class="text-center">
+
+                                    @Localizer["AlreadyAccount"]
+
+                                    <a asp-action="Login"
+                                       class="login-link">
+
+                                        @Localizer["Login"]
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="form-group">
-        <label asp-for="Password">Password</label>
-        <input asp-for="Password" type="password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" type="email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhoneNumber">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="DateofBirth">Date of Birth</label>
-        <input asp-for="DateofBirth" type="date" class="form-control" />
-        <span asp-validation-for="DateofBirth" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
-
-<p>Already have an account? <a asp-action="Login">Login here</a></p>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+
+    .register-page {
+        min-height: 100vh;
+        background: linear-gradient( -45deg, #ff9f43, #ff6b35, #ffb347, #ff7b54 );
+        background-size: 400% 400%;
+        animation: gradientMove 12s ease infinite;
+        padding: 30px 0;
+    }
+
+    .register-card {
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 25px 70px rgba(0,0,0,.2);
+        animation: cardShow .8s ease;
+    }
+
+    .register-left {
+        min-height: 750px;
+        background: linear-gradient( 135deg, #ff9f43, #ff6b35 );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        padding: 60px;
+        text-align: center;
+    }
+
+    .food-icon {
+        font-size: 90px;
+        animation: floatFood 3s ease-in-out infinite;
+    }
+
+    .register-left h1 {
+        margin-top: 15px;
+        font-size: 48px;
+        font-weight: 700;
+    }
+
+    .lead {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+    .desc {
+        opacity: .9;
+    }
+
+    .register-right {
+        padding: 50px;
+        min-height: 750px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .register-right h2 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+    .custom-input {
+        height: 55px;
+        border-radius: 14px;
+        border: 1px solid #ddd;
+        transition: .3s;
+    }
+
+        .custom-input:focus {
+            border-color: #ff6b35;
+            box-shadow: 0 10px 25px rgba(255,107,53,.15);
+            transform: translateY(-2px);
+        }
+
+    .btn-register {
+        height: 55px;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient( 135deg, #ff9f43, #ff6b35 );
+        color: white;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+        .btn-register:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255,107,53,.35);
+        }
+
+    .login-link {
+        color: #ff6b35;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .login-link:hover {
+            color: #e85b21;
+        }
+
+    @@keyframes gradientMove {
+
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    @@keyframes floatFood {
+
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-12px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes cardShow {
+
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media(max-width:991px) {
+
+        .register-left {
+            min-height: 280px;
+        }
+
+        .food-icon {
+            font-size: 70px;
+        }
+
+        .register-left h1 {
+            font-size: 34px;
+        }
+
+        .register-right {
+            min-height: auto;
+            padding: 35px;
+        }
+    }
+    /* CARD APPEAR */
+
+    .register-card {
+        animation: cardShow .8s ease;
+    }
+
+    @@keyframes cardShow {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* ICON FLOAT */
+
+    .food-icon {
+        font-size: 90px;
+        animation: floatFood 3s ease-in-out infinite;
+    }
+
+    @@keyframes floatFood {
+        0%
+
+    {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+    }
+
+    /* TITLE ZOOM */
+
+    .register-right h2 {
+        animation: zoomIn .8s ease;
+    }
+
+    @@keyframes zoomIn {
+        from
+
+    {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    }
+
+    /* INPUT APPEAR */
+
+    .mb-3 {
+        opacity: 0;
+        animation: fadeUp .6s ease forwards;
+    }
+
+        .mb-3:nth-child(1) {
+            animation-delay: .15s;
+        }
+
+        .mb-3:nth-child(2) {
+            animation-delay: .3s;
+        }
+
+        .mb-3:nth-child(3) {
+            animation-delay: .45s;
+        }
+
+        .mb-3:nth-child(4) {
+            animation-delay: .6s;
+        }
+
+    @@keyframes fadeUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* INPUT FOCUS */
+
+    .custom-input {
+        transition: .3s;
+    }
+
+        .custom-input:focus {
+            transform: translateY(-3px);
+            border-color: #ff6b35;
+            box-shadow: 0 10px 25px rgba(255,107,53,.15);
+        }
+
+    /* BUTTON EFFECT */
+
+    .btn-register {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-register::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,.25);
+            transform: skewX(-20deg);
+            transition: .7s;
+        }
+
+        .btn-register:hover::before {
+            left: 120%;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,107,53,.35);
+        }
+
+    /* LEFT CONTENT */
+
+    .content h1 {
+        animation: fadeLeft .8s ease;
+    }
+
+    .content .lead {
+        animation: fadeLeft 1s ease;
+    }
+
+    .content .desc {
+        animation: fadeLeft 1.2s ease;
+    }
+
+    @@keyframes fadeLeft {
+        from
+
+    {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    }
+
+    /* REGISTER CARD HOVER */
+
+    .register-card {
+        transition: .4s;
+    }
+
+        .register-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0,0,0,.22);
+        }
+
+    .register-page::before {
+        content: "";
+        position: fixed;
+        top: -150px;
+        left: -150px;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.08);
+        animation: floatCircle 12s linear infinite;
+    }
+
+    .register-page::after {
+        content: "";
+        position: fixed;
+        bottom: -150px;
+        right: -150px;
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.08);
+        animation: floatCircleReverse 15s linear infinite;
+    }
+
+    @@keyframes floatCircle {
+        from
+
+    {
+        transform: rotate(0deg) translateX(30px);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(30px);
+    }
+
+    }
+
+    @@keyframes floatCircleReverse {
+        from
+
+    {
+        transform: rotate(360deg) translateX(40px);
+    }
+
+    to {
+        transform: rotate(0deg) translateX(40px);
+    }
+
+    }
+</style>
+
+

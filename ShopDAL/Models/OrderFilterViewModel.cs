@@ -11,9 +11,19 @@
         public string? Status {  get; set; }
         public string? Shortby {  get; set; }
         public string? ShotOrder { get; set; } = "asc";
+        public string? SortBy
+        {
+            get => Shortby;
+            set => Shortby = value;
+        }
+        public string? SortOrder
+        {
+            get => ShotOrder;
+            set => ShotOrder = value;
+        }
         public int Page { get; set; } = 1;
-        public int PageSize { get; set; } = 5;
-        public List<Order> Items { get; set; }
+        public int PageSize { get; set; } = 6;
+        public List<Order> Items { get; set; } = new();
 
     }
 }

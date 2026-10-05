@@ -1,0 +1,295 @@
+﻿@using Microsoft.Extensions.Localization
+@model ShopView.ViewModels.CustomerProfileViewModel
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["Profile"];
+}
+
+<div class="container-fluid px-4 py-4">
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger shadow-sm">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success shadow-sm">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <!-- PROFILE HEADER -->
+    <div class="profile-banner mb-4">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="avatar-circle">
+                        @Model.Username.Substring(0, 1).ToUpper()
+                    </div>
+
+                    <div class="ms-4">
+
+                        <h2 class="fw-bold text-white mb-2">
+                            @Model.Username
+                        </h2>
+
+                        <p class="text-white-50 mb-2">
+                            @Model.Email
+                        </p>
+
+                        <span class="badge bg-success px-3 py-2">
+                            @Localizer["Online"]
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+
+                <a asp-action="UpdateProfile"
+                   class="btn btn-light btn-lg px-4">
+                    <i class="bi bi-pencil-square"></i>
+                    @Localizer["EditProfile"]
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="row mb-4">
+
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <h6>@Localizer["TotalOrders"]</h6>
+                <h2>0</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <h6>@Localizer["Addresses"]</h6>
+                <h2>0</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <h6>@Localizer["AccountStatus"]</h6>
+                <h2 class="text-success">@Localizer["Active"]</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="row">
+
+        <!-- LEFT -->
+        <div class="col-lg-8 mb-4">
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-header bg-white border-0 py-3">
+                    <h4 class="fw-bold mb-0">
+                        @Localizer["PersonalInformation"]
+                    </h4>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="profile-row">
+                        <span>@Localizer["Username"]</span>
+                        <strong>@Model.Username</strong>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>@Localizer["Email"]</span>
+                        <strong>@Model.Email</strong>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>@Localizer["PhoneNumber"]</span>
+                        <strong>@Model.PhoneNumber</strong>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>@Localizer["DateOfBirth"]</span>
+                        <strong>@Model.DateorBirth.ToString("dd/MM/yyyy")</strong>
+                    </div>
+
+                    <div class="profile-row">
+                        <span>@Localizer["Role"]</span>
+
+                        <span class="badge bg-danger px-3 py-2">
+                            @Model.Role
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold mb-4">
+                        @Localizer["AccountOverview"]
+                    </h5>
+
+                    <div class="overview-item">
+                        <span>@Localizer["Status"]</span>
+                        <strong class="text-success">@Localizer["Active"]</strong>
+                    </div>
+
+                    <div class="overview-item">
+                        <span>@Localizer["MemberType"]</span>
+                        <strong>@Localizer["CustomerType"]</strong>
+                    </div>
+
+                    <div class="overview-item">
+                        <span>@Localizer["EmailVerified"]</span>
+                        <strong>@Localizer["Yes"]</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold mb-4">
+                        @Localizer["QuickActions"]
+                    </h5>
+
+                    <div class="d-grid gap-2">
+
+                        <a asp-action="UpdateProfile"
+                           class="btn btn-danger">
+                            @Localizer["EditProfile"]
+                        </a>
+
+                        <a asp-controller="Address"
+                           asp-action="Index"
+                           class="btn btn-outline-primary">
+                            @Localizer["MyAddresses"]
+                        </a>
+
+                        <a asp-controller="Account"
+                           asp-action="OrderHistory"
+                           class="btn btn-outline-success">
+                            @Localizer["OrderHistory"]
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+    body {
+        background: #f5f7fb;
+    }
+
+    .profile-banner {
+        background: linear-gradient(135deg,#ff9f43,#ff6b35);
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,.1);
+    }
+
+    .avatar-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: white;
+        color: #ff6b35;
+        font-size: 48px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        height: 100%;
+    }
+
+        .stat-card h6 {
+            color: #6c757d;
+        }
+
+    .profile-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-row span:first-child {
+            color: #6c757d;
+        }
+
+    .overview-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #eee;
+    }
+
+        .overview-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+    .btn {
+        transition: .3s;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+</style>
+

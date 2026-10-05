@@ -10,7 +10,7 @@
         public string? SortBy { get; set; } = "name";
         public string? SortOrder { get; set; } = "asc";
         public int page { get; set; } = 1;
-        public int pageSize { get; set; } = 5;
+        public int pageSize { get; set; } = 6;
         public List<FoodItem>? FoodItems { get; set; }
         public List<Category>? categories { get; set; }
     }

@@ -1,0 +1,1155 @@
+﻿@using System.Security.Claims
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ShopView.Infrastructure.ICartCountProvider CartCountProvider
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+@{
+    var layoutCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "vi" ? "vi" : "en";
+}
+<!DOCTYPE html>
+<html lang="@layoutCulture">
+<head>
+    <meta charset="utf-8">
+    <title>Fast Food - ShopQT</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Nunito:600,700" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+
+        :root {
+            --main-color: #ff6b35;
+            --main-dark: #e85a28;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            background:
+                linear-gradient(rgba(255, 247, 232, .72), rgba(255, 243, 221, .78)),
+                url('@Url.Content("~/img/85b97dee-8209-46e8-bac6-9911c69a55eb.png")') center top / cover no-repeat !important;
+            font-family: 'Nunito',sans-serif;
+        }
+
+        /* NAVBAR */
+
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            transition: .4s;
+            background: rgba(255,250,241,.94);
+            box-shadow: 0 8px 28px rgba(101, 67, 33, .08);
+        }
+
+        .nav-sticky {
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+        }
+
+        .navbar-brand {
+            font-size: 34px;
+            font-weight: 800;
+            color: #222 !important;
+        }
+
+            .navbar-brand span {
+                color: var(--main-color);
+            }
+
+        .nav-item {
+            margin-left: 8px;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            color: #444 !important;
+            position: relative;
+            transition: .3s;
+        }
+
+            .nav-link:hover {
+                color: var(--main-color) !important;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0;
+                height: 2px;
+                background: var(--main-color);
+                transition: .3s;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+            }
+
+            .nav-link.active {
+                color: var(--main-color) !important;
+            }
+
+        #navbar .container {
+            max-width: 1440px;
+        }
+
+        .navbar-nav {
+            gap: 8px;
+        }
+
+        .nav-action-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: 18px;
+        }
+
+        /* CART */
+
+        .nav-icon-btn {
+            position: relative;
+            width: 46px;
+            height: 46px;
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #111827 !important;
+            background: #fff;
+            box-shadow: 0 12px 28px rgba(17, 24, 39, .08);
+            border: 1px solid rgba(229, 231, 235, .9);
+            transition: .25s ease;
+        }
+
+            .nav-icon-btn:hover {
+                color: var(--main-color) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 16px 34px rgba(255, 107, 53, .15);
+                text-decoration: none;
+            }
+
+            .nav-icon-btn::after,
+            .customer-menu-toggle::after,
+            .language-toggle::after {
+                display: none !important;
+            }
+
+        .nav-count-badge {
+            position: absolute;
+            top: -6px;
+            right: -5px;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: #ff5a1f;
+            color: white;
+            font-size: 11px;
+            font-weight: 900;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 18px rgba(255, 90, 31, .28);
+        }
+
+        .nav-count-badge.cart-badge-pop {
+            animation: cartBadgePop .45s ease;
+        }
+
+        .cart-fly-image {
+            position: fixed;
+            z-index: 2000;
+            pointer-events: none;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 18px 34px rgba(15, 23, 42, .18);
+            transition: transform .85s cubic-bezier(.2,.8,.2,1), opacity .85s ease;
+            will-change: transform, opacity;
+        }
+
+        .cart-fly-toast {
+            position: fixed;
+            z-index: 2100;
+            right: 24px;
+            top: 92px;
+            padding: 14px 18px;
+            border-radius: 16px;
+            background: rgba(17, 24, 39, .94);
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 16px 36px rgba(17, 24, 39, .22);
+            transform: translateY(-12px);
+            opacity: 0;
+            transition: .25s ease;
+        }
+
+        .cart-fly-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @@keyframes cartBadgePop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.25);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* USER */
+
+        .user-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#ff9f43,#ff6b35);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .customer-menu-toggle {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px !important;
+            border-radius: 18px;
+            background: #fff4ed;
+            color: #111827 !important;
+            border: 1px solid rgba(255, 107, 53, .08);
+            box-shadow: 0 12px 26px rgba(17, 24, 39, .06);
+        }
+
+            .customer-menu-toggle:hover,
+            .customer-menu-toggle.active {
+                color: var(--main-color) !important;
+                background: #fff0e6;
+            }
+
+        .account-dropdown {
+            min-width: 270px;
+            padding: 16px 14px;
+            border: 1px solid rgba(229, 231, 235, .9);
+            border-radius: 20px;
+            box-shadow: 0 22px 60px rgba(15, 23, 42, .14);
+            margin-top: 10px;
+        }
+
+        .account-menu-title {
+            padding: 2px 10px 10px;
+            color: #9ca3af;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .account-menu-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 12px 10px;
+            border-radius: 13px;
+            color: #1f2937;
+            font-weight: 800;
+            transition: .22s ease;
+        }
+
+            .account-menu-link i {
+                width: 19px;
+                color: #6b7280;
+                text-align: center;
+            }
+
+            .account-menu-link:hover {
+                background: #fff4ed;
+                color: var(--main-color);
+                text-decoration: none;
+            }
+
+            .account-menu-link:hover i,
+            .account-menu-link.logout-link i {
+                color: var(--main-color);
+            }
+
+        .account-menu-divider {
+            height: 1px;
+            background: #eef0f3;
+            margin: 9px 10px;
+        }
+
+        .logout-link {
+            color: #ff3b30 !important;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0,0,0,.12);
+            padding: 10px;
+        }
+
+        .dropdown-item {
+            border-radius: 10px;
+            transition: .3s;
+        }
+
+            .dropdown-item:hover {
+                background: #fff3ee;
+                color: var(--main-color);
+            }
+
+        .language-toggle {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 12px !important;
+            border-radius: 16px;
+            background: #fff;
+            border: 1px solid rgba(229, 231, 235, .9);
+            box-shadow: 0 12px 26px rgba(17, 24, 39, .06);
+            color: #111827 !important;
+            font-weight: 800;
+        }
+
+        .language-flag {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,.10);
+        }
+
+        .language-code {
+            font-weight: 900;
+            letter-spacing: .02em;
+        }
+
+        .language-dropdown .dropdown-item {
+            font-weight: 700;
+            color: #333;
+        }
+
+            .language-dropdown .dropdown-item.active,
+            .language-dropdown .dropdown-item:active {
+                background: #fff3ee;
+                color: var(--main-color);
+            }
+
+        .language-menu {
+            min-width: 170px;
+            margin-top: 10px;
+        }
+
+        .nav-icon-btn.active {
+            color: var(--main-color) !important;
+            background: #fff4ed;
+        }
+
+        @@media (max-width: 991.98px) {
+            .nav-action-group {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                margin: 14px 0 0;
+            }
+
+            .customer-menu-toggle {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        /* CONTENT */
+
+        .main-content {
+            padding-top: 100px;
+            min-height: 75vh;
+            background: transparent;
+        }
+
+        .page-banner {
+            margin: 22px 0 18px;
+        }
+
+        .page-banner .container {
+            max-width: 1440px;
+        }
+
+        .page-banner-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 34px;
+            min-height: 380px;
+            background:
+                linear-gradient(90deg, rgba(8, 10, 16, .92) 0%, rgba(8, 10, 16, .78) 38%, rgba(8, 10, 16, .26) 100%),
+                var(--banner-bg) center center / cover no-repeat;
+            box-shadow: 0 28px 70px rgba(17, 24, 39, .20);
+            color: #fff;
+        }
+
+        .page-banner-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 14% 22%, rgba(255, 107, 53, .20), transparent 18%),
+                radial-gradient(circle at 88% 18%, rgba(255, 255, 255, .08), transparent 20%);
+            transform: scale(1.01);
+        }
+
+        .page-banner-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 18% 30%, rgba(255, 107, 53, .30), transparent 28%);
+            pointer-events: none;
+        }
+
+        .page-banner-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 34px;
+            min-height: 380px;
+            padding: 48px 54px;
+        }
+
+        .page-banner-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: .02em;
+            margin-bottom: 18px;
+        }
+
+        .page-banner-title {
+            margin: 0;
+            font-size: clamp(40px, 4.8vw, 72px);
+            line-height: 1.05;
+            font-weight: 900;
+            letter-spacing: -.05em;
+        }
+
+        .page-banner-subtitle {
+            margin: 14px 0 0;
+            max-width: 620px;
+            color: rgba(255, 255, 255, .78);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .page-banner-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .page-banner-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, .18);
+            color: #fff;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .page-banner-btn.primary {
+            border: none;
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            box-shadow: 0 14px 30px rgba(255, 107, 53, .28);
+        }
+
+        .page-banner-btn:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        @@media (max-width: 991.98px) {
+            .page-banner-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @@media (max-width: 767.98px) {
+            .page-banner {
+                margin-top: 16px;
+            }
+
+            .page-banner-inner {
+                padding: 28px;
+                min-height: 300px;
+            }
+
+            .page-banner-card {
+                min-height: 300px;
+            }
+        }
+
+        /* FOOTER */
+
+        .footer {
+            background: #111;
+            color: #fff;
+            padding: 70px 0 20px;
+            margin-top: 80px;
+        }
+
+            .footer h4 {
+                color: #fff;
+                margin-bottom: 20px;
+                font-weight: 700;
+            }
+
+            .footer p {
+                color: #ccc;
+            }
+
+            .footer a {
+                color: #ccc;
+                display: block;
+                margin-bottom: 8px;
+                transition: .3s;
+            }
+
+                .footer a:hover {
+                    color: var(--main-color);
+                    text-decoration: none;
+                    padding-left: 5px;
+                }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        /* FLOAT ANIMATION */
+
+        @@keyframes floatLogo {
+            0%
+
+        {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+
+        }
+
+        .logo-icon {
+            display: inline-block;
+            animation: floatLogo 2.5s infinite ease-in-out;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg,#ff9f43,#ff6b35);
+            color: white !important;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+            .btn-login:hover {
+                transform: translateY(-2px);
+                color: white !important;
+            }
+
+        .modal-content {
+            border-radius: 20px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+
+        .modal-dialog {
+            animation: zoomIn .25s ease;
+        }
+
+        @@keyframes zoomIn {
+            from
+
+        {
+            transform: scale(.8);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+
+        <div class="container">
+
+            <a href="@Url.Action("Index","Home")" class="navbar-brand">
+
+                <span class="logo-icon">🍔</span>
+
+                Fast <span>Food</span>
+
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarCollapse">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="navbarCollapse">
+
+                <div class="navbar-nav ml-auto align-items-center">
+
+                    <a href="@Url.Action("Index","Food")"
+                       class="nav-item nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Food" ? "active" : "")">
+
+                        @Localizer["Food"]
+
+                    </a>
+
+                    <a href="@Url.Action("Index","Combo")"
+                       class="nav-item nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Combo" ? "active" : "")">
+
+                        @Localizer["Combo"]
+
+                    </a>
+
+                    @{
+                        var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+                        var isAuthenticated = User.Identity?.IsAuthenticated == true;
+                        var canAjaxAddToCart = isAuthenticated && string.Equals(userRole, "customer", StringComparison.OrdinalIgnoreCase);
+                        var userName = User.Identity?.Name ?? "Customer";
+
+                        var isCustomerSection =
+                        (
+                            ViewContext.RouteData.Values["Controller"]?.ToString() == "Account"
+                            && new[] { "Profile", "MyAddresses", "OrderHistory", "ChangePassword" }
+                                .Contains(ViewContext.RouteData.Values["Action"]?.ToString() ?? "")
+                        )
+                        ||
+                        ViewContext.RouteData.Values["Controller"]?.ToString() == "Address"
+                        && ViewContext.RouteData.Values["Action"]?.ToString() == "Index"
+                        ||
+                        ViewContext.RouteData.Values["Controller"]?.ToString() == "Favorite";
+                    }
+
+                    @if (!isAuthenticated)
+                    {
+                        <a href="@Url.Action("Login","Account")"
+                           class="nav-item nav-link">
+
+                            @Localizer["Login"]
+
+                        </a>
+
+                        <a href="@Url.Action("Register","Account")"
+                           class="btn btn-login ml-2">
+
+                            @Localizer["Register"]
+
+                        </a>
+
+                        @await Html.PartialAsync("_LanguageDropdown")
+                    }
+                    else if (userRole == "customer")
+                    {
+                        var cartCount = await CartCountProvider.GetCartItemCountAsync();
+
+                        <div class="nav-action-group">
+                            <a href="@Url.Action("Index","Favorite")"
+                               class="nav-icon-btn @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Favorite" ? "active" : "")"
+                               title="@Localizer["Favorites"]">
+                                <i class="far fa-heart"></i>
+                            </a>
+
+                            <a href="@Url.Action("Index","Cart")"
+                               id="navCartButton"
+                               class="nav-icon-btn"
+                               title="@Localizer["Cart"]">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="nav-count-badge">@cartCount</span>
+                            </a>
+
+                            @await Html.PartialAsync("_LanguageDropdown")
+
+                            <div class="nav-item dropdown">
+                                <a href="#"
+                                   class="nav-link dropdown-toggle customer-menu-toggle @(isCustomerSection ? "active" : "")"
+                                   data-toggle="dropdown">
+                                    <span class="user-avatar">@userName.Substring(0, 1).ToUpper()</span>
+                                    <span>@userName</span>
+                                    <i class="fa fa-chevron-down small"></i>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right account-dropdown">
+                                    <div class="account-menu-title">@Localizer["MyAccount"]</div>
+
+                                    <a class="account-menu-link" href="@Url.Action("Profile","Account")">
+                                        <i class="far fa-user"></i>
+                                        <span>@Localizer["Profile"]</span>
+                                    </a>
+
+                                    <a class="account-menu-link" href="@Url.Action("Index","Address")">
+                                        <i class="fa fa-map-marker-alt"></i>
+                                        <span>@Localizer["MyAddresses"]</span>
+                                    </a>
+
+                                    <a class="account-menu-link" href="@Url.Action("OrderHistory","Account")">
+                                        <i class="fa fa-receipt"></i>
+                                        <span>@Localizer["Orders"]</span>
+                                    </a>
+
+                                    <a class="account-menu-link" href="@Url.Action("Index","Favorite")">
+                                        <i class="far fa-heart"></i>
+                                        <span>@Localizer["Favorites"]</span>
+                                    </a>
+
+                                    <div class="account-menu-divider"></div>
+
+                                    <a class="account-menu-link" href="@Url.Action("ChangePassword","Account")">
+                                        <i class="fa fa-lock"></i>
+                                        <span>@Localizer["ChangePassword"]</span>
+                                    </a>
+
+                                    <div class="account-menu-divider"></div>
+
+                                    <a class="account-menu-link logout-link"
+                                       href="#"
+                                       data-toggle="modal"
+                                       data-target="#logoutModal">
+                                        <i class="fa fa-sign-out-alt"></i>
+                                        <span>@Localizer["Logout"]</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (userRole == "admin")
+                    {
+                        <a href="@Url.Action("Logout","Account")"
+                           class="nav-item nav-link">
+
+                            @Localizer["Logout"]
+
+                        </a>
+
+                        @await Html.PartialAsync("_LanguageDropdown")
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        @{
+            var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+            var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+            var showFoodComboBanner = currentController == "Food" || currentController == "Combo";
+            var bannerTitle = currentController == "Combo" ? Localizer["ComboMenu"] : Localizer["FoodMenu"];
+            var bannerSubtitle = currentController == "Combo"
+                ? Localizer["ComboBannerSubtitle"]
+                : Localizer["FoodBannerSubtitle"];
+            var bannerImageUrl = Url.Content("~/img/08b9b2d8-f0db-4822-9dfc-d6bb659e63b3.png");
+            var bannerTarget = currentController == "Combo" ? "#combo-grid" : "#food-grid";
+        }
+
+        @if (showFoodComboBanner && currentAction == "Index")
+        {
+            <div class="page-banner">
+                <div class="container">
+                    <div class="page-banner-card" style="--banner-bg: url('@bannerImageUrl');">
+                        <div class="page-banner-inner">
+                            <div>
+                                <div class="page-banner-kicker">
+                                    <i class="fa fa-fire"></i>
+                                    Fast Food
+                                </div>
+
+                                <h1 class="page-banner-title">@bannerTitle</h1>
+
+                                <p class="page-banner-subtitle">@bannerSubtitle</p>
+
+                                <div class="page-banner-actions">
+                                    <a class="page-banner-btn primary" href="@Url.Action("Index", currentController)">
+                                        @Localizer["BrowseNow"] <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                    <a class="page-banner-btn" href="@bannerTarget">
+                                        @Localizer["ViewProducts"]
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @RenderBody()
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-4 mb-4">
+
+                    <h4>🍔 Fast Food</h4>
+
+                    <p>
+
+                        @Localizer["FooterDescription"]
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-2 mb-4">
+
+                    <h4>@Localizer["Menu"]</h4>
+
+                    <a href="@Url.Action("Index","Food")">@Localizer["Food"]</a>
+
+                    <a href="@Url.Action("Index","Combo")">@Localizer["Combo"]</a>
+
+                </div>
+
+                <div class="col-lg-3 mb-4">
+
+                    <h4>@Localizer["Customer"]</h4>
+
+                    <a href="@Url.Action("Profile","Account")">@Localizer["Profile"]</a>
+
+                    <a href="@Url.Action("OrderHistory","Account")">@Localizer["Orders"]</a>
+
+                    <a href="@Url.Action("Index","Address")">@Localizer["Addresses"]</a>
+
+                </div>
+
+                <div class="col-lg-3 mb-4">
+
+                    <h4>@Localizer["Contact"]</h4>
+
+                    <p>📍 Ha Noi, Vietnam</p>
+
+                    <p>📞 0977790375</p>
+
+                    <p>✉️ tuannqph51813@gmail.com</p>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                © @DateTime.Now.Year Fast Food. @Localizer["Copyright"]
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- JS -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/lib/easing/easing.min.js"></script>
+
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <script src="~/js/main.js"></script>
+
+    <script>
+
+        $(window).on('scroll', function () {
+
+            if ($(this).scrollTop() > 50) {
+
+                $('#navbar').addClass('nav-sticky');
+
+            }
+            else {
+
+                $('#navbar').removeClass('nav-sticky');
+
+            }
+
+        });
+
+        (function () {
+            const cartSelector = '#navCartButton';
+            const addSelector = 'a[href*="/Cart/AddFood"], a[href*="/Cart/AddCombo"]';
+            const canAjaxAddToCart = @(canAjaxAddToCart.ToString().ToLowerInvariant());
+
+            function getCartBadge() {
+                return document.querySelector(`${cartSelector} .nav-count-badge`);
+            }
+
+            function getCartButton() {
+                return document.querySelector(cartSelector);
+            }
+
+            function showToast(message) {
+                let toast = document.querySelector('.cart-fly-toast');
+                if (!toast) {
+                    toast = document.createElement('div');
+                    toast.className = 'cart-fly-toast';
+                    document.body.appendChild(toast);
+                }
+
+                toast.textContent = message;
+                toast.classList.add('show');
+                clearTimeout(window.__cartToastTimer);
+                window.__cartToastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+            }
+
+            function animateFly(sourceImage) {
+                const cartButton = getCartButton();
+                if (!sourceImage || !cartButton) {
+                    return;
+                }
+
+                const sourceRect = sourceImage.getBoundingClientRect();
+                const cartRect = cartButton.getBoundingClientRect();
+                const fly = sourceImage.cloneNode(true);
+
+                fly.classList.add('cart-fly-image');
+                fly.style.left = `${sourceRect.left}px`;
+                fly.style.top = `${sourceRect.top}px`;
+                fly.style.width = `${sourceRect.width}px`;
+                fly.style.height = `${sourceRect.height}px`;
+                fly.style.transform = 'translate3d(0, 0, 0) scale(1)';
+                fly.style.opacity = '1';
+
+                document.body.appendChild(fly);
+
+                requestAnimationFrame(() => {
+                    const targetLeft = cartRect.left + cartRect.width / 2 - sourceRect.width * 0.18;
+                    const targetTop = cartRect.top + cartRect.height / 2 - sourceRect.height * 0.18;
+                    fly.style.transform = `translate3d(${targetLeft - sourceRect.left}px, ${targetTop - sourceRect.top}px, 0) scale(.18)`;
+                    fly.style.opacity = '0.15';
+                });
+
+                fly.addEventListener('transitionend', () => fly.remove(), { once: true });
+                setTimeout(() => fly.remove(), 1000);
+            }
+
+            async function handleAddToCart(event) {
+                if (!canAjaxAddToCart) {
+                    return;
+                }
+
+                const link = event.target.closest(addSelector);
+                if (!link) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                if (link.dataset.loading === '1') {
+                    return;
+                }
+
+                link.dataset.loading = '1';
+                link.style.pointerEvents = 'none';
+
+                try {
+                    const sourceCard = link.closest('.product-card, .hero-slide, .side-card, .combo-row, .combo-card, .feature-image, .day-grid, .combo-item');
+                    const sourceImage = sourceCard ? sourceCard.querySelector('img') : null;
+
+                    const response = await fetch(link.href, {
+                        method: 'GET',
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    const payload = await response.json().catch(() => null);
+
+                    if (!response.ok || !payload || payload.success !== true) {
+                        showToast(payload?.message || 'Add to cart failed.');
+                        return;
+                    }
+
+                    animateFly(sourceImage);
+
+                    const badge = getCartBadge();
+                    if (badge) {
+                        const current = parseInt(badge.textContent || '0', 10) || 0;
+                        const increment = parseInt(payload.quantity || '1', 10) || 1;
+                        badge.textContent = current + increment;
+                        badge.classList.remove('cart-badge-pop');
+                        void badge.offsetWidth;
+                        badge.classList.add('cart-badge-pop');
+                    }
+
+                    showToast(payload.message || 'Added to cart.');
+                }
+                catch (error) {
+                    showToast(error?.message || 'Add to cart failed.');
+                }
+                finally {
+                    link.dataset.loading = '0';
+                    link.style.pointerEvents = '';
+                }
+            }
+
+            document.addEventListener('click', handleAddToCart, true);
+        })();
+
+    </script>
+    <div class="modal fade"
+         id="logoutModal"
+         tabindex="-1">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content border-0 shadow">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        @Localizer["LogoutConfirmation"]
+                    </h5>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <h1>🚪</h1>
+
+                    <p>
+                        @Localizer["LogoutQuestion"]
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal">
+                        @Localizer["Cancel"]
+                    </button>
+
+                    <a href="@Url.Action("Logout","Account")"
+                       class="btn btn-danger">
+
+                        @Localizer["Logout"]
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+
+
+
+
+

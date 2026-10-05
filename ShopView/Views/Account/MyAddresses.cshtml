@@ -1,0 +1,18 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<ShopView.SharedResource> Localizer
+
+@{
+    Layout = "_MyLayout";
+    ViewData["Title"] = Localizer["MyAddresses"];
+}
+
+<div class="container py-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-3">@Localizer["MyAddresses"]</h2>
+            <p class="text-muted mb-0">@Localizer["AddressManagementNotWired"]</p>
+        </div>
+    </div>
+</div>
+
+

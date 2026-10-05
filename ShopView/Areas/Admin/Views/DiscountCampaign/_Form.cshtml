@@ -1,0 +1,125 @@
+@using ShopDAL.Models
+@using ShopView.Areas.Admin.Models
+@model DiscountCampaignFormViewModel
+
+@{
+    var submitText = ViewBag.SubmitText as string ?? "Save Campaign";
+}
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="discount-card">
+            <div class="card-heading">
+                <h5>Campaign information</h5>
+                <span>Define the discount name, value and campaign period.</span>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="form-label">Campaign name</label>
+                    <input asp-for="CampaignName" class="form-control admin-input" placeholder="Summer sale, Weekend deal..." required />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Status</label>
+                    <div class="status-toggle">
+                        <input type="hidden" name="IsActive" value="false" />
+                        <input asp-for="IsActive" class="form-check-input" value="true" />
+                        <span>Active campaign</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control admin-input" rows="4" placeholder="Short note for this campaign"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Discount type</label>
+                    <select asp-for="DiscountType" asp-items="Html.GetEnumSelectList<DiscountType>()" class="form-select admin-input"></select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Discount value</label>
+                    <input asp-for="DiscountValue" type="number" step="0.01" min="0" class="form-control admin-input" placeholder="10" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Start date</label>
+                    <input asp-for="StartDate" type="datetime-local" class="form-control admin-input" value="@Model.StartDate.ToString("yyyy-MM-ddTHH:mm")" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">End date</label>
+                    <input asp-for="EndDate" type="datetime-local" class="form-control admin-input" value="@Model.EndDate.ToString("yyyy-MM-ddTHH:mm")" required />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="discount-card sticky-summary">
+            <div class="card-heading">
+                <h5>Quick guide</h5>
+                <span>Choose where this campaign applies.</span>
+            </div>
+            <div class="guide-list">
+                <div><i class="bx bx-check-circle"></i> Percent must be from 1 to 100.</div>
+                <div><i class="bx bx-check-circle"></i> Fixed amount uses your product currency.</div>
+                <div><i class="bx bx-check-circle"></i> Select at least one food or combo.</div>
+            </div>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary action-primary">
+                    <i class="bx bx-save"></i> @submitText
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary action-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-1">
+    <div class="col-lg-6">
+        <div class="discount-card">
+            <div class="card-heading">
+                <h5>Apply to foods</h5>
+                <span>@Model.AvailableFoods.Count available items</span>
+            </div>
+            <div class="select-grid">
+                @foreach (var food in Model.AvailableFoods)
+                {
+                    <label class="select-item">
+                        <input type="checkbox" name="FoodItemIds" value="@food.FoodItemId" checked="@Model.FoodItemIds.Contains(food.FoodItemId)" />
+                        <span>
+                            <strong>@food.Name</strong>
+                            <small>@food.Price.ToString("N0") đ</small>
+                        </span>
+                    </label>
+                }
+                @if (!Model.AvailableFoods.Any())
+                {
+                    <div class="empty-note">No active food found.</div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="discount-card">
+            <div class="card-heading">
+                <h5>Apply to combos</h5>
+                <span>@Model.AvailableCombos.Count available combos</span>
+            </div>
+            <div class="select-grid">
+                @foreach (var combo in Model.AvailableCombos)
+                {
+                    <label class="select-item">
+                        <input type="checkbox" name="ComboIds" value="@combo.ComboId" checked="@Model.ComboIds.Contains(combo.ComboId)" />
+                        <span>
+                            <strong>@combo.Name</strong>
+                            <small>@combo.Price.ToString("N0") đ</small>
+                        </span>
+                    </label>
+                }
+                @if (!Model.AvailableCombos.Any())
+                {
+                    <div class="empty-note">No active combo found.</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

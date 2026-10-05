@@ -1,0 +1,566 @@
+@using System.Globalization
+@model ShopView.Areas.Admin.ViewModel.AdminOrderIndexViewModel
+
+@{
+    ViewData["Title"] = "Order Management";
+    var vi = new CultureInfo("vi-VN");
+    var currentReturnUrl = $"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}";
+}
+
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    .order-page-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 28px;
+    }
+
+    .order-page-title h2 {
+        margin: 0;
+        color: #111827;
+        font-weight: 800;
+    }
+
+    .order-card {
+        background: #fff;
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+    }
+
+    .filter-card {
+        padding: 26px;
+        margin-bottom: 28px;
+    }
+
+    .filter-title {
+        color: #111827;
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 22px;
+    }
+
+    .form-label {
+        color: #6b7280;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: .04em;
+    }
+
+    .form-control,
+    .form-select {
+        height: 52px;
+        border-radius: 15px;
+        border: 1px solid #e5e7eb;
+        box-shadow: none !important;
+        font-weight: 600;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #696cff;
+    }
+
+    .btn-filter {
+        background: linear-gradient(135deg, #696cff, #5f61e6);
+        border: none;
+        border-radius: 14px;
+        padding: 13px 28px;
+        color: #fff;
+        font-weight: 800;
+    }
+
+    .btn-reset {
+        border-radius: 14px;
+        padding: 13px 28px;
+        font-weight: 800;
+    }
+
+    .table-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 25px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .table-header h4 {
+        margin: 0;
+        color: #111827;
+        font-weight: 800;
+    }
+
+    .modern-table {
+        margin: 0;
+    }
+
+    .modern-table thead {
+        background: #f9fafb;
+    }
+
+    .modern-table th {
+        padding: 18px;
+        border: none;
+        color: #6b7280;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+
+    .modern-table td {
+        padding: 18px;
+        vertical-align: middle;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .order-id {
+        color: #111827;
+        font-weight: 900;
+    }
+
+    .customer-block strong,
+    .customer-block span {
+        display: block;
+    }
+
+    .customer-block strong {
+        color: #111827;
+        font-weight: 800;
+    }
+
+    .customer-block span {
+        color: #8b98aa;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .money {
+        color: #10b981;
+        font-weight: 900;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+    .status-pending {
+        color: #b45309;
+        background: #fef3c7;
+    }
+
+    .status-confirmed {
+        color: #4f46e5;
+        background: #e0e7ff;
+    }
+
+    .status-shipping {
+        color: #2563eb;
+        background: #dbeafe;
+    }
+
+    .status-completed {
+        color: #059669;
+        background: #d1fae5;
+    }
+
+    .status-cancelled {
+        color: #dc2626;
+        background: #fee2e2;
+    }
+
+    .payment-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: #f3f4f6;
+        color: #4b5563;
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .dropdown-menu {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+        padding: 10px;
+    }
+
+    .dropdown-item {
+        border-radius: 10px;
+        padding: 10px 14px;
+        transition: .2s;
+        font-weight: 700;
+    }
+
+    .dropdown-item:hover {
+        background: #f3f4f6;
+    }
+
+    .cancel-dropdown-form {
+        padding: 10px 14px;
+        min-width: 280px;
+    }
+
+    .cancel-dropdown-form label {
+        color: #111827;
+        font-size: 12px;
+        font-weight: 900;
+        margin-bottom: 7px;
+    }
+
+    .cancel-dropdown-form textarea {
+        width: 100%;
+        min-height: 76px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 10px;
+        font-weight: 700;
+        resize: vertical;
+    }
+
+    .cancel-dropdown-form button {
+        width: 100%;
+        margin-top: 8px;
+        border: 0;
+        border-radius: 12px;
+        padding: 10px;
+        color: white;
+        background: #dc2626;
+        font-weight: 900;
+    }
+
+    .pagination {
+        margin-top: 30px;
+    }
+
+    .page-link {
+        border: none;
+        margin: 0 5px;
+        border-radius: 12px !important;
+        color: #111827;
+        padding: 12px 18px;
+        font-weight: 700;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .05);
+    }
+
+    .page-item.active .page-link {
+        background: linear-gradient(135deg, #696cff, #5f61e6);
+        color: #fff;
+    }
+
+    .alert {
+        border: none;
+        border-radius: 16px;
+        padding: 18px;
+        font-weight: 700;
+    }
+
+    @@media(max-width: 992px) {
+        .order-page-title {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modern-table {
+            min-width: 1050px;
+        }
+    }
+</style>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="order-page-title">
+        <div>
+            <h2>Order Management</h2>
+            <p class="text-muted mb-0">Track customer orders and process delivery statuses.</p>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success shadow-sm">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger shadow-sm">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="order-card filter-card">
+        <div class="filter-title">
+            <i class="bx bx-filter-alt"></i>
+            Filter Orders
+        </div>
+
+        <form method="get" asp-area="Admin" asp-controller="Order" asp-action="Index">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">Order ID</label>
+                    <input type="number"
+                           name="orderId"
+                           class="form-control"
+                           placeholder="Example: 1024"
+                           value="@Model.Filter.OrderId" />
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="">All Statuses</option>
+                        @foreach (var status in Model.StatusOptions)
+                        {
+                            <option value="@status" selected="@(Model.Filter.Status == status)">
+                                @status
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">From Date</label>
+                    <input type="date"
+                           name="fromDate"
+                           class="form-control"
+                           value="@Model.Filter.FromDate?.ToString("yyyy-MM-dd")" />
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">To Date</label>
+                    <input type="date"
+                           name="toDate"
+                           class="form-control"
+                           value="@Model.Filter.ToDate?.ToString("yyyy-MM-dd")" />
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">Min Total</label>
+                    <input type="number"
+                           name="minPrice"
+                           class="form-control"
+                           placeholder="0"
+                           value="@Model.Filter.MinPrice" />
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">Max Total</label>
+                    <input type="number"
+                           name="maxPrice"
+                           class="form-control"
+                           placeholder="1000000"
+                           value="@Model.Filter.MaxPrice" />
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">Sort By</label>
+                    <select name="sortBy" class="form-select">
+                        <option value="">Default</option>
+                        <option value="OrderId" selected="@(Model.Filter.SortBy == "OrderId")">Order ID</option>
+                        <option value="OrderTime" selected="@(Model.Filter.SortBy == "OrderTime")">Date</option>
+                        <option value="TotalAmount" selected="@(Model.Filter.SortBy == "TotalAmount")">Total</option>
+                        <option value="Status" selected="@(Model.Filter.SortBy == "Status")">Status</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <label class="form-label">Sort Order</label>
+                    <select name="sortOrder" class="form-select">
+                        <option value="desc" selected="@(Model.Filter.SortOrder == "desc" || string.IsNullOrWhiteSpace(Model.Filter.SortOrder))">Descending</option>
+                        <option value="asc" selected="@(Model.Filter.SortOrder == "asc")">Ascending</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-filter me-2">
+                    <i class="bx bx-search"></i>
+                    Apply Filters
+                </button>
+                <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-outline-secondary btn-reset">
+                    Reset
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div class="order-card">
+        <div class="table-header">
+            <h4>Order List</h4>
+            <span class="text-muted fw-semibold">@Model.PagedResult.TotalItems orders found</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table modern-table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Payment</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.PagedResult.Data.Any())
+                    {
+                        @foreach (var order in Model.PagedResult.Data)
+                        {
+                            <tr>
+                                <td class="order-id">#@order.OrderId</td>
+                                <td>
+                                    <div class="customer-block">
+                                        <strong>@order.Username</strong>
+                                        <span>@order.ReceiverName · @order.ReceiverPhone</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong>@order.OrderTime.ToString("dd/MM/yyyy")</strong>
+                                    <div class="text-muted small">@order.OrderTime.ToString("HH:mm")</div>
+                                </td>
+                                <td>
+                                    <span class="status-badge @GetStatusClass(order.Status)">
+                                        <i class="bx bx-radio-circle-marked"></i>
+                                        @order.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="payment-pill">@order.PaymentMethod</span>
+                                    <div class="text-muted small mt-1">@(order.IsPaid ? "Paid" : "Unpaid")</div>
+                                </td>
+                                <td>@order.Items.Count</td>
+                                <td class="money">@order.TotalAmount.ToString("N0", vi) ₫</td>
+                                <td class="text-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light rounded-pill" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Order"
+                                               asp-action="Details"
+                                               asp-route-id="@order.OrderId">
+                                                <i class="bx bx-show me-2"></i>
+                                                View Details
+                                            </a>
+
+                                            @if (order.CanMoveNext)
+                                            {
+                                                <form asp-area="Admin"
+                                                      asp-controller="Order"
+                                                      asp-action="NextStatus"
+                                                      method="post"
+                                                      data-confirm="@order.NextStatusText?">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@order.OrderId" />
+                                                    <input type="hidden" name="returnUrl" value="@currentReturnUrl" />
+                                                    <button type="submit" class="dropdown-item text-primary">
+                                                        <i class="bx bx-fast-forward-circle me-2"></i>
+                                                        @order.NextStatusText
+                                                    </button>
+                                                </form>
+                                            }
+
+                                            @if (order.CanCancel)
+                                            {
+                                                <form asp-area="Admin"
+                                                      asp-controller="Order"
+                                                      asp-action="Cancel"
+                                                      method="post"
+                                                      class="cancel-dropdown-form">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@order.OrderId" />
+                                                    <input type="hidden" name="returnUrl" value="@currentReturnUrl" />
+                                                    <label>Cancel reason</label>
+                                                    <textarea name="cancelReason"
+                                                              required
+                                                              placeholder="Enter reason for cancelling this order"></textarea>
+                                                    <button type="submit">
+                                                        <i class="bx bx-x-circle me-2"></i>
+                                                        Cancel Order
+                                                    </button>
+                                                </form>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                No orders found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (Model.PagedResult.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination justify-content-center">
+                @for (var pageNumber = 1; pageNumber <= Model.PagedResult.TotalPages; pageNumber++)
+                {
+                    <li class="page-item @(Model.PagedResult.CurrentPage == pageNumber ? "active" : "")">
+                        <a class="page-link"
+                           href="@Url.Action("Index", "Order", new
+                           {
+                               area = "Admin",
+                               page = pageNumber,
+                               pageSize = Model.Filter.PageSize,
+                               orderId = Model.Filter.OrderId,
+                               minPrice = Model.Filter.MinPrice,
+                               maxPrice = Model.Filter.MaxPrice,
+                               fromDate = Model.Filter.FromDate?.ToString("yyyy-MM-dd"),
+                               toDate = Model.Filter.ToDate?.ToString("yyyy-MM-dd"),
+                               status = Model.Filter.Status,
+                               sortBy = Model.Filter.SortBy,
+                               sortOrder = Model.Filter.SortOrder
+                           })">
+                            @pageNumber
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>
+
+@functions {
+    private static string GetStatusClass(string status)
+    {
+        return status.ToLowerInvariant() switch
+        {
+            "pending" => "status-pending",
+            "confirmed" => "status-confirmed",
+            "shipping" => "status-shipping",
+            "completed" => "status-completed",
+            "cancelled" => "status-cancelled",
+            _ => "status-pending"
+        };
+    }
+}

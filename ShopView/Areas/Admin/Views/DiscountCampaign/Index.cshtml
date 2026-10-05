@@ -1,0 +1,198 @@
+@using ShopDAL.Models
+@using ShopView.Areas.Admin.Models
+@model DiscountCampaignIndexViewModel
+
+@functions {
+    private static string FormatDiscount(DiscountCampaignDto campaign)
+    {
+        return campaign.DiscountType == DiscountType.Percent
+            ? $"{campaign.DiscountValue:N0}%"
+            : $"{campaign.DiscountValue:N0} đ";
+    }
+}
+
+<style>
+    body { background: #f5f7ff; }
+    .discount-page { max-width: 1600px; margin: auto; }
+    .page-header { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .page-title { font-size: 38px; font-weight: 900; color: #111827; margin: 0; }
+    .page-subtitle { color: #6b7280; margin-top: 6px; }
+    .btn-create { background: linear-gradient(135deg,#ff7a18,#ff4d2e); color: #fff !important; border-radius: 18px; padding: 14px 24px; font-weight: 900; box-shadow: 0 12px 26px rgba(255,106,26,.24); }
+    .modern-card { background: #fff; border-radius: 28px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,.06); border: 1px solid #eef2f7; }
+    .form-control, .form-select { min-height: 52px; border-radius: 16px; border: 1px solid #e5e7eb; box-shadow: none !important; }
+    .btn-filter, .btn-reset { border-radius: 16px; padding: 13px 22px; font-weight: 800; }
+    .btn-filter { background: #111827; color: #fff; }
+    .table-card { background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.06); border: 1px solid #eef2f7; }
+    .table-header { padding: 26px 30px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+    .table-header h4 { margin: 0; font-weight: 900; color: #111827; }
+    .discount-table { margin: 0; min-width: 1050px; }
+    .discount-table th { padding: 18px 22px; background: #f8fafc; border: none; color: #64748b; font-size: 12px; font-weight: 900; text-transform: uppercase; }
+    .discount-table td { padding: 22px; vertical-align: middle; border-top: 1px solid #f1f5f9; }
+    .campaign-name { font-weight: 900; color: #111827; font-size: 17px; }
+    .campaign-desc { color: #6b7280; max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .discount-value { color: #ff5a1f; font-size: 20px; font-weight: 900; }
+    .pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 8px 13px; font-size: 12px; font-weight: 900; }
+    .pill-active { background: rgba(16,185,129,.12); color: #10b981; }
+    .pill-inactive { background: rgba(239,68,68,.12); color: #ef4444; }
+    .target-list { display: flex; flex-wrap: wrap; gap: 7px; max-width: 360px; }
+    .target-chip { background: #f3f4f6; color: #374151; border-radius: 999px; padding: 7px 11px; font-size: 12px; font-weight: 800; }
+    .action-btn { width: 40px; height: 40px; border-radius: 13px; display: inline-flex; align-items: center; justify-content: center; border: none; }
+    .pagination .page-link { border: none; margin: 0 4px; border-radius: 12px !important; color: #111827; padding: 10px 15px; font-weight: 800; box-shadow: 0 6px 14px rgba(0,0,0,.05); }
+    .pagination .active .page-link { background: #ff6b1a; color: #fff; }
+</style>
+
+<div class="container-xxl py-4 discount-page">
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Discount Campaigns</h2>
+            <p class="page-subtitle">Manage sale campaigns for foods and combos.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-create">
+            <i class="bx bx-plus"></i> Create Campaign
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success rounded-4">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger rounded-4">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="modern-card mb-4">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label fw-bold">Search</label>
+                <input name="keyword" value="@Model.Filter.Keyword" class="form-control" placeholder="Campaign name..." />
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label fw-bold">Status</label>
+                <select name="isActive" class="form-select">
+                    <option value="">All</option>
+                    <option value="true" selected="@(Model.Filter.IsActive == true)">Active</option>
+                    <option value="false" selected="@(Model.Filter.IsActive == false)">Inactive</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label fw-bold">Sort by</label>
+                <select name="sortBy" class="form-select">
+                    <option value="">Name</option>
+                    <option value="startDate" selected="@(Model.Filter.SortBy == "startDate")">Start date</option>
+                    <option value="endDate" selected="@(Model.Filter.SortBy == "endDate")">End date</option>
+                    <option value="discountValue" selected="@(Model.Filter.SortBy == "discountValue")">Discount</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="form-label fw-bold">Order</label>
+                <select name="sortOrder" class="form-select">
+                    <option value="asc" selected="@(Model.Filter.SortOrder != "desc")">Ascending</option>
+                    <option value="desc" selected="@(Model.Filter.SortOrder == "desc")">Descending</option>
+                </select>
+            </div>
+            <div class="col-lg-3 d-flex gap-2">
+                <button class="btn btn-filter" type="submit"><i class="bx bx-filter"></i> Apply</button>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-reset">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-card">
+        <div class="table-header">
+            <h4>Campaign list</h4>
+            <span class="text-muted fw-bold">@Model.Campaigns.Count item(s)</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table discount-table">
+                <thead>
+                    <tr>
+                        <th>Campaign</th>
+                        <th>Discount</th>
+                        <th>Duration</th>
+                        <th>Applied to</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var campaign in Model.Campaigns)
+                    {
+                        <tr>
+                            <td>
+                                <div class="campaign-name">@campaign.CampaignName</div>
+                                <div class="campaign-desc">@campaign.Description</div>
+                            </td>
+                            <td>
+                                <div class="discount-value">@FormatDiscount(campaign)</div>
+                                <small class="text-muted">@campaign.DiscountType</small>
+                            </td>
+                            <td>
+                                <div class="fw-bold">@campaign.StartDate.ToString("dd/MM/yyyy")</div>
+                                <small class="text-muted">to @campaign.EndDate.ToString("dd/MM/yyyy")</small>
+                            </td>
+                            <td>
+                                <div class="target-list">
+                                    @foreach (var product in campaign.Products.Take(3))
+                                    {
+                                        <span class="target-chip">@product.FoodName</span>
+                                    }
+                                    @foreach (var combo in campaign.Combos.Take(3))
+                                    {
+                                        <span class="target-chip">@combo.ComboName</span>
+                                    }
+                                    @if ((campaign.Products.Count + campaign.Combos.Count) > 6)
+                                    {
+                                        <span class="target-chip">+@((campaign.Products.Count + campaign.Combos.Count) - 6)</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <span class="pill @(campaign.IsActive ? "pill-active" : "pill-inactive")">
+                                    @(campaign.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <a asp-action="Edit" asp-route-id="@campaign.DiscountCampaignId" class="btn btn-warning action-btn" title="Edit">
+                                    <i class="bx bx-edit"></i>
+                                </a>
+                                @if (campaign.IsActive)
+                                {
+                                    <form asp-action="Deactivate" asp-route-id="@campaign.DiscountCampaignId" method="post" class="d-inline">
+                                        <button class="btn btn-danger action-btn" title="Deactivate" type="submit"><i class="bx bx-power-off"></i></button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-action="Activate" asp-route-id="@campaign.DiscountCampaignId" method="post" class="d-inline">
+                                        <button class="btn btn-success action-btn" title="Activate" type="submit"><i class="bx bx-check"></i></button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Campaigns.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-5 fw-bold">No discount campaign found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-keyword="@Model.Filter.Keyword" asp-route-isActive="@Model.Filter.IsActive" asp-route-sortBy="@Model.Filter.SortBy" asp-route-sortOrder="@Model.Filter.SortOrder">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>

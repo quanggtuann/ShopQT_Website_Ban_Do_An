@@ -1,4 +1,5 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@using System.Security.Claims
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -61,8 +62,8 @@
 
 <body>
     @{
-        var username = HttpContextAccessor.HttpContext?.Session.GetString("Username");
-        var userid = HttpContextAccessor.HttpContext?.Session.GetString("UserID");
+        var username = User.Identity?.Name;
+        var userid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
 
     <!-- Layout wrapper -->
@@ -156,6 +157,12 @@
                         <a href="/Admin/Combo/Index" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-collection"></i>
                             <div data-i18n="Basic">Combos</div>
+                        </a>
+                    </li>
+                    <li class="menu-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "DiscountCampaign" ? "active" : "")">
+                        <a href="/Admin/DiscountCampaign/Index" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-purchase-tag"></i>
+                            <div data-i18n="Basic">Discounts</div>
                         </a>
                     </li>
                     <li class="menu-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Order" ? "active" : "")">

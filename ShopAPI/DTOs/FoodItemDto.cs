@@ -1,0 +1,37 @@
+namespace ShopAPI.DTOs
+{
+    public class FoodItemDto
+    {
+        public int FoodItemId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public decimal OriginalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
+        public bool HasDiscount { get; set; }
+        public string? DiscountCampaignName { get; set; }
+        public string? DiscountType { get; set; }
+        public decimal? DiscountValue { get; set; }
+        public bool IsAvailable { get; set; }
+        public DateTime CreateDate { get; set; }
+        public string ImagePath { get; set; }
+        public int CategoryId { get; set; }
+        public CategoryDto Category { get; set; }
+    }
+
+    public class CategoryDto
+    {
+        public int CategoryId { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+    }
+    public class CreateCategoryRequest
+    {
+        public string Name { get; set; }
+    }
+
+    public class UpdateCategoryRequest
+    {
+        public string Name { get; set; }
+    }
+}
