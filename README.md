@@ -5,36 +5,39 @@
 [![Entity Framework](https://img.shields.io/badge/EF%20Core-8.0-6D4C41)](https://docs.microsoft.com/ef/)
 [![SQL Server](https://img.shields.io/badge/SQL%20Server-2019+-CC2927)](https://www.microsoft.com/sql-server)
 
-> **Full-stack e-commerce application** xây dựng với **.NET 8**, áp dụng **3-layer architecture**, **RESTful API**, và **Repository Pattern**.
-
-## 🚀 Quick Summary
-
-| | |
-|:---|:---|
-| **Chức năng** | Đặt món ăn online với giỏ hàng, quản lý đơn hàng, phân quyền Admin/Customer |
-| **Kiến trúc** | 3-Layer: Presentation (MVC) → API → Data Access |
-| **Công nghệ** | .NET 8, ASP.NET Core Web API + MVC, EF Core, SQL Server |
-| **Patterns** | Repository, Dependency Injection, DTO, SOLID |
+> Full-stack e-commerce food ordering application built with .NET 8, following 3-Layer Architecture, RESTful API principles, and Repository Pattern.
 
 ---
 
-## 📐 System Architecture
+# 🚀 Quick Summary
 
-```
+|                  |                                                                             |
+| :--------------- | :-------------------------------------------------------------------------- |
+| **Features**     | Online food ordering, shopping cart, order management, Admin/Customer roles |
+| **Architecture** | 3-Layer: MVC Presentation → Web API → Data Access                           |
+| **Tech Stack**   | .NET 8, ASP.NET Core MVC & Web API, EF Core, SQL Server                     |
+| **Patterns**     | Repository, Dependency Injection, DTO, SOLID                                |
+
+---
+
+# 📐 System Architecture
+
+```text
 ┌─────────────────────────────────────────────────────────┐
 │  PRESENTATION LAYER (ShopView - ASP.NET Core MVC)       │
 │  • Razor Views + Bootstrap UI                           │
-│  • HttpClient gọi API                                     │
-│  • Session Authentication                                 │
-│  • Areas: /Admin & /Customer                              │
+│  • HttpClient communication with API                    │
+│  • Session Authentication                               │
+│  • Areas: /Admin & /Customer                            │
 └─────────────────────────┬───────────────────────────────┘
                           │ HTTP/REST + JSON
 ┌─────────────────────────▼───────────────────────────────┐
 │  API LAYER (ShopAPI - ASP.NET Core Web API)             │
-│  • RESTful Controllers                                    │
-│  • Business Services (mới thêm)                         │
-│  • Swagger Documentation                                  │
-│  • CORS, Static Files (hình ảnh)                        │
+│  • RESTful Controllers                                  │
+│  • Business Services                                    │
+│  • DTO Mapping                                          │
+│  • Swagger Documentation                                │
+│  • CORS + Static File Handling                          │
 └─────────────────────────┬───────────────────────────────┘
                           │
 ┌─────────────────────────▼───────────────────────────────┐
@@ -47,151 +50,207 @@
 
 ---
 
-## ✨ Key Features
+# ✨ Key Features
 
-### 👨‍💼 Admin Portal (`/Admin`)
-| Feature | Mô tả kỹ thuật |
-|---------|---------------|
-| **Food Management** | CRUD, upload ảnh, phân loại, filter/sort/pagination |
-| **Combo Management** | Tạo combo từ nhiều món, tính giá tự động |
-| **Order Management** | Xem đơn hàng, cập nhật trạng thái |
-| **User Management** | CRUD user, phân quyền, activate/deactivate |
+## 👨‍💼 Admin Portal (`/Admin`)
 
-### 🛒 Customer Portal
-| Feature | Mô tả kỹ thuật |
-|---------|---------------|
-| **Menu Browsing** | Tìm kiếm, filter theo giá/danh mục, sort, pagination |
-| **Shopping Cart** | Thêm/xóa/sửa số lượng, tính tổng tiền real-time |
-| **Order Placement** | Tạo đơn từ giỏ hàng, lịch sử đơn hàng |
-| **Authentication** | Đăng ký/đăng nhập, session-based auth |
+| Feature              | Technical Description                                         |
+| -------------------- | ------------------------------------------------------------- |
+| **Food Management**  | CRUD operations, image upload, filtering, sorting, pagination |
+| **Combo Management** | Create combo meals from multiple food items                   |
+| **Order Management** | View and update order statuses                                |
+| **User Management**  | CRUD users, role management, activate/deactivate accounts     |
 
 ---
 
-## 🛠️ Technology Stack
+## 🛒 Customer Portal
 
-### Backend
-- **.NET 8** + **C# 12**
-- **ASP.NET Core Web API** - RESTful endpoints
-- **ASP.NET Core MVC** - Server-side rendering
-- **Entity Framework Core 8** - ORM, Code-First
-- **SQL Server** - Relational database
-
-### Frontend
-- **Razor Views** + **Bootstrap 5**
-- **jQuery** + **AJAX** cho interactive components
-- **Font Awesome** icons
-
-### Patterns & Practices
-- ✅ **Repository Pattern** - Tách Data Access
-- ✅ **Dependency Injection** - Loose coupling
-- ✅ **DTO Pattern** - Data transformation
-- ✅ **3-Layer Architecture** - Separation of concerns
-- ✅ **SOLID Principles**
+| Feature             | Technical Description                                   |
+| ------------------- | ------------------------------------------------------- |
+| **Menu Browsing**   | Search, filter by category/price, sorting, pagination   |
+| **Shopping Cart**   | Add/remove/update quantity, automatic total calculation |
+| **Order Placement** | Create orders from cart, order history                  |
+| **Authentication**  | Register/login with session-based authentication        |
 
 ---
 
-## 📁 Project Structure
+# 🔌 API Design
 
-```
+* RESTful API endpoints
+* Proper HTTP status codes
+* DTO request/response separation
+* Pagination support
+* Filtering & sorting
+* Service Layer for business logic
+* Repository Pattern for data access abstraction
+
+---
+
+# 🛠️ Technology Stack
+
+## Backend
+
+* .NET 8 + C# 12
+* ASP.NET Core Web API
+* ASP.NET Core MVC
+* Entity Framework Core 8
+* SQL Server
+
+---
+
+## Frontend
+
+* Razor Views
+* Bootstrap 5
+* jQuery + AJAX
+* Font Awesome
+
+---
+
+## Patterns & Practices
+
+* ✅ Repository Pattern
+* ✅ Dependency Injection
+* ✅ DTO Pattern
+* ✅ 3-Layer Architecture
+* ✅ SOLID Principles
+* ✅ Separation of Concerns
+
+---
+
+# 🗄️ Main Entities
+
+* FoodItem
+* Category
+* Combo
+* ComboFoodItem
+* Order
+* OrderDetail
+* Account
+* Cart
+
+---
+
+# 📁 Project Structure
+
+```text
 ShopQT/
-├── ShopAPI/                    # API Layer (.NET Web API)
-│   ├── Controllers/            # API endpoints
-│   ├── Services/               # Business logic (mới)
-│   ├── wwwroot/img/foods/      # Image storage
-│   └── Program.cs              # DI, CORS, Swagger
+├── ShopAPI/                    # API Layer
+│   ├── Controllers/            # REST API endpoints
+│   ├── Services/               # Business logic layer
+│   ├── DTOs/                   # Request/Response DTOs
+│   ├── wwwroot/img/            # Static image storage
+│   └── Program.cs              # Dependency Injection, CORS, Swagger
 │
 ├── ShopDAL/                    # Data Access Layer
-│   ├── Areas/Repository/       # Repository implementation
+│   ├── Areas/Repository/       # Repository implementations
 │   ├── Context/                # DbContext
-│   ├── Models/                 # Domain entities + DTOs
+│   ├── Models/                 # Entities + shared DTOs
 │   └── Migrations/             # EF Core migrations
 │
 └── ShopView/                   # Presentation Layer (MVC)
     ├── Areas/
-    │   ├── Admin/              # Admin controllers/views
-    │   └── Customer/           # Customer controllers/views
-    ├── Controllers/            # Main controllers
-    └── Views/                  # Razor views
+    │   ├── Admin/
+    ├── Controllers/
+    ├── Models/
+    └── Views/
 ```
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### Prerequisites
-- [.NET SDK 8.0+](https://dotnet.microsoft.com/download)
-- [SQL Server](https://www.microsoft.com/sql-server) (Express or higher)
+## Prerequisites
 
-### Installation
+* .NET SDK 8.0+
+* SQL Server 2019+
+* Visual Studio 2022
+
+---
+
+## Installation
 
 ```powershell
-# 1. Clone repo
+# Clone repository
 git clone <repo-url>
+
 cd ShopQT
 
-# 2. Update connection string trong ShopAPI/appsettings.json
+# Update connection string in appsettings.json
 
-# 3. Tạo database
+# Apply migrations
 dotnet ef database update --project .\ShopDAL\ShopDAL.csproj --startup-project .\ShopAPI\ShopAPI.csproj
 
-# 4. Chạy API
+# Run API
 dotnet run --project .\ShopAPI\ShopAPI.csproj
-# API: https://localhost:7130
-# Swagger: https://localhost:7130/swagger
 
-# 5. Chạy Web UI (terminal mới)
+# Run MVC application (new terminal)
 dotnet run --project .\ShopView\ShopView.csproj
-# Web: https://localhost:7106
 ```
 
 ---
 
-## 🎯 What I Learned
+## Default URLs
 
-| Kỹ năng | Mô tả |
-|---------|-------|
-| **Architecture Design** | Thiết kế hệ thống 3-layer, tách biệt concerns |
-| **API Development** | Xây dựng RESTful API với proper HTTP status codes |
-| **Database Design** | Code-First EF Core, migrations, relationships |
-| **Frontend-Backend Integration** | HttpClient, CORS, DTOs |
-| **File Handling** | Upload/download ảnh, static file serving |
-| **Authentication** | Session-based auth, role-based authorization |
+| Application | URL                            |
+| ----------- | ------------------------------ |
+| API         | https://localhost:7130         |
+| Swagger     | https://localhost:7130/swagger |
+| MVC Web     | https://localhost:7106         |
 
 ---
 
-## 🔧 Refactoring Journey
+# 🎯 What I Learned
 
-### Trước
-- ❌ Controller chứa business logic, filter, mapping
-- ❌ Code duplication giữa các controller
-- ❌ Khó unit test
-
-### Sau
-- ✅ Tách Service layer chứa business logic
-- ✅ Controller chỉ còn routing + HTTP handling
-- ✅ Dễ unit test, maintain, mở rộng
-
----
-
-## 📸 Screenshots
-
-<!-- Thêm ảnh chụp màn hình ở đây -->
-> *Screenshots sẽ được cập nhật sau*
+| Skill                            | Description                                        |
+| -------------------------------- | -------------------------------------------------- |
+| **Architecture Design**          | Designing scalable 3-layer systems                 |
+| **RESTful API Development**      | Building APIs with proper HTTP conventions         |
+| **Database Design**              | EF Core Code-First, migrations, relationships      |
+| **Frontend-Backend Integration** | HttpClient communication, DTO mapping              |
+| **File Handling**                | Image upload and static file serving               |
+| **Authentication**               | Session-based authentication and authorization     |
+| **Refactoring**                  | Moving business logic from controllers to services |
 
 ---
 
-## 👤 Author
+# 🔧 Refactoring Journey
 
-**Nguyễn Quang Tuấn** - .NET Backend Developer Intern
+## Before
 
-- 📧 Email: tuannqph51813@gmail.com
-- 💼 LinkedIn: [linkedin.com/in/tuannq](https://linkedin.com/in/tuannq)
-- 🐱 GitHub: [github.com/quanggtuann](https://github.com/quanggtuann)
-
-> Project được xây dựng trong quá trình học tập tại trường FPT Polytechnic.
+* ❌ Controllers contained business logic
+* ❌ Filtering and mapping directly inside controllers
+* ❌ Code duplication
+* ❌ Difficult to maintain and test
 
 ---
 
-## 📝 License
+## After
 
-MIT License - xem [LICENSE](LICENSE) để biết thêm chi tiết.
+* ✅ Business logic moved to Service Layer
+* ✅ Controllers handle only HTTP requests/responses
+* ✅ Cleaner architecture
+* ✅ Easier to maintain and extend
+* ✅ Better separation of concerns
+
+---
+
+# 📸 Screenshots
+
+> Screenshots will be added later.
+
+---
+
+# 👤 Author
+
+**Nguyễn Quang Tuấn**
+.NET Backend Developer Intern
+
+* 📧 Email: [tuannqph51813@gmail.com](mailto:tuannqph51813@gmail.com)
+* 🐱 GitHub: https://github.com/quanggtuaann
+
+---
+
+# 📝 License
+
+MIT License
