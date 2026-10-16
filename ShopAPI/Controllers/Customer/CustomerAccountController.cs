@@ -20,10 +20,18 @@ namespace ShopAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
+        public IActionResult Register([FromBody] RegisterRequestDto request)
         {
             try
             {
+                var user = new User
+                {
+                    Username = request.Username,
+                    Password = request.Password,
+                    Email = request.Email,
+                    PhoneNumber = request.PhoneNumber,
+                    DateorBirth = request.DateorBirth
+                };
                 var userId = _accountService.Register(user);
 
                 return Ok(new

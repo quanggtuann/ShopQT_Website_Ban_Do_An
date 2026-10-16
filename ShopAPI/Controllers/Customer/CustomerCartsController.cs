@@ -67,11 +67,12 @@ namespace ShopAPI.Controllers.Customer
             try
             {
                 request.UserId = GetUserIdFromToken();
-                _customerCartService.AddToCart(request);
+                var cartItemCount = _customerCartService.AddToCart(request);
                 return Ok(new
                 {
                     success = true,
-                    message = "Add to cart success"
+                    message = "Add to cart success",
+                    cartItemCount
                 });
             }
             catch (Exception ex)
@@ -89,11 +90,12 @@ namespace ShopAPI.Controllers.Customer
             try
             {
                 request.UserId = GetUserIdFromToken();
-                _customerCartService.AddComboToCart(request);
+                var cartItemCount = _customerCartService.AddComboToCart(request);
                 return Ok(new
                 {
                     success = true,
-                    message = "Add to cart success"
+                    message = "Add to cart success",
+                    cartItemCount
                 });
             }
             catch (Exception ex)

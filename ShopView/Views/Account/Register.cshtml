@@ -61,7 +61,7 @@
                                     @Localizer["FillInfo"]
                                 </p>
 
-                                <form asp-action="Register" method="post">
+                                <form asp-action="Register" method="post" novalidate>
 
                                     <div asp-validation-summary="ModelOnly"
                                          class="alert alert-danger">
@@ -92,6 +92,8 @@
                                             </label>
 
                                             <input asp-for="Email"
+                                                   type="email"
+                                                   autocomplete="email"
                                                    class="form-control custom-input"
                                                    placeholder='@Localizer["EnterEmail"]' />
 
@@ -114,6 +116,8 @@
                                             <input asp-for="Password"
                                                    type="password"
                                                    id="passwordInput"
+                                                   autocomplete="new-password"
+                                                   minlength="7"
                                                    class="form-control custom-input"
                                                    placeholder='@Localizer["EnterPassword"]' />
 
@@ -130,6 +134,11 @@
                                             </label>
 
                                             <input asp-for="PhoneNumber"
+                                                   type="tel"
+                                                   autocomplete="tel"
+                                                   inputmode="numeric"
+                                                   maxlength="10"
+                                                   pattern="0[0-9]{9}"
                                                    class="form-control custom-input"
                                                    placeholder='@Localizer["EnterPhoneNumber"]' />
 

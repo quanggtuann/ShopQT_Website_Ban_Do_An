@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using ShopView.Infrastructure;
 using ShopView.ViewModels;
+using ShopView.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -14,10 +16,12 @@ namespace ShopView.Controllers
     public class AccountController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public AccountController(IHttpClientFactory httpClientFactory)
+        public AccountController(IHttpClientFactory httpClientFactory, IStringLocalizer<SharedResource> localizer)
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
+            _localizer = localizer;
         }
 
         [AllowAnonymous]
@@ -28,6 +32,7 @@ namespace ShopView.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -55,14 +60,42 @@ namespace ShopView.Controllers
                 }
 
                 var error = await response.Content.ReadAsStringAsync();
-                ModelState.AddModelError("", $"Registration failed: {error}");
+                ModelState.AddModelError(string.Empty, GetRegistrationError(error));
                 return View(model);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ModelState.AddModelError("", ex.Message);
+                ModelState.AddModelError(string.Empty, CustomerValidationMessages.RegistrationFailed);
                 return View(model);
             }
+        }
+
+        private static string GetRegistrationError(string responseBody)
+        {
+            try
+            {
+                using var document = JsonDocument.Parse(responseBody);
+                if (document.RootElement.ValueKind == JsonValueKind.Object &&
+                    document.RootElement.TryGetProperty("message", out var message) &&
+                    message.ValueKind == JsonValueKind.String)
+                {
+                    return message.GetString() switch
+                    {
+                        "Email already exists" => CustomerValidationMessages.EmailExists,
+                        "User already exists" => CustomerValidationMessages.UsernameExists,
+                        "Enter a valid email address ending in @gmail.com." => CustomerValidationMessages.Email,
+                        "Phone number must contain exactly 10 digits and start with 0." => CustomerValidationMessages.Phone,
+                        "Password must be at least 7 characters and include lowercase, uppercase, and a digit." => CustomerValidationMessages.Password,
+                        _ => CustomerValidationMessages.RegistrationFailed
+                    };
+                }
+            }
+            catch (JsonException)
+            {
+                // The API can return non-JSON error pages; show a safe message instead.
+            }
+
+            return CustomerValidationMessages.RegistrationFailed;
         }
 
         [AllowAnonymous]
@@ -199,6 +232,11 @@ namespace ShopView.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProfile(UpdateProfile model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             try
             {
                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -219,7 +257,7 @@ namespace ShopView.Controllers
                     return View(model);
                 }
 
-                TempData["SuccessMessage"] = "Profile updated successfully";
+                TempData["SuccessMessage"] = _localizer["ProfileUpdated"].Value;
 
                 return RedirectToAction("Profile");
             }
@@ -244,6 +282,7 @@ namespace ShopView.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -253,7 +292,7 @@ namespace ShopView.Controllers
 
             if (!string.Equals(model.NewPassword, model.ConfirmPassword, StringComparison.Ordinal))
             {
-                ModelState.AddModelError(string.Empty, "New password and confirm password do not match.");
+                ModelState.AddModelError(string.Empty, _localizer["PasswordsDoNotMatch"]);
                 return View(model);
             }
 
@@ -281,7 +320,7 @@ namespace ShopView.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                    TempData["SuccessMessage"] = "Password changed successfully. Please login again.";
+                    TempData["SuccessMessage"] = _localizer["PasswordChangedSignInAgain"].Value;
                     return RedirectToAction("Login");
                 }
 

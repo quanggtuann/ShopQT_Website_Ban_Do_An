@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopAPI.DTOs;
 using ShopAPI.Services.Customer.IServices;
+using ShopAPI.Services.Customer;
 using System.Security.Claims;
 
 namespace ShopAPI.Controllers.Customer
@@ -12,10 +13,13 @@ namespace ShopAPI.Controllers.Customer
     public class CustomerOrdersController : ControllerBase
     {
         private readonly ICustomerOrderService _customerOrderService;
+        private readonly VnpayPaymentService _vnpayPayments;
 
-        public CustomerOrdersController(ICustomerOrderService customerOrderService)
+        public CustomerOrdersController(ICustomerOrderService customerOrderService,
+            VnpayPaymentService vnpayPayments)
         {
             _customerOrderService = customerOrderService;
+            _vnpayPayments = vnpayPayments;
         }
 
         [HttpGet]
@@ -69,6 +73,9 @@ namespace ShopAPI.Controllers.Customer
         {
             try
             {
+                if (string.Equals(request?.PaymentMethod, "VNPay", StringComparison.OrdinalIgnoreCase)
+                    && !_vnpayPayments.IsConfigured)
+                    return BadRequest(new { success = false, message = "VNPay is not configured." });
                 var userId = GetCurrentUserId();
                 var result = _customerOrderService.CreateOrderFromCart(userId, request);
                 return Ok(new

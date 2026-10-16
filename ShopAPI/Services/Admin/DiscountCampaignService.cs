@@ -19,6 +19,7 @@ namespace ShopAPI.Services
             var page = filter.Page <= 0 ? 1 : filter.Page;
             var pageSize = filter.PageSize <= 0 ? 10 : filter.PageSize;
             var query = _discountCampaignRepo.GetAll();
+            var now = DateTime.Now;
 
             if (!string.IsNullOrWhiteSpace(filter.Keyword))
             {
@@ -29,7 +30,9 @@ namespace ShopAPI.Services
 
             if (filter.IsActive.HasValue)
             {
-                query = query.Where(c => c.IsActive == filter.IsActive.Value);
+                query = filter.IsActive.Value
+                    ? query.Where(c => c.IsActive && c.StartDate <= now && c.EndDate >= now)
+                    : query.Where(c => !c.IsActive || c.StartDate > now || c.EndDate < now);
             }
 
             if (filter.DiscountType.HasValue)
@@ -123,6 +126,13 @@ namespace ShopAPI.Services
 
         public void Activate(int id)
         {
+            var campaign = _discountCampaignRepo.GetById(id)
+                ?? throw new KeyNotFoundException("Discount campaign not found");
+            if (campaign.EndDate < DateTime.Now)
+            {
+                throw new InvalidOperationException("An expired campaign cannot be activated. Update its end date first.");
+            }
+
             _discountCampaignRepo.Activate(id);
         }
 
@@ -208,6 +218,7 @@ namespace ShopAPI.Services
                 StartDate = campaign.StartDate,
                 EndDate = campaign.EndDate,
                 IsActive = campaign.IsActive,
+                Status = GetStatus(campaign, DateTime.Now),
                 CreatedAt = campaign.CreatedAt,
                 UpdatedAt = campaign.UpdatedAt,
                 Products = campaign.CampaignProducts.Select(cp => new DiscountCampaignProductDto
@@ -223,6 +234,14 @@ namespace ShopAPI.Services
                     Price = cc.Combo?.Price ?? 0
                 }).ToList()
             };
+        }
+
+        private static string GetStatus(DiscountCampaign campaign, DateTime now)
+        {
+            if (campaign.EndDate < now) return "Expired";
+            if (!campaign.IsActive) return "Inactive";
+            if (campaign.StartDate > now) return "Scheduled";
+            return "Active";
         }
     }
 }

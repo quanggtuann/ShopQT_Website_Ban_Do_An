@@ -86,6 +86,10 @@ namespace ShopAPI.Controllers
                 _discountCampaignService.Activate(id);
                 return NoContent();
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { ErrorMessage = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { ErrorMessage = ex.Message });

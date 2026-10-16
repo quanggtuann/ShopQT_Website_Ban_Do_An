@@ -56,6 +56,9 @@
   <data name="TryAnotherFood" xml:space="preserve"><value>Hãy thử từ khóa, khoảng giá hoặc danh mục khác.</value></data>
   <data name="FoodFallback" xml:space="preserve"><value>Món ăn</value></data>
   <data name="Favorite" xml:space="preserve"><value>Yêu thích</value></data>
+  <data name="FavoriteAdded" xml:space="preserve"><value>Đã thêm món ăn vào yêu thích.</value></data>
+  <data name="FavoriteRemoved" xml:space="preserve"><value>Đã xóa món ăn khỏi yêu thích.</value></data>
+  <data name="FavoriteUpdateFailed" xml:space="preserve"><value>Không thể cập nhật yêu thích. Vui lòng thử lại.</value></data>
   <data name="ViewDetails" xml:space="preserve"><value>Xem chi tiết</value></data>
   <data name="ViewDetail" xml:space="preserve"><value>Xem chi tiết</value></data>
   <data name="Featured" xml:space="preserve"><value>Nổi bật</value></data>
@@ -88,9 +91,10 @@
   <data name="IncludedItems" xml:space="preserve"><value>Món bao gồm</value></data>
   <data name="MyCart" xml:space="preserve"><value>Giỏ hàng của tôi</value></data>
   <data name="MyShoppingCart" xml:space="preserve"><value>Giỏ hàng của tôi</value></data>
-  <data name="ReviewCart" xml:space="preserve"><value>Kiểm tra món ngon trước khi thanh toán</value></data>
+  <data name="ReviewCart" xml:space="preserve"><value>Kiểm tra sản phẩm và số lượng trước khi thanh toán.</value></data>
+  <data name="CartItemsLabel" xml:space="preserve"><value>món trong giỏ</value></data>
   <data name="EmptyCart" xml:space="preserve"><value>Giỏ hàng của bạn đang trống</value></data>
-  <data name="AddFoodComboNow" xml:space="preserve"><value>Thêm món ăn hoặc combo ngon ngay!</value></data>
+  <data name="AddFoodComboNow" xml:space="preserve"><value>Khám phá thực đơn và thêm món bạn yêu thích.</value></data>
   <data name="ContinueShopping" xml:space="preserve"><value>Tiếp tục mua hàng</value></data>
   <data name="Product" xml:space="preserve"><value>Sản phẩm</value></data>
   <data name="Quantity" xml:space="preserve"><value>Số lượng</value></data>
@@ -152,10 +156,14 @@
   <data name="CreateAddress" xml:space="preserve"><value>Tạo địa chỉ</value></data>
   <data name="EditAddress" xml:space="preserve"><value>Sửa địa chỉ</value></data>
   <data name="AddNewAddress" xml:space="preserve"><value>Thêm địa chỉ mới</value></data>
-  <data name="AddDeliveryAddress" xml:space="preserve"><value>Thêm địa chỉ giao hàng cho đơn của bạn</value></data>
+  <data name="AddDeliveryAddress" xml:space="preserve"><value>Điền thông tin giao hàng để hoàn tất đơn hàng.</value></data>
+  <data name="AddressCreated" xml:space="preserve"><value>Đã thêm địa chỉ giao hàng.</value></data>
   <data name="ReceiverInformation" xml:space="preserve"><value>Thông tin người nhận</value></data>
+  <data name="ReceiverInformationHelp" xml:space="preserve"><value>Thông tin liên hệ của người nhận đơn hàng.</value></data>
   <data name="FullName" xml:space="preserve"><value>Họ và tên</value></data>
   <data name="AddressInformation" xml:space="preserve"><value>Thông tin địa chỉ</value></data>
+  <data name="AddressInformationHelp" xml:space="preserve"><value>Chọn khu vực và nhập địa chỉ giao hàng cụ thể.</value></data>
+  <data name="DetailAddressPlaceholder" xml:space="preserve"><value>Số nhà, tên đường, tòa nhà...</value></data>
   <data name="Province" xml:space="preserve"><value>Tỉnh/Thành phố</value></data>
   <data name="District" xml:space="preserve"><value>Quận/Huyện</value></data>
   <data name="Ward" xml:space="preserve"><value>Phường/Xã</value></data>
@@ -183,8 +191,10 @@
   <data name="Cancel" xml:space="preserve"><value>Hủy</value></data>
   <data name="PhoneNumber" xml:space="preserve"><value>Số điện thoại</value></data>
   <data name="AccessDeniedMessage" xml:space="preserve"><value>Bạn không có quyền xem trang này.</value></data>
-  <data name="LogoutQuestion" xml:space="preserve"><value>Bạn có chắc muốn đăng xuất không?</value></data>
+  <data name="LogoutQuestion" xml:space="preserve"><value>Phiên đăng nhập hiện tại của bạn sẽ kết thúc.</value></data>
   <data name="LogoutConfirmation" xml:space="preserve"><value>Xác nhận đăng xuất</value></data>
+  <data name="LogoutSessionNote" xml:space="preserve"><value>Bạn có thể đăng nhập lại bất cứ lúc nào.</value></data>
+  <data name="CloseDialog" xml:space="preserve"><value>Đóng hộp thoại</value></data>
   <data name="BestSeller" xml:space="preserve"><value>Bán chạy</value></data>
   <data name="BestSellerSubtitle" xml:space="preserve"><value>Các món đang giảm giá tự chuyển nổi bật.</value></data>
   <data name="ComboDeals" xml:space="preserve"><value>Ưu đãi combo</value></data>
@@ -219,7 +229,7 @@
   <data name="AllCombos" xml:space="preserve"><value>Tất cả combo</value></data>
   <data name="Checkout" xml:space="preserve"><value>Thanh toán</value></data>
   <data name="ReviewAndPlaceOrder" xml:space="preserve"><value>Kiểm tra và đặt hàng</value></data>
-  <data name="CheckoutSubtitle" xml:space="preserve"><value>Chọn địa chỉ giao hàng, phương thức thanh toán và xác nhận đơn món ngon của bạn.</value></data>
+  <data name="CheckoutSubtitle" xml:space="preserve"><value>Xác nhận địa chỉ giao hàng và phương thức thanh toán trước khi đặt hàng.</value></data>
   <data name="BackToCart" xml:space="preserve"><value>Quay lại giỏ hàng</value></data>
   <data name="Step" xml:space="preserve"><value>Bước</value></data>
   <data name="DeliveryAddress" xml:space="preserve"><value>Địa chỉ giao hàng</value></data>
@@ -242,7 +252,7 @@
   <data name="Items" xml:space="preserve"><value>sản phẩm</value></data>
   <data name="OrderHistorySubtitle" xml:space="preserve"><value>Theo dõi các đơn gần đây và xem chi tiết giao hàng.</value></data>
   <data name="NoOrdersYet" xml:space="preserve"><value>Chưa có đơn hàng</value></data>
-  <data name="NoOrdersHint" xml:space="preserve"><value>Các đơn đã thanh toán từ giỏ hàng sẽ xuất hiện ở đây.</value></data>
+  <data name="NoOrdersHint" xml:space="preserve"><value>Các đơn hàng bạn đặt sẽ xuất hiện tại đây.</value></data>
   <data name="Pending" xml:space="preserve"><value>Đang chờ</value></data>
   <data name="Confirmed" xml:space="preserve"><value>Đã xác nhận</value></data>
   <data name="Shipping" xml:space="preserve"><value>Đang giao</value></data>
@@ -250,6 +260,44 @@
   <data name="Cancelled" xml:space="preserve"><value>Đã hủy</value></data>
   <data name="CancelOrder" xml:space="preserve"><value>Hủy đơn</value></data>
   <data name="CancelOrderQuestion" xml:space="preserve"><value>Bạn có chắc muốn hủy đơn hàng này không?</value></data>
+  <data name="ProfileSubtitle" xml:space="preserve"><value>Xem và quản lý thông tin tài khoản của bạn.</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Chỉnh sửa hồ sơ</value></data>
+  <data name="SelectProvince" xml:space="preserve"><value>Chọn tỉnh hoặc thành phố</value></data>
+  <data name="SelectWard" xml:space="preserve"><value>Chọn phường hoặc xã</value></data>
+  <data name="EditAddressSubtitle" xml:space="preserve"><value>Cập nhật thông tin người nhận và địa chỉ giao hàng.</value></data>
+  <data name="AddressUpdated" xml:space="preserve"><value>Đã cập nhật địa chỉ.</value></data>
+  <data name="AddressDeleted" xml:space="preserve"><value>Đã xóa địa chỉ.</value></data>
+  <data name="DefaultAddressUpdated" xml:space="preserve"><value>Đã cập nhật địa chỉ mặc định.</value></data>
+  <data name="Inactive" xml:space="preserve"><value>Không hoạt động</value></data>
+  <data name="ProfileUpdated" xml:space="preserve"><value>Đã cập nhật hồ sơ.</value></data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve"><value>Mật khẩu mới và xác nhận mật khẩu không khớp.</value></data>
+  <data name="PasswordChangedSignInAgain" xml:space="preserve"><value>Đã đổi mật khẩu. Vui lòng đăng nhập lại.</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Ẩn mật khẩu</value></data>
+  <data name="NoAddressesHint" xml:space="preserve"><value>Thêm địa chỉ để dùng khi đặt hàng.</value></data>
+  <data name="OrderNumber" xml:space="preserve"><value>Đơn hàng</value></data>
+  <data name="OrderCancelled" xml:space="preserve"><value>Đã hủy đơn hàng.</value></data>
+  <data name="CancelReasonLabel" xml:space="preserve"><value>Lý do hủy đơn</value></data>
+  <data name="SelectCancelReason" xml:space="preserve"><value>Chọn lý do</value></data>
+  <data name="CancelReasonOther" xml:space="preserve"><value>Lý do khác</value></data>
+  <data name="CancelReasonDetailHint" xml:space="preserve"><value>Nhập lý do hủy đơn</value></data>
+  <data name="ConfirmCancelOrder" xml:space="preserve"><value>Xác nhận hủy đơn</value></data>
+  <data name="CancellationReason" xml:space="preserve"><value>Lý do hủy:</value></data>
+  <data name="CancelReasonChangedMind" xml:space="preserve"><value>Tôi không còn nhu cầu mua hàng</value></data>
+  <data name="CancelReasonWrongDetails" xml:space="preserve"><value>Tôi cần thay đổi thông tin giao hàng</value></data>
+  <data name="CancelReasonChangeItems" xml:space="preserve"><value>Tôi muốn thay đổi sản phẩm</value></data>
+  <data name="CancelReasonBetterPrice" xml:space="preserve"><value>Tôi tìm được mức giá phù hợp hơn</value></data>
+  <data name="CancelReasonDeliveryTime" xml:space="preserve"><value>Thời gian giao hàng không phù hợp</value></data>
+  <data name="CancelReasonDuplicate" xml:space="preserve"><value>Tôi đặt trùng đơn hàng</value></data>
+  <data name="VnpayNotConfigured" xml:space="preserve"><value>VNPay chưa được cấu hình đầy đủ. Vui lòng chọn thanh toán khi nhận hàng hoặc liên hệ cửa hàng.</value></data>
+  <data name="VnpayInvalidResult" xml:space="preserve"><value>Không xác thực được kết quả thanh toán VNPay. Vui lòng kiểm tra trạng thái đơn hàng.</value></data>
+  <data name="VnpayCancelledPaid" xml:space="preserve"><value>VNPay đã ghi nhận tiền cho đơn bị hủy. Vui lòng liên hệ cửa hàng để được hoàn tiền.</value></data>
+  <data name="VnpayConfirmed" xml:space="preserve"><value>Thanh toán VNPay đã được xác nhận.</value></data>
+  <data name="VnpayFailed" xml:space="preserve"><value>Thanh toán chưa thành công. Bạn có thể thử lại từ trang chi tiết đơn hàng.</value></data>
+  <data name="VnpayPending" xml:space="preserve"><value>Đang chờ xác nhận thanh toán từ VNPay. Hãy tải lại trang sau ít phút.</value></data>
+  <data name="VnpayStartFailed" xml:space="preserve"><value>Đơn hàng đã được tạo nhưng chưa mở được VNPay. Vui lòng thử thanh toán lại từ chi tiết đơn hàng.</value></data>
+  <data name="PayWithVnpay" xml:space="preserve"><value>Thanh toán qua VNPay</value></data>
+  <data name="VnpayDescription" xml:space="preserve"><value>Thanh toán trực tuyến an toàn qua VNPay</value></data>
+  <data name="VnpayUnavailable" xml:space="preserve"><value>Tạm thời chưa khả dụng</value></data>
 </root>
 
 

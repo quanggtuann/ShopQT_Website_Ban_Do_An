@@ -15,6 +15,14 @@ using ShopDAL.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Keep the local sandbox secret outside tracked appsettings, and load it after other providers.
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets(typeof(VnpayPaymentService).Assembly, optional: true);
+    builder.Configuration.AddJsonFile("appsettings.Development.local.json", optional: true,
+        reloadOnChange: true);
+}
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>()
     ?? throw new InvalidOperationException("Jwt configuration is missing.");
@@ -91,6 +99,7 @@ builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
 builder.Services.AddScoped<ICustomerDiscountPriceService, CustomerDiscountPriceService>();
 builder.Services.AddScoped<ICustomerFavoriteService, CustomerFavoriteService>();
 builder.Services.AddScoped<ICustomerOrderService, CustomerOrderService>();
+builder.Services.AddScoped<VnpayPaymentService>();
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddHttpClient<LocationService>(client =>
@@ -105,7 +114,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.RoutePrefix = "api-docs";
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopAPI v1");
+    });
+    app.MapGet("/swagger", () => Results.Redirect("/api-docs"));
+    app.MapGet("/swagger/index.html", () => Results.Redirect("/api-docs/index.html"));
 }
 
 app.UseHttpsRedirection();

@@ -7,6 +7,11 @@ namespace ShopView.ViewModels
         public List<CartItemViewModel> CartItems { get; set; } = new();
     }
 
+    public class CartAddResponseViewModel
+    {
+        public int CartItemCount { get; set; }
+    }
+
     public class CartItemViewModel
     {
         public int CartItemId { get; set; }

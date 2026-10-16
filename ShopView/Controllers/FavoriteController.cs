@@ -79,6 +79,43 @@ namespace ShopView.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleFoodAjax(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { success = false });
+            }
+
+            try
+            {
+                var response = await _httpClient.PostAsync($"api/customer/favorites/food/{id}/toggle", null);
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    return Unauthorized(new { success = false });
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return StatusCode((int)response.StatusCode, new { success = false });
+                }
+
+                var result = await response.Content.ReadFromJsonAsync<ToggleFavoriteResultDto>();
+                if (result == null)
+                {
+                    return StatusCode(502, new { success = false });
+                }
+
+                return Json(new { success = true, isFavorite = result.IsFavorite });
+            }
+            catch (HttpRequestException)
+            {
+                return StatusCode(502, new { success = false });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveFood(int id)
         {
             try

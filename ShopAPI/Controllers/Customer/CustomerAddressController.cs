@@ -106,12 +106,13 @@ namespace ShopAPI.Controllers.Customer
             try
             {
                 var userId = GetCurrentUserId();
-                _customerAddressService.Add(userId, dto);
+                var addressId = _customerAddressService.Add(userId, dto);
 
                 return Ok(new
                 {
                     success = true,
-                    message = "Address created"
+                    message = "Address created",
+                    addressId
                 });
             }
             catch (Exception ex)

@@ -56,7 +56,7 @@ namespace ShopAPI.Services.Customer
             return cart;
         }
 
-        public void AddToCart(AddToCartRequest addToCartRequest)
+        public int AddToCart(AddToCartRequest addToCartRequest)
         {
             var userCart = _cartRepo.GetByUserID(addToCartRequest.UserId);
             if (userCart == null)
@@ -99,9 +99,10 @@ namespace ShopAPI.Services.Customer
             }
 
             _cartRepo.Save();
+            return userCart.CartItems.Count;
         }
 
-        public void AddComboToCart(AddComboToCartRequest addComboToCartRequest)
+        public int AddComboToCart(AddComboToCartRequest addComboToCartRequest)
         {
             var userCart = _cartRepo.GetByUserID(addComboToCartRequest.UserId);
             if (userCart == null)
@@ -144,6 +145,7 @@ namespace ShopAPI.Services.Customer
             }
 
             _cartRepo.Save();
+            return userCart.CartItems.Count;
         }
 
         public void RemoveCartItem(int cartItemId)

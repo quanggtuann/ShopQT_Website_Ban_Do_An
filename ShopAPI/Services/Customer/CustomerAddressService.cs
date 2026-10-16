@@ -3,6 +3,7 @@ using ShopAPI.Services.Customer.IServices;
 using ShopAPI.Services.IServices;
 using ShopDAL.Models;
 using ShopDAL.Repository.IRepository;
+using ShopAPI.Validation;
 using System.Runtime.InteropServices;
 
 namespace ShopAPI.Services.Customer
@@ -26,7 +27,7 @@ namespace ShopAPI.Services.Customer
         {
             return _addressRepo.GetAddressDefault(userId);
         }
-        public void Add(int userId, CreateAddressDto dto)
+        public int Add(int userId, CreateAddressDto dto)
         {
             if (dto == null)
             {
@@ -36,9 +37,9 @@ namespace ShopAPI.Services.Customer
             {
                 throw new Exception("Receiver name is required.");
             }
-            if (string.IsNullOrWhiteSpace(dto.PhoneNumber))
+            if (!CustomerInputRules.IsValidPhone(dto.PhoneNumber))
             {
-                throw new Exception("PhoneNumber name is required");
+                throw new ArgumentException("Phone number must contain exactly 10 digits and start with 0.");
             }
             if (string.IsNullOrWhiteSpace(dto.Province))
             {
@@ -71,6 +72,7 @@ namespace ShopAPI.Services.Customer
             }
             _addressRepo.Add(address);
             _addressRepo.Save();
+            return address.AddressId;
         }
         public void Update(int userId, UpdateAddressDto dto)
         {
@@ -89,9 +91,9 @@ namespace ShopAPI.Services.Customer
             {
                 throw new Exception("Receiver name is required.");
             }
-            if (string.IsNullOrWhiteSpace(dto.PhoneNumber))
+            if (!CustomerInputRules.IsValidPhone(dto.PhoneNumber))
             {
-                throw new Exception("PhoneNumber name is required");
+                throw new ArgumentException("Phone number must contain exactly 10 digits and start with 0.");
             }
             if (string.IsNullOrWhiteSpace(dto.Province))
             {

@@ -3,6 +3,7 @@ using ShopAPI.Services.Customer.IServices;
 using ShopAPI.Services.IServices;
 using ShopDAL.Models;
 using ShopDAL.Repository.IRepository;
+using ShopAPI.Validation;
 
 namespace ShopAPI.Services.Customer
 {
@@ -21,6 +22,15 @@ namespace ShopAPI.Services.Customer
 
         public int Register(User user)
         {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            if (!CustomerInputRules.IsValidPassword(user.Password))
+                throw new ArgumentException("Password must be at least 7 characters and include lowercase, uppercase, and a digit.");
+            if (!CustomerInputRules.IsValidPhone(user.PhoneNumber))
+                throw new ArgumentException("Phone number must contain exactly 10 digits and start with 0.");
+            if (!CustomerInputRules.IsValidEmail(user.Email))
+                throw new ArgumentException("Enter a valid email address ending in @gmail.com.");
+
             user.Role = "customer";
 
             user.IsActive = true;
@@ -68,6 +78,13 @@ namespace ShopAPI.Services.Customer
 
         public void UpdateProfile(int id,UpdateProfileDto updateProfileDto )
         {
+            if (updateProfileDto == null)
+                throw new ArgumentNullException(nameof(updateProfileDto));
+            if (!CustomerInputRules.IsValidPhone(updateProfileDto.PhoneNumber))
+                throw new ArgumentException("Phone number must contain exactly 10 digits and start with 0.");
+            if (!CustomerInputRules.IsValidEmail(updateProfileDto.Email))
+                throw new ArgumentException("Enter a valid email address ending in @gmail.com.");
+
             var user = _accountRepo.GetById(id);
             if (user == null)
             {
@@ -81,6 +98,9 @@ namespace ShopAPI.Services.Customer
 
         public void ChangePassword(int userId, string currentPassword, string newPassword)
         {
+            if (!CustomerInputRules.IsValidPassword(newPassword))
+                throw new ArgumentException("Password must be at least 7 characters and include lowercase, uppercase, and a digit.");
+
             var user = _accountRepo.GetById(userId);
 
             if (user == null)

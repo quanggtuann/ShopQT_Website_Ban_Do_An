@@ -280,6 +280,10 @@
                     </button>
                 </form>
             }
+            else if (order.PaymentMethod == "VNPay" && !order.IsPaid && order.Status == "Pending")
+            {
+                <span class="badge bg-warning text-dark align-self-center">Awaiting VNPay payment</span>
+            }
 
             @if (order.CanCancel)
             {

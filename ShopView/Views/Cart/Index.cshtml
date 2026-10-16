@@ -1,354 +1,143 @@
-﻿@using Microsoft.Extensions.Localization
+@using System.Globalization
+@using Microsoft.Extensions.Localization
 @model ShopView.ViewModels.CartViewModel
 @inject IStringLocalizer<ShopView.SharedResource> Localizer
 
 @{
     Layout = "_MyLayout";
     ViewData["Title"] = Localizer["MyCart"];
+    ViewData["PageClass"] = "cart-context";
 
     var imageBaseUrl = "https://localhost:7130/";
+    var items = Model?.CartItems ?? new List<ShopView.ViewModels.CartItemViewModel>();
+    var grandTotal = items.Sum(item => (item.Price ?? 0m) * item.Quantity);
+    var moneyCulture = CultureInfo.GetCultureInfo("vi-VN");
 }
 
-<div class="container py-5">
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+}
 
-    <!-- TITLE -->
-    <div class="text-center mb-5">
-        <h1 class="fw-bold display-5">
-            🛒 @Localizer["MyShoppingCart"]
-        </h1>
+<main class="cart-page container">
+    <header class="cart-page-header">
+        <div>
+            <h1>@Localizer["MyShoppingCart"]</h1>
+            <p>@Localizer["ReviewCart"]</p>
+        </div>
+        @if (items.Count > 0)
+        {
+            <span class="cart-count">@items.Count @Localizer["CartItemsLabel"]</span>
+        }
+    </header>
 
-        <p class="text-muted fs-5">
-            @Localizer["ReviewCart"]
-        </p>
-    </div>
-
-    <!-- ALERT -->
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger rounded-4 shadow-sm">
-            @TempData["ErrorMessage"]
-        </div>
+        <div class="cart-alert cart-alert-error" role="alert">@TempData["ErrorMessage"]</div>
     }
 
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success rounded-4 shadow-sm">
-            @TempData["SuccessMessage"]
-        </div>
+        <div class="cart-alert cart-alert-success" role="status">@TempData["SuccessMessage"]</div>
     }
 
-    <!-- EMPTY CART -->
-    @if (Model?.CartItems == null || !Model.CartItems.Any())
+    @if (items.Count == 0)
     {
-        <div class="card border-0 shadow-lg rounded-4 text-center py-5">
-
-            <div class="card-body">
-
-                <h2 class="fw-bold mb-3">
-                    😢 @Localizer["EmptyCart"]
-                </h2>
-
-                <p class="text-muted mb-4">
-                    @Localizer["AddFoodComboNow"]
-                </p>
-
-                <a asp-controller="Food"
-                   asp-action="Index"
-                   class="btn btn-danger px-5 py-3 rounded-pill fw-bold">
-
-                    🍔 @Localizer["ContinueShopping"]
-
-                </a>
-
-            </div>
-
-        </div>
+        <section class="cart-empty" aria-labelledby="cart-empty-title">
+            <span class="cart-empty-icon" aria-hidden="true"><i class="fa fa-shopping-basket"></i></span>
+            <h2 id="cart-empty-title">@Localizer["EmptyCart"]</h2>
+            <p>@Localizer["AddFoodComboNow"]</p>
+            <a asp-controller="Food" asp-action="Index" class="cart-primary-action">
+                @Localizer["ContinueShopping"] <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </section>
     }
     else
     {
-        decimal grandTotal = 0;
-
-        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-
-            <!-- TABLE -->
-            <div class="table-responsive">
-
-                <table class="table align-middle mb-0">
-
-                    <thead class="cart-header">
-
-                        <tr>
-                            <th>@Localizer["Product"]</th>
-                            <th class="text-center">@Localizer["Price"]</th>
-                            <th class="text-center">@Localizer["Quantity"]</th>
-                            <th class="text-center">@Localizer["Subtotal"]</th>
-                            <th class="text-center">@Localizer["Action"]</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        @foreach (var item in Model.CartItems)
-                        {
-                            var name = item.FoodItemID != null
-                            ? item.FoodItem?.Name
-                            : item.Combo?.Name;
-
-                            var imagePath = item.FoodItemID != null
-                            ? item.FoodItem?.ImagePath
-                            : item.Combo?.ImagePath;
-
-                            var imageUrl = string.IsNullOrWhiteSpace(imagePath)
-                            ? "https://via.placeholder.com/100x100?text=Food"
-                            : imageBaseUrl.TrimEnd('/') + "/" + imagePath.TrimStart('/');
-
-                            var type = item.FoodItemID != null
-                            ? Localizer["Food"]
-                            : Localizer["Combo"];
-
-                            var price = item.Price ?? 0m;
-
-                            var lineTotal = price * item.Quantity;
-
-                            grandTotal += lineTotal;
-
-                            <tr class="cart-row">
-
-                                <!-- PRODUCT -->
-                                <td>
-                                    <div class="d-flex align-items-center">
-
-                                        <img src="@imageUrl"
-                                             class="cart-image me-3"
-                                             alt="@name" />
-
-                                        <div>
-
-                                            <h5 class="fw-bold mb-1">
-                                                @name
-                                            </h5>
-
-                                            <span class="badge bg-danger rounded-pill px-3 py-2">
-                                                @type
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <!-- PRICE -->
-                                <td class="text-center fw-semibold">
-                                    @price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) ₫
-                                </td>
-
-                                <!-- QUANTITY -->
-                                <td class="text-center">
-
-                                    <form asp-controller="Cart"
-                                          asp-action="Update"
-                                          method="post"
-                                          class="d-flex justify-content-center align-items-center gap-2">
-
-                                        @Html.AntiForgeryToken()
-
-                                        <input type="hidden"
-                                               name="cartItemId"
-                                               value="@item.CartItemId" />
-
-                                        <input type="number"
-                                               name="quantity"
-                                               value="@item.Quantity"
-                                               min="1"
-                                               class="form-control quantity-input" />
-
-                                        <button type="submit"
-                                                class="btn btn-primary rounded-pill px-3">
-
-                                            @Localizer["Update"]
-
-                                        </button>
-
-                                    </form>
-
-                                </td>
-
-                                <!-- SUBTOTAL -->
-                                <td class="text-center fw-bold text-danger">
-                                    @lineTotal.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) ₫
-                                </td>
-
-                                <!-- REMOVE -->
-                                <td class="text-center">
-
-                                    <form asp-controller="Cart"
-                                          asp-action="Remove"
-                                          method="post">
-
-                                        @Html.AntiForgeryToken()
-
-                                        <input type="hidden"
-                                               name="cartItemId"
-                                               value="@item.CartItemId" />
-
-                                        <button type="submit"
-                                                class="btn btn-danger rounded-pill px-3">
-
-                                            🗑 @Localizer["Remove"]
-
-                                        </button>
-
-                                    </form>
-
-                                </td>
-
-                            </tr>
-                        }
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-        <!-- TOTAL -->
-        <div class="row mt-5">
-
-            <div class="col-lg-5 ms-auto">
-
-                <div class="card border-0 shadow-lg rounded-4">
-
-                    <div class="card-body p-4">
-
-                        <h3 class="fw-bold mb-4">
-                            @Localizer["CartSummary"]
-                        </h3>
-
-                        <div class="d-flex justify-content-between mb-3">
-
-                            <span class="text-muted">
-                                @Localizer["TotalItems"]
-                            </span>
-
-                            <span class="fw-semibold">
-                                @Model.CartItems.Count()
-                            </span>
-
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center border-top pt-3">
-
-                            <h4 class="fw-bold mb-0">
-                                @Localizer["GrandTotal"]
-                            </h4>
-
-                            <h3 class="text-danger fw-bold mb-0">
-                                @grandTotal.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) ₫
-                            </h3>
-
-                        </div>
-
-                        <div class="d-grid gap-3 mt-4">
-
-                            <a asp-controller="Food"
-                               asp-action="Index"
-                               class="btn btn-outline-dark rounded-pill py-3 fw-bold">
-
-                                ← @Localizer["ContinueShopping"]
-
-                            </a>
-
-                            <a asp-controller="Order"
-                               asp-action="Checkout"
-                               class="btn btn-danger rounded-pill py-3 fw-bold">
-
-                                💳 @Localizer["ProceedCheckout"]
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
+        <div class="cart-layout">
+            <section class="cart-products" aria-labelledby="cart-products-title">
+                <div class="cart-panel-heading">
+                    <h2 id="cart-products-title">@Localizer["Product"]</h2>
+                    <span>@items.Count</span>
                 </div>
 
-            </div>
+                @foreach (var item in items)
+                {
+                    var isFood = item.FoodItemID.HasValue;
+                    var type = isFood ? Localizer["Food"] : Localizer["Combo"];
+                    var name = (isFood ? item.FoodItem?.Name : item.Combo?.Name) ?? type.Value;
+                    var imagePath = isFood ? item.FoodItem?.ImagePath : item.Combo?.ImagePath;
+                    var imageUrl = string.IsNullOrWhiteSpace(imagePath)
+                        ? null
+                        : imageBaseUrl.TrimEnd('/') + "/" + imagePath.TrimStart('/');
+                    var price = item.Price ?? 0m;
+                    var lineTotal = price * item.Quantity;
 
+                    <article class="cart-item">
+                        <div class="cart-item-media">
+                            @if (imageUrl != null)
+                            {
+                                <img src="@imageUrl" alt="@name" loading="lazy" />
+                            }
+                            else
+                            {
+                                <i class="fa fa-utensils" aria-hidden="true"></i>
+                            }
+                        </div>
+
+                        <div class="cart-item-info">
+                            <span class="cart-item-type">@type</span>
+                            <h3>@name</h3>
+                            <p>@Localizer["Price"]: <strong>@price.ToString("N0", moneyCulture) ₫</strong></p>
+                        </div>
+
+                        <div class="cart-item-actions">
+                            <form asp-controller="Cart" asp-action="Update" method="post" class="cart-quantity-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                <label for="quantity-@item.CartItemId">@Localizer["Quantity"]</label>
+                                <input id="quantity-@item.CartItemId" type="number" name="quantity"
+                                       value="@item.Quantity" min="1" step="1" required inputmode="numeric" />
+                                <button type="submit">@Localizer["Update"]</button>
+                            </form>
+
+                            <form asp-controller="Cart" asp-action="Remove" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                <button type="submit" class="cart-remove">
+                                    <i class="fa fa-trash-alt" aria-hidden="true"></i> @Localizer["Remove"]
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="cart-item-total">
+                            <span>@Localizer["Subtotal"]</span>
+                            <strong>@lineTotal.ToString("N0", moneyCulture) ₫</strong>
+                        </div>
+                    </article>
+                }
+            </section>
+
+            <aside class="cart-summary" aria-labelledby="cart-summary-title">
+                <h2 id="cart-summary-title">@Localizer["CartSummary"]</h2>
+                <div class="cart-summary-row">
+                    <span>@Localizer["TotalItems"]</span>
+                    <strong>@items.Count</strong>
+                </div>
+                <div class="cart-summary-row">
+                    <span>@Localizer["Subtotal"]</span>
+                    <strong>@grandTotal.ToString("N0", moneyCulture) ₫</strong>
+                </div>
+                <div class="cart-summary-total">
+                    <span>@Localizer["GrandTotal"]</span>
+                    <strong>@grandTotal.ToString("N0", moneyCulture) ₫</strong>
+                </div>
+                <a asp-controller="Order" asp-action="Checkout" class="cart-primary-action cart-checkout">
+                    @Localizer["ProceedCheckout"] <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a asp-controller="Food" asp-action="Index" class="cart-continue">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> @Localizer["ContinueShopping"]
+                </a>
+            </aside>
         </div>
     }
-
-</div>
-
-<style>
-
-    body {
-        background: #f5f7fb;
-    }
-
-    .cart-header {
-        background: #212529;
-        color: white;
-    }
-
-        .cart-header th {
-            padding: 20px;
-            font-size: 16px;
-        }
-
-    .cart-row td {
-        padding: 20px;
-        vertical-align: middle;
-    }
-
-    .cart-row:hover {
-        background: #fafafa;
-    }
-
-    .cart-image {
-        width: 90px;
-        height: 90px;
-        object-fit: cover;
-        border-radius: 18px;
-        border: 2px solid #eee;
-    }
-
-    .quantity-input {
-        width: 90px;
-        border-radius: 12px;
-        text-align: center;
-    }
-
-    .table {
-        margin-bottom: 0;
-    }
-
-    .card {
-        overflow: hidden;
-    }
-
-    .btn {
-        transition: all 0.3s ease;
-    }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-    @@media(max-width: 768px) {
-
-        .cart-image {
-            width: 70px;
-            height: 70px;
-        }
-
-        .quantity-input {
-            width: 70px;
-        }
-    }
-</style>
-
-
-
+</main>

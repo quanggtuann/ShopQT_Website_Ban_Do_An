@@ -1,7 +1,9 @@
 using ShopAPI.DTOs;
 using ShopAPI.Services.Customer.IServices;
 using ShopDAL.Models;
+using ShopDAL.Context;
 using ShopDAL.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShopAPI.Services.Customer
 {
@@ -11,17 +13,20 @@ namespace ShopAPI.Services.Customer
         private readonly ICartRepo _cartRepo;
         private readonly IAddressRepo _addressRepo;
         private readonly ICustomerDiscountPriceService _discountPriceService;
+        private readonly ApplicationDbContext _db;
 
         public CustomerOrderService(
             IOrderRepo orderRepo,
             ICartRepo cartRepo,
             IAddressRepo addressRepo,
-            ICustomerDiscountPriceService discountPriceService)
+            ICustomerDiscountPriceService discountPriceService,
+            ApplicationDbContext db)
         {
             _orderRepo = orderRepo;
             _cartRepo = cartRepo;
             _addressRepo = addressRepo;
             _discountPriceService = discountPriceService;
+            _db = db;
         }
 
         public CreateOrderResponse CreateOrderFromCart(int userId, CreateOrderRequest request)
@@ -154,6 +159,25 @@ namespace ShopAPI.Services.Customer
             if (order.Status != OrderStatus.Pending)
             {
                 throw new InvalidOperationException("Only pending orders can be cancelled.");
+            }
+
+            if (order.PaymentMethod == PaymentMethod.VNPay)
+            {
+                // A gateway page may remain open after cancellation. Update the order atomically
+                // so a concurrent signed payment result cannot be mistaken for an unpaid order.
+                var cancelledAt = DateTime.Now;
+                var updated = _db.Orders
+                    .Where(x => x.OrderId == orderId && x.UserId == userId
+                        && x.Status == OrderStatus.Pending && !x.IsPaid)
+                    .ExecuteUpdate(x => x
+                        .SetProperty(o => o.Status, OrderStatus.Cancelled)
+                        .SetProperty(o => o.CancelReason, cancelReason)
+                        .SetProperty(o => o.CancelReasonDetail, cancelReasonDetail)
+                        .SetProperty(o => o.CancelledBy, "Customer")
+                        .SetProperty(o => o.CancelledAt, cancelledAt));
+                if (updated != 1)
+                    throw new InvalidOperationException("This order was paid or changed. Refresh the page before cancelling.");
+                return;
             }
 
             order.Status = OrderStatus.Cancelled;

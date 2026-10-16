@@ -2,10 +2,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShopView.ViewModels
 {
+    public sealed class VnpayAvailabilityResponse
+    {
+        public bool Available { get; set; }
+    }
+
+    public sealed class VnpayStartResponse
+    {
+        public string PaymentUrl { get; set; } = string.Empty;
+    }
+
     public class CheckoutViewModel
     {
         public CartViewModel Cart { get; set; } = new();
         public List<AddressViewModel> Addresses { get; set; } = new();
+        public bool VnpayAvailable { get; set; }
 
         [Required]
         public int AddressId { get; set; }
@@ -51,7 +62,8 @@ namespace ShopView.ViewModels
         public string ReceiverPhone { get; set; } = string.Empty;
         public string ShippingAddress { get; set; } = string.Empty;
         public List<CustomerOrderDetailViewModel> Items { get; set; } = new();
-        public bool CanCancel => string.Equals(Status, "Pending", StringComparison.OrdinalIgnoreCase);
+        public bool CanCancel => string.Equals(Status, "Pending", StringComparison.OrdinalIgnoreCase)
+            && (!string.Equals(PaymentMethod, "VNPay", StringComparison.OrdinalIgnoreCase) || !IsPaid);
     }
 
     public class CancelOrderApiRequest

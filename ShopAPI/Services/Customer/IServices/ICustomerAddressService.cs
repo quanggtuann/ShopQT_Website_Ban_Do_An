@@ -9,7 +9,7 @@ namespace ShopAPI.Services.Customer.IServices
         Address? GetById(int id);
         IQueryable<Address> GetByUserId(int userId);
         Address? GetAddressDefault(int userId);
-        void Add(int userId, CreateAddressDto dto);
+        int Add(int userId, CreateAddressDto dto);
         void Update(int userId, UpdateAddressDto dto);
         void Delete(int id);
         void SetDefault(int userId, int addressId);

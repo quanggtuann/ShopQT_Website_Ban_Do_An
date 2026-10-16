@@ -42,6 +42,22 @@ namespace ShopDAL.Areas.Repository
             {
                 throw new InvalidOperationException("Only pending, confirmed or shipping orders can be cancelled");
             }
+            if (order.PaymentMethod == PaymentMethod.VNPay)
+            {
+                var cancelledAt = DateTime.Now;
+                var updated = _context.Orders
+                    .Where(x => x.OrderId == orderId && x.Status != OrderStatus.Cancelled
+                        && x.Status != OrderStatus.Completed && !x.IsPaid)
+                    .ExecuteUpdate(x => x
+                        .SetProperty(o => o.Status, OrderStatus.Cancelled)
+                        .SetProperty(o => o.CancelReason, cancelReason)
+                        .SetProperty(o => o.CancelReasonDetail, (string?)null)
+                        .SetProperty(o => o.CancelledBy, cancelledBy)
+                        .SetProperty(o => o.CancelledAt, cancelledAt));
+                if (updated != 1)
+                    throw new InvalidOperationException("This VNPay order was paid or changed. Refresh before cancelling.");
+                return;
+            }
             order.Status = OrderStatus.Cancelled;
             order.CancelReason = cancelReason;
             order.CancelReasonDetail = null;
@@ -56,6 +72,8 @@ namespace ShopDAL.Areas.Repository
             {
                 throw new KeyNotFoundException("order not found");
             }
+            if (order.PaymentMethod == PaymentMethod.VNPay && !order.IsPaid)
+                throw new InvalidOperationException("The VNPay order must be paid before processing.");
             order.Status = order.Status switch
             {
                 OrderStatus.Pending => OrderStatus.Confirmed,

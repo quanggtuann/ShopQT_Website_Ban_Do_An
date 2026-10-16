@@ -106,6 +106,11 @@
     .badge-hot { position:absolute; top:12px; left:12px; z-index:2; color:#fff; background:#ff4d24; border-radius:999px; padding:6px 10px; font-size:11px; font-weight:900; display:inline-flex; align-items:center; gap:7px; }
     .heart { position:absolute; top:12px; right:12px; z-index:4; width:34px; height:34px; border-radius:50%; border:0; background:rgba(255,255,255,.92); color:#6b7280; transition:.25s ease; display:flex; align-items:center; justify-content:center; text-decoration:none; }
     .heart:hover, .heart.active { color:#ff4d24; transform:scale(1.08) rotate(6deg); text-decoration:none; }
+    .heart[aria-disabled="true"] { opacity:.6; }
+    .heart:focus-visible { outline:3px solid #ff641f; outline-offset:2px; }
+    .favorite-feedback { position:fixed; right:20px; bottom:20px; z-index:1050; max-width:min(360px,calc(100vw - 40px)); padding:12px 16px; border-radius:12px; background:#193c2c; color:#fff; box-shadow:0 12px 30px rgba(0,0,0,.18); font-size:14px; font-weight:700; }
+    .favorite-feedback.error { background:#a52929; }
+    .favorite-feedback[hidden] { display:none; }
     .product-carousel { overflow:hidden; }
     .carousel-track { display:flex; gap:14px; width:max-content; animation:slideFoods 28s linear infinite; }
     .product-carousel:hover .carousel-track { animation-play-state:paused; }
@@ -228,6 +233,14 @@
 </style>
 
 <div class="container ff-page py-4">
+    <form id="foodFavoriteForm" asp-controller="Favorite" asp-action="ToggleFoodAjax" method="post" hidden
+          data-login-url="@Url.Action("Login", "Account")"
+          data-added-message="@Localizer["FavoriteAdded"]"
+          data-removed-message="@Localizer["FavoriteRemoved"]"
+          data-error-message="@Localizer["FavoriteUpdateFailed"]">
+        @Html.AntiForgeryToken()
+    </form>
+    <div id="foodFavoriteFeedback" class="favorite-feedback" role="status" aria-live="polite" hidden></div>
     @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger rounded-4">@TempData["ErrorMessage"]</div>
@@ -268,11 +281,15 @@
                                         <span>@DiscountText(item.DiscountValue, item.DiscountType)</span>
                                         <small>SAVE</small>
                                     </div>
-                                    <a class="heart @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
+                                    <a class="heart js-favorite-toggle @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
                                        asp-controller="Favorite"
                                        asp-action="ToggleFood"
                                        asp-route-id="@item.FoodItemId"
-                                       asp-route-returnUrl="@currentReturnUrl">
+                                       asp-route-returnUrl="@currentReturnUrl"
+                                       data-food-id="@item.FoodItemId"
+                                       role="button"
+                                       aria-pressed="@(favoriteFoodIds.Contains(item.FoodItemId) ? "true" : "false")"
+                                       aria-label="@Localizer["Favorite"]: @item.Name">
                                         <i class="fa @(favoriteFoodIds.Contains(item.FoodItemId) ? "fa-heart" : "fa-heart-o")"></i>
                                     </a>
                                     <div class="hover-details">
@@ -344,11 +361,15 @@
                                     <small>SAVE</small>
                                 </div>
                             }
-                            <a class="heart @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
+                            <a class="heart js-favorite-toggle @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
                                asp-controller="Favorite"
                                asp-action="ToggleFood"
                                asp-route-id="@item.FoodItemId"
-                               asp-route-returnUrl="@currentReturnUrl">
+                               asp-route-returnUrl="@currentReturnUrl"
+                               data-food-id="@item.FoodItemId"
+                               role="button"
+                               aria-pressed="@(favoriteFoodIds.Contains(item.FoodItemId) ? "true" : "false")"
+                               aria-label="@Localizer["Favorite"]: @item.Name">
                                 <i class="fa @(favoriteFoodIds.Contains(item.FoodItemId) ? "fa-heart" : "fa-heart-o")"></i>
                             </a>
                             <div class="hover-details">
@@ -612,11 +633,15 @@
                                 <small>SAVE</small>
                             </div>
                         }
-                        <a class="heart @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
+                        <a class="heart js-favorite-toggle @(favoriteFoodIds.Contains(item.FoodItemId) ? "active" : "")"
                            asp-controller="Favorite"
                            asp-action="ToggleFood"
                            asp-route-id="@item.FoodItemId"
-                           asp-route-returnUrl="@currentReturnUrl">
+                           asp-route-returnUrl="@currentReturnUrl"
+                           data-food-id="@item.FoodItemId"
+                           role="button"
+                           aria-pressed="@(favoriteFoodIds.Contains(item.FoodItemId) ? "true" : "false")"
+                           aria-label="@Localizer["Favorite"]: @item.Name">
                             <i class="fa @(favoriteFoodIds.Contains(item.FoodItemId) ? "fa-heart" : "fa-heart-o")"></i>
                         </a>
                         <div class="hover-details">
@@ -668,3 +693,7 @@
         }
     }
 </div>
+
+@section Scripts {
+    <script src="~/js/food-favorites.js" asp-append-version="true"></script>
+}

@@ -106,11 +106,12 @@ namespace ShopView.Controllers
 
                 if (IsAjaxRequest())
                 {
+                    var result = await response.Content.ReadFromJsonAsync<CartAddResponseViewModel>();
                     return Ok(new
                     {
                         success = true,
                         message = "Added to cart.",
-                        quantity
+                        cartItemCount = result?.CartItemCount
                     });
                 }
 
@@ -177,11 +178,12 @@ namespace ShopView.Controllers
 
                 if (IsAjaxRequest())
                 {
+                    var result = await response.Content.ReadFromJsonAsync<CartAddResponseViewModel>();
                     return Ok(new
                     {
                         success = true,
                         message = "Added to cart.",
-                        quantity
+                        cartItemCount = result?.CartItemCount
                     });
                 }
 

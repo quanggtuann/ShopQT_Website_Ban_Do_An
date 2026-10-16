@@ -56,13 +56,15 @@ namespace ShopView.Areas.Admin.ViewModel
         public List<AdminOrderDetailDto> Items { get; set; } = new();
 
         public bool CanCancel =>
-            string.Equals(Status, "Pending", StringComparison.OrdinalIgnoreCase)
+            (string.Equals(Status, "Pending", StringComparison.OrdinalIgnoreCase)
             || string.Equals(Status, "Confirmed", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(Status, "Shipping", StringComparison.OrdinalIgnoreCase);
+            || string.Equals(Status, "Shipping", StringComparison.OrdinalIgnoreCase))
+            && (!string.Equals(PaymentMethod, "VNPay", StringComparison.OrdinalIgnoreCase) || !IsPaid);
 
         public bool CanMoveNext =>
             !string.Equals(Status, "Completed", StringComparison.OrdinalIgnoreCase)
-            && !string.Equals(Status, "Cancelled", StringComparison.OrdinalIgnoreCase);
+            && !string.Equals(Status, "Cancelled", StringComparison.OrdinalIgnoreCase)
+            && (!string.Equals(PaymentMethod, "VNPay", StringComparison.OrdinalIgnoreCase) || IsPaid);
 
         public string NextStatusText => Status.ToLowerInvariant() switch
         {

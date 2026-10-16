@@ -64,6 +64,9 @@
   <data name="TryAnotherFood" xml:space="preserve"><value>Try another keyword, price range, or category.</value></data>
   <data name="FoodFallback" xml:space="preserve"><value>Food</value></data>
   <data name="Favorite" xml:space="preserve"><value>Favorite</value></data>
+  <data name="FavoriteAdded" xml:space="preserve"><value>Added to favorites.</value></data>
+  <data name="FavoriteRemoved" xml:space="preserve"><value>Removed from favorites.</value></data>
+  <data name="FavoriteUpdateFailed" xml:space="preserve"><value>Could not update favorites. Please try again.</value></data>
   <data name="ViewDetails" xml:space="preserve"><value>View details</value></data>
   <data name="ViewDetail" xml:space="preserve"><value>View Detail</value></data>
   <data name="Featured" xml:space="preserve"><value>Featured</value></data>
@@ -95,9 +98,10 @@
   <data name="IncludedItems" xml:space="preserve"><value>Included Items</value></data>
   <data name="MyCart" xml:space="preserve"><value>My Cart</value></data>
   <data name="MyShoppingCart" xml:space="preserve"><value>My Shopping Cart</value></data>
-  <data name="ReviewCart" xml:space="preserve"><value>Review your delicious items before checkout</value></data>
+  <data name="ReviewCart" xml:space="preserve"><value>Review your items and quantities before checkout.</value></data>
+  <data name="CartItemsLabel" xml:space="preserve"><value>items in cart</value></data>
   <data name="EmptyCart" xml:space="preserve"><value>Your cart is empty</value></data>
-  <data name="AddFoodComboNow" xml:space="preserve"><value>Add some delicious food and combos now!</value></data>
+  <data name="AddFoodComboNow" xml:space="preserve"><value>Explore the menu and add your favorites.</value></data>
   <data name="ContinueShopping" xml:space="preserve"><value>Continue Shopping</value></data>
   <data name="Product" xml:space="preserve"><value>Product</value></data>
   <data name="Quantity" xml:space="preserve"><value>Quantity</value></data>
@@ -159,10 +163,14 @@
   <data name="CreateAddress" xml:space="preserve"><value>Create Address</value></data>
   <data name="EditAddress" xml:space="preserve"><value>Edit Address</value></data>
   <data name="AddNewAddress" xml:space="preserve"><value>Add New Address</value></data>
-  <data name="AddDeliveryAddress" xml:space="preserve"><value>Add a delivery address for your orders</value></data>
+  <data name="AddDeliveryAddress" xml:space="preserve"><value>Enter delivery details to complete your order.</value></data>
+  <data name="AddressCreated" xml:space="preserve"><value>Delivery address added.</value></data>
   <data name="ReceiverInformation" xml:space="preserve"><value>Receiver Information</value></data>
+  <data name="ReceiverInformationHelp" xml:space="preserve"><value>Contact details for the person receiving the order.</value></data>
   <data name="FullName" xml:space="preserve"><value>Full Name</value></data>
   <data name="AddressInformation" xml:space="preserve"><value>Address Information</value></data>
+  <data name="AddressInformationHelp" xml:space="preserve"><value>Select an area and enter the full delivery address.</value></data>
+  <data name="DetailAddressPlaceholder" xml:space="preserve"><value>House number, street, building...</value></data>
   <data name="Province" xml:space="preserve"><value>Province</value></data>
   <data name="District" xml:space="preserve"><value>District</value></data>
   <data name="Ward" xml:space="preserve"><value>Ward</value></data>
@@ -190,8 +198,10 @@
   <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="PhoneNumber" xml:space="preserve"><value>Phone Number</value></data>
   <data name="AccessDeniedMessage" xml:space="preserve"><value>You do not have permission to view this page.</value></data>
-  <data name="LogoutQuestion" xml:space="preserve"><value>Are you sure you want to logout?</value></data>
+  <data name="LogoutQuestion" xml:space="preserve"><value>Your current session will end.</value></data>
   <data name="LogoutConfirmation" xml:space="preserve"><value>Logout Confirmation</value></data>
+  <data name="LogoutSessionNote" xml:space="preserve"><value>You can sign in again at any time.</value></data>
+  <data name="CloseDialog" xml:space="preserve"><value>Close dialog</value></data>
   <data name="BestSeller" xml:space="preserve"><value>Best seller</value></data>
   <data name="BestSellerSubtitle" xml:space="preserve"><value>Discounted favorites rotate automatically.</value></data>
   <data name="ComboDeals" xml:space="preserve"><value>Combo deals</value></data>
@@ -226,7 +236,7 @@
   <data name="AllCombos" xml:space="preserve"><value>All combos</value></data>
   <data name="Checkout" xml:space="preserve"><value>Checkout</value></data>
   <data name="ReviewAndPlaceOrder" xml:space="preserve"><value>Review and place order</value></data>
-  <data name="CheckoutSubtitle" xml:space="preserve"><value>Choose your delivery address, payment method, and confirm your delicious order.</value></data>
+  <data name="CheckoutSubtitle" xml:space="preserve"><value>Confirm your delivery address and payment method before placing the order.</value></data>
   <data name="BackToCart" xml:space="preserve"><value>Back to cart</value></data>
   <data name="Step" xml:space="preserve"><value>Step</value></data>
   <data name="DeliveryAddress" xml:space="preserve"><value>Delivery address</value></data>
@@ -249,7 +259,7 @@
   <data name="Items" xml:space="preserve"><value>items</value></data>
   <data name="OrderHistorySubtitle" xml:space="preserve"><value>Track your recent orders and view delivery details.</value></data>
   <data name="NoOrdersYet" xml:space="preserve"><value>No orders yet</value></data>
-  <data name="NoOrdersHint" xml:space="preserve"><value>Your completed checkout orders will appear here.</value></data>
+  <data name="NoOrdersHint" xml:space="preserve"><value>Orders you place will appear here.</value></data>
   <data name="Pending" xml:space="preserve"><value>Pending</value></data>
   <data name="Confirmed" xml:space="preserve"><value>Confirmed</value></data>
   <data name="Shipping" xml:space="preserve"><value>Shipping</value></data>
@@ -257,6 +267,44 @@
   <data name="Cancelled" xml:space="preserve"><value>Cancelled</value></data>
   <data name="CancelOrder" xml:space="preserve"><value>Cancel order</value></data>
   <data name="CancelOrderQuestion" xml:space="preserve"><value>Are you sure you want to cancel this order?</value></data>
+  <data name="ProfileSubtitle" xml:space="preserve"><value>View and manage your account information.</value></data>
+  <data name="EditProfile" xml:space="preserve"><value>Edit profile</value></data>
+  <data name="SelectProvince" xml:space="preserve"><value>Select a province or city</value></data>
+  <data name="SelectWard" xml:space="preserve"><value>Select a ward</value></data>
+  <data name="EditAddressSubtitle" xml:space="preserve"><value>Update the recipient and delivery address details.</value></data>
+  <data name="AddressUpdated" xml:space="preserve"><value>Address updated.</value></data>
+  <data name="AddressDeleted" xml:space="preserve"><value>Address deleted.</value></data>
+  <data name="DefaultAddressUpdated" xml:space="preserve"><value>Default address updated.</value></data>
+  <data name="Inactive" xml:space="preserve"><value>Inactive</value></data>
+  <data name="ProfileUpdated" xml:space="preserve"><value>Profile updated.</value></data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve"><value>New password and confirmation do not match.</value></data>
+  <data name="PasswordChangedSignInAgain" xml:space="preserve"><value>Password changed. Please sign in again.</value></data>
+  <data name="HidePassword" xml:space="preserve"><value>Hide password</value></data>
+  <data name="NoAddressesHint" xml:space="preserve"><value>Add an address to use at checkout.</value></data>
+  <data name="OrderNumber" xml:space="preserve"><value>Order</value></data>
+  <data name="OrderCancelled" xml:space="preserve"><value>Order cancelled.</value></data>
+  <data name="CancelReasonLabel" xml:space="preserve"><value>Reason for cancellation</value></data>
+  <data name="SelectCancelReason" xml:space="preserve"><value>Select a reason</value></data>
+  <data name="CancelReasonOther" xml:space="preserve"><value>Other reason</value></data>
+  <data name="CancelReasonDetailHint" xml:space="preserve"><value>Enter your reason for cancellation</value></data>
+  <data name="ConfirmCancelOrder" xml:space="preserve"><value>Confirm cancellation</value></data>
+  <data name="CancellationReason" xml:space="preserve"><value>Cancellation reason:</value></data>
+  <data name="CancelReasonChangedMind" xml:space="preserve"><value>I no longer need this order</value></data>
+  <data name="CancelReasonWrongDetails" xml:space="preserve"><value>I need to change the delivery details</value></data>
+  <data name="CancelReasonChangeItems" xml:space="preserve"><value>I want to change the items</value></data>
+  <data name="CancelReasonBetterPrice" xml:space="preserve"><value>I found a better price</value></data>
+  <data name="CancelReasonDeliveryTime" xml:space="preserve"><value>The delivery time does not work for me</value></data>
+  <data name="CancelReasonDuplicate" xml:space="preserve"><value>I placed a duplicate order</value></data>
+  <data name="VnpayNotConfigured" xml:space="preserve"><value>VNPay is not fully configured. Please choose cash on delivery or contact the store.</value></data>
+  <data name="VnpayInvalidResult" xml:space="preserve"><value>The VNPay result could not be verified. Please check your order status.</value></data>
+  <data name="VnpayCancelledPaid" xml:space="preserve"><value>VNPay received payment for a cancelled order. Please contact the store for a refund.</value></data>
+  <data name="VnpayConfirmed" xml:space="preserve"><value>Your VNPay payment has been confirmed.</value></data>
+  <data name="VnpayFailed" xml:space="preserve"><value>Payment was unsuccessful. You can try again from the order details.</value></data>
+  <data name="VnpayPending" xml:space="preserve"><value>Waiting for payment confirmation from VNPay. Please refresh this page shortly.</value></data>
+  <data name="VnpayStartFailed" xml:space="preserve"><value>Your order was created, but VNPay could not be opened. Please retry from the order details.</value></data>
+  <data name="PayWithVnpay" xml:space="preserve"><value>Pay with VNPay</value></data>
+  <data name="VnpayDescription" xml:space="preserve"><value>Secure online payment with VNPay</value></data>
+  <data name="VnpayUnavailable" xml:space="preserve"><value>Temporarily unavailable</value></data>
 </root>
 
 

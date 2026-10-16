@@ -1,215 +1,65 @@
-﻿@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Localization
 @model ShopView.ViewModels.UpdateProfile
 @inject IStringLocalizer<ShopView.SharedResource> Localizer
 
 @{
     Layout = "_MyLayout";
     ViewData["Title"] = Localizer["EditProfile"];
+    ViewData["PageClass"] = "account-context";
 }
 
-<div class="container-fluid px-4 py-5">
+@section Styles {
+    <link rel="stylesheet" href="~/css/account-pages.css" asp-append-version="true" />
+}
+
+<main class="account-page account-form-page container">
+    <header class="account-header">
+        <div>
+            <span class="account-eyebrow">@Localizer["Profile"]</span>
+            <h1>@Localizer["EditProfile"]</h1>
+            <p>@Localizer["UpdatePersonalInformation"]</p>
+        </div>
+        <a asp-action="Profile" class="account-outline-action">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> @Localizer["BackToProfile"]
+        </a>
+    </header>
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger shadow-sm">
-            @TempData["ErrorMessage"]
-        </div>
+        <div class="account-alert account-alert-error" role="alert">@TempData["ErrorMessage"]</div>
     }
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success shadow-sm">
-            @TempData["SuccessMessage"]
-        </div>
-    }
+    <form asp-action="UpdateProfile" method="post" class="account-card account-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="account-alert account-alert-error"></div>
+        <div class="account-card-heading"><h2>@Localizer["PersonalInformation"]</h2></div>
 
-    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-
-        <!-- HEADER -->
-        <div class="edit-header">
-
-            <div class="row align-items-center">
-
-                <div class="col-md-8 d-flex align-items-center">
-
-                    <div class="avatar-circle">
-                        @(Model.Email?.Substring(0, 1).ToUpper() ?? "U")
-                    </div>
-
-                    <div class="ms-4 text-white">
-
-                        <h2 class="fw-bold mb-1">
-                            @Localizer["EditProfile"]
-                        </h2>
-
-                        <p class="mb-0 text-light">
-                            @Localizer["UpdatePersonalInformation"]
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4 text-md-end mt-3 mt-md-0">
-
-                    <a asp-action="Profile"
-                       class="btn btn-light btn-lg rounded-pill px-4">
-                        ← @Localizer["BackToProfile"]
-                    </a>
-
-                </div>
-
+        <div class="account-form-grid">
+            <div class="account-field">
+                <label asp-for="Email">@Localizer["EmailAddress"]</label>
+                <input asp-for="Email" type="email" autocomplete="email" />
+                <span asp-validation-for="Email" class="account-validation"></span>
             </div>
-
+            <div class="account-field">
+                <label asp-for="PhoneNumber">@Localizer["PhoneNumber"]</label>
+                <input asp-for="PhoneNumber" type="tel" autocomplete="tel" inputmode="numeric"
+                       maxlength="10" pattern="0[0-9]{9}" />
+                <span asp-validation-for="PhoneNumber" class="account-validation"></span>
+            </div>
+            <div class="account-field">
+                <label asp-for="DateorBirth">@Localizer["DateOfBirth"]</label>
+                <input asp-for="DateorBirth" type="date" />
+                <span asp-validation-for="DateorBirth" class="account-validation"></span>
+            </div>
         </div>
 
-        <!-- BODY -->
-        <div class="card-body p-5">
-
-            <form asp-action="UpdateProfile" method="post">
-
-                @Html.AntiForgeryToken()
-
-                <div class="row">
-
-                    <!-- EMAIL -->
-                    <div class="col-md-6 mb-4">
-
-                        <label asp-for="Email"
-                               class="form-label fw-semibold">
-                            @Localizer["EmailAddress"]
-                        </label>
-
-                        <input asp-for="Email"
-                               class="form-control custom-input" />
-
-                        <span asp-validation-for="Email"
-                              class="text-danger"></span>
-
-                    </div>
-
-                    <!-- PHONE -->
-                    <div class="col-md-6 mb-4">
-
-                        <label asp-for="PhoneNumber"
-                               class="form-label fw-semibold">
-                            @Localizer["PhoneNumber"]
-                        </label>
-
-                        <input asp-for="PhoneNumber"
-                               class="form-control custom-input" />
-
-                        <span asp-validation-for="PhoneNumber"
-                              class="text-danger"></span>
-
-                    </div>
-
-                    <!-- DOB -->
-                    <div class="col-md-6 mb-4">
-
-                        <label asp-for="DateorBirth"
-                               class="form-label fw-semibold">
-                            @Localizer["DateOfBirth"]
-                        </label>
-
-                        <input asp-for="DateorBirth"
-                               type="date"
-                               class="form-control custom-input" />
-
-                        <span asp-validation-for="DateorBirth"
-                              class="text-danger"></span>
-
-                    </div>
-
-                </div>
-
-                <hr class="my-4" />
-
-                <div class="d-flex gap-3">
-
-                    <button type="submit"
-                            class="btn btn-save px-5 py-3">
-                        💾 @Localizer["SaveChanges"]
-                    </button>
-
-                    <a asp-action="Profile"
-                       class="btn btn-outline-secondary px-5 py-3">
-                        @Localizer["Cancel"]
-                    </a>
-
-                </div>
-
-            </form>
-
+        <div class="account-form-actions">
+            <a asp-action="Profile" class="account-text-action">@Localizer["Cancel"]</a>
+            <button type="submit" class="account-primary-action">@Localizer["SaveChanges"]</button>
         </div>
-
-    </div>
-
-</div>
-
-<style>
-
-    body {
-        background: #f4f6fb;
-    }
-
-    .edit-header {
-        background: linear-gradient(135deg,#ff6b35,#ff9f43);
-        padding: 40px;
-    }
-
-    .avatar-circle {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background: white;
-        color: #ff6b35;
-        font-size: 40px;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,.2);
-    }
-
-    .custom-input {
-        height: 58px;
-        border-radius: 16px;
-        border: 1px solid #e5e7eb;
-        font-size: 16px;
-        padding-left: 18px;
-        transition: all .3s;
-    }
-
-        .custom-input:focus {
-            border-color: #ff6b35;
-            box-shadow: 0 0 0 0.2rem rgba(255,107,53,.15);
-        }
-
-    .btn-save {
-        background: linear-gradient(135deg,#ff6b35,#ff9f43);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-weight: 600;
-        transition: .3s;
-    }
-
-        .btn-save:hover {
-            transform: translateY(-2px);
-            color: white;
-        }
-
-    .card {
-        max-width: 1200px;
-        margin: auto;
-    }
-
-</style>
+    </form>
+</main>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }
-

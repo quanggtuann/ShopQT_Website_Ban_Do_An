@@ -64,7 +64,7 @@ namespace ShopView.Infrastructure
                     return 0;
                 }
 
-                return cart.CartItems.Sum(item => item.Quantity);
+                return cart.CartItems.Count;
             }
             catch
             {

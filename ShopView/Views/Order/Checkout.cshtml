@@ -6,407 +6,172 @@
 @{
     Layout = "_MyLayout";
     ViewData["Title"] = Localizer["Checkout"];
-    var vi = new CultureInfo("vi-VN");
+    ViewData["PageClass"] = "checkout-context";
+    var vi = CultureInfo.GetCultureInfo("vi-VN");
     var imageBaseUrl = "https://localhost:7130/";
 }
 
-<div class="order-page container py-5">
-    <div class="order-hero mb-4">
+@section Styles {
+    <link rel="stylesheet" href="~/css/checkout-flow.css" asp-append-version="true" />
+}
+
+<main class="checkout-page container">
+    <header class="checkout-header">
         <div>
-            <span class="order-kicker">🍔 @Localizer["Checkout"]</span>
+            <span class="checkout-eyebrow">@Localizer["Checkout"]</span>
             <h1>@Localizer["ReviewAndPlaceOrder"]</h1>
             <p>@Localizer["CheckoutSubtitle"]</p>
         </div>
-        <a asp-controller="Cart" asp-action="Index" class="order-soft-btn">
-            <i class="fa fa-arrow-left"></i> @Localizer["BackToCart"]
+        <a asp-controller="Cart" asp-action="Index" class="checkout-back">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> @Localizer["BackToCart"]
         </a>
-    </div>
+    </header>
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger rounded-4 shadow-sm">@TempData["ErrorMessage"]</div>
+        <div class="flow-alert flow-alert-error" role="alert">@TempData["ErrorMessage"]</div>
+    }
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="flow-alert flow-alert-success" role="status">@TempData["SuccessMessage"]</div>
     }
 
     <form asp-controller="Order" asp-action="Checkout" method="post">
         @Html.AntiForgeryToken()
-        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div asp-validation-summary="ModelOnly" class="flow-alert flow-alert-error"></div>
 
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="order-card mb-4">
-                    <div class="order-section-title">
-                        <div>
-                            <span>@Localizer["Step"] 1</span>
-                            <h3>@Localizer["DeliveryAddress"]</h3>
+        <div class="checkout-layout">
+            <div class="checkout-details">
+                <section class="checkout-panel" aria-labelledby="delivery-title">
+                    <div class="checkout-section-header">
+                        <div class="checkout-section-title">
+                            <span class="checkout-step" aria-hidden="true">1</span>
+                            <h2 id="delivery-title">@Localizer["DeliveryAddress"]</h2>
                         </div>
-                        <a asp-controller="Address" asp-action="Create" class="order-link">
-                            <i class="fa fa-plus"></i> @Localizer["AddAddress"]
+                        <a asp-controller="Address" asp-action="Create" asp-route-returnToCheckout="true" class="checkout-add-link">
+                            <i class="fa fa-plus" aria-hidden="true"></i> @Localizer["AddAddress"]
                         </a>
                     </div>
 
-                    <div class="address-grid">
-                        @foreach (var address in Model.Addresses)
-                        {
-                            var fullAddress = string.Join(", ", new[]
+                    @if (Model.Addresses.Any())
+                    {
+                        <div class="checkout-address-grid">
+                            @foreach (var address in Model.Addresses)
                             {
-                                address.DetailAddress,
-                                address.Ward,
-                                address.Province
-                            }.Where(part => !string.IsNullOrWhiteSpace(part)));
+                                var fullAddress = string.Join(", ", new[]
+                                {
+                                    address.DetailAddress,
+                                    address.Ward,
+                                    address.Province
+                                }.Where(part => !string.IsNullOrWhiteSpace(part)));
 
-                            <label class="address-option">
-                                <input type="radio"
-                                       asp-for="AddressId"
-                                       value="@address.AddressId" />
-                                <span class="address-box">
-                                    <span class="address-top">
-                                        <strong>@address.ReceiverName</strong>
-                                        @if (address.IsDefault)
-                                        {
-                                            <em>@Localizer["Default"]</em>
-                                        }
+                                <label class="checkout-choice">
+                                    <input type="radio" asp-for="AddressId" value="@address.AddressId" />
+                                    <span class="checkout-address-card">
+                                        <span class="checkout-address-top">
+                                            <strong>@address.ReceiverName</strong>
+                                            @if (address.IsDefault)
+                                            {
+                                                <em>@Localizer["Default"]</em>
+                                            }
+                                        </span>
+                                        <span class="checkout-address-line"><i class="fa fa-phone" aria-hidden="true"></i> @address.PhoneNumber</span>
+                                        <span class="checkout-address-line"><i class="fa fa-map-marker-alt" aria-hidden="true"></i> @fullAddress</span>
+                                        <span class="checkout-choice-indicator" aria-hidden="true"></span>
                                     </span>
-                                    <span><i class="fa fa-phone"></i> @address.PhoneNumber</span>
-                                    <span><i class="fa fa-map-marker-alt"></i> @fullAddress</span>
-                                </span>
-                            </label>
-                        }
-                    </div>
-                    <span asp-validation-for="AddressId" class="text-danger"></span>
-                </div>
+                                </label>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="checkout-no-address">@Localizer["AddDeliveryAddress"]</p>
+                    }
+                    <span asp-validation-for="AddressId" class="flow-validation"></span>
+                </section>
 
-                <div class="order-card mb-4">
-                    <div class="order-section-title">
-                        <div>
-                            <span>@Localizer["Step"] 2</span>
-                            <h3>@Localizer["PaymentMethod"]</h3>
+                <section class="checkout-panel" aria-labelledby="payment-title">
+                    <div class="checkout-section-header">
+                        <div class="checkout-section-title">
+                            <span class="checkout-step" aria-hidden="true">2</span>
+                            <h2 id="payment-title">@Localizer["PaymentMethod"]</h2>
                         </div>
                     </div>
-
-                    <div class="payment-grid">
-                        <label class="payment-option">
+                    <div class="checkout-payment-grid">
+                        <label class="checkout-choice">
                             <input type="radio" asp-for="PaymentMethod" value="Cash" />
-                            <span>
-                                <i class="fa fa-money-bill-wave"></i>
-                                <strong>@Localizer["CashOnDelivery"]</strong>
-                                <small>@Localizer["PayWhenReceive"]</small>
+                            <span class="checkout-payment-card">
+                                <i class="fa fa-money-bill-wave" aria-hidden="true"></i>
+                                <span><strong>@Localizer["CashOnDelivery"]</strong><small>@Localizer["PayWhenReceive"]</small></span>
+                                <span class="checkout-choice-indicator" aria-hidden="true"></span>
                             </span>
                         </label>
-
-                        <label class="payment-option">
-                            <input type="radio" asp-for="PaymentMethod" value="VNPay" />
-                            <span>
-                                <i class="fa fa-credit-card"></i>
-                                <strong>VNPay</strong>
-                                <small>@Localizer["OnlinePaymentLater"]</small>
+                        <label class="checkout-choice">
+                            <input type="radio" asp-for="PaymentMethod" value="VNPay" disabled="@(!Model.VnpayAvailable)" />
+                            <span class="checkout-payment-card">
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                <span><strong>VNPay</strong><small>@(Model.VnpayAvailable ? Localizer["VnpayDescription"] : Localizer["VnpayUnavailable"])</small></span>
+                                <span class="checkout-choice-indicator" aria-hidden="true"></span>
                             </span>
                         </label>
                     </div>
-                </div>
+                    <span asp-validation-for="PaymentMethod" class="flow-validation"></span>
+                </section>
 
-                <div class="order-card">
-                    <div class="order-section-title">
-                        <div>
-                            <span>@Localizer["Step"] 3</span>
-                            <h3>@Localizer["OrderNote"]</h3>
+                <section class="checkout-panel" aria-labelledby="note-title">
+                    <div class="checkout-section-header">
+                        <div class="checkout-section-title">
+                            <span class="checkout-step" aria-hidden="true">3</span>
+                            <h2 id="note-title">@Localizer["OrderNote"]</h2>
                         </div>
                     </div>
-
-                    <textarea asp-for="Note"
-                              class="form-control order-note"
-                              rows="4"
+                    <textarea asp-for="Note" class="checkout-note" rows="3"
                               placeholder="@Localizer["OrderNotePlaceholder"]"></textarea>
-                </div>
+                </section>
             </div>
 
-            <div class="col-lg-4">
-                <div class="order-card order-summary sticky-top">
-                    <h3>@Localizer["OrderSummary"]</h3>
+            <aside class="checkout-panel checkout-summary" aria-labelledby="summary-title">
+                <h2 id="summary-title">@Localizer["OrderSummary"]</h2>
+                <div class="checkout-summary-items">
+                    @foreach (var item in Model.Cart.CartItems)
+                    {
+                        var name = item.FoodItemID.HasValue ? item.FoodItem?.Name : item.Combo?.Name;
+                        var imagePath = item.FoodItemID.HasValue ? item.FoodItem?.ImagePath : item.Combo?.ImagePath;
+                        var imageUrl = string.IsNullOrWhiteSpace(imagePath)
+                            ? null
+                            : imageBaseUrl.TrimEnd('/') + "/" + imagePath.TrimStart('/');
+                        var subtotal = (item.Price ?? 0m) * item.Quantity;
 
-                    <div class="summary-items">
-                        @foreach (var item in Model.Cart.CartItems)
-                        {
-                            var name = item.FoodItemID != null ? item.FoodItem?.Name : item.Combo?.Name;
-                            var imagePath = item.FoodItemID != null ? item.FoodItem?.ImagePath : item.Combo?.ImagePath;
-                            var imageUrl = string.IsNullOrWhiteSpace(imagePath)
-                                ? "https://via.placeholder.com/80x80?text=Food"
-                                : imageBaseUrl.TrimEnd('/') + "/" + imagePath.TrimStart('/');
-                            var price = item.Price ?? 0m;
-                            var subtotal = price * item.Quantity;
-
-                            <div class="summary-item">
-                                <img src="@imageUrl" alt="@name" />
-                                <div>
-                                    <strong>@name</strong>
-                                    <span>@item.Quantity x @price.ToString("N0", vi) ₫</span>
-                                </div>
-                                <b>@subtotal.ToString("N0", vi) ₫</b>
-                            </div>
-                        }
-                    </div>
-
-                    <div class="summary-total">
-                        <span>@Localizer["GrandTotal"]</span>
-                        <strong>@Model.GrandTotal.ToString("N0", vi) ₫</strong>
-                    </div>
-
-                    <button type="submit" class="order-submit-btn">
-                        <i class="fa fa-check-circle"></i> @Localizer["PlaceOrder"]
-                    </button>
+                        <div class="checkout-summary-item">
+                            <span class="checkout-summary-image">
+                                @if (imageUrl != null)
+                                {
+                                    <img src="@imageUrl" alt="" loading="lazy" />
+                                }
+                                else
+                                {
+                                    <i class="fa fa-utensils" aria-hidden="true"></i>
+                                }
+                            </span>
+                            <span class="checkout-summary-product">
+                                <strong>@name</strong>
+                                <small>@Localizer["Quantity"]: @item.Quantity</small>
+                            </span>
+                            <strong class="checkout-summary-price">@subtotal.ToString("N0", vi) ₫</strong>
+                        </div>
+                    }
                 </div>
-            </div>
+                <div class="checkout-grand-total">
+                    <span>@Localizer["GrandTotal"]</span>
+                    <strong>@Model.GrandTotal.ToString("N0", vi) ₫</strong>
+                </div>
+                <button type="submit" class="checkout-submit">
+                    @Localizer["PlaceOrder"] <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </aside>
         </div>
     </form>
-</div>
-
-<style>
-    .order-page {
-        max-width: 1440px;
-    }
-
-    .order-hero,
-    .order-card {
-        background: rgba(255, 255, 255, .92);
-        border: 1px solid rgba(255, 255, 255, .75);
-        border-radius: 28px;
-        box-shadow: 0 24px 60px rgba(37, 42, 52, .08);
-    }
-
-    .order-hero {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 34px;
-    }
-
-    .order-hero h1 {
-        margin: 8px 0;
-        font-size: clamp(32px, 4vw, 52px);
-        font-weight: 900;
-        color: #111827;
-    }
-
-    .order-hero p {
-        margin: 0;
-        color: #6b7280;
-        font-size: 17px;
-    }
-
-    .order-kicker,
-    .order-section-title span {
-        color: #ff5a1f;
-        font-weight: 900;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-        font-size: 12px;
-    }
-
-    .order-soft-btn,
-    .order-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        color: #ff5a1f;
-        font-weight: 900;
-        text-decoration: none;
-    }
-
-    .order-soft-btn {
-        padding: 13px 20px;
-        border-radius: 999px;
-        background: #fff4ed;
-        border: 1px solid #ffe0d0;
-    }
-
-    .order-soft-btn:hover,
-    .order-link:hover {
-        color: #e84a16;
-        text-decoration: none;
-    }
-
-    .order-card {
-        padding: 28px;
-    }
-
-    .order-section-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 22px;
-    }
-
-    .order-section-title h3,
-    .order-summary h3 {
-        margin: 4px 0 0;
-        color: #111827;
-        font-weight: 900;
-    }
-
-    .address-grid,
-    .payment-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-    }
-
-    .address-option,
-    .payment-option {
-        margin: 0;
-        cursor: pointer;
-    }
-
-    .address-option input,
-    .payment-option input {
-        display: none;
-    }
-
-    .address-box,
-    .payment-option span {
-        display: flex;
-        flex-direction: column;
-        gap: 9px;
-        min-height: 150px;
-        padding: 20px;
-        border: 2px solid #edf0f5;
-        border-radius: 22px;
-        background: #fff;
-        transition: .22s ease;
-    }
-
-    .address-option input:checked + .address-box,
-    .payment-option input:checked + span {
-        border-color: #ff6b35;
-        box-shadow: 0 18px 42px rgba(255, 107, 53, .14);
-        background: #fff8f3;
-    }
-
-    .address-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-    }
-
-    .address-top strong,
-    .payment-option strong {
-        color: #111827;
-        font-size: 17px;
-    }
-
-    .address-top em {
-        color: #ff5a1f;
-        font-style: normal;
-        font-size: 12px;
-        font-weight: 900;
-    }
-
-    .address-box span:not(.address-top),
-    .payment-option small {
-        color: #6b7280;
-        font-weight: 700;
-    }
-
-    .payment-option i {
-        color: #ff5a1f;
-        font-size: 28px;
-        margin-bottom: 5px;
-    }
-
-    .order-note {
-        min-height: 130px;
-        border-radius: 20px;
-        border-color: #edf0f5;
-        padding: 16px 18px;
-        font-weight: 700;
-    }
-
-    .order-summary {
-        top: 112px;
-    }
-
-    .summary-items {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        margin: 24px 0;
-    }
-
-    .summary-item {
-        display: grid;
-        grid-template-columns: 64px 1fr auto;
-        gap: 12px;
-        align-items: center;
-        padding: 12px;
-        border-radius: 18px;
-        background: #f8fafc;
-    }
-
-    .summary-item img {
-        width: 64px;
-        height: 64px;
-        object-fit: cover;
-        border-radius: 16px;
-    }
-
-    .summary-item strong,
-    .summary-item span {
-        display: block;
-    }
-
-    .summary-item span {
-        color: #6b7280;
-        font-size: 13px;
-    }
-
-    .summary-item b,
-    .summary-total strong {
-        color: #ff5a1f;
-    }
-
-    .summary-total {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 20px;
-        border-top: 1px solid #edf0f5;
-        font-size: 20px;
-    }
-
-    .order-submit-btn {
-        width: 100%;
-        margin-top: 24px;
-        border: 0;
-        border-radius: 999px;
-        padding: 16px 22px;
-        color: white;
-        font-weight: 900;
-        background: linear-gradient(135deg, #ff5722, #ff9800);
-        box-shadow: 0 18px 34px rgba(255, 107, 53, .26);
-        transition: .22s ease;
-    }
-
-    .order-submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 22px 44px rgba(255, 107, 53, .34);
-    }
-
-    @@media (max-width: 991.98px) {
-        .order-hero,
-        .order-section-title {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .address-grid,
-        .payment-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .order-summary {
-            margin-top: 24px;
-        }
-    }
-</style>
+</main>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

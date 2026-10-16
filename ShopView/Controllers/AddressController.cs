@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using ShopAPI.DTOs;
 using ShopView.Infrastructure;
 using ShopView.ViewModels;
@@ -13,10 +14,12 @@ namespace ShopView.Controllers
     public class AddressController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public AddressController(IHttpClientFactory httpClientFactory)
+        public AddressController(IHttpClientFactory httpClientFactory, IStringLocalizer<SharedResource> localizer)
         {
             _httpClient = httpClientFactory.CreateClient("ShopAPI");
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index(int page = 1)
@@ -89,16 +92,18 @@ namespace ShopView.Controllers
             }
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(bool returnToCheckout = false)
         {
             await LoadProvincesAsync();
+            ViewData["ReturnToCheckout"] = returnToCheckout;
             return View(new AddressFormViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AddressFormViewModel model)
+        public async Task<IActionResult> Create(AddressFormViewModel model, bool returnToCheckout = false)
         {
+            ViewData["ReturnToCheckout"] = returnToCheckout;
             if (!ModelState.IsValid)
             {
                 await LoadProvincesAsync();
@@ -119,7 +124,7 @@ namespace ShopView.Controllers
 
                 if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
-                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action(nameof(Create), "Address") });
+                    return RedirectToAction("Login", "Account", new { returnUrl = Url.Action(nameof(Create), "Address", new { returnToCheckout }) });
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -130,7 +135,13 @@ namespace ShopView.Controllers
                     return View(model);
                 }
 
-                TempData["SuccessMessage"] = "Address created successfully.";
+                TempData["SuccessMessage"] = _localizer["AddressCreated"].Value;
+                if (returnToCheckout)
+                {
+                    var created = await response.Content.ReadFromJsonAsync<AddressCreatedResponse>();
+                    return RedirectToAction("Checkout", "Order", new { addressId = created?.AddressId });
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -215,7 +226,7 @@ namespace ShopView.Controllers
                     return View(model);
                 }
 
-                TempData["SuccessMessage"] = "Address updated successfully.";
+                TempData["SuccessMessage"] = _localizer["AddressUpdated"].Value;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -245,7 +256,7 @@ namespace ShopView.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                TempData["SuccessMessage"] = "Address deleted successfully.";
+                TempData["SuccessMessage"] = _localizer["AddressDeleted"].Value;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -274,7 +285,7 @@ namespace ShopView.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                TempData["SuccessMessage"] = "Default address updated.";
+                TempData["SuccessMessage"] = _localizer["DefaultAddressUpdated"].Value;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

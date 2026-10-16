@@ -29,6 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/logout-modal.css" rel="stylesheet" asp-append-version="true">
+    @RenderSection("Styles", required: false)
     <style>
 
         :root {
@@ -646,7 +648,7 @@
         }
     </style>
 </head>
-<body>
+<body class="@ViewData["PageClass"]">
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
@@ -801,8 +803,10 @@
                     }
                     else if (userRole == "admin")
                     {
-                        <a href="@Url.Action("Logout","Account")"
-                           class="nav-item nav-link">
+                        <a href="#"
+                           class="nav-item nav-link"
+                           data-toggle="modal"
+                           data-target="#logoutModal">
 
                             @Localizer["Logout"]
 
@@ -1065,10 +1069,8 @@
                     animateFly(sourceImage);
 
                     const badge = getCartBadge();
-                    if (badge) {
-                        const current = parseInt(badge.textContent || '0', 10) || 0;
-                        const increment = parseInt(payload.quantity || '1', 10) || 1;
-                        badge.textContent = current + increment;
+                    if (badge && Number.isInteger(payload.cartItemCount)) {
+                        badge.textContent = payload.cartItemCount;
                         badge.classList.remove('cart-badge-pop');
                         void badge.offsetWidth;
                         badge.classList.add('cart-badge-pop');
@@ -1089,54 +1091,46 @@
         })();
 
     </script>
-    <div class="modal fade"
+    <div class="modal fade logout-modal"
          id="logoutModal"
-         tabindex="-1">
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="logoutModalTitle"
+         aria-describedby="logoutModalDescription"
+         aria-hidden="true">
 
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" role="document">
 
-            <div class="modal-content border-0 shadow">
+            <div class="modal-content">
 
-                <div class="modal-header">
+                <div class="logout-modal-inner">
+                    <div class="logout-modal-top">
+                        <span class="logout-modal-icon" aria-hidden="true">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                        <button type="button"
+                                class="logout-modal-close"
+                                data-dismiss="modal"
+                                aria-label="@Localizer["CloseDialog"]">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
 
-                    <h5 class="modal-title">
-                        @Localizer["LogoutConfirmation"]
-                    </h5>
+                    <h2 id="logoutModalTitle" class="logout-modal-title">@Localizer["LogoutConfirmation"]</h2>
+                    <p id="logoutModalDescription" class="logout-modal-description">@Localizer["LogoutQuestion"]</p>
+                    <p class="logout-modal-note">@Localizer["LogoutSessionNote"]</p>
 
-                    <button type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                </div>
-
-                <div class="modal-body text-center">
-
-                    <h1>🚪</h1>
-
-                    <p>
-                        @Localizer["LogoutQuestion"]
-                    </p>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal">
-                        @Localizer["Cancel"]
-                    </button>
-
-                    <a href="@Url.Action("Logout","Account")"
-                       class="btn btn-danger">
-
-                        @Localizer["Logout"]
-
-                    </a>
-
+                    <div class="logout-modal-actions">
+                        <button type="button"
+                                class="logout-modal-button logout-modal-cancel"
+                                data-dismiss="modal">
+                            @Localizer["Cancel"]
+                        </button>
+                        <a href="@Url.Action("Logout","Account")"
+                           class="logout-modal-button logout-modal-confirm">
+                            @Localizer["Logout"]
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -1144,6 +1138,11 @@
         </div>
 
     </div>
+    <script>
+        $('#logoutModal').on('shown.bs.modal', function () {
+            $(this).find('.logout-modal-cancel').trigger('focus');
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 
 </body>

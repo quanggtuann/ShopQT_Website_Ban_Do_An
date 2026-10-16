@@ -11,6 +11,7 @@ namespace ShopDAL.Context
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<VnpayPaymentAttempt> VnpayPaymentAttempts { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<FoodItem> FoodItems { get; set; }
         public DbSet<ComboFoodItem> ComboFoodItems { get; set; }
@@ -27,6 +28,13 @@ namespace ShopDAL.Context
         public DbSet<DiscountCampaignCombo> DiscountCampaignCombos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<VnpayPaymentAttempt>(entity =>
+            {
+                entity.HasIndex(x => x.TxnRef).IsUnique();
+                entity.Property(x => x.Amount).HasColumnType("decimal(18,2)");
+                entity.HasOne(x => x.Order).WithMany().HasForeignKey(x => x.OrderId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
             modelBuilder.Entity<ComboFoodItem>().HasKey(cfi => new { cfi.ComboId, cfi.FoodItemID });
 
             modelBuilder.Entity<ComboFoodItem>()

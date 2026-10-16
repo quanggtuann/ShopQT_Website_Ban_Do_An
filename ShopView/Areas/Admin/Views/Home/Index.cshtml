@@ -103,12 +103,12 @@
                 <div class="panel-title">
                     <div>
                         <h4>Daily Revenue</h4>
-                        <p>Completed sales in the selected range.</p>
+                        <p>Completed sales · @stats.DailyRevenue.Count day(s)</p>
                     </div>
                     <a asp-area="Admin" asp-controller="Order" asp-action="Index">View orders</a>
                 </div>
 
-            <div class="daily-chart">
+            <div class="daily-chart" role="region" aria-label="Daily revenue by date" tabindex="0">
                     @if (stats.DailyRevenue.Any())
                     {
                         @foreach (var day in stats.DailyRevenue)
@@ -398,7 +398,17 @@
     .daily-chart {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 10px;
+        max-height: 320px;
+        overflow-y: auto;
+        padding-right: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 transparent;
+    }
+
+    .daily-chart:focus-visible {
+        outline: 2px solid #696cff;
+        outline-offset: 3px;
     }
 
     .daily-row {
@@ -580,16 +590,19 @@
             flex-direction: column;
         }
 
-        .daily-row {
+        .status-grid {
             grid-template-columns: 1fr;
+        }
+    }
+
+    @@media(max-width: 540px) {
+        .daily-row {
+            grid-template-columns: 58px minmax(0, 1fr) 92px;
+            gap: 8px;
         }
 
         .daily-money {
-            text-align: left;
-        }
-
-        .status-grid {
-            grid-template-columns: 1fr;
+            font-size: 12px;
         }
     }
 </style>

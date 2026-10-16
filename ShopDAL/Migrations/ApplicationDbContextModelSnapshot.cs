@@ -507,6 +507,55 @@ namespace ShopDAL.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ShopDAL.Models.VnpayPaymentAttempt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("CompletedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GatewayTransactionNo")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaymentUrl")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TxnRef")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("TxnRef")
+                        .IsUnique();
+
+                    b.ToTable("VnpayPaymentAttempts");
+                });
+
             modelBuilder.Entity("ShopDAL.Models.Address", b =>
                 {
                     b.HasOne("ShopDAL.Models.User", "User")
@@ -677,6 +726,17 @@ namespace ShopDAL.Migrations
                     b.Navigation("Combo");
 
                     b.Navigation("FoodItem");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("ShopDAL.Models.VnpayPaymentAttempt", b =>
+                {
+                    b.HasOne("ShopDAL.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Order");
                 });

@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using ShopAPI.Validation;
+using ShopView.Validation;
 
 namespace ShopView.ViewModels
 {
@@ -21,7 +23,8 @@ namespace ShopView.ViewModels
         [Required]
         public string ReceiverName { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(CustomerValidationMessages), ErrorMessageResourceName = nameof(CustomerValidationMessages.Required))]
+        [RegularExpression(CustomerInputRules.PhonePattern, ErrorMessageResourceType = typeof(CustomerValidationMessages), ErrorMessageResourceName = nameof(CustomerValidationMessages.Phone))]
         public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
@@ -42,5 +45,10 @@ namespace ShopView.ViewModels
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }
+    }
+
+    public class AddressCreatedResponse
+    {
+        public int AddressId { get; set; }
     }
 }
